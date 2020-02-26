@@ -1,5 +1,5 @@
 
-This file(s) must be viewed from [github](https://github.com/larryevolveu/reference). Do not view from an editor.
+This file must be viewed from [github](https://github.com/larryevolveu/reference). Do not view from an editor.
 
 This is the "Getting Started" repository for the EvovleU Full Stack Development program. It is a baseline to demonstrate:
 
