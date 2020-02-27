@@ -1,27 +1,11 @@
-function onButtonClicked() {
-
-    import comp100CFunctions from './comp100CFunctions'
-
-    var inputActionValue = document.getElementById("inputAction").value;
-    var inputField1Value = document.getElementById("inputField1").value;
-    var inputField2Value = document.getElementById("inputField2").value;
-    var inputField3Value = document.getElementById("inputField3").value;
-
 // define attributes / variables
 //     - number
-    var numberField1Value = Number(inputField1Value);
-    var numberField2Value = Number(inputField2Value);
-    var numberField3Value = Number(inputField3Value);
 //     - string
-    var actionCommand = inputActionValue;
-    var resultText = "Perform " + actionCommand + " on " + numberField1Value + ", " + numberField2Value + " and " + numberField3Value;
 //     - boolean
-    var actionSuccess = false;
 //     - array
 //     - dictionary / objects
 //     - undefined
 // sample if / else
-    if (actionCommand === "add") comp100CFunctions.add3(numberField1Value, numberField2Value, numberField3Value);
 // arrays
 //     - add to the front
 //     - add to the end
@@ -35,13 +19,17 @@ function onButtonClicked() {
 // Objects / Dictionaries
 //     - declare object
 //     - lookup key to retrieve value
-
-    console.log(resultText);
-    document.getElementById("executeAction").innerHTML = resultText;
-
-}
-
 // functions
 //     - parameters
 //     - returns
 
+const syntax = {
+
+    add3: (num1, num2, num3) => {
+        return num1 + num2 + num3;
+        //return 0;
+    }
+
+};
+
+export default syntax;

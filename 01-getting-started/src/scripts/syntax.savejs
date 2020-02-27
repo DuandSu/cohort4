@@ -1,4 +1,7 @@
 function onButtonClicked() {
+
+    import comp100CFunctions from './comp100CFunctions'
+
     var inputActionValue = document.getElementById("inputAction").value;
     var inputField1Value = document.getElementById("inputField1").value;
     var inputField2Value = document.getElementById("inputField2").value;
@@ -18,6 +21,7 @@ function onButtonClicked() {
 //     - dictionary / objects
 //     - undefined
 // sample if / else
+    if (actionCommand === "add") comp100CFunctions.add3(numberField1Value, numberField2Value, numberField3Value);
 // arrays
 //     - add to the front
 //     - add to the end
@@ -40,3 +44,4 @@ function onButtonClicked() {
 // functions
 //     - parameters
 //     - returns
+

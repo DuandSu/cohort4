@@ -1,4 +1,4 @@
-import syntax from './syntax'
+import comp100CFunctions from './comp100CFunctions'
 
 //test('Check the sizes', () => {
     //expect(functions.size(-1)).toBe("small"); // Consider the edge cases
@@ -11,6 +11,6 @@ import syntax from './syntax'
 //});
 
 test('Does that add function work?', () => {
-    expect(syntax.add3(1,2,3)).toBe(6);
-    expect(syntax.add3(101,202,303)).toBe(606);
+    expect(comp100CFunctions.add3(1,2)).toBe(3);
+    expect(comp100CFunctions.add3(101,202)).toBe(303);
 });
