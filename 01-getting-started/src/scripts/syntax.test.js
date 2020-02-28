@@ -1,16 +1,30 @@
 import syntax from './syntax'
 
-//test('Check the sizes', () => {
-    //expect(functions.size(-1)).toBe("small"); // Consider the edge cases
-    //expect(functions.size(0)).toBe("small");
-    //expect(functions.size(10)).toBe("medium");
-    //expect(functions.size(15)).toBe("medium");
-    //expect(functions.size(20)).toBe("large");
-    //expect(functions.size(2000000)).toBe("large");
-    //expect(functions.size(-101)).toBe("extra large");
-//});
+test('Does decimal position work?', () => {
+    expect(syntax.decimalPosition(-1)).toBe("Ones");
+    expect(syntax.decimalPosition(0)).toBe("Ones");
+    expect(syntax.decimalPosition(1)).toBe("Ones");
+    expect(syntax.decimalPosition(9)).toBe("Ones");
+    expect(syntax.decimalPosition(-9)).toBe("Ones");
+    expect(syntax.decimalPosition(-10)).toBe("Tens");
+    expect(syntax.decimalPosition(10)).toBe("Tens");
+    expect(syntax.decimalPosition(19)).toBe("Tens");
+    expect(syntax.decimalPosition(-19)).toBe("Tens");
+    expect(syntax.decimalPosition(100)).toBe("Greater than TENS");
+    expect(syntax.decimalPosition(-100)).toBe("Greater than TENS");
+});
 
-test('Does that add function work?', () => {
+test('Does the add function work?', () => {
+    expect(syntax.add3(0,0,0)).toBe(0);
+    expect(syntax.add3(0,2,0)).toBe(2);
     expect(syntax.add3(1,2,3)).toBe(6);
     expect(syntax.add3(101,202,303)).toBe(606);
+    expect(syntax.add3(-1,2,-3)).toBe(-2);
+    expect(syntax.add3(-3,-3,-3)).toBe(-9);
+});
+
+test('Does absolute value work?', () => {
+    expect(syntax.absVal(0)).toBe(0);
+    expect(syntax.absVal(2)).toBe(2);
+    expect(syntax.absVal(-2)).toBe(2);
 });
