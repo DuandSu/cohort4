@@ -3,7 +3,7 @@
 //     - string
 //     - boolean
 //     - array
-//     - TODO: dictionary / objects
+//     - dictionary / objects
 //     - TODO: undefined
 // sample if / else
 // arrays
@@ -12,28 +12,12 @@
 //     - update values
 // loops 
 //     - for
-//     - TODO: for/in
-//const object = {a: 1, b: 2, c: 3};
-//
-//for (const property in object) {
-//  console.log(`${property}: ${object[property]}`);
-//}
-//
-// expected output:
-// "a: 1"
-// "b: 2"
-// "c: 3"
+//     - for/in
 //     - while
 //     - do while
-//     - TODO: forEach (with array and function)
-//var fruits = ["apple", "orange", "cherry"];
-//fruits.forEach(myFunction);
-//
-//function myFunction(item, index) {
-//  document.getElementById("demo").innerHTML += index + ":" + item + "<br>"; 
-//} 
-// TODO: Objects / Dictionaries
-//     - TODO: declare object
+//     - forEach (with array and function)
+// Objects / Dictionaries
+//     - declare object
 //     - TODO: lookup key to retrieve value
 
 //
@@ -165,7 +149,38 @@ const syntax = {
 
     addFruitPrefixSuffix: (item, index) => {
         return item + "-" + index + " fruit";
+    },
+
+    reviewVehicles: () => {
+        
+        // Objects / Dictionaries
+        //     - declare object
+        var minivan = {year:2018, type:"Honda", model:"Odyssey", color:"Gray"};
+        reviewCarWithForIn (minivan);
+        
+        // Objects / Dictionaries
+        //     - declare object
+        var truck = {year:1972, type:"GMC", model:"Original", color:"Brown"};
+        reviewCarWithForIn (truck);
+        
+        // Objects / Dictionaries
+        //     - declare object
+        var car = {year:1986, type:"Honda", model:"Prelude", color:"Red"};
+        reviewVehicleWithForIn (car);
+        
+    },
+
+    reviewVehicleWithForIn: (vehicle) => {
+        // loops 
+        //     - for/in
+
+        var text = "";
+        for (var i in vehicle) {
+          text += vehicle[i] + " ";
+        } 
+        return text;
     }
+
 };
 
 export default syntax;
