@@ -52,3 +52,9 @@ test('Does Add to End Of Array work?', () => {
     expect(syntax.addToEndOfArray(syntax.createSimpleArray(2),99)).toStrictEqual([0,1,99]);
     expect(syntax.addToEndOfArray(syntax.createSimpleArray(5),99)).toStrictEqual([0,1,2,3,4,99]);
 });
+
+test('Does For Each work for Fruits?', () => {
+    expect(syntax.addFruitPrefixSuffix(0,"apple")).toBe("0-apple fruit");
+    expect(syntax.addFruitPrefixSuffix(1,"orange")).toBe("1-orange fruit");
+    expect(syntax.addFruitPrefixSuffix(2,"cherry")).toBe("2-cherry fruit");
+});

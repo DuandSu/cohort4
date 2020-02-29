@@ -154,8 +154,18 @@ const syntax = {
         tempArray[i] = num;
 
         return tempArray;
-    }
+    },
 
+    callForEach: () => {
+        // loops 
+        //     - forEach (with array and function)
+        var fruits = ["apple", "orange", "cherry"];
+        fruits.forEach(addFruitPrefixSuffix);
+    },
+
+    addFruitPrefixSuffix: (item, index) => {
+        return item + "-" + index + " fruit";
+    }
 };
 
 export default syntax;
