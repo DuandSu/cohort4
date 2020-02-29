@@ -3,8 +3,8 @@
 //     - string
 //     - boolean
 //     - array
-//     - dictionary / objects
-//     - undefined
+//     - TODO: dictionary / objects
+//     - TODO: undefined
 // sample if / else
 // arrays
 //     - add to the front
@@ -12,16 +12,32 @@
 //     - update values
 // loops 
 //     - for
-//     - for/in
+//     - TODO: for/in
+//const object = {a: 1, b: 2, c: 3};
+//
+//for (const property in object) {
+//  console.log(`${property}: ${object[property]}`);
+//}
+//
+// expected output:
+// "a: 1"
+// "b: 2"
+// "c: 3"
 //     - while
 //     - do while
-//     - forEach (with array and function)
-// Objects / Dictionaries
-//     - declare object
-//     - lookup key to retrieve value
+//     - TODO: forEach (with array and function)
+//var fruits = ["apple", "orange", "cherry"];
+//fruits.forEach(myFunction);
+//
+//function myFunction(item, index) {
+//  document.getElementById("demo").innerHTML += index + ":" + item + "<br>"; 
+//} 
+// TODO: Objects / Dictionaries
+//     - TODO: declare object
+//     - TODO: lookup key to retrieve value
 
 //
-// functions
+// functions - See below for lots of occurences of functions with parameters and returning values.
 //     - parameters
 //     - returns
 
@@ -91,11 +107,53 @@ const syntax = {
         
         return simpleArray;
 
-    }
+    },
 
-    addToFrontArray: (array, num) => {
+    addToFrontOfArray: (array, num) => {
+        // define attributes / variables
+        //     - array
 
-        
+        var tempArray = [];
+        var nextArrayValue = num;
+        var i = 0;
+        var maxLength = array.length + 1;
+
+        // loops 
+        //     - do while
+        // arrays
+        //     - add to the front
+        //     - update values
+        do {
+            tempArray[i] = nextArrayValue;
+            nextArrayValue = array [i];
+            i++;
+        } while (i < maxLength);
+
+        return tempArray;
+
+    },
+
+    addToEndOfArray: (array, num) => {
+        // define attributes / variables
+        //     - array
+
+        var tempArray = [];
+        var i = 0;
+    
+        // loops 
+        //     - while
+        // arrays
+        //     - add to the end
+        //     - update values
+
+        while (i < array.length) {
+            tempArray[i] = array [i];
+            i++;
+        }
+
+        tempArray[i] = num;
+
+        return tempArray;
     }
 
 };

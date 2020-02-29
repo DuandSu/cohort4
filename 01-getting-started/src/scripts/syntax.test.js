@@ -41,8 +41,14 @@ test('Does Create Simple Array work?', () => {
     expect(syntax.createSimpleArray(5)).toStrictEqual([0,1,2,3,4]);
 });
 
-test('Does Add to Front Array work?', () => {
-    expect(syntax.addToFrontArray(syntax.createSimpleArray(1),99)).toStrictEqual([99,0]);
-    expect(syntax.addToFrontArray(syntax.createSimpleArray(2),99)).toStrictEqual([99,0,1]);
-    expect(syntax.addToFrontArray(syntax.createSimpleArray(5),99)).toStrictEqual([99,0,1,2,3,4]);
+test('Does Add to Front Of Array work?', () => {
+    expect(syntax.addToFrontOfArray(syntax.createSimpleArray(1),99)).toStrictEqual([99,0]);
+    expect(syntax.addToFrontOfArray(syntax.createSimpleArray(2),99)).toStrictEqual([99,0,1]);
+    expect(syntax.addToFrontOfArray(syntax.createSimpleArray(5),99)).toStrictEqual([99,0,1,2,3,4]);
+});
+
+test('Does Add to End Of Array work?', () => {
+    expect(syntax.addToEndOfArray(syntax.createSimpleArray(1),99)).toStrictEqual([0,99]);
+    expect(syntax.addToEndOfArray(syntax.createSimpleArray(2),99)).toStrictEqual([0,1,99]);
+    expect(syntax.addToEndOfArray(syntax.createSimpleArray(5),99)).toStrictEqual([0,1,2,3,4,99]);
 });
