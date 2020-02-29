@@ -47,6 +47,7 @@ const syntax = {
 
         var positiveNum = syntax.absVal(num);
 
+        // sample if / else
         if (positiveNum < 10) return ONES;
         else if (positiveNum < 100) return TENS;
         else return GREATERTENS;
@@ -56,13 +57,45 @@ const syntax = {
     absVal: (num) => {
         // define attributes / variables
         //     - boolean
+
+        // sample if / else
+        if (syntax.isNumNegative(num)) return (0 - num);
+        else return num;
+    },
+
+    isNumNegative: (num) => {
+        // define attributes / variables
+        //     - boolean
         var isNegative = false;
 
+        // sample if / else
         if (num < 0) isNegative = true;
 
-        if (isNegative) return (num = 0 - num);
-        else return num;
+        return isNegative;
 
+    },
+
+    createSimpleArray: (num) => {
+        // define attributes / variables
+        //     - array
+
+        var simpleArray = [];
+        
+        // loops 
+        //     - for
+        for (var i = 0; i < num; i++) {
+            // arrays
+            //     - update values
+            simpleArray[i] = i;
+        }
+        
+        return simpleArray;
+
+    }
+
+    addToFrontArray: (array, num) => {
+
+        
     }
 
 };

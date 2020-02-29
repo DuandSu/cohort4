@@ -28,3 +28,21 @@ test('Does absolute value work?', () => {
     expect(syntax.absVal(2)).toBe(2);
     expect(syntax.absVal(-2)).toBe(2);
 });
+
+test('Does Negative Number check work?', () => {
+    expect(syntax.isNumNegative(0)).toBe(false);
+    expect(syntax.isNumNegative(2)).toBe(false);
+    expect(syntax.isNumNegative(-2)).toBe(true);
+});
+
+test('Does Create Simple Array work?', () => {
+    expect(syntax.createSimpleArray(1)).toStrictEqual([0]);
+    expect(syntax.createSimpleArray(2)).toStrictEqual([0,1]);
+    expect(syntax.createSimpleArray(5)).toStrictEqual([0,1,2,3,4]);
+});
+
+test('Does Add to Front Array work?', () => {
+    expect(syntax.addToFrontArray(syntax.createSimpleArray(1),99)).toStrictEqual([99,0]);
+    expect(syntax.addToFrontArray(syntax.createSimpleArray(2),99)).toStrictEqual([99,0,1]);
+    expect(syntax.addToFrontArray(syntax.createSimpleArray(5),99)).toStrictEqual([99,0,1,2,3,4]);
+});
