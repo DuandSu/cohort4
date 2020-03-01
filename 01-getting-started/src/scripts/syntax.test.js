@@ -59,8 +59,14 @@ test('Does For Each work for Fruits?', () => {
     expect(syntax.addFruitPrefixSuffix(2,"cherry")).toBe("2-cherry fruit");
 });
 
-test('Does Review Vehicle work for Object?', () => {
+test('Does Review Vehicle work for Object using For/In?', () => {
     expect(syntax.reviewVehicleWithForIn([2018,"Honda","Odyssey","Gray"])).toStrictEqual("2018 Honda Odyssey Gray ");
     expect(syntax.reviewVehicleWithForIn([1972,"GMC","Original","Brown"])).toStrictEqual("1972 GMC Original Brown ");
     expect(syntax.reviewVehicleWithForIn([1986,"Honda","Prelude","Red"])).toStrictEqual("1986 Honda Prelude Red ");
+});
+
+test('Does Review Vehicle work for Object using Lookup Key?', () => {
+    expect(syntax.reviewVehicleWithLookupKey([2018,"Honda","Odyssey","Gray"])).toStrictEqual("2018 Honda Odyssey Gray ");
+    //expect(syntax.reviewVehicleWithLookupKey([1972,"GMC","Original","Brown"])).toStrictEqual("1972 GMC Original Brown ");
+    //expect(syntax.reviewVehicleWithLookupKey([1986,"Honda","Prelude","Red"])).toStrictEqual("1986 Honda Prelude Red ");
 });

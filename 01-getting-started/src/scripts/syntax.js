@@ -1,10 +1,14 @@
+// This is competency 100C.
+// The purpose of this Javascript is to use all of the below. Each documentation line is repeated later in the script 
+// when actually used.
+//
 // define attributes / variables
 //     - number
 //     - string
 //     - boolean
 //     - array
 //     - dictionary / objects
-//     - TODO: undefined
+//     - undefined
 // sample if / else
 // arrays
 //     - add to the front
@@ -18,7 +22,7 @@
 //     - forEach (with array and function)
 // Objects / Dictionaries
 //     - declare object
-//     - TODO: lookup key to retrieve value
+//     - lookup key to retrieve value
 
 //
 // functions - See below for lots of occurences of functions with parameters and returning values.
@@ -141,6 +145,10 @@ const syntax = {
     },
 
     callForEach: () => {
+        // define attributes / variables
+        //     - undefined
+        var unDefined; // Variable not set to anything yet so undefined
+
         // loops 
         //     - forEach (with array and function)
         var fruits = ["apple", "orange", "cherry"];
@@ -156,17 +164,20 @@ const syntax = {
         // Objects / Dictionaries
         //     - declare object
         var minivan = {year:2018, type:"Honda", model:"Odyssey", color:"Gray"};
-        reviewCarWithForIn (minivan);
+        reviewVehicleWithForIn (minivan);
+        reviewVehicleWithLookupKey (minivan);
         
         // Objects / Dictionaries
         //     - declare object
         var truck = {year:1972, type:"GMC", model:"Original", color:"Brown"};
-        reviewCarWithForIn (truck);
+        reviewVehicleWithForIn (truck);
+        //reviewVehicleWithLookupKey (truck);
         
         // Objects / Dictionaries
         //     - declare object
         var car = {year:1986, type:"Honda", model:"Prelude", color:"Red"};
         reviewVehicleWithForIn (car);
+        //reviewVehicleWithLookupKey (car);
         
     },
 
@@ -179,6 +190,27 @@ const syntax = {
           text += vehicle[i] + " ";
         } 
         return text;
+    },
+
+    reviewVehicleWithLookupKey: (vehicle) => {
+        // Objects / Dictionaries
+        //     - lookup key to retrieve value
+
+        var text = "";
+        
+        //if ('year' in vehicle) text += vehicle.year + " ";
+        //if ('type' in vehicle) text += vehicle.type + " ";
+        //if ('model' in vehicle) text += vehicle.model + " ";
+        //if ('color' in vehicle) text += vehicle.color + " ";
+        
+        text += vehicle["year"] + " ";
+        text += vehicle.type + " ";
+        text += vehicle.model + " ";
+        text += vehicle.color + " ";
+        
+        //return "2018 Honda Odyssey Gray ";
+        return text;
+        //return null;
     }
 
 };
