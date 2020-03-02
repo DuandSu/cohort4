@@ -144,42 +144,50 @@ const syntax = {
         return tempArray;
     },
 
+    //
+    // Initially had this code to try show the use of the forEach using the addFruitPrefixSuffix.
+    // I was able to prove that the forEach was working in the console, but since the forEach itself
+    // does NOT return anything I couldn't come up with a TDD test that proves the forEach in the testing. I 
+    // did create a test that proves the function it calls works. I decided it was time to move on. Maybe I'll
+    // learn something later that could apply here.
+    //
     callForEach: () => {
-        // define attributes / variables
-        //     - undefined
-        var unDefined; // Variable not set to anything yet so undefined
-
         // loops 
         //     - forEach (with array and function)
-        var fruits = ["apple", "orange", "cherry"];
-        fruits.forEach(addFruitPrefixSuffix);
+        //const fruits = ["apple", "orange", "cherry"];
+        fruits.forEach(syntax.addFruitPrefixSuffix);
     },
 
     addFruitPrefixSuffix: (item, index) => {
+        //console.log(item + "-" + index + " fruit");
         return item + "-" + index + " fruit";
     },
 
-    reviewVehicles: () => {
+    //
+    // Initially had the following code thinking required to make test scripts work. Eventually discovered
+    // easier alternative by defining test example direclty in the test script.
+    // Left code in for later reference.
+    //reviewVehicles: () => {
+        //
+        // Objects / Dictionaries
+        //     - declare object
+        //var minivan = {year:2018, type:"Honda", model:"Odyssey", color:"Gray"};
+        //syntax.reviewVehicleWithForIn (minivan);
+        //syntax.reviewVehicleWithLookupKey (minivan);
         
         // Objects / Dictionaries
         //     - declare object
-        var minivan = {year:2018, type:"Honda", model:"Odyssey", color:"Gray"};
-        reviewVehicleWithForIn (minivan);
-        reviewVehicleWithLookupKey (minivan);
+        //var truck = {year:1972, type:"GMC", model:"Original", color:"Brown"};
+        //syntax.reviewVehicleWithForIn (truck);
+        //syntax.reviewVehicleWithLookupKey (truck);
         
         // Objects / Dictionaries
         //     - declare object
-        var truck = {year:1972, type:"GMC", model:"Original", color:"Brown"};
-        reviewVehicleWithForIn (truck);
-        //reviewVehicleWithLookupKey (truck);
+        //var car = {year:1986, type:"Honda", model:"Prelude", color:"Red"};
+        //syntax.reviewVehicleWithForIn (car);
+        //syntax.reviewVehicleWithLookupKey (car);
         
-        // Objects / Dictionaries
-        //     - declare object
-        var car = {year:1986, type:"Honda", model:"Prelude", color:"Red"};
-        reviewVehicleWithForIn (car);
-        //reviewVehicleWithLookupKey (car);
-        
-    },
+    //},
 
     reviewVehicleWithForIn: (vehicle) => {
         // loops 
@@ -198,21 +206,24 @@ const syntax = {
 
         var text = "";
         
-        //if ('year' in vehicle) text += vehicle.year + " ";
-        //if ('type' in vehicle) text += vehicle.type + " ";
-        //if ('model' in vehicle) text += vehicle.model + " ";
-        //if ('color' in vehicle) text += vehicle.color + " ";
-        
-        text += vehicle["year"] + " ";
-        text += vehicle.type + " ";
-        text += vehicle.model + " ";
-        text += vehicle.color + " ";
-        
-        //return "2018 Honda Odyssey Gray ";
+        if ('year' in vehicle) text += vehicle.year + " ";
+        if ('type' in vehicle) text += vehicle.type + " ";
+        if ('model' in vehicle) text += vehicle.model + " ";
+        if ('color' in vehicle) text += vehicle.color + " ";
+
         return text;
-        //return null;
+    },
+
+    testForNull: () => {
+        // define attributes / variables
+        //     - undefined
+
+        var undefinedVariable;  // Variable not set to anything yet so undefined
+        return undefinedVariable;
+
     }
 
 };
+
 
 export default syntax;

@@ -53,20 +53,35 @@ test('Does Add to End Of Array work?', () => {
     expect(syntax.addToEndOfArray(syntax.createSimpleArray(5),99)).toStrictEqual([0,1,2,3,4,99]);
 });
 
-test('Does For Each work for Fruits?', () => {
+test('Does Add Fruit Prefix Suffix work for Fruits?', () => {
     expect(syntax.addFruitPrefixSuffix(0,"apple")).toBe("0-apple fruit");
     expect(syntax.addFruitPrefixSuffix(1,"orange")).toBe("1-orange fruit");
     expect(syntax.addFruitPrefixSuffix(2,"cherry")).toBe("2-cherry fruit");
 });
 
+//test('Does For Each work for Fruits?', () => {
+//    const fruits = ["apple", "orange", "cherry"];
+//    expect(fruits.forEach(syntax.addFruitPrefixSuffix)).toEqual("0-apple fruit\n1-orange fruit\n2-cherry fruit");
+//});
+
 test('Does Review Vehicle work for Object using For/In?', () => {
-    expect(syntax.reviewVehicleWithForIn([2018,"Honda","Odyssey","Gray"])).toStrictEqual("2018 Honda Odyssey Gray ");
-    expect(syntax.reviewVehicleWithForIn([1972,"GMC","Original","Brown"])).toStrictEqual("1972 GMC Original Brown ");
-    expect(syntax.reviewVehicleWithForIn([1986,"Honda","Prelude","Red"])).toStrictEqual("1986 Honda Prelude Red ");
+    const minivan = {year:2018, type:"Honda", model:"Odyssey", color:"Gray"};
+    expect(syntax.reviewVehicleWithForIn(minivan)).toStrictEqual("2018 Honda Odyssey Gray ");
+    const truck = {year:1972, type:"GMC", model:"Original", color:"Brown"};
+    expect(syntax.reviewVehicleWithForIn(truck)).toStrictEqual("1972 GMC Original Brown ");
+    const car = {year:1986, type:"Honda", model:"Prelude", color:"Red"};
+    expect(syntax.reviewVehicleWithForIn(car)).toStrictEqual("1986 Honda Prelude Red ");
 });
 
 test('Does Review Vehicle work for Object using Lookup Key?', () => {
-    expect(syntax.reviewVehicleWithLookupKey([2018,"Honda","Odyssey","Gray"])).toStrictEqual("2018 Honda Odyssey Gray ");
-    //expect(syntax.reviewVehicleWithLookupKey([1972,"GMC","Original","Brown"])).toStrictEqual("1972 GMC Original Brown ");
-    //expect(syntax.reviewVehicleWithLookupKey([1986,"Honda","Prelude","Red"])).toStrictEqual("1986 Honda Prelude Red ");
+    const minivan = {year:2018, type:"Honda", model:"Odyssey", color:"Gray"};
+    expect(syntax.reviewVehicleWithLookupKey(minivan)).toStrictEqual("2018 Honda Odyssey Gray ");
+    const truck = {year:1972, type:"GMC", model:"Original", color:"Brown"};
+    expect(syntax.reviewVehicleWithLookupKey(truck)).toStrictEqual("1972 GMC Original Brown ");
+    const car = {year:1986, type:"Honda", model:"Prelude", color:"Red"};
+    expect(syntax.reviewVehicleWithLookupKey(car)).toStrictEqual("1986 Honda Prelude Red ");
 });
+
+test ('Undefined', () => {
+    expect(syntax.testForNull()).toBeUndefined();
+})
