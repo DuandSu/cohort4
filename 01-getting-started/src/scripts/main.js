@@ -1,5 +1,6 @@
 import functions from './functions.js';
 import calculator from './calculator.js';
+import taxCalculator from './taxcalculator.js';
 
 // **********
 //
@@ -35,4 +36,9 @@ divideBtn.addEventListener("click", (() => {
     document.getElementById("calculateAction").innerHTML = calculator.divideTwoNumbers(
         Number(document.getElementById("inputField1").value), 
         Number(document.getElementById("inputField2").value));
+}));
+
+calculateTaxBtn.addEventListener("click", (() => {
+    document.getElementById("calculateTax").innerHTML = taxCalculator.calculateFederalTax(
+        Number(document.getElementById("inputGrossIncome").value));
 }));
