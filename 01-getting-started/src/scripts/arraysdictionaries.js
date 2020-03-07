@@ -58,6 +58,37 @@ const ArraysDictionaries = {
         //
 
         return [];
+    },
+
+    lookupProvDesc: (provCode) => {
+        // 
+        // The following method returns the Province name/description for the parameter Province Code.
+        //
+        // Define the dictionary for the Province Code/Descripion table.
+        //
+        const ProvinceTable = {
+            "AB":"Alberta",
+            "BC":"British Columbia",
+            "MB":"Manitoba",
+            "NB":"New Brunswick",
+            "NL":"Newfoundland/Labrador",
+            "NS":"Nova Scotia",
+            "NT":"North West Territories",
+            "NU":"Nunavit",
+            "ON":"Ontario",
+            "PE":"Prince Edward Island",
+            "QC":"Quebec",
+            "SK":"Saskatchewan",
+            "YT":"Yukon"
+        };
+        //
+        // Use parameter provCode to lookup province description. Ensure uppercase and trim spaces.
+        // If no match return blank.
+        //
+        const tempProvCode = provCode.trim().toUpperCase();
+        if (tempProvCode in ProvinceTable) return ProvinceTable[tempProvCode];
+        else return "";
+
     }
 };
 

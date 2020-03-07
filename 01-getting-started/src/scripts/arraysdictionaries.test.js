@@ -53,3 +53,27 @@ test('Does Clear Array work?', () => {
     expect(ArraysDictionaries.clearArray(tempArray)).toStrictEqual([]);
 
 });
+
+test('Does Lookup Province Description work?', () => {
+
+    expect(ArraysDictionaries.lookupProvDesc("AB")).toBe("Alberta");
+    expect(ArraysDictionaries.lookupProvDesc("BC")).toBe("British Columbia");
+    expect(ArraysDictionaries.lookupProvDesc("MB")).toBe("Manitoba");
+    expect(ArraysDictionaries.lookupProvDesc("NB")).toBe("New Brunswick");
+    expect(ArraysDictionaries.lookupProvDesc("NL")).toBe("Newfoundland/Labrador");
+    expect(ArraysDictionaries.lookupProvDesc("NS")).toBe("Nova Scotia");
+    expect(ArraysDictionaries.lookupProvDesc("NT")).toBe("North West Territories");
+    expect(ArraysDictionaries.lookupProvDesc("NU")).toBe("Nunavit");
+    expect(ArraysDictionaries.lookupProvDesc("ON")).toBe("Ontario");
+    expect(ArraysDictionaries.lookupProvDesc("PE")).toBe("Prince Edward Island");
+    expect(ArraysDictionaries.lookupProvDesc("QC")).toBe("Quebec");
+    expect(ArraysDictionaries.lookupProvDesc("SK")).toBe("Saskatchewan");
+    expect(ArraysDictionaries.lookupProvDesc("YT")).toBe("Yukon");
+    expect(ArraysDictionaries.lookupProvDesc(" AB ")).toBe("Alberta");
+    expect(ArraysDictionaries.lookupProvDesc(" AB")).toBe("Alberta");
+    expect(ArraysDictionaries.lookupProvDesc("AB ")).toBe("Alberta");
+    expect(ArraysDictionaries.lookupProvDesc("ab")).toBe("Alberta");
+    expect(ArraysDictionaries.lookupProvDesc("aB")).toBe("Alberta");
+    expect(ArraysDictionaries.lookupProvDesc("Ab")).toBe("Alberta");
+
+});

@@ -95,6 +95,94 @@
         <input id="idNumber" type="number"> is a <span id="idNumberSize">unknown</span> number?
         <p id="idNumberSizexx"></p>
     </div>
+    
+    <!-- 
+        3-Mar-2020: Duane Munro: Inserted the following section for the Competency 100C Calculator. 
+        Note I did not get too crazy with HTML and CSS. I might come back but for now I want to move
+        on to the Tax Calculator 
+    -->
+
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">SIMPLE 100C CALCULATOR</span>
+        </div>
+    </div>
+
+    <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
+        <p>
+            <label for="inputNumber1">Input #1:</label>
+            <input type="text" id="inputField1" name="inputField1">
+            <label for="inputNumber2">Input #2:</label>
+            <input type="text" id="inputField2" name="inputField2">
+            <label for="equalSign">=</label><p id="calculateAction"></p>
+            <label for="calculatorInstructions">Type in Numbers for Input 1 and 2. Click button for Answer.</label><br><br>
+            <button type="button" id="addBtn">Add</button>
+            <button type="button" id="subtractBtn">Subtract</button>
+            <button type="button" id="multiplyBtn">Multiply</button>
+            <button type="button" id="divideBtn">Divide</button>
+        </p>
+    </div>
+
+    <!-- 
+        4-Mar-2020: Duane Munro: Inserted the following section for the Competency 100C Tax Calculator. 
+        Note I did not get too crazy with HTML and CSS. I might come back but for now I want to move
+        on to the next competency 
+    -->
+
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">SIMPLE 100C TAX CALCULATOR</span>
+        </div>
+    </div>
+
+    <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
+        <p>
+            <label for="inputGrossIncomeNumber">Input Gross Income:</label>
+            <input type="text" id="inputGrossIncome" name="inputGrossIncome">
+            <label for="equalSign">=</label><p id="calculateTax"></p>
+            <label for="taxCalculatorInstructions">Type in Gross Income. Click button for Answer.</label><br><br>
+            <button type="button" id="calculateTaxBtn">Calculate Tax</button>
+        </p>
+    </div>
+    
+    <!-- 
+        6-Mar-2020: Duane Munro: Inserted the following section for the Competency 100D Working with Arrays. 
+    -->
+
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">Working with Arrays</span>
+        </div>
+    </div>
+
+    <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
+        <p>
+            <input type="text" id="inputArrayValue" name="inputArrayValue"><br><br>
+            <button type="button" id="addArrayBtn">Add</button>
+            <button type="button" id="showArrayBtn">Show</button>
+            <button type="button" id="totalArrayBtn">Total</button>
+            <button type="button" id="clearArrayBtn">Clear</button>
+            <p id="arrayMessage"></p>
+        </p>
+    </div>
+    
+    <!-- 
+        7-Mar-2020: Duane Munro: Inserted the following section for the Competency 100D Working with Dictionaries. 
+    -->
+
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">Working with Dictionaries</span>
+        </div>
+    </div>
+
+    <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
+        <p>
+            <input type="text" id="inputProvCode" name="inputProvCode"><br><br>
+            <button type="button" id="lookupProvDescBtn">Lookup</button>
+            <p id="dictionaryMessage"></p>
+        </p>
+    </div>
 
     <!-- Footer -->
     <footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">

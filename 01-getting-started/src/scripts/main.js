@@ -76,3 +76,12 @@ clearArrayBtn.addEventListener("click", (() => {
     competency100Array = ArraysDictionaries.clearArray(competency100Array);
     document.getElementById("arrayMessage").textContent = "All array entries cleared. Array is now empty"
 }));
+
+//
+// Event listeners and JS for Working with Dictionaries
+// 
+lookupProvDescBtn.addEventListener("click", (() => {
+    let provDesc = ArraysDictionaries.lookupProvDesc(document.getElementById("inputProvCode").value);
+    if (provDesc === "") document.getElementById("dictionaryMessage").textContent = "Province NOT Found!";
+    else document.getElementById("dictionaryMessage").textContent = "Province is " + provDesc;
+}));
