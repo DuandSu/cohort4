@@ -1,4 +1,4 @@
-// import ArraysDictionaries from './arraysdictionaries.js';
+//import c110DOM from './c110DOM.js';
 
 
 // **********
@@ -7,12 +7,48 @@
 // 
 
 div1.addEventListener('click', (eIDdiv1 => {
+    //
+    // eIDdiv1 holds the information targeted by the click event.
+    //
     console.log("Inside the Event Listner for div1");
-    //console.log(eIDdiv1);
-}));
+    console.log(eIDdiv1);
+
+    //
+    // If the target was an LI type then continue to delete it.
+    //
+
+    if (eIDdiv1.target.nodeName === "LI") {
+        console.log(eIDdiv1.target.nodeName + ":" + eIDdiv1.target.outerText);
+        //
+        // The following actually works to delete the ol1 from div1. Now figure out how to remove li from ol1.
+        //
+        //let x = document.getElementById("div1");
+        //let y = document.getElementById("ol1");
+        //x.removeChild(y);
+
+        //
+        // Loop through the ol1 and delete all li that match the outerText values of the list.
+        // I find it strange I could not find an index value in the eIDdiv1 showing which index was targetted.
+        //
+        let x = document.getElementById("ol1");
+        let y = document.getElementsByTagName("li")[0];
+
+        for (let i = 0; i < document.getElementsByTagName("li").length; i++) {
+            if (document.getElementsByTagName("li")[i].outerText === eIDdiv1.target.outerText) {
+                y = document.getElementsByTagName("li")[i];
+                x.removeChild(y);
+            }
+        }
+    }
+ }));
+
+//
+// Event listener for the Show button, which adds to the ordered list. ToDo would be to add
+// the for loop to a method to separate concerns and attempt TDD.
+//
 
 showBtn.addEventListener('click', (eIDshowBtn => {
-    let liElement = document.querySelectorAll("li");
+    const liElement = document.querySelectorAll("li");
     let textOfElements = "[";
     for (let i = 0; i < liElement.length; i++) {
         if (i === (liElement.length-1)) textOfElements += liElement[i].textContent;
@@ -22,41 +58,26 @@ showBtn.addEventListener('click', (eIDshowBtn => {
     alert("The Ordered List contains the following items: " + textOfElements);
 }));
 
-addBtn.addEventListener('click', (eIDshowBtn => {
-    let ol1Document = document.getElementById("ol1");
-    let liNewElement = document.createElement("li");
+//
+// Event listener for the Add button, which adds to the ordered list. At the moment this looks like only interface and
+// don't see how TDD would work or is of value. ToDo is to validate this thought.
+//
+
+addBtn.addEventListener('click', (eIDaddBtn => {
+    const ol1Document = document.getElementById("ol1");
+    const liNewElement = document.createElement("li");
     liNewElement.appendChild(document.createTextNode("Item " + (Number(ol1Document.childElementCount)+1)));
     ol1Document.appendChild(liNewElement);
 }));
 
-//addBtn.addEventListener("click", (() => {
-//    document.getElementById("calculateAction").textContent = calculator.addTwoNumbers(
-//        Number(document.getElementById("inputField1").value), 
-//        Number(document.getElementById("inputField2").value));
-//}));
-
-//let competency100Array = [];
-
-//addArrayBtn.addEventListener("click", (() => {
-//    if (isNaN(document.getElementById("inputArrayValue").value))
-//        document.getElementById("arrayMessage").textContent = "Input is not a valid number.";
-//    else {
-//        competency100Array = ArraysDictionaries.addToArray(competency100Array, 
-//            Number(document.getElementById("inputArrayValue").value));
-//        document.getElementById("arrayMessage").textContent = "Number was added to the array."
-//    }
-//}));
-
-//clearArrayBtn.addEventListener("click", (() => {
-//    competency100Array = ArraysDictionaries.clearArray(competency100Array);
-//    document.getElementById("arrayMessage").textContent = "All array entries cleared. Array is now empty"
-//}));
-
 //
-// Event listeners and JS for Working with Dictionaries
-// 
-//lookupProvDescBtn.addEventListener("click", (() => {
-//    const provDesc = ArraysDictionaries.lookupProvDesc(document.getElementById("inputProvCode").value);
-//    if (provDesc === "") document.getElementById("dictionaryMessage").textContent = "Province NOT Found!";
-//    else document.getElementById("dictionaryMessage").textContent = "Province is " + provDesc;
-//}));
+// Event listener for the Add to Start button, which adds to the beginning of the ordered list. At the moment this looks like only interface and
+// don't see how TDD would work or is of value. ToDo is to validate this thought.
+//
+
+addToStartBtn.addEventListener('click', (eIDaddToStartBtn => {
+    const ol1Document = document.getElementById("ol1");
+    const liNewElement = document.createElement("li");
+    liNewElement.appendChild(document.createTextNode("Item " + (Number(ol1Document.childElementCount)+1)));
+    ol1Document.insertBefore(liNewElement,ol1Document.childNodes[0]);
+}));

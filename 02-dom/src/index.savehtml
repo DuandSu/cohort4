@@ -15,7 +15,6 @@
 		</ol>
     	<button type="button" id="showBtn">Show</button>
     	<button type="button" id="addBtn">Add</button>
-    	<button type="button" id="addToStartBtn">Add to Start</button>
 	</div>
 	<script type="module" src="./scripts/main.js"></script>
 </body>
