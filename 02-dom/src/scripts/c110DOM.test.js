@@ -1,6 +1,6 @@
 import c110DOM from './c110DOM'
 
-test('Does series of displays and adds li Elements work?', () => {
+test('Does series of display and add li Elements work?', () => {
 
     document.body.innerHTML =
 	'<div id="div1">' +
@@ -26,6 +26,18 @@ test('Does series of displays and adds li Elements work?', () => {
     expect(c110DOM.addliElement("START")).toBe("Item 9Item 8Item 5Item 1Item 2Item 3Item 4Item 6Item 7");
     liElement = document.querySelectorAll("li");
     expect(c110DOM.displayliElements(liElement)).toBe("[Item 9, Item 8, Item 5, Item 1, Item 2, Item 3, Item 4, Item 6, Item 7]");
+    liElement = document.body.firstElementChild.children[2].children[1];
+    expect(c110DOM.removeTargetLIFromOL(liElement)).toBe(1);
+    liElement = document.querySelectorAll("li");
+    expect(c110DOM.displayliElements(liElement)).toBe("[Item 9, Item 5, Item 1, Item 2, Item 3, Item 4, Item 6, Item 7]");
+    liElement = document.body.firstElementChild.children[2].children[0];
+    expect(c110DOM.removeTargetLIFromOL(liElement)).toBe(1);
+    liElement = document.querySelectorAll("li");
+    expect(c110DOM.displayliElements(liElement)).toBe("[Item 5, Item 1, Item 2, Item 3, Item 4, Item 6, Item 7]");
+    liElement = document.body.firstElementChild.children[2].children[6];
+    expect(c110DOM.removeTargetLIFromOL(liElement)).toBe(1);
+    liElement = document.querySelectorAll("li");
+    expect(c110DOM.displayliElements(liElement)).toBe("[Item 5, Item 1, Item 2, Item 3, Item 4, Item 6]");
 
 });
 

@@ -28,16 +28,26 @@ const c110DOM = {
     // Return the number of LI elements removed.
     //
 
-    removeTargetLIFromOL: (eventDiv) => {
+    removeTargetLIFromOL: (targetFromEvent) => {
 
         let removedCount = 0;
 
-        if (eventDiv.target.nodeName === "LI") {
+        if (targetFromEvent.nodeName === "LI") {
 
-            eventDiv.target.parentElement.removeChild(eventDiv.target);
+            targetFromEvent.parentElement.removeChild(targetFromEvent);
             removedCount++;
         }
+        //return targetFromEvent.parentElement.nodeName;
         return removedCount;
+
+        //let removedCount = 0;
+
+        //if (eventDiv.target.nodeName === "LI") {
+
+        //    eventDiv.target.parentElement.removeChild(eventDiv.target);
+        //    removedCount++;
+        //}
+        //return removedCount;
     },
 
     //

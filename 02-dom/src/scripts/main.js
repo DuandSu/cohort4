@@ -13,7 +13,7 @@ div1.addEventListener('click', (eIDdiv1 => {
     // If clicked on an LI of the OL1 ordered list, this will delete all the matching LI items.
     //
 
-    const numberRemoved = c110DOM.removeTargetLIFromOL(eIDdiv1);
+    const numberRemoved = c110DOM.removeTargetLIFromOL(eIDdiv1.target);
 
     //
     // The following actually works to delete the ol1 from div1. Kept it around for learning reference because
