@@ -80,8 +80,6 @@ const c110DOM = {
 
     addliElement: (addWhere) => {
         
-        let addCount = 1;
-        
         const ol1Document = document.getElementById("ol1");
         const liNewElement = document.createElement("li");
         liNewElement.appendChild(document.createTextNode("Item " + (Number(ol1Document.childElementCount)+1)));
@@ -90,7 +88,7 @@ const c110DOM = {
         else if (addWhere === "START") ol1Document.insertBefore(liNewElement,ol1Document.childNodes[0]);
         else addCount = 0;
 
-        return addCount;
+        return ol1Document.textContent;
     }
 };
 

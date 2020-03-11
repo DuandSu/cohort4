@@ -38,7 +38,7 @@ showBtn.addEventListener('click', (eIDshowBtn => {
 //
 
 addBtn.addEventListener('click', (eIDaddBtn => {
-    const numberAdded = c110DOM.addliElement("END");
+    const textContentResult = c110DOM.addliElement("END");
 }));
 
 //
@@ -46,5 +46,5 @@ addBtn.addEventListener('click', (eIDaddBtn => {
 //
 
 addToStartBtn.addEventListener('click', (eIDaddToStartBtn => {
-    const numberAdded = c110DOM.addliElement("START");
+    const textContentResult = c110DOM.addliElement("START");
 }));
