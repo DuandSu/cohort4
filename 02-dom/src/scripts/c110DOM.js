@@ -99,6 +99,28 @@ const c110DOM = {
         else addCount = 0;
 
         return ol1Document.textContent;
+    },
+
+    displayAllCardElements: (leftCardsElement, rightCardsElement) => {
+        // 
+        // The following method displays all the card elements on left side and right side to a returned string field that can be used to 
+        // display/show them to the user.
+        //
+        let textOfElements = "[";
+        for (let i = 0; i < leftCardsElement.length; i++) {
+                if (i === (leftCardsElement.length-1)) textOfElements += leftCardsElement[i].textContent;
+                else textOfElements += leftCardsElement[i].textContent + ", ";
+        }
+        textOfElements += "],[";
+
+        for (let i = 0; i < rightCardsElement.length; i++) {
+            if (i === (rightCardsElement.length-1)) textOfElements += rightCardsElement[i].textContent;
+            else textOfElements += rightCardsElement[i].textContent + ", ";
+    }
+    textOfElements += "]";
+
+        return textOfElements;
+
     }
 };
 
