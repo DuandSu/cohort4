@@ -6,26 +6,13 @@ import c110DOM from './c110DOM.js';
 // Add the event listeners
 // 
 
-//div1.addEventListener('click', (eIDdiv1 => {
-    //
-    // eIDdiv1 holds the information targeted by the click event.
-    //
-    // If clicked on an LI of the OL1 ordered list, this will delete all the matching LI items.
-    //
+let nextCardNumber = 3;
+let numberCardsAdded = 0;
+let numberCardsDeleted = 0;
 
-    //const numberRemoved = c110DOM.removeTargetLIFromOL(eIDdiv1.target);
-
-    //
-    // The following actually works to delete the ol1 from div1. Kept it around for learning reference because
-    // it led me to the code above that removes li from ol1.
-    //
-    //let x = document.getElementById("div1");
-    //let y = document.getElementById("ol1");
-    //x.removeChild(y);
-//}));
 
 //
-// Event listener for the Show button, which adds to the ordered list.
+// Event listener for the Show Cards button.
 //
 
 mainShowBtn.addEventListener('click', (eIDmainShowBtn => {
@@ -35,18 +22,45 @@ mainShowBtn.addEventListener('click', (eIDmainShowBtn => {
 }));
 
 //
-// Event listener for the Add button, which adds to the ordered list.
+// Event listener for the Main Add button, which adds to the bottom of the cards.
 //
 
 mainAddBtn.addEventListener('click', (eIDaddBtn => {
-    console.log("In the Main Add Button!");
-    const textContentResult = c110DOM.addCardElement("END");
+    numberCardsAdded = c110DOM.addCardElement("END", eIDaddBtn.target, nextCardNumber++);
 }));
 
 //
-// Event listener for the Add to Start button, which adds to the beginning of the ordered list.
+// Event listener for the Add Before button within a card, which adds a new card before this
+// target card.
 //
 
-//addToStartBtn.addEventListener('click', (eIDaddToStartBtn => {
-//    const textContentResult = c110DOM.addliElement("START");
+document.body.addEventListener("click", e => {
+    console.log("Event Listner: Next Number will be " + nextCardNumber);
+    if (e.target.nodeName === 'BUTTON') {
+        if (e.target.textContent === "Add Before") {
+            numberCardsAdded = c110DOM.addCardElement("BEFORE", e.target.parentElement, nextCardNumber++);
+        }
+        else if (e.target.textContent === "Add After") {
+             numberCardsAdded = c110DOM.addCardElement("AFTER", e.target.parentElement, nextCardNumber++);
+        }
+        else if (e.target.textContent === "Delete") {
+            console.log("In the Delete button: " + e);
+            numberCardsDeleted = c110DOM.deleteCardElement(e.target.parentElement);
+        }
+    }
+})
+
+//document.getElementsByClassName("addCardBeforeBtn")[0].addEventListener('click', (eIDaddBtn => {
+//    console.log("In the Add Before Card Button!");
+//    const numberCardsAdded = c110DOM.addCardElement("BEFORE", eIDaddBtn.target);
+//}));
+
+
+//
+// Event listener for the Delete button within a card, which deletes the target card.
+//
+
+//deleteCardBtn.addEventListener('click', (eIDdelBtn => {
+//    console.log("In the Card Delete Button!");
+//    const numberCardsDeleted = c110DOM.deleteCardElement(eIDdelBtn.target);
 //}));

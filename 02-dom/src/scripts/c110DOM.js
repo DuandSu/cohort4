@@ -124,12 +124,13 @@ const c110DOM = {
     },
 
     //
-    // Add a child LI element to the parent OL element.
-    // Specify "END" to add as the last of the list, or "START" to the beginning or 1st of the list.
+    // Add a card element. "ADD" to the end. "BEFORE" before the target card. "AFTER" after the target card.
     //
 
-    addCardElement: (addWhere) => {
+    addCardElement: (addWhere, targetFromEvent, nextCardNumber) => {
         
+        console.log("Next Number will be: " + nextCardNumber);
+
         let addCount = 1;
         const divLPDocument = document.getElementsByClassName("divLeftPanel");
         const divNewElement = document.createElement("div");
@@ -137,42 +138,43 @@ const c110DOM = {
         att.value = "clCardLS";
         divNewElement.setAttributeNode(att);
 
-        const nextCardNumber = divLPDocument[0].childElementCount-1;
-
         const pNewElement = document.createElement("p");
         pNewElement.appendChild(document.createTextNode("Card " + nextCardNumber));
         divNewElement.appendChild(pNewElement);
 
         const addBeforeButtonNewElement = document.createElement("BUTTON");
         addBeforeButtonNewElement.textContent = "Add Before";
-        att = document.createAttribute("id");
-        att.value = "addBeforeBtn";
-        addBeforeButtonNewElement.setAttributeNode(att);
         divNewElement.appendChild(addBeforeButtonNewElement);
 
         const addAfterButtonNewElement = document.createElement("BUTTON");
         addAfterButtonNewElement.textContent = "Add After";
-        att = document.createAttribute("id");
-        att.value = "addAfterBtn";
-        addAfterButtonNewElement.setAttributeNode(att);
         divNewElement.appendChild(addAfterButtonNewElement);
 
         const addDeleteButtonNewElement = document.createElement("BUTTON");
         addDeleteButtonNewElement.textContent = "Delete";
-        att = document.createAttribute("id");
-        att.value = "addDeleteBtn";
-        addDeleteButtonNewElement.setAttributeNode(att);
         divNewElement.appendChild(addDeleteButtonNewElement);
 
-        //console.log(divLPDocument[0]);
-        //console.log(divNewElement);
-
         if (addWhere === "END") divLPDocument[0].appendChild(divNewElement);
-        //else if (addWhere === "START") ol1Document.insertBefore(liNewElement,ol1Document.childNodes[0]);
-        //else addCount = 0;
-
+        else if (addWhere === "BEFORE") targetFromEvent.parentElement.insertBefore(divNewElement, targetFromEvent);
+        else if (addWhere === "AFTER") targetFromEvent.parentElement.insertBefore(divNewElement, null);
+        //else if (addWhere === "AFTER") targetFromEvent.insertAdjacentElement("afterend", divNewElement);
+        else addCount = 0;
+ 
         return addCount;
-        //return "[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete], Card 3Add BeforeAdd AfterDelete],[]";
+    },
+
+    //
+    // Delete the target card element.
+    //
+
+    deleteCardElement: (targetFromEvent) => {
+
+        let removedCount = 0;
+
+        targetFromEvent.parentElement.removeChild(targetFromEvent);
+        removedCount++;
+
+        return removedCount;
     }
 
 };

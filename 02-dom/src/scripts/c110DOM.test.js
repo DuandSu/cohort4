@@ -44,36 +44,51 @@ test('Basic DOM: Does series of display and add li Elements work?', () => {
 test('Working With Cards: Does series of show, add and delete cards work?', () => {
 
     document.body.innerHTML =
-    
+
+	'<h1>Working with Cards</h1>' +
 	'<div class="divLeftPanel">' +
     	'<button type="button" id="mainAddBtn">Add Card</button>' +
 		'<button type="button" id="mainShowBtn">Show</button>' +
 		'<div class="clCardLS">' +
 			'<p>Card 1</p>' +
-			'<button type="button" id="addBeforeBtn">Add Before</button>' +
-			'<button type="button" id="addAfterBtn">Add After</button>' +
-    		'<button type="button" id="deleteBtn">Delete</button>' +
+			'<button type="button">Add Before</button>' +
+			'<button type="button">Add After</button>' +
+    		'<button type="button">Delete</button>' +
 		'</div>' +
 		'<div class="clCardLS">' +
 			'<p>Card 2</p>' +
-			'<button type="button" id="addBeforeBtn">Add Before</button>' +
-			'<button type="button" id="addAfterBtn">Add After</button>' +
-    		'<button type="button" id="deleteBtn">Delete</button>' +
+			'<button type="button">Add Before</button>' +
+			'<button type="button">Add After</button>' +
+    		'<button type="button">Delete</button>' +
 		'</div>' +
 	'</div>' +
 	'<div class="divRightPanel">' +
-        '<h1>Right Side</h1>' +
+		'<h1>Right Side</h1>' +
 		'<div class="divRightContent">' +
-            '<p>To Be Implemented</p>' +
+			'<p>To Be Implemented</p>' +
 		'</div>' +
-	'</div>'
+	'</div>' +
+	'<a href="index.html">' +
+		'<h2>Go Back</h2>' +
+	'</a>' +
+	'<script type="module" src="./scripts/workingWithCardsMain.js"></script>'
 
+    let nextCardNumber = 3;
     let leftCardsElement = document.getElementsByClassName("clCardLS");
     let rightCardsElement = document.getElementsByClassName("clCardRS");
+    let cardElement = null;
     expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete],[]");
-    expect(c110DOM.addCardElement("END")).toBe(1);
+    expect(c110DOM.addCardElement("END", cardElement, nextCardNumber++)).toBe(1);
     leftCardsElement = document.getElementsByClassName("clCardLS");
-    rightCardsElement = document.getElementsByClassName("clCardRS");
     expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
+    //cardElement = document.body.children[1].children[2].children[1].parentElement;
+    cardElement = document.body.children[1].children[4];
+    expect(c110DOM.addCardElement("BEFORE", cardElement, nextCardNumber++)).toBe(1);
+    leftCardsElement = document.getElementsByClassName("clCardLS");
+    expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 4Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
+    //cardElement = document.body.children[1].children[4];
+    //expect(c110DOM.addCardElement("AFTER", cardElement, nextCardNumber++)).toBe(1);
+    //leftCardsElement = document.getElementsByClassName("clCardLS");
+    //expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 4Add BeforeAdd AfterDelete, Card 5Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
 
 });
