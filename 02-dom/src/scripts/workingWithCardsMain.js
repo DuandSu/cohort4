@@ -3,7 +3,7 @@ import c110DOM from './c110DOM.js';
 
 // **********
 //
-// Add the event listeners
+// Add the event listeners and VavaScript code
 // 
 
 let nextCardNumber = 3;
@@ -30,8 +30,9 @@ mainAddBtn.addEventListener('click', (eIDaddBtn => {
 }));
 
 //
-// Event listener for the Add Before button within a card, which adds a new card before this
-// target card.
+// Event listener for the buttons within the card: "Add Before", "Add After" and "Delete". Required in general
+// event listener, rather than dedicated "id" event, since mutiple occurrences of same button with dynamically
+// created card elements.
 //
 
 document.body.addEventListener("click", e => {
@@ -49,18 +50,3 @@ document.body.addEventListener("click", e => {
         }
     }
 })
-
-//document.getElementsByClassName("addCardBeforeBtn")[0].addEventListener('click', (eIDaddBtn => {
-//    console.log("In the Add Before Card Button!");
-//    const numberCardsAdded = c110DOM.addCardElement("BEFORE", eIDaddBtn.target);
-//}));
-
-
-//
-// Event listener for the Delete button within a card, which deletes the target card.
-//
-
-//deleteCardBtn.addEventListener('click', (eIDdelBtn => {
-//    console.log("In the Card Delete Button!");
-//    const numberCardsDeleted = c110DOM.deleteCardElement(eIDdelBtn.target);
-//}));

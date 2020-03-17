@@ -157,7 +157,6 @@ const c110DOM = {
         if (addWhere === "END") divLPDocument[0].appendChild(divNewElement);
         else if (addWhere === "BEFORE") targetFromEvent.parentElement.insertBefore(divNewElement, targetFromEvent);
         else if (addWhere === "AFTER") targetFromEvent.parentElement.insertBefore(divNewElement, targetFromEvent.nextElementSibling);
-        //else if (addWhere === "AFTER") targetFromEvent.insertAdjacentElement("afterend", divNewElement);
         else addCount = 0;
  
         return addCount;
@@ -178,5 +177,16 @@ const c110DOM = {
     }
 
 };
+
+//
+//  Code used to play around moving SVG items. Did not create in function. Just played around in console.
+//
+//  parentElement = document.body
+//  targetElement = document.getElementById("svgRectangle1");
+//  parentElement.insertBefore(targetElement, targetElement.previousElementSibling);
+//
+//  This worked find when assigning an "id" to each "svg" element. However, did not work so well when used "class"
+//  nad getElementByClassName. Not sure why, so confused as to when "class" is better than "id".
+//
 
 export default c110DOM;
