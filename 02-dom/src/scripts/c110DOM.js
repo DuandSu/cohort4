@@ -156,7 +156,7 @@ const c110DOM = {
 
         if (addWhere === "END") divLPDocument[0].appendChild(divNewElement);
         else if (addWhere === "BEFORE") targetFromEvent.parentElement.insertBefore(divNewElement, targetFromEvent);
-        else if (addWhere === "AFTER") targetFromEvent.parentElement.insertBefore(divNewElement, null);
+        else if (addWhere === "AFTER") targetFromEvent.parentElement.insertBefore(divNewElement, targetFromEvent.nextElementSibling);
         //else if (addWhere === "AFTER") targetFromEvent.insertAdjacentElement("afterend", divNewElement);
         else addCount = 0;
  

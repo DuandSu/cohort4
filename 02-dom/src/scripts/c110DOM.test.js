@@ -81,14 +81,17 @@ test('Working With Cards: Does series of show, add and delete cards work?', () =
     expect(c110DOM.addCardElement("END", cardElement, nextCardNumber++)).toBe(1);
     leftCardsElement = document.getElementsByClassName("clCardLS");
     expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
-    //cardElement = document.body.children[1].children[2].children[1].parentElement;
     cardElement = document.body.children[1].children[4];
     expect(c110DOM.addCardElement("BEFORE", cardElement, nextCardNumber++)).toBe(1);
     leftCardsElement = document.getElementsByClassName("clCardLS");
     expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 4Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
-    //cardElement = document.body.children[1].children[4];
-    //expect(c110DOM.addCardElement("AFTER", cardElement, nextCardNumber++)).toBe(1);
-    //leftCardsElement = document.getElementsByClassName("clCardLS");
-    //expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 4Add BeforeAdd AfterDelete, Card 5Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
+    cardElement = document.body.children[1].children[4];
+    expect(c110DOM.addCardElement("AFTER", cardElement, nextCardNumber++)).toBe(1);
+    leftCardsElement = document.getElementsByClassName("clCardLS");
+    expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 4Add BeforeAdd AfterDelete, Card 5Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
+    cardElement = document.body.children[1].children[4];
+    expect(c110DOM.deleteCardElement(cardElement)).toBe(1);
+    leftCardsElement = document.getElementsByClassName("clCardLS");
+    expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 5Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
 
 });
