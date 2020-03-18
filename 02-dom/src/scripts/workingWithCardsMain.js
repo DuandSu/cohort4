@@ -36,7 +36,7 @@ mainAddBtn.addEventListener('click', (eIDaddBtn => {
 //
 
 document.body.addEventListener("click", e => {
-    console.log("Event Listner: Next Number will be " + nextCardNumber);
+ 
     if (e.target.nodeName === 'BUTTON') {
         if (e.target.textContent === "Add Before") {
             numberCardsAdded = c110DOM.addCardElement("BEFORE", e.target.parentElement, nextCardNumber++);

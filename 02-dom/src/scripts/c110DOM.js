@@ -185,8 +185,9 @@ const c110DOM = {
 //  targetElement = document.getElementById("svgRectangle1");
 //  parentElement.insertBefore(targetElement, targetElement.previousElementSibling);
 //
-//  This worked find when assigning an "id" to each "svg" element. However, did not work so well when used "class"
-//  nad getElementByClassName. Not sure why, so confused as to when "class" is better than "id".
+//  When attempting to move svg elements, it worked fine when assigning an "id" to each "svg" element and using getElementById. 
+//  However, did not work so well when used "class" and getElementByClassName. The getElementByClassName did not return back 
+//  something I could work with in the insertBefore. Not sure why, so confused as to when "class" is better than "id". 
 //
 
 export default c110DOM;
