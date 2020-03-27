@@ -1,0 +1,22 @@
+div {
+	margin:auto;
+    border-style: solid;
+    /*height: 225px;*/
+    width: 225px;
+    padding: 10px;
+    text-align: center;
+}
+
+h1, p {
+    /*text-align: center; */
+}
+
+li {
+	list-style-position: inside;
+	text-align: left;
+  	text-indent: 20px;
+}
+
+button {
+	color:red;
+}

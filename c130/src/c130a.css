@@ -1,0 +1,64 @@
+
+h1, a {
+    /*display:block;*/
+}
+
+body {
+    /*display: flex; */
+}
+
+.divLeftPanel {
+    /*margin:auto;*/
+    border-style: solid;
+    width: 320px;
+    padding: 10px;
+    text-align: center;
+}
+
+.divRightPanel {
+    margin:right;
+    border-style: solid;
+    width: 320px;
+    padding: 10px;
+    text-align: center;
+}
+
+.clCardLS {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    height: 100px;
+    width: 300px;
+    padding: 10px;
+}
+/* On mouse-over, add a deeper shadow */
+
+.clCardLS :empty {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.clCardRS {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    height: 100px;
+    width: 300px;
+    padding: 10px;
+}
+/* On mouse-over, add a deeper shadow */
+
+.clCardRS :empty {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.sectionLeftPanel {
+    float: left;
+}
+
+.asideRightPanel {
+    float: left;
+}
+
+button {
+	color: blue;
+}
