@@ -77,7 +77,8 @@ test('Working With Cards: Does series of show, add and delete cards work?', () =
     let leftCardsElement = document.getElementsByClassName("clCardLS");
     let rightCardsElement = document.getElementsByClassName("clCardRS");
     let cardElement = null;
-    expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete],[]");
+    expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement))
+        .toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete],[]");
     expect(c110DOM.addCardElement("END", cardElement, nextCardNumber++)).toBe(1);
     leftCardsElement = document.getElementsByClassName("clCardLS");
     expect(c110DOM.displayAllCardElements(leftCardsElement, rightCardsElement)).toBe("[Card 1Add BeforeAdd AfterDelete, Card 2Add BeforeAdd AfterDelete, Card 3Add BeforeAdd AfterDelete],[]");
