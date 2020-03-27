@@ -6,7 +6,7 @@
 // that out.
 //
 
-const c110DOM = {
+const c130a = {
 
     displayliElements: (liElement) => {
         // 
@@ -178,29 +178,4 @@ const c110DOM = {
 
 };
 
-//
-//  Code used to play around moving SVG items. Did not create in function. Just played around in console.
-//
-//  parentElement = document.body
-//  targetElement = document.getElementById("svgRectangle1");
-//  parentElement.insertBefore(targetElement, targetElement.previousElementSibling);
-//
-//  When attempting to move svg elements, it worked fine when assigning an "id" to each "svg" element and using getElementById. 
-//  However, did not work so well when used "class" and getElementByClassName. The getElementByClassName did not return back 
-//  something I could work with in the insertBefore. Not sure why, so confused as to when "class" is better than "id". 
-//
-//  Answer from Roman:
-//
-//  "Hey Duane, could you please advise what specific error you are getting.
-//
-//  One thing to keep in mind is that getElementByClassName returns an array-like object (because classes are meant to have 
-//  collections of elements), while getElementById returns the element itself (because ID is meant to be unique among siblings; 
-//  if you call this method when this rule is not met you get a different result).
-//
-//  Class and ID have different purpose. ID is to assign a unique identifier to one particular element. 
-//  Class is to apply similar formatting to a bunch of elements of the same nature. Example: if you generate a list of things 
-//  (e. g. a list of bank accounts), it is meaningful to make all of them the same class for formatting purposes, 
-//  but all of them should have different IDs for manipulation purposes."
-//
-
-export default c110DOM;
+export default c130a;

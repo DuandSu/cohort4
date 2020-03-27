@@ -1,4 +1,4 @@
-import c130a from './c130a'
+import c130a from './c130a.js'
 
 test('130a: Does the plumbing work?', () => {
 
