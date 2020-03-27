@@ -9,6 +9,24 @@ class Account {
         this.acctBal = acctBal;
     
     }
+
+    getBalance() {
+
+        return this.acctBal;
+
+    }
+
+    deposit(amt) {
+
+        return this.acctBal += amt;
+
+    }
+
+    withdraw(amt) {
+
+        return this.acctBal -= amt;
+
+    }
 }
 
 export default Account;
