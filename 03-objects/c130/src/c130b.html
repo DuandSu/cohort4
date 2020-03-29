@@ -21,31 +21,32 @@
 		<div class="divBankActions">
 			<div class="divAcctSelect">
 				Account Name: <select id=selectAcct>
-					<option value="srcAcct">Add New Account</option>
+					<option value="srcSelect">Select Account</option>
+					<option value="srcAddAcct">Add New Account</option>
 					<option value="srcAcctChequing">Chequing</option>
 					<option value="srcAcctSavings">Savings</option>
 					<option value="srcAcctCreditCard">Credit Card</option>
 					<option value="srcAcctReallyLongNameforanAccount">Really Long Name for an Account</option>
 				</select>
 				-> <select id="selectDestAcct">
+					<option value="destSelect">Select Destination Account</option>
 					<option value="destAcctChequing">Chequing</option>
 					<option value="destAcctSavings">Savings</option>
 					<option value="destAcctCreditCard">Credit Card</option>
 					<option value="destAcctReallyLongNameforanAccount">Really Long Name for an Account</option>
-					<option value="destNoAcct">No Account</option>
 				</select>
 				<!-- Account Name: <input id="inputAcct" type=text>
 			-> <input id="inputDestAcct" type=text> -->
 			</div>
 			<div class="divAcctActions">
-				$ <input id="inputAmt" type=number>
+				$ <input id="inputAmt" type=number value=0>
 				<button id="btnAddAcct" type="button">Add New Account</button>
 				<button id="btnDeposit" type="button">Deposit</button>
 				<button id="btnWithdraw" type="button">Withdraw</button>
 				<button id="btnTransfer" type="button">Transfer</button>
 			</div>
-			<!-- <p id="messageArea"></p> -->
-			<p id="messageArea">There is currently no message to display in the message area.</p>
+			<p id="messageArea"></p>
+			<!-- <p id="messageArea">There is currently no message to display in the message area.</p> -->
 		</div>
 		<div class="divAccounts">
 			<div class="divAcctsList">
@@ -74,6 +75,6 @@
 	</section>
 	<footer>
 	</footer>
-	<script type="module" src="./scripts/c130Main.js"></script>
+	<script type="module" src="./scripts/c130bindex.js"></script>
 </body>
 </html>

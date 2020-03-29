@@ -6,7 +6,7 @@
 // that out.
 //
 
-const c130a = {
+const c130b = {
 
     displayliElements: (liElement) => {
         // 
@@ -178,4 +178,4 @@ const c130a = {
 
 };
 
-export default c130a;
+export default c130b;
