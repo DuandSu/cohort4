@@ -4,39 +4,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Competency 130</title>
-	<link rel="stylesheet" type="text/css" href="c130a.css">
+	<title>Competency 130b</title>
+	<link rel="stylesheet" type="text/css" href="c130b.css">
 </head>
 <body>
-	<a href="index.html">
-		<h2>Go Back</h2>
-	</a>
-	<section class ="sectionLeftPanel">
-		<div class="divLeftPanel">
-    		<button type="button" id="mainAddBtn">Add Card</button>
-			<button type="button" id="mainShowBtn">Show</button>
-			<div class="clCardLS">
-				<p>Card 1</p>
-				<button type="button">Add Before</button>
-				<button type="button">Add After</button>
-    			<button type="button">Delete</button>
+	<header>
+
+	</header>
+	<nav>
+		<a href="index.html">
+			<h3>Go Back</h3>
+		</a>
+	</nav>
+	<section class ="sectionMain">
+		<h1>Welcome to the MunRobinson Bank</h1>
+		<div class="divBankActions">
+			<div class="divAcctSelect">
+				Account Name: <select id=selectAcct>
+					<option value="srcAcct">Add New Account</option>
+					<option value="srcAcctChequing">Chequing</option>
+					<option value="srcAcctSavings">Savings</option>
+					<option value="srcAcctCreditCard">Credit Card</option>
+					<option value="srcAcctReallyLongNameforanAccount">Really Long Name for an Account</option>
+				</select>
+				-> <select id="selectDestAcct">
+					<option value="destAcctChequing">Chequing</option>
+					<option value="destAcctSavings">Savings</option>
+					<option value="destAcctCreditCard">Credit Card</option>
+					<option value="destAcctReallyLongNameforanAccount">Really Long Name for an Account</option>
+					<option value="destNoAcct">No Account</option>
+				</select>
+				<!-- Account Name: <input id="inputAcct" type=text>
+			-> <input id="inputDestAcct" type=text> -->
 			</div>
-			<div class="clCardLS">
-				<p>Card 2</p>
-				<button type="button">Add Before</button>
-				<button type="button">Add After</button>
-    			<button type="button">Delete</button>
+			<div class="divAcctActions">
+				$ <input id="inputAmt" type=number>
+				<button id="btnAddAcct" type="button">Add New Account</button>
+				<button id="btnDeposit" type="button">Deposit</button>
+				<button id="btnWithdraw" type="button">Withdraw</button>
+				<button id="btnTransfer" type="button">Transfer</button>
+			</div>
+			<!-- <p id="messageArea"></p> -->
+			<p id="messageArea">There is currently no message to display in the message area.</p>
+		</div>
+		<div class="divAccounts">
+			<div class="divAcctsList">
+			<section class="sectionAcctList">
+				<h4>Account</h4>
+				<ul id="ulAcctList">
+					<li class="liOdd">Chequing</li>
+					<li class="liEven">Savings</li>
+					<li class="liOdd">Credit Card</li>
+					<li class="liEven">Really Long Name for an Account</li>
+					<li class="liSum">Summary of All Accounts</li>
+				</ul>
+			</section>
+			<aside class="asideAcctBal">
+				<h4>Balance</h4>
+			 	<ul id="ulAcctBal">
+					<li class="liOdd">$0.00</li>
+					<li class="liEven">$200.00</li>
+					<li class="liOdd">$100.00</li>
+					<li class="liEven">$200,000,000.00</li>
+					<li class="liSum">$200,000,100.00</li>
+			 	</ul>
+			 </aside>
 			</div>
 		</div>
 	</section>
-	<aside class ="asideRightPanel">
-		<div class="divRightPanel">
-			<h1>Right Side</h1>
-			<div class="divRightContent">
-				<p>To Be Implemented</p>
-			</div>
-		</div>
-	</aside>
+	<footer>
+	</footer>
 	<script type="module" src="./scripts/c130Main.js"></script>
 </body>
 </html>
