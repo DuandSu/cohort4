@@ -1,11 +1,14 @@
+import {Account, AccountController} from './account.js'
 import c130b from './c130b.js'
 
-// **********
 //
 // Add the event listeners and JavaScript code
-// 
+//
+// For now just doing enough to satisfy c130b with one Savings account. 
+//
 
-let nxtAcctNum = 4;
+let nxtAcctNum = 3;
+const savingsAccount = new Account("Savings", 200);
 
 //
 // Event listener for the Add New Account button.
@@ -26,23 +29,9 @@ btnAddAcct.addEventListener('click', (eIDbtnAddAcct => {
 //
 
 btnDeposit.addEventListener('click', (eIbtnDeposit => {
-    console.log (eIbtnDeposit.target);
-    const inputValue = document.getElementById("inputAmt").value;
-    const srcValue = document.getElementById("selectAcct").value;
-    if (srcValue === "srcSelect") {
-        document.getElementById("messageArea").textContent = `Please Select an Account`;
-    }
-    else if (inputValue < 0) {
-        document.getElementById("messageArea").textContent = `You May Only Deposit a Positive Amount`;
-    }
-    else if (inputValue < 1) {
-        document.getElementById("messageArea").textContent = `Please Input an Amount to Deposit`;
-    }
-    else {
-        document.getElementById("messageArea").textContent = `Deposit $${inputValue} to Acct: ${srcValue}`;
-        document.getElementById("selectAcct").value = "srcSelect";
-        document.getElementById("inputAmt").value = 0.00;
-    }
+
+    c130b.actionTransaction("Deposit", savingsAccount);
+
 }));
 
 //
@@ -50,23 +39,9 @@ btnDeposit.addEventListener('click', (eIbtnDeposit => {
 //
 
 btnWithdraw.addEventListener('click', (eIbtnWithdraw => {
-    console.log (eIbtnWithdraw.target);
-    const inputValue = document.getElementById("inputAmt").value;
-    const srcValue = document.getElementById("selectAcct").value;
-    if (srcValue === "srcSelect") {
-        document.getElementById("messageArea").textContent = `Please Select an Account`;
-    }
-    else if (inputValue < 0) {
-        document.getElementById("messageArea").textContent = `You May Only Withdraw a Positive Amount`;
-    }
-    else if (inputValue < 1) {
-        document.getElementById("messageArea").textContent = `Please Input an Amount to Withdraw`;
-    }
-    else {
-        document.getElementById("messageArea").textContent = `Withdraw $${inputValue} from Acct: ${srcValue}`;
-        document.getElementById("selectAcct").value = "srcSelect";
-        document.getElementById("inputAmt").value = 0.00;
-    }
+
+    c130b.actionTransaction("Withdraw", savingsAccount);
+
 }));
 
 //
@@ -108,12 +83,10 @@ btnTransfer.addEventListener('click', (eIbtnTransfer => {
 //
 
 selectAcct.addEventListener('change', (eIselectAcct => {
+    
     console.log (eIselectAcct.target);
     const selectedValue = document.getElementById("selectAcct").value;
-    // if (selectedValue === "srcSelect") {
-    //     alert (`Ignore Select Account: ${selectedValue}`);
-    // }
-    // else 
+    
     if (selectedValue === "srcAddAcct") {
         const newAcctName = prompt("Enter New Account Name: ");
         const inputValue = document.getElementById("inputAmt").value;
