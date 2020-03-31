@@ -1,0 +1,157 @@
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 17px;
+    margin-right: 0;
+    font-weight: bold;
+    font-style: italic;
+    color: rgb(111, 155, 46);
+}
+
+h4 {
+    margin: 0.5em;
+    border-style: solid;
+    border-color:black;
+    padding-inline-start: 5px;
+    padding-inline-end: 5px;
+    text-align: center;
+    /* background-color: rgb(178, 236, 233); */
+}
+
+input {
+    font-size: 20px;
+    /* color: lightgray; */
+    height: 25px;
+    width: 310px;
+}
+
+select {
+    font-size: 20px;
+    /* color: lightgray; */
+    height: 25px;
+    width: 310px;
+}
+
+button {
+    font-size: 20px;
+    height: 30px;
+    border-radius: 25px;
+    /* border-width: 10x; */
+    border-style: solid;
+}
+
+#messageArea {
+    color: rgb(226, 36, 36);
+    font-size: 20px;
+    padding-inline-start: 10px;
+
+}
+
+ul {
+    list-style-type: none;
+    margin: 8px;
+    padding: 8px;
+}
+
+.sectionMain {
+    /* position: absolute; */
+    /* left: 0px;
+    top: 0px; */
+    width: 984px;
+    height: 800px;
+    /* height: auto; */
+    margin: 15;
+    background-color: rgba(0, 128, 128, 0.388235294117647);
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1);
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 25px;
+    letter-spacing: normal;
+    color: #333333;
+    vertical-align: none;
+    text-align: normal;
+    line-height: normal;
+    text-transform: none;
+}
+
+.divBankActions {
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1);
+    margin: 15px;
+    background-color: rgb(185, 233, 230);
+    /* background-color: rgb(223, 245, 244); */
+    /* background-color: rgb(178, 236, 233); */
+}
+
+.divAcctSelect {
+    margin: 15px;
+}
+
+.divAcctActions {
+    margin: 15px;   
+}
+
+.divAccounts {
+    /* box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1); */
+    margin: 30px;
+}
+
+/* .divAcctsList {
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1);
+    margin: 15px;
+} */
+
+.sectionAcctList {
+    float: left;
+    border-style: solid;
+    border-color:black;
+    text-align: left;
+}
+
+.asideAcctBal {
+    border-style: solid;
+    border-color:black;
+    float: left;
+    text-align: right;
+}
+
+h4 {
+    /* background-color: rgb(178, 236, 233); */
+    background-color: rgb(185, 233, 230);
+    /* background-color: rgb(223, 245, 244); */
+ }
+
+.liOdd {
+    padding-inline-start: 5px;
+    padding-inline-end: 5px;
+    background-color: rgb(215, 245, 243);
+}
+
+.liEven {
+    padding-inline-start: 5px;
+    padding-inline-end: 5px;
+    background-color: rgb(184, 235, 205);
+}
+
+.liSum {
+    padding-inline-start: 5px;
+    padding-inline-end: 5px;
+    border-style: solid;
+    border-color:black;
+    background-color: rgb(98, 228, 152);
+}
