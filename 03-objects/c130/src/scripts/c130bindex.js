@@ -104,6 +104,7 @@ selectAcct.addEventListener('change', (eIselectAcct => {
 document.body.addEventListener("click", e => {
  
     if (e.target.nodeName !== 'BUTTON') {
+        // document.getElementById("messageArea").textContent = e.target.nodeName;
         document.getElementById("messageArea").textContent = "";
     }
 })

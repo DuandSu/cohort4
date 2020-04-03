@@ -92,6 +92,17 @@ ul {
     /* background-color: rgb(178, 236, 233); */
 }
 
+.divAddAcct {
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1);
+    margin: 15px;
+    padding: 10px;
+    background-color: rgb(185, 233, 230);
+    visibility: visible;
+}
+
 .divAcctSelect {
     margin: 15px;
 }

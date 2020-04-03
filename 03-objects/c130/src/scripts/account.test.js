@@ -1,7 +1,7 @@
 import {Account, AccountController} from './account.js'
 
-test('130a/b: Does class instantiation and methods work?', () => {
-
+test('130a/b/c: Does Account class instantiation and methods work?', () => {
+    
     const savingsAccount = new Account("Savings", 100);
     expect(savingsAccount.acctName).toBe("Savings");
     expect(savingsAccount.getAccountName()).toBe("Savings");
@@ -34,56 +34,162 @@ test('130a/b: Does class instantiation and methods work?', () => {
     expect(lineOfCreditAccount.getBalance()).toBe(-200);
     expect(lineOfCreditAccount.setToCredit()).toBeTruthy();
     expect(lineOfCreditAccount.isCredit()).toBeTruthy();;
+    
+});
+
+test('130c: Does Account Controller class instantiation and methods work?', () => {
 
     //
-    // Create AccountController for client Duane Munro
+    // Create Account Controller for client Duane Munro
     //
+
     const duane = new AccountController("Duane Munro");
     expect(duane.getClientName()).toBe("Duane Munro");
+
     //
-    // Add the prior Savings Account
+    // Test messaging for controller
     //
-    expect(duane.addAccount(savingsAccount)).toBe(1);
+
+    expect(duane.isMessage()).toBeFalsy();
+    expect(duane.getMessage()).toBe("");
+    duane.msgFlag=true;
+    duane.msgQueue="There is a message!";
+    expect(duane.isMessage()).toBeTruthy();
+    expect(duane.getMessage()).toBe("There is a message!");
+    expect(duane.resetMessage()).toBe(true);
+    expect(duane.isMessage()).toBeFalsy();
+    expect(duane.getMessage()).toBe("");
+    
+    //
+    // Add Savings Account
+    //
+
+    expect(duane.addAccount("Savings", 200, false)).toBe(1);
     expect(duane.getAcctName(1)).toBe("Savings");
     expect(duane.getAcctBalance(1)).toBe(200);
-    expect(duane.listOfAccts[1].isCredit()).toBeFalsy();
+    expect(duane.isCredit(1)).toBeFalsy();
+
     //
-    // Add the prior Chequing Account
+    // Add Chequing Account
     //
-    expect(duane.addAccount(checkingAccount)).toBe(2);
+
+    expect(duane.addAccount("Chequing", 5, false)).toBe(2);
     expect(duane.getAcctName(2)).toBe("Chequing");
     expect(duane.getAcctBalance(2)).toBe(5);
-    expect(duane.listOfAccts[2].isCredit()).toBeFalsy();
+    expect(duane.isCredit(2)).toBeFalsy();
+    
     //
-    // Add the prior Credit Card Account
+    // Add MasterCard Credit Card Account
     //
-    expect(duane.addAccount(creditCardAccount)).toBe(3);
+    
+    expect(duane.addAccount("MasterCard", 0, true)).toBe(3);
     expect(duane.getAcctName(3)).toBe("MasterCard");
     expect(duane.getAcctBalance(3)).toBe(0);
-    expect(duane.listOfAccts[3].isCredit()).toBeTruthy();
+    expect(duane.isCredit(3)).toBeTruthy();
+
     //
-    // Add the prior Line of Credit Account
+    // Add Line of Credit Account
     //
-    expect(duane.addAccount(lineOfCreditAccount)).toBe(4);
+
+    expect(duane.addAccount("Line of Credit", -200, true)).toBe(4);
     expect(duane.getAcctName(4)).toBe("Line of Credit");
     expect(duane.getAcctBalance(4)).toBe(-200);
-    expect(duane.listOfAccts[4].isCredit()).toBeTruthy();
+    expect(duane.isCredit(4)).toBeTruthy();
+
     //
     // Remove the MasterCard Credit Account
     //
+
     const emptyAccount = new Account();
     expect(duane.removeAccount(3)).toEqual(emptyAccount);
+
     //
     // Summarize the total of all Accounts    //
     //
+
     expect(duane.sumAccounts()).toBe(5);
+
     //
     // Find Highest Value Account    //
     //
+
     expect(duane.findHighAccount()).toBe(1);
+
     //
     // Find Lowest Value Account    //
     //
+
     expect(duane.findLowAccount()).toBe(4);
+
+    //
+    // Attempt Deposit to non-Account
+    //
+    expect(duane.deposit(3, 50)).toBe(NaN);
+
+    //
+    // Deposit to Savings
+    //
+
+    expect(duane.deposit(1, 50)).toBe(250);
+
+    //
+    // Deposit to Chequing
+    //
+
+    expect(duane.deposit(2, 300)).toBe(305);
+
+    //
+    // Withdraw from Line of Credit
+    //
+
+    expect(duane.withdraw(4, 1000)).toBe(-1200);
+
+       
+    //
+    // Add Visa Credit Card Account
+    //
+    
+    expect(duane.addAccount("Visa", -5000, true)).toBe(5);
+    expect(duane.getAcctName(5)).toBe("Visa");
+    expect(duane.getAcctBalance(5)).toBe(-5000);
+    expect(duane.isCredit(5)).toBeTruthy();
+
+    //
+    // Summarize the total of all Accounts
+    //
+
+    expect(duane.sumAccounts()).toBe(-5645);
+
+    //
+    // Find Highest Value Account
+    //
+
+    expect(duane.findHighAccount()).toBe(2);
+
+    //
+    // Find Lowest Value Account
+    //
+
+    expect(duane.findLowAccount()).toBe(5);
+
+    //
+    // Transfer from Savings to Chequing
+    //
+
+    expect(duane.transfer(1, 2, 50)).toEqual([200,355]);
+
+    //
+    // Transfer from Line of Credit to VisaS
+    //
+
+    expect(duane.transfer(4, 5, 500)).toEqual([-1700,-4500]);
+    
+    //
+    // Attempt Transfer with a non-Account. Return NaN and balances
+    // unchanged.
+    //
+
+    expect(duane.transfer(3, 5, 500)).toEqual([NaN,-4500]);
+    expect(duane.transfer(5, 3, 500)).toEqual([-4500, NaN]);
 
 });

@@ -1,4 +1,4 @@
-// This is competency 130a & 130b.
+// This is competency 130a, 130b & 130c.
 
 export class Account {
 
@@ -57,22 +57,47 @@ export class AccountController {
         this.clientName = clientName;
         this.listOfAccts = [];
         this.nextAcctNum = 1;
+        this.msgQueue = "";
+        this.msgFlag = false;
+        
+    }
     
-    }
-
     getClientName() {
-
+        
         return this.clientName;
+        
+    }
+    
+    getMessage() {
+        
+        return this.msgQueue;
+        
+    }
+    
+    isMessage() {
+        
+        return this.msgFlag;
+        
+    }
+    
+    resetMessage() {
+
+        this.msgQueue = "";
+        this.msgFlag = false;
+        
+        return true;
 
     }
 
-    addAccount(acctObj) {
+    addAccount(acctName, acctBalance, creditFlag) {
 
-        acctObj.acctNum = this.nextAcctNum++;
-        this.listOfAccts[acctObj.acctNum] = acctObj;
+        const newAcct = new Account(acctName, acctBalance);
+
+        newAcct.acctNum = this.nextAcctNum++;
+        if (creditFlag) newAcct.setToCredit();
+        this.listOfAccts[newAcct.acctNum] = newAcct;
             
-        return acctObj.acctNum;
-
+        return newAcct.acctNum;
     }
 
     getAcctName(acctNum) {
@@ -82,14 +107,6 @@ export class AccountController {
     }
 
     getAcctBalance(acctNum) {
-
-        // console.log(`Get Account Name for Account Number: ${acctNum}`);
-        // console.log(`Client Name: ${this.clientName}`);
-        // console.log(`Account Number for Account ${acctNum}: ${this.listOfAccts[acctNum].acctNum}`);
-        // console.log(`Account Name for Account ${acctNum}: ${this.listOfAccts[acctNum].acctName}`);
-        // console.log(`Account Type for Account ${acctNum}: ${this.listOfAccts[acctNum].acctType}`);
-        // console.log(`Account Balance for Account ${acctNum}: ${this.listOfAccts[acctNum].acctBal}`);
-        // console.log(`Next Account Number: ${this.nextAcctNum}`);
 
         return this.listOfAccts[acctNum].getBalance();
 
@@ -102,6 +119,50 @@ export class AccountController {
             
     }
     
+    isCredit(acctNum) {
+
+        if (this.listOfAccts[acctNum].acctType === "Credit") return true;
+        else return false;
+
+    }
+
+    deposit(acctNum, amt) {
+
+        return this.listOfAccts[acctNum].deposit(amt);
+
+    }
+    
+    withdraw(acctNum, amt) {
+        
+        return this.listOfAccts[acctNum].withdraw(amt);
+
+    }
+
+    transfer(fromAcctNum, toAcctNum, amt) {
+        
+        let returnArray = [0, 0];
+        
+        //
+        // If non-account and NaN balance, then return NaN and balances unchanged.
+        //  
+
+        if (isNaN(this.listOfAccts[fromAcctNum].getBalance()) || isNaN(this.listOfAccts[toAcctNum].getBalance())) {
+            
+            returnArray[0] = this.listOfAccts[fromAcctNum].getBalance();
+            returnArray[1] = this.listOfAccts[toAcctNum].getBalance();
+            
+        }
+        else {
+
+            returnArray[0] = this.listOfAccts[fromAcctNum].withdraw(amt);
+            returnArray[1] = this.listOfAccts[toAcctNum].deposit(amt);
+
+        }
+
+        return returnArray;
+
+    }
+
     sumAccounts() {
 
         let sumAccts = 0;

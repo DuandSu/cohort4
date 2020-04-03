@@ -3,13 +3,13 @@
 // For now just doing enough to satisfy c130b with one Savings account. 
 //
 
-const c130b = {
+const c130c = {
 
-    actionTransaction: (actionType, account) => {
+    actionTransaction: (actionType, client) => {
 
         const inputValue = document.getElementById("inputAmt").value;
         const srcValue = document.getElementById("selectAcct").value;
-    
+        
         let actionPreposition = "to";
         if (actionType === "Withdraw") actionPreposition = "from";
         
@@ -23,12 +23,14 @@ const c130b = {
             document.getElementById("messageArea").textContent = `Please Input an Amount to ${actionType}`;
         }
         else {
-            if (actionType === "Deposit") account.deposit(inputValue);
-            else if (actionType === "Withdraw") account.withdraw(inputValue);
+            
+            const acctNum = Number(srcValue.replace("srcAcct", ""));
+            if (actionType === "Deposit") client.deposit(acctNum, inputValue);
+            else if (actionType === "Withdraw") client.withdraw(acctNum, inputValue);
 
             document.getElementById("messageArea").textContent = `${actionType} $${inputValue} ${actionPreposition} ` +
-                `${account.getAccountName()}. Balance is now: $${account.getBalance()}`;
-            document.getElementById(`sumAcct${account.getAccountName()}`).textContent = `$${account.getBalance()}`;
+                `${client.getAcctName(acctNum)}. Balance is now: $${client.getAcctBalance(acctNum)}`;
+            document.getElementById(`sumAcct${acctNum}`).textContent = `$${client.getAcctBalance(acctNum)}`;
 
             document.getElementById("selectAcct").value = "srcSelect";
             document.getElementById("inputAmt").value = 0.00;
@@ -205,4 +207,4 @@ const c130b = {
 
 };
 
-export default c130b;
+export default c130c;

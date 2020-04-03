@@ -23,16 +23,18 @@
 				Account Name: <select id=selectAcct>
 					<option value="srcSelect">Select Account</option>
 					<option value="srcAddAcct">Add New Account</option>
-					<option value="srcAcct1">Chequing</option>
-					<option value="srcAcct2">Savings</option>
-					<option value="srcAcct3">Credit Card</option>
+					<option value="srcAcctChequing">Chequing</option>
+					<option value="srcAcctSavings">Savings</option>
+					<option value="srcAcctCreditCard">Credit Card</option>
 				</select>
 				-> <select id="selectDestAcct">
 					<option value="destSelect">Select Destination Account</option>
-					<option value="destAcct1">Chequing</option>
-					<option value="destAcct2">Savings</option>
-					<option value="destAcct3">Credit Card</option>
+					<option value="destAcctChequing">Chequing</option>
+					<option value="destAcctSavings">Savings</option>
+					<option value="destAcctCreditCard">Credit Card</option>
 				</select>
+				<!-- Account Name: <input id="inputAcct" type=text>
+			-> <input id="inputDestAcct" type=text> -->
 			</div>
 			<div class="divAcctActions">
 				$ <input id="inputAmt" type=number value=0>
@@ -42,30 +44,25 @@
 				<button id="btnTransfer" type="button">Transfer</button>
 			</div>
 			<p id="messageArea"></p>
+			<!-- <p id="messageArea">There is currently no message to display in the message area.</p> -->
 		</div>
-		<!-- <div id=idAddAcct class="divAddAcct" visibility: visible> -->
-		<div id=idAddAcct class="divAddAcct">
-			Enter Name of New Account: <input id="inputNewAcct" type=text>
-			<button id="btnCreateAcct" type="button">Create</button>
-			<button id="btnCancelAcct" type="button">Cancel</button>
-		</div>
-		<div id=idAccts class="divAccounts">
+		<div class="divAccounts">
 			<div class="divAcctsList">
 			<section class="sectionAcctList">
 				<h4>Account</h4>
 				<ul id="ulAcctList">
-					<li id="listAcct1" class="liOdd">Chequing</li>
-					<li id="listAcct2" class="liEven">Savings</li>
-					<li id="listAcct3" class="liOdd">Credit Card</li>
+					<li id="listAcctChequing" class="liOdd">Chequing</li>
+					<li id="listAcctSavings" class="liEven">Savings</li>
+					<li id="listAcctCredit Card" class="liOdd">Credit Card</li>
 					<li class="liSum">Summary of All Accounts</li>
 				</ul>
 			</section>
 			<aside class="asideAcctBal">
 				<h4>Balance</h4>
 			 	<ul id="ulAcctBal">
-					<li id="sumAcct1"class="liOdd">$0.00</li>
-					<li id="sumAcct2" class="liEven">$200.00</li>
-					<li id="sumAcct3"class="liOdd">$100.00</li>
+					<li id="sumAcctChequing"class="liOdd">$0.00</li>
+					<li id="sumAcctSavings" class="liEven">$200.00</li>
+					<li id="sumAcctCredit Card"class="liOdd">$100.00</li>
 					<li class="liSum">$100.00</li>
 			 	</ul>
 			 </aside>
