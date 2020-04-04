@@ -37,7 +37,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
 		'<div id=idAddAcct class="divAddAcct">' +
 			'Enter Name of New Account: <input id="inputNewAcct" type=text>' +
 			'<button id="btnCreateAcct" type="button">Create</button>' +
-			'<button id="btnCancel" type="button">Cancel</button>' +
+			'<button id="btnCancelAcct" type="button">Cancel</button>' +
         '</div>' +
         '<div id=idAccts class="divAccounts">' +
 			'<div class="divAcctsList">' +
@@ -56,7 +56,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
                     '<li id="sumAcct1"class="liOdd">$0.00</li>' +
                     '<li id="sumAcct2" class="liEven">$200.00</li>' +
                     '<li id="sumAcct3"class="liOdd">$100.00</li>' +
-                 '<li class="liSum">$100.00</li>' +
+                 '<li id="idSum" class="liSum">$300</li>' +
 			 	'</ul>' +
 			 '</aside>' +
 			'</div>' +
@@ -74,21 +74,14 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     //
     // Initial setup required to handle the New Account Name entry div.
     //
-
-    const divAdd = document.getElementById("idAddAcct");
-    expect(divAdd.id).toBe("idAddAcct");
-    const divAccts = document.getElementById("idAccts");
-    expect(divAccts.id).toBe("idAccts");
-    const divParent = divAdd.parentElement;
-    expect(divParent.nodeName).toBe("SECTION");
-
-    //
-    // Remove the New Account Name entry until needed.
+    // Expect the div Add Account Name exists from original HTML. Then
+    // delete it.
     //
 
-    divParent.removeChild(divAdd);
+    expect(document.getElementById("idAddAcct")).not.toBeNull();
+    idAccts.parentElement.removeChild(idAddAcct);
     expect(document.getElementById("idAddAcct")).toBeNull();
-
+ 
     //
     // Create AccountController for client Duane Munro
     //
@@ -117,10 +110,6 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.getAcctBalance(3)).toBe(100);
     expect(duane.isCredit(3)).toBeTruthy();
 
-// ***************************************************************
-// All Code below is broken until I fix the 130c interface change to new
-// LI element formats.
-//
     //
     // Scenario: Attempt Deposit button with nothing selected. Should receive error message.
     //
@@ -129,100 +118,209 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     let actionPreposition = "to";
 
     c130c.actionTransaction(actionType, duane);
-    expect(document.getElementById("messageArea").textContent).toBe(`Please Select an Account`);
-    
+    expect(messageArea.textContent).toBe(`Please Select an Account`);
+    expect(idSum.textContent).toBe("$300");
     //
     // Scenario: User next selects the Savings account, but leaves the input amount as $0.
     // Should receive error message. Nothing reset.
     //
     
     let acctNum = 2;
-    document.getElementById("selectAcct").value = "srcAcct2";
+    selectAcct.value = "srcAcct2";
     c130c.actionTransaction(actionType, duane);
-    expect(document.getElementById("messageArea").textContent).toBe(`Please Input an Amount to ${actionType}`);
-    
+    expect(messageArea.textContent).toBe(`Please Input an Amount to ${actionType}`);
+    expect(idSum.textContent).toBe("$300");
+   
     //
     // // Scenario: User next attempts a negative value $-1. Should receive error message. Nothing reset.
     //
     
-    document.getElementById("inputAmt").value = -1;
+    inputAmt.value = -1;
     c130c.actionTransaction(actionType, duane);
-    expect(document.getElementById("messageArea").textContent).toBe(`You May Only ${actionType} a Positive Amount`);
+    expect(messageArea.textContent).toBe(`You May Only ${actionType} a Positive Amount`);
+    expect(idSum.textContent).toBe("$300");
     
     //
     // Scenario: User now types in a value of $500 and attempts to Deposit button. Display action result.
     //
     
-    document.getElementById("inputAmt").value = 500;
+    inputAmt.value = 500;
     c130c.actionTransaction(actionType, duane);
-    expect(document.getElementById("messageArea").textContent).toBe(`${actionType} $500 ${actionPreposition} ` +
+    expect(messageArea.textContent).toBe(`${actionType} $500 ${actionPreposition} ` +
         `${duane.getAcctName(acctNum)}. Balance is now: $700`);
     expect(duane.getAcctBalance(acctNum)).toBe(700);
-
+    
     //
     // New account balance should show in account list.
     //
     
     expect(document.getElementById(`sumAcct${acctNum}`).textContent).toBe(`$700`);
-
+    expect(idSum.textContent).toBe("$800");
+    
     //
     // Select Menu and Input values get reset.
     //
-
-    expect(document.getElementById("selectAcct").value).toBe("srcSelect");
-    expect(document.getElementById("inputAmt").value).toBe("0");
-
+    
+    expect(selectAcct.value).toBe("srcSelect");
+    expect(inputAmt.value).toBe("0");
+    
     //
     // Same test scenario for Withdraw. Remember Savings Account is now $700 from previous test.
     //
     // Scenario: Attempt Withdraw button with nothing selected. Should receive error message.
     //
-
+    
     actionType = "Withdraw";
     actionPreposition = "from";
-
+    
     c130c.actionTransaction(actionType, duane);
-    expect(document.getElementById("messageArea").textContent).toBe(`Please Select an Account`);
-
+    expect(messageArea.textContent).toBe(`Please Select an Account`);
+    
     //
     // Scenario: User next selects the Savings account, but leaves the input amount as $0.
     // Should receive error message. Nothing reset.
     //
     
     acctNum = 2;
-    document.getElementById("selectAcct").value = "srcAcct2";
+    selectAcct.value = "srcAcct2";
     c130c.actionTransaction(actionType, duane);
-    expect(document.getElementById("messageArea").textContent).toBe(`Please Input an Amount to ${actionType}`);
-
+    expect(messageArea.textContent).toBe(`Please Input an Amount to ${actionType}`);
+    
     //
     // Scenario: User next attempts a negative value $-1. Should receive error message. Nothing reset.
     //
     
-    document.getElementById("inputAmt").value = -1;
+    inputAmt.value = -1;
     c130c.actionTransaction(actionType, duane);
-    expect(document.getElementById("messageArea").textContent).toBe(`You May Only ${actionType} a Positive Amount`);
-
+    expect(messageArea.textContent).toBe(`You May Only ${actionType} a Positive Amount`);
+    
     //
     // Scenario: User now types in a value of $200 and attempts to Withdraw button. Display action result.
     //
-
-    document.getElementById("inputAmt").value = 200;
+    
+    inputAmt.value = 200;
     c130c.actionTransaction(actionType, duane);
-    expect(document.getElementById("messageArea").textContent).toBe(`${actionType} $200 ${actionPreposition} ` +
-        `${duane.getAcctName(acctNum)}. Balance is now: $500`);
+    expect(messageArea.textContent).toBe(`${actionType} $200 ${actionPreposition} ` +
+    `${duane.getAcctName(acctNum)}. Balance is now: $500`);
     expect(duane.getAcctBalance(acctNum)).toBe(500);
-
+    
     //
     // New account balance should show in account list.
     //
-
+    
     expect(document.getElementById(`sumAcct${acctNum}`).textContent).toBe(`$500`);
-
+    expect(idSum.textContent).toBe("$600");
+    
     //
     // Select Menu and Input values get reset.
     //
 
-    expect(document.getElementById("selectAcct").value).toBe("srcSelect");
-    expect(document.getElementById("inputAmt").value).toBe("0");
+    expect(selectAcct.value).toBe("srcSelect");
+    expect(inputAmt.value).toBe("0");
+
+    //
+    // Add the New Account Name entry div back in to allow name entry. Remember
+    // that we deleted it at the begining. We only need it when creating a new
+    // account.
+    //
+
+    //
+    // First confirm NOT existing.
+    //
+    
+    expect(document.getElementById("idAddAcct")).toBeNull();
+    
+    //
+    // Create and confirm exists using id.
+    //
+    
+    c130c.createdivAddAcct();
+    expect(document.getElementById("idAddAcct")).not.toBeNull();
+    
+    //
+    // Confirm div element attributes.
+    //
+    
+    expect(idAddAcct.classList.contains("divAddAcct")).toBeTruthy();
+    
+    //
+    // Confirm input element and attributes.
+    //
+    
+    expect(document.getElementById("inputNewAcct")).not.toBeNull();
+    expect(inputNewAcct.nodeName).toBe("INPUT");
+    expect(inputNewAcct.type).toBe("text");
+
+    //
+    // Confirm Create button element and attributes.
+    //
+    
+    expect(document.getElementById("btnCreateAcct")).not.toBeNull();
+    expect(btnCreateAcct.nodeName).toBe("BUTTON");
+    expect(btnCreateAcct.type).toBe("button");
+    expect(btnCreateAcct.textContent).toBe("Create");
+    
+    //
+    // Confirm Cancel button element and attributes.
+    //
+    
+    expect(document.getElementById("btnCancelAcct")).not.toBeNull();
+    expect(btnCancelAcct.nodeName).toBe("BUTTON");
+    expect(btnCancelAcct.type).toBe("button");
+    expect(btnCancelAcct.textContent).toBe("Cancel");
+    
+    //
+    // Confirm input checkbox element and attributes.
+    //
+       
+    expect(document.getElementById("inputRadioCredit")).not.toBeNull();
+    expect(inputRadioCredit.nodeName).toBe("INPUT");
+    expect(inputRadioCredit.type).toBe("radio");
+    expect(inputRadioCredit.name).toBe("inputRadioCredit");
+    expect(inputRadioCredit.value).toBe("inputRadioCredit");
+    expect(inputRadioCredit.checked).toBeFalsy();
+       
+    //
+    // Remove the New Account Name entry div to confirm it works.
+    // It also simulates them clicking the Add New Account Cancel
+    // button.
+    //
+    
+    c130c.removedivAddAcct();
+    expect(document.getElementById("idAddAcct")).toBeNull();
+    
+    //
+    // Create it again simulating user has clicked the "Add New Account"
+    // button or selected from source account menu. This div is made
+    // available to the user. Simulate them typing in a new account name
+    // and pressing the Add New Account "Create" button.
+    //
+    
+    c130c.createdivAddAcct();
+    expect(document.getElementById("idAddAcct")).not.toBeNull();
+
+    //
+    // First simulate them clicking the "Create" button without typing
+    // an account name. This is really the only check since a negative
+    // or 0 amount is fine.
+    //
+    inputNewAcct.value = "";
+    inputAmt.value = 0;
+    expect(c130c.createNewAcct(duane)).toBe(0);
+    expect(messageArea.textContent).toBe(`Please input the new Account name`);
+    
+    //
+    // Create a new account and check values
+    //
+
+    inputNewAcct.value = "   High Interest    ";
+    inputAmt.value = 10000;
+    inputRadioCredit.checked = false;
+    let newAcctNum = c130c.createNewAcct(duane);
+    expect(newAcctNum).toBe(4);
+    expect(duane.getAcctName(newAcctNum)).toBe("High Interest");
+    expect(duane.getAcctBalance(newAcctNum)).toBe(10000);
+    expect(duane.isCredit(newAcctNum)).toBeFalsy();
+
 
 });

@@ -1,26 +1,159 @@
-// This is competency 130b.
 //
-// For now just doing enough to satisfy c130b with one Savings account. 
+// This is competency 130c.
 //
 
 const c130c = {
 
+    divCreateAddAcctElement: () => {
+
+        //
+        // Create the following div for Adding Account Name:
+        //
+        // <div id=idAddAcct class="divAddAcct">
+        //     Enter Name of New Account: <input id="inputNewAcct" type=text>
+        //      Added label and radio button.
+        //     <button id="btnCreateAcct" type="button">Create</button>
+        //     <button id="btnCancelAcct" type="button">Cancel</button>
+        // </div>
+        //
+        
+        const divAdd = document.createElement("div");
+        divAdd.textContent = "Enter Name of New Account: ";
+        divAdd.setAttribute("id", "idAddAcct");
+        divAdd.setAttribute("class", "divAddAcct");
+         
+        const newAcctInput = document.createElement("INPUT");
+        newAcctInput.setAttribute("type", "text");
+        newAcctInput.setAttribute("id", "inputNewAcct");
+        divAdd.appendChild(newAcctInput);
+
+        const createBtn = document.createElement("BUTTON");
+        createBtn.textContent = "Create";
+        createBtn.setAttribute("type", "button");
+        createBtn.setAttribute("id", "btnCreateAcct");
+        divAdd.appendChild(createBtn);
+            
+        const cancelBtn = document.createElement("BUTTON");
+        cancelBtn.textContent = "Cancel";
+        cancelBtn.setAttribute("type", "button");
+        cancelBtn.setAttribute("id", "btnCancelAcct");
+        divAdd.appendChild(cancelBtn);
+    
+        const brLine = document.createElement("BR");
+        divAdd.appendChild(brLine);
+        divAdd.appendChild(brLine);
+        
+        const labelNewCreditFlg = document.createElement("LABEL");
+        labelNewCreditFlg.textContent = "Check if Credit Account: ";
+        labelNewCreditFlg.setAttribute("for", "inputRadioCredit");
+        divAdd.appendChild(labelNewCreditFlg);
+
+        const newCreditFlgRadio = document.createElement("INPUT");
+        newCreditFlgRadio.setAttribute("type", "radio");
+        newCreditFlgRadio.setAttribute("id", "inputRadioCredit");
+        newCreditFlgRadio.setAttribute("name", "inputRadioCredit");
+        newCreditFlgRadio.setAttribute("value", "inputRadioCredit");
+        divAdd.appendChild(newCreditFlgRadio);
+        
+        return divAdd;
+    },
+
+    //
+    // The event listeners for "Create" and "Cancel" buttons, for the "Add Account" div are
+    // in the following functions, since they actually exist only when the div is created.
+    // When the div is added or deleted, the event listeners need to be created or removed.
+    //
+    
+    createdivAddAcct: () => {
+    
+        if (document.getElementById("idAddAcct") === null) {
+
+            idAccts.parentElement.insertBefore(c130c.divCreateAddAcctElement(), idAccts);
+
+            btnCreateAcct.addEventListener('click', (e => {
+ 
+                //
+                // Add the code to Create the account.
+                //
+        
+                c130c.createNewAcct(duane);
+
+                //
+                // Account was added. Now with Add div.
+                // Remove the div and events its buttons.
+                //
+
+                c130c.removedivAddAcct ();
+              
+            }));
+    
+            btnCancelAcct.addEventListener('click', (e => {
+        
+                console.log("In the btnCancelAcct of addEventListener");
+    
+                //          
+                // Cancel button would indicate done with Add div.
+                // Remove the div and events its buttons.
+                //
+                c130c.removedivAddAcct ();
+        
+            }));
+        }
+    },
+
+    removedivAddAcct: () => {
+
+        btnCreateAcct.removeEventListener("click", e => {});
+        btnCancelAcct.removeEventListener("click", e => {});
+        idAccts.parentElement.removeChild(idAddAcct);
+
+        selectAcct.value = "srcSelect";
+        inputAmt.value = 0.00;
+    },
+
+    createNewAcct: (client) => {
+
+        let newAcctNum = 0
+
+        if (inputNewAcct.value.trim() === "") {
+ 
+            messageArea.textContent = `Please input the new Account name`;
+            return newAcctNum;
+
+        }
+        else {
+
+            newAcctNum = client.addAccount(inputNewAcct.value.trim(), inputAmt.value, 
+                inputRadioCredit.checked);
+            if (newAcctNum !== 0) {
+                messageArea.textContent = `Created New Account ${client.getAcctName(newAcctNum)}`
+                + ` with Initial Balance of $${client.getAcctBalance(newAcctNum)}`;
+            }
+            else {
+                messageArea.textContent = 
+                    `New Account was not created with failed Account Number of ${newAcctNum}`;
+            }
+
+            return newAcctNum;
+        }
+    },
+
     actionTransaction: (actionType, client) => {
 
-        const inputValue = document.getElementById("inputAmt").value;
-        const srcValue = document.getElementById("selectAcct").value;
+        const inputValue = inputAmt.value;
+        const srcValue = selectAcct.value;
         
         let actionPreposition = "to";
         if (actionType === "Withdraw") actionPreposition = "from";
         
         if (srcValue === "srcSelect") {
-            document.getElementById("messageArea").textContent = `Please Select an Account`;
+            messageArea.textContent = `Please Select an Account`;
         }
         else if (inputValue < 0) {
-            document.getElementById("messageArea").textContent = `You May Only ${actionType} a Positive Amount`;
+            messageArea.textContent = `You May Only ${actionType} a Positive Amount`;
         }
         else if (inputValue < 1) {
-            document.getElementById("messageArea").textContent = `Please Input an Amount to ${actionType}`;
+            messageArea.textContent = `Please Input an Amount to ${actionType}`;
         }
         else {
             
@@ -28,12 +161,13 @@ const c130c = {
             if (actionType === "Deposit") client.deposit(acctNum, inputValue);
             else if (actionType === "Withdraw") client.withdraw(acctNum, inputValue);
 
-            document.getElementById("messageArea").textContent = `${actionType} $${inputValue} ${actionPreposition} ` +
+            messageArea.textContent = `${actionType} $${inputValue} ${actionPreposition} ` +
                 `${client.getAcctName(acctNum)}. Balance is now: $${client.getAcctBalance(acctNum)}`;
             document.getElementById(`sumAcct${acctNum}`).textContent = `$${client.getAcctBalance(acctNum)}`;
+            idSum.textContent = `$${client.sumAccounts()}`;
 
-            document.getElementById("selectAcct").value = "srcSelect";
-            document.getElementById("inputAmt").value = 0.00;
+            selectAcct.value = "srcSelect";
+            inputAmt.value = 0.00;
         }
     }
 

@@ -91,7 +91,7 @@ export class AccountController {
 
     addAccount(acctName, acctBalance, creditFlag) {
 
-        const newAcct = new Account(acctName, acctBalance);
+        const newAcct = new Account(acctName, Number(acctBalance));
 
         newAcct.acctNum = this.nextAcctNum++;
         if (creditFlag) newAcct.setToCredit();

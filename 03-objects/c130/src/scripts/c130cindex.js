@@ -3,24 +3,22 @@ import c130c from './c130c.js'
 
 //
 //
-// Initial setup required to handle the New Account Name. Grab
-// this div from the html.
+// Initial setup required to handle the New Account Name.
+//
+// Remove the New Account Name entry. JS will create again when needed.
 //
 
-const divAdd = document.getElementById("idAddAcct");
-const divAccts = document.getElementById("idAccts");
-const divParent = divAdd.parentElement;
+idAccts.parentElement.removeChild(idAddAcct);
 
 //
-// Remove the New Account Name entry until needed.
+// This code is NOW working good with the adding and removing of the Add New Account div.
+// took a while, but HAPPY working the way I want it.
 //
-
-divParent.removeChild(divAdd);
-
+// If time, go back and see if can make work with any of the ideas below. Might be better 
+// practice to just hide, then to keep adding and deleting the New Account Entry section. 
 //
-// The above code is working. If time, go back and see if can make work with
-// any of the ideas below. Might be better practice to just hide, then to 
-// keep adding and deleting the New Account Entry section.
+// Don't let it hold up from going to next competency because hiding elements is NOT
+// the point of this competency.
 //
 // rendor???
 //
@@ -58,20 +56,12 @@ duane.addAccount("Credit Card", 100, true);
 //
 
 btnAddAcct.addEventListener('click', (eIDbtnAddAcct => {
+    
     //
-    // Add New Account Name Entry
+    // Add New Account Name Entry, but only need 1.
     //
 
-    divParent.insertBefore(divAdd, divAccts);
-
-    // console.log (eIDbtnAddAcct.target);
-    // const newAcctName = prompt("Enter New Account Name: ");
-    // const inputValue = document.getElementById("inputAmt").value;
-    // const srcValue = document.getElementById("selectAcct").value;
-    // document.getElementById("messageArea").textContent = `Created New Account ${newAcctName} with Initial Balance of $${inputValue}`;
-    // document.getElementById("selectAcct").value = "srcSelect";
-    // document.getElementById("inputAmt").value = 0.00;
-    //
+    c130c.createdivAddAcct();
 
 }));
 
@@ -139,46 +129,19 @@ selectAcct.addEventListener('change', (eIselectAcct => {
     const selectedValue = document.getElementById("selectAcct").value;
     
     if (selectedValue === "srcAddAcct") {
-        //
-        // Add New Account Name Entry
-        //
-        divParent.insertBefore(divAdd, divAccts);
-        
-        // const newAcctName = prompt("Enter New Account Name: ");
-        // const inputValue = document.getElementById("inputAmt").value;
-        // const srcValue = document.getElementById("selectAcct").value;
-
-        // document.getElementById("messageArea").textContent = `Create New Account ${newAcctName} with Initial Balance of $${inputValue}`;
-        // // alert(`Create New Account ${newAcctName} with Initial Balance of $${inputValue}`);
-        // document.getElementById("selectAcct").value = "srcSelect";
-        // document.getElementById("inputAmt").value = 0.00;
 
         //
-        // Done, so remove the New Account Name entry until needed.
+        // Add New Account Name Entry, but only need 1
         //
 
-        // divParent.removeChild(divAdd);
-    } 
+        c130c.createdivAddAcct();
+
+    }
+   
 }));
 
-
 //
-// Event listener for the Add New Cancel button.
-//
-
-//btnCreateAcct.addEventListener('click', (eIDbtnCancel => {
-// btnCancelAcct.addEventListener('click', (eIDbtnCancel => {
-    
-    //
-    // Done, so remove the New Account Name entry until needed.
-    //
-        
-    // divParent.removeChild(divAdd);
-        
-// }));
-
-//
-// Event listener for Click Anywhere but a BUTTON.
+// Event listener for Click Anywhere but a BUTTON. Clear messageArea.
 //
 
 document.body.addEventListener("click", (e => {
@@ -186,10 +149,12 @@ document.body.addEventListener("click", (e => {
     //  Bug: This clears the Add confirmation message from SELECT before user can see it. Simple
     //  SELECT opens up to not enough clearing. Need to find the difference for Add from Select.
     //  Maybe add a flag.
-    //    
-    // if (e.target.nodeName !== 'BUTTON' && e.target.nodeName !== 'SELECT') {
+    //
+
     if (e.target.nodeName !== 'BUTTON') {
-        document.getElementById("messageArea").textContent = "";
-            // document.getElementById("messageArea").textContent = e.target.nodeName;
+
+        messageArea.textContent = "";
+
     }
+
 }));
