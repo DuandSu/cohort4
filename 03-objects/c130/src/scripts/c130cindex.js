@@ -43,6 +43,17 @@ idAccts.parentElement.removeChild(idAddAcct);
 const duane = new AccountController("Duane Munro");
 
 //
+// Add some gretting messages for duane to demonstrate message queue funtionality,
+// but first clear out any residual from original HTML.
+//
+
+if (duane.isMessage()) duane.resetMessage();
+
+duane.addMessage("Welcome to the Bank of Munrobinson!");
+duane.addMessage("We provide all your banking needs with no interest or service charges.");
+duane.addMessage("Enjoy your experience and have a GREAT day.");
+
+//
 // This is just a temporary fix for testing so it matches my starter
 // accounts in HTML.
 //
@@ -50,6 +61,15 @@ const duane = new AccountController("Duane Munro");
 duane.addAccount("Chequing", 0, false);
 duane.addAccount("Savings", 200, false);
 duane.addAccount("Credit Card", 100, true);
+
+//
+// Visual Setup for web page complete. Display Greeting Messages.
+//
+
+if (duane.isMessage()) {
+    messageArea.textContent = duane.getMessages();
+    duane.resetMessage();
+}
 
 //
 // Event listener for the Add New Account button.

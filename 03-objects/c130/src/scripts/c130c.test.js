@@ -118,7 +118,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     let actionPreposition = "to";
 
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(`Please Select an Account`);
+    expect(messageArea.textContent).toBe(`Please Select an Account.`);
     expect(idSum.textContent).toBe("$300");
     //
     // Scenario: User next selects the Savings account, but leaves the input amount as $0.
@@ -128,7 +128,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     let acctNum = 2;
     selectAcct.value = "srcAcct2";
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(`Please Input an Amount to ${actionType}`);
+    expect(messageArea.textContent).toBe(`Please Input an Amount to ${actionType}.`);
     expect(idSum.textContent).toBe("$300");
    
     //
@@ -137,7 +137,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     inputAmt.value = -1;
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(`You May Only ${actionType} a Positive Amount`);
+    expect(messageArea.textContent).toBe(`You May Only ${actionType} a Positive Amount.`);
     expect(idSum.textContent).toBe("$300");
     
     //
@@ -146,8 +146,9 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     inputAmt.value = 500;
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(`${actionType} $500 ${actionPreposition} ` +
-        `${duane.getAcctName(acctNum)}. Balance is now: $700`);
+    expect(messageArea.textContent).toBe(` ${actionType} $500 ${actionPreposition} ` +
+        `${duane.getAcctName(acctNum)}. Balance is now: $700. Your HIGHest account ` +
+        `is Account: Savings. Your LOWest account is Account: Chequing.`);
     expect(duane.getAcctBalance(acctNum)).toBe(700);
     
     //
@@ -174,7 +175,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     actionPreposition = "from";
     
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(`Please Select an Account`);
+    expect(messageArea.textContent).toBe(`Please Select an Account.`);
     
     //
     // Scenario: User next selects the Savings account, but leaves the input amount as $0.
@@ -184,7 +185,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     acctNum = 2;
     selectAcct.value = "srcAcct2";
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(`Please Input an Amount to ${actionType}`);
+    expect(messageArea.textContent).toBe(`Please Input an Amount to ${actionType}.`);
     
     //
     // Scenario: User next attempts a negative value $-1. Should receive error message. Nothing reset.
@@ -192,7 +193,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     inputAmt.value = -1;
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(`You May Only ${actionType} a Positive Amount`);
+    expect(messageArea.textContent).toBe(`You May Only ${actionType} a Positive Amount.`);
     
     //
     // Scenario: User now types in a value of $200 and attempts to Withdraw button. Display action result.
@@ -200,8 +201,9 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     inputAmt.value = 200;
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(`${actionType} $200 ${actionPreposition} ` +
-    `${duane.getAcctName(acctNum)}. Balance is now: $500`);
+    expect(messageArea.textContent).toBe(` ${actionType} $200 ${actionPreposition} ` +
+        `${duane.getAcctName(acctNum)}. Balance is now: $500. ` +
+        `Your HIGHest account is Account: Savings. Your LOWest account is Account: Chequing.`);
     expect(duane.getAcctBalance(acctNum)).toBe(500);
     
     //
@@ -231,7 +233,8 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(document.getElementById("idAddAcct")).toBeNull();
     
     //
-    // Create and confirm exists using id.
+    // Create and confirm exists using id. This is called in event
+    // handlers for Add Account button or Source Account Menu Select.
     //
     
     c130c.createdivAddAcct();
@@ -307,12 +310,12 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     inputNewAcct.value = "";
     inputAmt.value = 0;
     expect(c130c.createNewAcct(duane)).toBe(0);
-    expect(messageArea.textContent).toBe(`Please input the new Account name`);
+    expect(messageArea.textContent).toBe(`Please input the new Account name.`);
     
     //
     // Create a new account and check values
     //
-
+    
     inputNewAcct.value = "   High Interest    ";
     inputAmt.value = 10000;
     inputRadioCredit.checked = false;
@@ -321,6 +324,17 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.getAcctName(newAcctNum)).toBe("High Interest");
     expect(duane.getAcctBalance(newAcctNum)).toBe(10000);
     expect(duane.isCredit(newAcctNum)).toBeFalsy();
+    expect(messageArea.textContent).toBe(`Created New Account High Interest`
+    + ` with Initial Balance of $10000.`);
 
+    //
+    // Select Menu and Input values get reset. Event handler will also
+    // delete the Add Account Name div, since not needed until next time.
+    // Do that next.
+    //
+
+    c130c.removedivAddAcct ();
+    expect(selectAcct.value).toBe("srcSelect");
+    expect(inputAmt.value).toBe("0");
 
 });

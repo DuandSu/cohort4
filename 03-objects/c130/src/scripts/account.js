@@ -32,8 +32,17 @@ export class Account {
     }
 
     getBalance() {
+    
+        if (typeof this.acctBal !== 'undefined') {
 
-        return this.acctBal;
+            return this.acctBal;
+
+        }
+        else {
+
+            return NaN;
+
+        }
 
     }
 
@@ -57,9 +66,8 @@ export class AccountController {
         this.clientName = clientName;
         this.listOfAccts = [];
         this.nextAcctNum = 1;
-        this.msgQueue = "";
-        this.msgFlag = false;
-        
+        this.msgQueue = [];
+
     }
     
     getClientName() {
@@ -67,23 +75,37 @@ export class AccountController {
         return this.clientName;
         
     }
-    
-    getMessage() {
         
-        return this.msgQueue;
-        
-    }
-    
     isMessage() {
-        
-        return this.msgFlag;
-        
+    
+        if (this.msgQueue.length > 0)
+            return true;
+        else
+            return false;
     }
     
+    getMessages() {
+
+        let messages = "";
+        for (let i = 0; i < this.msgQueue.length; i++) {
+            messages += " " + `${this.msgQueue[i]}`;
+            // messages += "\n" + `${this.msgQueue[i]}`;
+            // messages += "<br>" + `${this.msgQueue[i]}`;
+        }
+
+        return messages;
+    }
+
+    addMessage(textMsg) {
+
+        this.msgQueue[this.msgQueue.length] = textMsg;
+
+        return true;
+    }
+
     resetMessage() {
 
-        this.msgQueue = "";
-        this.msgFlag = false;
+        this.msgQueue = [];
         
         return true;
 
@@ -101,15 +123,24 @@ export class AccountController {
     }
 
     getAcctName(acctNum) {
-
+        
         return this.listOfAccts[acctNum].getAccountName();
-
+        
     }
-
+    
     getAcctBalance(acctNum) {
+        
+        if (typeof this.listOfAccts[acctNum].getAccountName() !== 'undefined') {
 
-        return this.listOfAccts[acctNum].getBalance();
+            return this.listOfAccts[acctNum].getBalance();
 
+        }
+        else {
+
+            return NaN;
+
+        }
+        
     }
 
     removeAccount(acctNum) {
@@ -128,14 +159,42 @@ export class AccountController {
 
     deposit(acctNum, amt) {
 
-        return this.listOfAccts[acctNum].deposit(amt);
+        if (typeof this.listOfAccts[acctNum].getAccountName() !== 'undefined') {
+             
+            const newBal = this.listOfAccts[acctNum].deposit(amt);
+            this.addMessage(`Deposit $${amt} to ${this.listOfAccts[acctNum].getAccountName()}. ` +
+                `Balance is now: $${newBal}.`);
+            this.addMessage(`Your HIGHest account is Account: ${this.getAcctName(this.findHighAccount())}.`);
+            this.addMessage(`Your LOWest account is Account: ${this.getAcctName(this.findLowAccount())}.`);
+            return newBal;
+        }
+        else {
 
+            this.addMessage(`Deposit $${amt} attempt FAILED to an account that does NOT exist.`);
+            return NaN;
+
+        }
     }
     
     withdraw(acctNum, amt) {
         
-        return this.listOfAccts[acctNum].withdraw(amt);
+        if (typeof this.listOfAccts[acctNum].getAccountName() !== 'undefined') {
+            
+            const newBal = this.listOfAccts[acctNum].withdraw(amt);
+            this.addMessage(`Withdraw $${amt} from ${this.listOfAccts[acctNum].getAccountName()}. ` +
+            `Balance is now: $${newBal}.`);
+            this.addMessage(`Your HIGHest account is Account: ${this.getAcctName(this.findHighAccount())}.`);
+            this.addMessage(`Your LOWest account is Account: ${this.getAcctName(this.findLowAccount())}.`);
+            return newBal;
 
+        }
+        else {
+
+            this.addMessage(`Withdraw $${amt} attempt FAILED from an account that does NOT exist.`);
+            return NaN;
+
+        }
+            
     }
 
     transfer(fromAcctNum, toAcctNum, amt) {
@@ -145,7 +204,6 @@ export class AccountController {
         //
         // If non-account and NaN balance, then return NaN and balances unchanged.
         //  
-
         if (isNaN(this.listOfAccts[fromAcctNum].getBalance()) || isNaN(this.listOfAccts[toAcctNum].getBalance())) {
             
             returnArray[0] = this.listOfAccts[fromAcctNum].getBalance();
@@ -171,7 +229,7 @@ export class AccountController {
                 sumAccts += this.listOfAccts[i].getBalance();
             }
         }
-    return sumAccts;
+        return sumAccts;
     }
 
     findHighAccount() {
@@ -181,24 +239,28 @@ export class AccountController {
             let highestAcctBal = this.listOfAccts[1].getBalance();
             for (let i = 1; i < this.listOfAccts.length; i++) {
                 if (typeof this.listOfAccts[i].getAccountName() !== 'undefined') {
-                    if (this.listOfAccts[i].getBalance() > highestAcctBal)
+                    if (this.listOfAccts[i].getBalance() > highestAcctBal) {
                         highestAcctNum = i;
+                        highestAcctBal = this.listOfAccts[i].getBalance();
+                    }
                 }
             }
             return highestAcctNum;
         }
         return 0;
     }
-
+    
     findLowAccount() {
-
+        
         if (this.listOfAccts.length > 0) {
             let lowestAcctNum = 1;
             let lowestAcctBal = this.listOfAccts[1].getBalance();
             for (let i = 1; i < this.listOfAccts.length; i++) {
                 if (typeof this.listOfAccts[i].getAccountName() !== 'undefined') {
-                    if (this.listOfAccts[i].getBalance() < lowestAcctBal)
+                    if (this.listOfAccts[i].getBalance() < lowestAcctBal) {
                         lowestAcctNum = i;
+                        lowestAcctBal = this.listOfAccts[i].getBalance();
+                    }
                 }
             }
             return lowestAcctNum;

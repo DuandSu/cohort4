@@ -4,7 +4,7 @@
 
 const c130c = {
 
-    divCreateAddAcctElement: () => {
+    divMakeAddAcctElement: () => {
 
         //
         // Create the following div for Adding Account Name:
@@ -68,7 +68,7 @@ const c130c = {
     
         if (document.getElementById("idAddAcct") === null) {
 
-            idAccts.parentElement.insertBefore(c130c.divCreateAddAcctElement(), idAccts);
+            idAccts.parentElement.insertBefore(c130c.divMakeAddAcctElement(), idAccts);
 
             btnCreateAcct.addEventListener('click', (e => {
  
@@ -89,8 +89,6 @@ const c130c = {
     
             btnCancelAcct.addEventListener('click', (e => {
         
-                console.log("In the btnCancelAcct of addEventListener");
-    
                 //          
                 // Cancel button would indicate done with Add div.
                 // Remove the div and events its buttons.
@@ -117,7 +115,7 @@ const c130c = {
 
         if (inputNewAcct.value.trim() === "") {
  
-            messageArea.textContent = `Please input the new Account name`;
+            messageArea.textContent = `Please input the new Account name.`;
             return newAcctNum;
 
         }
@@ -127,11 +125,11 @@ const c130c = {
                 inputRadioCredit.checked);
             if (newAcctNum !== 0) {
                 messageArea.textContent = `Created New Account ${client.getAcctName(newAcctNum)}`
-                + ` with Initial Balance of $${client.getAcctBalance(newAcctNum)}`;
+                + ` with Initial Balance of $${client.getAcctBalance(newAcctNum)}.`;
             }
             else {
                 messageArea.textContent = 
-                    `New Account was not created with failed Account Number of ${newAcctNum}`;
+                    `New Account was not created with failed Account Number of ${newAcctNum}.`;
             }
 
             return newAcctNum;
@@ -147,13 +145,13 @@ const c130c = {
         if (actionType === "Withdraw") actionPreposition = "from";
         
         if (srcValue === "srcSelect") {
-            messageArea.textContent = `Please Select an Account`;
+            messageArea.textContent = `Please Select an Account.`;
         }
         else if (inputValue < 0) {
-            messageArea.textContent = `You May Only ${actionType} a Positive Amount`;
+            messageArea.textContent = `You May Only ${actionType} a Positive Amount.`;
         }
         else if (inputValue < 1) {
-            messageArea.textContent = `Please Input an Amount to ${actionType}`;
+            messageArea.textContent = `Please Input an Amount to ${actionType}.`;
         }
         else {
             
@@ -161,8 +159,11 @@ const c130c = {
             if (actionType === "Deposit") client.deposit(acctNum, inputValue);
             else if (actionType === "Withdraw") client.withdraw(acctNum, inputValue);
 
-            messageArea.textContent = `${actionType} $${inputValue} ${actionPreposition} ` +
-                `${client.getAcctName(acctNum)}. Balance is now: $${client.getAcctBalance(acctNum)}`;
+            if (client.isMessage()) {
+                messageArea.textContent = client.getMessages();
+                client.resetMessage();
+            }
+            
             document.getElementById(`sumAcct${acctNum}`).textContent = `$${client.getAcctBalance(acctNum)}`;
             idSum.textContent = `$${client.sumAccounts()}`;
 

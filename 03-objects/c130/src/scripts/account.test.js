@@ -51,14 +51,17 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     //
 
     expect(duane.isMessage()).toBeFalsy();
-    expect(duane.getMessage()).toBe("");
-    duane.msgFlag=true;
-    duane.msgQueue="There is a message!";
+    expect(duane.getMessages()).toBe("");
+    expect(duane.addMessage("Welcome to the Bank of Munrobinson!")).toBe(true);
+    expect(duane.addMessage("We provide all your banking needs with no interest or service charges.")).toBe(true);
+    expect(duane.addMessage("Enjoy your experience and have a GREAT day.")).toBe(true);
     expect(duane.isMessage()).toBeTruthy();
-    expect(duane.getMessage()).toBe("There is a message!");
+    expect(duane.getMessages()).toBe(" Welcome to the Bank of Munrobinson!" +
+    " We provide all your banking needs with no interest or service charges." +
+    " Enjoy your experience and have a GREAT day.");
     expect(duane.resetMessage()).toBe(true);
     expect(duane.isMessage()).toBeFalsy();
-    expect(duane.getMessage()).toBe("");
+    expect(duane.getMessages()).toBe("");
     
     //
     // Add Savings Account
@@ -125,25 +128,54 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     // Attempt Deposit to non-Account
     //
     expect(duane.deposit(3, 50)).toBe(NaN);
-
+    expect(duane.getMessages()).toBe(" Deposit $50 attempt FAILED to an account that does NOT exist.");
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
+    
     //
     // Deposit to Savings
     //
-
+    
     expect(duane.deposit(1, 50)).toBe(250);
-
+    expect(duane.isMessage()).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Deposit $50 to ${duane.getAcctName(1)}. ` +
+        `Balance is now: $250. ` +
+        `Your HIGHest account is Account: Savings. Your LOWest account is Account: Line of Credit.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
+    
     //
     // Deposit to Chequing
     //
-
+    
     expect(duane.deposit(2, 300)).toBe(305);
+    expect(duane.isMessage()).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Deposit $300 to ${duane.getAcctName(2)}. ` +
+        `Balance is now: $305. ` +
+        `Your HIGHest account is Account: Chequing. Your LOWest account is Account: Line of Credit.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
+    
+    //
+    // Attempt Withdraw to non-Account
+    //
+    expect(duane.withdraw(3, 50)).toBe(NaN);
+    expect(duane.getMessages()).toBe(" Withdraw $50 attempt FAILED from an account that does NOT exist.");
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     //
     // Withdraw from Line of Credit
     //
-
+    
     expect(duane.withdraw(4, 1000)).toBe(-1200);
-
+    expect(duane.isMessage()).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Withdraw $1000 from ${duane.getAcctName(4)}. ` +
+        `Balance is now: $-1200. ` +
+        `Your HIGHest account is Account: Chequing. Your LOWest account is Account: Line of Credit.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
+    
        
     //
     // Add Visa Credit Card Account
