@@ -2,6 +2,10 @@
 
 export class Account {
 
+    //
+    // acctNum left as 0. Calling function can determine account number assignment.
+    //
+
     constructor(acctName, acctBal) {
 
         this.acctName = acctName;
@@ -11,6 +15,12 @@ export class Account {
         
     }
     
+    setAcctNum(acctNum) {
+
+        this.acctNum = acctNum;
+        return true;
+    
+    }    
     setToCredit() {
 
         this.acctType = "Credit";
@@ -115,10 +125,16 @@ export class AccountController {
 
         const newAcct = new Account(acctName, Number(acctBalance));
 
-        newAcct.acctNum = this.nextAcctNum++;
+        newAcct.setAcctNum(this.nextAcctNum++);
         if (creditFlag) newAcct.setToCredit();
         this.listOfAccts[newAcct.acctNum] = newAcct;
-            
+        
+        // messageArea.textContent = `Created New Account ${client.getAcctName(newAcct.acctNum)}`
+        //     + ` with Initial Balance of $${client.getAcctBalance(newAcctNum)}.`;
+        this.addMessage(`Created New Account ${acctName} with Initial Balance of $${acctBalance}.`);
+        this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
+        this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
+
         return newAcct.acctNum;
     }
 
@@ -164,8 +180,8 @@ export class AccountController {
             const newBal = this.listOfAccts[acctNum].deposit(amt);
             this.addMessage(`Deposit $${amt} to ${this.listOfAccts[acctNum].getAccountName()}. ` +
                 `Balance is now: $${newBal}.`);
-            this.addMessage(`Your HIGHest account is Account: ${this.getAcctName(this.findHighAccount())}.`);
-            this.addMessage(`Your LOWest account is Account: ${this.getAcctName(this.findLowAccount())}.`);
+            this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
+            this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
             return newBal;
         }
         else {
@@ -183,8 +199,8 @@ export class AccountController {
             const newBal = this.listOfAccts[acctNum].withdraw(amt);
             this.addMessage(`Withdraw $${amt} from ${this.listOfAccts[acctNum].getAccountName()}. ` +
             `Balance is now: $${newBal}.`);
-            this.addMessage(`Your HIGHest account is Account: ${this.getAcctName(this.findHighAccount())}.`);
-            this.addMessage(`Your LOWest account is Account: ${this.getAcctName(this.findLowAccount())}.`);
+            this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
+            this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
             return newBal;
 
         }
@@ -232,20 +248,79 @@ export class AccountController {
         return sumAccts;
     }
 
+    sortAcctList(sortBy) {
+
+        // const emptyAccount = new Account();
+
+        const tmpAcctList = [];
+        let tmpAcct = new Account();
+        let tmpCnt = 0
+        let retArrKeys = [];
+
+        //
+        // Set up tmpAcctList as duplicate of Account List without]
+        // the missing accounts. Note that index in tmpAcctList no
+        // longer represents account number, but can grab that from
+        // the account class.
+        //
+
+        for (let i = 1; i < this.listOfAccts.length; i++) {
+
+            if (typeof this.listOfAccts[i].getAccountName() !== 'undefined') {
+                tmpAcctList[tmpCnt++] = this.listOfAccts[i];
+                console.log(`New index ${tmpCnt-1} is Account: ${tmpAcctList[tmpCnt-1].acctName}`);
+            }
+        }
+    
+        let tradesMade = true;
+
+        while (tradesMade) {
+
+            tradesMade = false;
+            for (let i = 0; i < tmpAcctList.length; i++) {
+
+                
+                if (i !== (tmpAcctList.length - 1)) {
+                    
+                    console.log(`Compare index ${i+1} Account: ${tmpAcctList[i+1].acctName}`);
+                    console.log(`To index ${i} Account: ${tmpAcctList[i].acctName}`);
+
+                    if (tmpAcctList[i+1].acctName < tmpAcctList[i].acctName) {
+                        tmpAcct = tmpAcctList[i];
+                        tmpAcctList[i] = tmpAcctList[i+1];
+                        tmpAcctList[i+1] = tmpAcct;
+                        tradesMade = true;
+                    }
+                }        
+            }
+        }
+
+        //
+        // Only need to return the keys acctNum sorted.
+        //
+
+        for (let i = 0; i < tmpAcctList.length; i++) {
+
+            retArrKeys[i] = tmpAcctList[i].acctNum;
+        }
+
+        return retArrKeys;
+    }
+
     findHighAccount() {
 
         if (this.listOfAccts.length > 0) {
-            let highestAcctNum = 1;
-            let highestAcctBal = this.listOfAccts[1].getBalance();
+            let highAcctNum = 1;
+            let highAcctBal = this.listOfAccts[1].getBalance();
             for (let i = 1; i < this.listOfAccts.length; i++) {
                 if (typeof this.listOfAccts[i].getAccountName() !== 'undefined') {
-                    if (this.listOfAccts[i].getBalance() > highestAcctBal) {
-                        highestAcctNum = i;
-                        highestAcctBal = this.listOfAccts[i].getBalance();
+                    if (this.listOfAccts[i].getBalance() > highAcctBal) {
+                        highAcctNum = i;
+                        highAcctBal = this.listOfAccts[i].getBalance();
                     }
                 }
             }
-            return highestAcctNum;
+            return highAcctNum;
         }
         return 0;
     }
@@ -253,17 +328,17 @@ export class AccountController {
     findLowAccount() {
         
         if (this.listOfAccts.length > 0) {
-            let lowestAcctNum = 1;
-            let lowestAcctBal = this.listOfAccts[1].getBalance();
+            let lowAcctNum = 1;
+            let lowAcctBal = this.listOfAccts[1].getBalance();
             for (let i = 1; i < this.listOfAccts.length; i++) {
                 if (typeof this.listOfAccts[i].getAccountName() !== 'undefined') {
-                    if (this.listOfAccts[i].getBalance() < lowestAcctBal) {
-                        lowestAcctNum = i;
-                        lowestAcctBal = this.listOfAccts[i].getBalance();
+                    if (this.listOfAccts[i].getBalance() < lowAcctBal) {
+                        lowAcctNum = i;
+                        lowAcctBal = this.listOfAccts[i].getBalance();
                     }
                 }
             }
-            return lowestAcctNum;
+            return lowAcctNum;
         }
         return 0;
     }

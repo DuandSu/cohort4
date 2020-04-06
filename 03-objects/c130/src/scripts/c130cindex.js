@@ -43,6 +43,18 @@ idAccts.parentElement.removeChild(idAddAcct);
 const duane = new AccountController("Duane Munro");
 
 //
+// This is just a temporary fix for testing so it matches my starter
+// accounts in HTML. Anyways, would assume this whole page would be called after prior
+// HTML page would have provided login for that user anyways. Assume that this page
+// would get passed the client name and list of existing accounts.
+//
+
+duane.addAccount("Chequing", 0, false);
+duane.addAccount("Savings", 200, false);
+duane.addAccount("Credit Card", 100, true);
+duane.resetMessage();
+
+//
 // Add some gretting messages for duane to demonstrate message queue funtionality,
 // but first clear out any residual from original HTML.
 //
@@ -52,15 +64,6 @@ if (duane.isMessage()) duane.resetMessage();
 duane.addMessage("Welcome to the Bank of Munrobinson!");
 duane.addMessage("We provide all your banking needs with no interest or service charges.");
 duane.addMessage("Enjoy your experience and have a GREAT day.");
-
-//
-// This is just a temporary fix for testing so it matches my starter
-// accounts in HTML.
-//
-
-duane.addAccount("Chequing", 0, false);
-duane.addAccount("Savings", 200, false);
-duane.addAccount("Credit Card", 100, true);
 
 //
 // Visual Setup for web page complete. Display Greeting Messages.
@@ -110,7 +113,7 @@ btnWithdraw.addEventListener('click', (eIbtnWithdraw => {
 //
 
 btnTransfer.addEventListener('click', (eIbtnTransfer => {
-    console.log (eIbtnTransfer.target);
+
     const inputValue = document.getElementById("inputAmt").value;
     const srcValue = document.getElementById("selectAcct").value;
     const destValue = document.getElementById("selectDestAcct").value;

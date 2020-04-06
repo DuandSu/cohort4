@@ -71,7 +71,12 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctName(1)).toBe("Savings");
     expect(duane.getAcctBalance(1)).toBe(200);
     expect(duane.isCredit(1)).toBeFalsy();
-
+    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(1)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(1)}. ` +
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Savings.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
+    
     //
     // Add Chequing Account
     //
@@ -80,7 +85,12 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctName(2)).toBe("Chequing");
     expect(duane.getAcctBalance(2)).toBe(5);
     expect(duane.isCredit(2)).toBeFalsy();
-    
+    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(2)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(2)}. ` +
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
+
     //
     // Add MasterCard Credit Card Account
     //
@@ -89,6 +99,11 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctName(3)).toBe("MasterCard");
     expect(duane.getAcctBalance(3)).toBe(0);
     expect(duane.isCredit(3)).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(3)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(3)}. ` +
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: MasterCard.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     //
     // Add Line of Credit Account
@@ -98,6 +113,11 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctName(4)).toBe("Line of Credit");
     expect(duane.getAcctBalance(4)).toBe(-200);
     expect(duane.isCredit(4)).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(4)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(4)}. ` +
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Line of Credit.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     //
     // Remove the MasterCard Credit Account
@@ -113,13 +133,13 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.sumAccounts()).toBe(5);
 
     //
-    // Find Highest Value Account    //
+    // Find HIGHest value Value Account    //
     //
 
     expect(duane.findHighAccount()).toBe(1);
 
     //
-    // Find Lowest Value Account    //
+    // Find LOWest value Value Account    //
     //
 
     expect(duane.findLowAccount()).toBe(4);
@@ -140,7 +160,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.isMessage()).toBeTruthy();
     expect(duane.getMessages()).toBe(` Deposit $50 to ${duane.getAcctName(1)}. ` +
         `Balance is now: $250. ` +
-        `Your HIGHest account is Account: Savings. Your LOWest account is Account: Line of Credit.`);
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
     
@@ -152,7 +172,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.isMessage()).toBeTruthy();
     expect(duane.getMessages()).toBe(` Deposit $300 to ${duane.getAcctName(2)}. ` +
         `Balance is now: $305. ` +
-        `Your HIGHest account is Account: Chequing. Your LOWest account is Account: Line of Credit.`);
+        `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
     
@@ -172,7 +192,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.isMessage()).toBeTruthy();
     expect(duane.getMessages()).toBe(` Withdraw $1000 from ${duane.getAcctName(4)}. ` +
         `Balance is now: $-1200. ` +
-        `Your HIGHest account is Account: Chequing. Your LOWest account is Account: Line of Credit.`);
+        `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
     
@@ -185,6 +205,11 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctName(5)).toBe("Visa");
     expect(duane.getAcctBalance(5)).toBe(-5000);
     expect(duane.isCredit(5)).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(5)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(5)}. ` +
+        `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Visa.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     //
     // Summarize the total of all Accounts
@@ -193,13 +218,13 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.sumAccounts()).toBe(-5645);
 
     //
-    // Find Highest Value Account
+    // Find HIGHest value Value Account
     //
 
     expect(duane.findHighAccount()).toBe(2);
 
     //
-    // Find Lowest Value Account
+    // Find LOWest value Value Account
     //
 
     expect(duane.findLowAccount()).toBe(5);
@@ -223,5 +248,12 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
 
     expect(duane.transfer(3, 5, 500)).toEqual([NaN,-4500]);
     expect(duane.transfer(5, 3, 500)).toEqual([-4500, NaN]);
+
+    //
+    // Testing account list sort.
+    //
+
+    expect(duane.sortAcctList("Name")).toEqual([2, 4, 1, 5]);
+
 
 });

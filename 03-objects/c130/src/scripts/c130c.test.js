@@ -47,7 +47,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
                     '<li id="listAcct1" class="liOdd">Chequing</li>' +
                     '<li id="listAcct2" class="liEven">Savings</li>' +
                     '<li id="listAcct3" class="liOdd">Credit Card</li>' +
-                    '<li class="liSum">Summary of All Accounts</li>' +
+                    '<li id="idSumTxt" class="liSum">Summary of All Accounts</li>' +
 				'</ul>' +
 			'</section>' +
 			'<aside class="asideAcctBal">' +
@@ -98,17 +98,32 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.getAcctName(1)).toBe("Chequing");
     expect(duane.getAcctBalance(1)).toBe(0);
     expect(duane.isCredit(1)).toBeFalsy();
+    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(1)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(1)}. ` +
+        `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Chequing.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     expect(duane.addAccount("Savings", 200, false)).toBe(2);
     expect(duane.getAcctName(2)).toBe("Savings");
     expect(duane.getAcctBalance(2)).toBe(200);
     expect(duane.isCredit(2)).toBeFalsy();
+    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(2)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(2)}. ` +
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     
     expect(duane.addAccount("Credit Card", 100, true)).toBe(3);
     expect(duane.getAcctName(3)).toBe("Credit Card");
     expect(duane.getAcctBalance(3)).toBe(100);
     expect(duane.isCredit(3)).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(3)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(3)}. ` +
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     //
     // Scenario: Attempt Deposit button with nothing selected. Should receive error message.
@@ -147,8 +162,8 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     inputAmt.value = 500;
     c130c.actionTransaction(actionType, duane);
     expect(messageArea.textContent).toBe(` ${actionType} $500 ${actionPreposition} ` +
-        `${duane.getAcctName(acctNum)}. Balance is now: $700. Your HIGHest account ` +
-        `is Account: Savings. Your LOWest account is Account: Chequing.`);
+        `${duane.getAcctName(acctNum)}. Balance is now: $700. Your HIGHest value account ` +
+        `is Account: Savings. Your LOWest value account is Account: Chequing.`);
     expect(duane.getAcctBalance(acctNum)).toBe(700);
     
     //
@@ -203,7 +218,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     c130c.actionTransaction(actionType, duane);
     expect(messageArea.textContent).toBe(` ${actionType} $200 ${actionPreposition} ` +
         `${duane.getAcctName(acctNum)}. Balance is now: $500. ` +
-        `Your HIGHest account is Account: Savings. Your LOWest account is Account: Chequing.`);
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
     expect(duane.getAcctBalance(acctNum)).toBe(500);
     
     //
@@ -324,8 +339,12 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.getAcctName(newAcctNum)).toBe("High Interest");
     expect(duane.getAcctBalance(newAcctNum)).toBe(10000);
     expect(duane.isCredit(newAcctNum)).toBeFalsy();
-    expect(messageArea.textContent).toBe(`Created New Account High Interest`
-    + ` with Initial Balance of $10000.`);
+    // messageArea.textContent = duane.getMessages();
+    expect(messageArea.textContent).toBe(` Created New Account ${duane.getAcctName(4)} ` +
+        `with Initial Balance of $${duane.getAcctBalance(4)}. ` +
+        `Your HIGHest value account is Account: High Interest. Your LOWest value account is Account: Chequing.`);
+    // expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     //
     // Select Menu and Input values get reset. Event handler will also
@@ -336,5 +355,51 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     c130c.removedivAddAcct ();
     expect(selectAcct.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
+
+    //
+    // Testing deletion of the account list. Note that createNewAcct method will
+    // NOT yet have added an li element for the new account, so number of li
+    // deleted might seem one less than expected. The new account li gets
+    // added as a part of the refreshAccountList method, of which deleteAccountList
+    // is the first method called for that. New account will show after the 
+    // createAccountList is called after the deleteAccountList, again within the
+    // createNewAcct method.
+    //
+
+    expect(c130c.deleteAccountList()).toBe(3);
+    expect(duane.sortAcctList("Name")).toEqual([1, 3, 4, 2]);
+    expect(c130c.createAccountList(duane)).toBe(4);
+
+    expect(ulAcctList.children[0].id).toBe("listAcct1");
+    expect(ulAcctList.children[0].classList.contains("liOdd")).toBeTruthy();
+    expect(ulAcctList.children[0].textContent).toBe("Chequing");
+    
+    expect(ulAcctBal.children[0].id).toBe("sumAcct1");
+    expect(ulAcctBal.children[0].classList.contains("liOdd")).toBeTruthy();
+    expect(ulAcctBal.children[0].textContent).toBe("$0");
+
+    expect(ulAcctList.children[1].id).toBe("listAcct3");
+    expect(ulAcctList.children[1].classList.contains("liEven")).toBeTruthy();
+    expect(ulAcctList.children[1].textContent).toBe("Credit Card");
+    
+    expect(ulAcctBal.children[1].id).toBe("sumAcct3");
+    expect(ulAcctBal.children[1].classList.contains("liEven")).toBeTruthy();
+    expect(ulAcctBal.children[1].textContent).toBe("$100");
+
+    expect(ulAcctList.children[2].id).toBe("listAcct4");
+    expect(ulAcctList.children[2].classList.contains("liOdd")).toBeTruthy();
+    expect(ulAcctList.children[2].textContent).toBe("High Interest");
+    
+    expect(ulAcctBal.children[2].id).toBe("sumAcct4");
+    expect(ulAcctBal.children[2].classList.contains("liOdd")).toBeTruthy();
+    expect(ulAcctBal.children[2].textContent).toBe("$10000");
+
+    expect(ulAcctList.children[3].id).toBe("listAcct2");
+    expect(ulAcctList.children[3].classList.contains("liEven")).toBeTruthy();
+    expect(ulAcctList.children[3].textContent).toBe("Savings");
+    
+    expect(ulAcctBal.children[3].id).toBe("sumAcct2");
+    expect(ulAcctBal.children[3].classList.contains("liEven")).toBeTruthy();
+    expect(ulAcctBal.children[3].textContent).toBe("$500");
 
 });

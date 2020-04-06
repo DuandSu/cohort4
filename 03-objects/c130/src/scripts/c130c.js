@@ -123,15 +123,16 @@ const c130c = {
 
             newAcctNum = client.addAccount(inputNewAcct.value.trim(), inputAmt.value, 
                 inputRadioCredit.checked);
-            if (newAcctNum !== 0) {
-                messageArea.textContent = `Created New Account ${client.getAcctName(newAcctNum)}`
-                + ` with Initial Balance of $${client.getAcctBalance(newAcctNum)}.`;
-            }
-            else {
-                messageArea.textContent = 
-                    `New Account was not created with failed Account Number of ${newAcctNum}.`;
-            }
+            
+            // c130c.refreshAccountList(duane);
 
+            idSum.textContent = `$${client.sumAccounts()}`;
+
+            if (client.isMessage()) {
+                messageArea.textContent = client.getMessages();
+                client.resetMessage();
+            }
+                
             return newAcctNum;
         }
     },
@@ -163,56 +164,139 @@ const c130c = {
                 messageArea.textContent = client.getMessages();
                 client.resetMessage();
             }
-            
+
             document.getElementById(`sumAcct${acctNum}`).textContent = `$${client.getAcctBalance(acctNum)}`;
             idSum.textContent = `$${client.sumAccounts()}`;
 
             selectAcct.value = "srcSelect";
             inputAmt.value = 0.00;
         }
+    },
+
+    refreshAccountList: (client) => {
+
+        //
+        // First delete the existing list li elements.
+        //
+
+        c130c.deleteAccountList();
+
+        //
+        // Create the list in new sort order.
+        //
+
+        c130c.createAccountList(client);
+        
+        //     let removedCount = 0;
+        
+        //     if (targetFromEvent.nodeName === "LI") {
+            
+            //         targetFromEvent.parentElement.removeChild(targetFromEvent);
+            //         removedCount++;
+            //     }
+            //     //return targetFromEvent.parentElement.nodeName;
+            //     return removedCount;
+            
+            //     //let removedCount = 0;
+            
+            //     //if (eventDiv.target.nodeName === "LI") {
+                
+                //     //    eventDiv.target.parentElement.removeChild(eventDiv.target);
+                //     //    removedCount++;
+                //     //}
+                //     //return removedCount;
+    },
+            
+    deleteAccountList: () => {
+
+        //
+        // Delete the account list names.
+        //
+
+        let maxLoop = ulAcctList.children.length - 1;
+        let delNameCnt = 0
+        
+        for(let i = maxLoop; i > -1; i--) {
+
+            if (ulAcctList.children[i].nodeName === "LI") {
+                
+                if (ulAcctList.children[i].id !== "idSumTxt") {
+                    
+                    ulAcctList.removeChild(document.getElementById(`${ulAcctList.children[i].id}`));
+                    delNameCnt++;
+                    
+                }
+            }
+        }
+        
+        //
+        // Delete the account list balances.
+        //
+        
+        maxLoop = ulAcctBal.children.length - 1;
+        let delBalCnt = 0
+        
+        for(let i = maxLoop; i > -1; i--) {
+
+            if (ulAcctBal.children[i].nodeName === "LI") {
+
+                if (ulAcctBal.children[i].id !== "idSum") {
+                    
+                    ulAcctBal.removeChild(document.getElementById(`${ulAcctBal.children[i].id}`));
+                    delBalCnt++;
+
+                }
+            }
+        }
+
+        if (delBalCnt === delNameCnt) return delNameCnt;
+        else return -1;
+
+    },
+
+    createAccountList: (client) => {
+
+        //
+        // First, sort the accounts by Account Name into temp array.
+        //
+
+        const tempArr = client.sortAcctList("Name")
+        
+        //
+        // Add the li elements in temp array order to create new list.
+        //
+
+        let addNameCnt = 0
+
+        for (let i = 0; i < tempArr.length; i++) {
+
+            const liAdd = document.createElement("li");
+            liAdd.textContent = client.getAcctName(tempArr[i]);
+            liAdd.setAttribute("id", `listAcct${tempArr[i]}`);
+            if ((i+1) % 2 == 0) liAdd.setAttribute("class", "liEven");
+            else liAdd.setAttribute("class", "liOdd");
+
+            idSumTxt.parentElement.insertBefore(liAdd, idSumTxt);
+            addNameCnt ++;
+        }
+
+        let addSumCnt = 0
+        
+        for (let i = 0; i < tempArr.length; i++) {
+            
+            const liAdd = document.createElement("li");
+            liAdd.textContent = `$${client.getAcctBalance(tempArr[i])}`;
+            liAdd.setAttribute("id", `sumAcct${tempArr[i]}`);
+            if ((i+1) % 2 == 0) liAdd.setAttribute("class", "liEven");
+            else liAdd.setAttribute("class", "liOdd");
+            
+            idSum.parentElement.insertBefore(liAdd, idSum);
+            addSumCnt++;
+        }
+
+        if (addSumCnt === addNameCnt) return addSumCnt;
+        else return -1;
     }
-
-    // displayliElements: (liElement) => {
-    //     // 
-    //     // The following method displays all "li" elements array to a returned string field that can be used to 
-    //     // display/show the li elements in the array.
-    //     //
-    //     let textOfElements = "[";
-    //     for (let i = 0; i < liElement.length; i++) {
-    //             if (i === (liElement.length-1)) textOfElements += liElement[i].textContent;
-    //             else textOfElements += liElement[i].textContent + ", ";
-    //     }
-    //     textOfElements += "]";
-
-    //     return textOfElements;
-    // },
-
-    // //
-    // // First check and make sure the target was an LI type then continue to delete it.
-    // // Return the number of LI elements removed.
-    // //
-
-    // removeTargetLIFromOL: (targetFromEvent) => {
-
-    //     let removedCount = 0;
-
-    //     if (targetFromEvent.nodeName === "LI") {
-
-    //         targetFromEvent.parentElement.removeChild(targetFromEvent);
-    //         removedCount++;
-    //     }
-    //     //return targetFromEvent.parentElement.nodeName;
-    //     return removedCount;
-
-    //     //let removedCount = 0;
-
-    //     //if (eventDiv.target.nodeName === "LI") {
-
-    //     //    eventDiv.target.parentElement.removeChild(eventDiv.target);
-    //     //    removedCount++;
-    //     //}
-    //     //return removedCount;
-    // },
 
     // //
     // // First check and make sure the target was an LI type then continue to delete it. Then
