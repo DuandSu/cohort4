@@ -211,7 +211,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.transfer(1, 2, 50)).toEqual([200,355]);
 
     //
-    // Transfer from Line of Credit to VisaS
+    // Transfer from Line of Credit to Visa
     //
 
     expect(duane.transfer(4, 5, 500)).toEqual([-1700,-4500]);
