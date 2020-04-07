@@ -137,6 +137,58 @@ const c130c = {
         }
     },
 
+    deleteAccount: (client) => {
+
+        console.log(`At beginning of deleteAccountList`);
+        const srcValue = selectAcct.value;
+        console.log(`srcValue = ${srcValue}`);
+        if (srcValue === "srcSelect") {
+            messageArea.textContent = `Please Select an Account.`;
+        }
+        else {
+            
+            const acctNum = Number(srcValue.replace("srcAcct", ""));
+            
+            const deleteOK = client.removeAccount(acctNum);
+            
+            if (client.isMessage()) {
+                messageArea.textContent = client.getMessages();
+                client.resetMessage();
+            }
+            
+            if (deleteOK) {
+                
+                ulAcctList.removeChild(document.getElementById(`listAcct${acctNum}`));
+                ulAcctBal.removeChild(document.getElementById(`sumAcct${acctNum}`));
+
+                let maxLoop = selectAcct.children.length - 1;
+                
+                for (let i = maxLoop; i > -1; i--) {
+        
+                    if (selectAcct.children[i].value === `srcAcct${acctNum}`) {
+        
+                        selectAcct.removeChild(selectAcct.children[i]);
+        
+                    }
+                }
+        
+                maxLoop = selectDestAcct.children.length - 1;
+                
+                for (let i = maxLoop; i > -1; i--) {
+        
+                    if (selectDestAcct.children[i].value === `destAcct${acctNum}`) {
+        
+                        selectDestAcct.removeChild(selectDestAcct.children[i]);
+        
+                    }
+                }
+
+                idSum.textContent = `$${client.sumAccounts()}`;
+            }
+        }
+        console.log(`At end of deleteAccountList`);
+    },
+    
     actionTransaction: (actionType, client) => {
 
         const inputValue = inputAmt.value;

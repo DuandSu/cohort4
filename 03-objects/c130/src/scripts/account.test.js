@@ -123,8 +123,11 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     // Remove the MasterCard Credit Account
     //
 
-    const emptyAccount = new Account();
-    expect(duane.removeAccount(3)).toEqual(emptyAccount);
+    expect(duane.removeAccount(3)).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Deleted Account MasterCard. ` +
+        `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Line of Credit.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 
     //
     // Summarize the total of all Accounts    //
@@ -255,5 +258,29 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
 
     expect(duane.sortAcctList("Name")).toEqual([2, 4, 1, 5]);
 
+    //
+    // More Remove account.
+    //
+    // Account must be zero balance!
+    //
 
+    expect(duane.removeAccount(5)).toBeFalsy();
+    expect(duane.getMessages()).toBe(` Account ${duane.getAcctName(5)} ` +
+        `must be a 0 balance for deletion. Deposit or Withdraw to $0.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
+
+    expect(duane.deposit(5, 4500)).toBe(0);
+    expect(duane.isMessage()).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Deposit $4500 to ${duane.getAcctName(5)}. ` +
+        `Balance is now: $0. ` +
+        `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Line of Credit.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
+        
+    expect(duane.removeAccount(5)).toBeTruthy();
+    expect(duane.getMessages()).toBe(` Deleted Account Visa. ` +
+        `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Line of Credit.`);
+    expect(duane.resetMessage()).toBeTruthy();
+    expect(duane.isMessage()).toBeFalsy();
 });

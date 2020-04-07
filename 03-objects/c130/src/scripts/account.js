@@ -129,8 +129,6 @@ export class AccountController {
         if (creditFlag) newAcct.setToCredit();
         this.listOfAccts[newAcct.acctNum] = newAcct;
         
-        // messageArea.textContent = `Created New Account ${client.getAcctName(newAcct.acctNum)}`
-        //     + ` with Initial Balance of $${client.getAcctBalance(newAcctNum)}.`;
         this.addMessage(`Created New Account ${acctName} with Initial Balance of $${acctBalance}.`);
         this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
         this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
@@ -161,8 +159,23 @@ export class AccountController {
 
     removeAccount(acctNum) {
 
-        const emptyAccount = new Account();
-        return this.listOfAccts[acctNum] = emptyAccount;
+        if (this.getAcctBalance(acctNum) !== 0) {
+
+            this.addMessage(`Account ${this.getAcctName(acctNum)} must be a 0 balance for deletion. Deposit or Withdraw to $0.`);
+            return false;
+        }
+        else {
+
+            const emptyAccount = new Account();
+            const tmpAcctName = this.getAcctName(acctNum);
+            this.listOfAccts[acctNum] = emptyAccount;
+
+            this.addMessage(`Deleted Account ${tmpAcctName}.`);
+            this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
+            this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
+
+            return true;
+        }
             
     }
     

@@ -89,6 +89,19 @@ btnAddAcct.addEventListener('click', (eIDbtnAddAcct => {
 }));
 
 //
+// Event listener for the Delete Account button.
+//
+
+btnDelAcct.addEventListener('click', (eIDbtnAddAcct => {
+    
+    //
+    // Add New Account Name Entry, but only need 1.
+    //
+    c130c.deleteAccount(duane);
+
+}));
+
+//
 // Event listener for the Deposit button.
 //
 
