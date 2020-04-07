@@ -366,7 +366,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     // createNewAcct method.
     //
 
-    expect(c130c.deleteAccountList()).toBe(3);
+    expect(c130c.deleteAccountList()).toBe(4);
     expect(duane.sortAcctList("Name")).toEqual([1, 3, 4, 2]);
     expect(c130c.createAccountList(duane)).toBe(4);
 
@@ -377,7 +377,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(ulAcctBal.children[0].id).toBe("sumAcct1");
     expect(ulAcctBal.children[0].classList.contains("liOdd")).toBeTruthy();
     expect(ulAcctBal.children[0].textContent).toBe("$0");
-
+    
     expect(ulAcctList.children[1].id).toBe("listAcct3");
     expect(ulAcctList.children[1].classList.contains("liEven")).toBeTruthy();
     expect(ulAcctList.children[1].textContent).toBe("Credit Card");
@@ -402,4 +402,16 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(ulAcctBal.children[3].classList.contains("liEven")).toBeTruthy();
     expect(ulAcctBal.children[3].textContent).toBe("$500");
 
+    expect(selectAcct.children[0].value).toBe("srcSelect");
+    expect(selectAcct.children[1].value).toBe("srcAddAcct");
+    expect(selectAcct.children[1+1].value).toBe("srcAcct1");
+    expect(selectAcct.children[1+2].value).toBe("srcAcct3");
+    expect(selectAcct.children[1+3].value).toBe("srcAcct4");
+    expect(selectAcct.children[1+4].value).toBe("srcAcct2");
+
+    expect(selectDestAcct.children[0].value).toBe("destSelect");
+    expect(selectDestAcct.children[0+1].value).toBe("destAcct1");
+    expect(selectDestAcct.children[0+2].value).toBe("destAcct3");
+    expect(selectDestAcct.children[0+3].value).toBe("destAcct4");
+    expect(selectDestAcct.children[0+4].value).toBe("destAcct2");
 });

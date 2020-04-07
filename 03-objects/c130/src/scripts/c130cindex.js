@@ -84,7 +84,7 @@ btnAddAcct.addEventListener('click', (eIDbtnAddAcct => {
     // Add New Account Name Entry, but only need 1.
     //
 
-    c130c.createdivAddAcct();
+    c130c.createdivAddAcct(duane);
 
 }));
 
@@ -157,7 +157,7 @@ selectAcct.addEventListener('change', (eIselectAcct => {
         // Add New Account Name Entry, but only need 1
         //
 
-        c130c.createdivAddAcct();
+        c130c.createdivAddAcct(duane);
 
     }
    

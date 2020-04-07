@@ -268,7 +268,6 @@ export class AccountController {
 
             if (typeof this.listOfAccts[i].getAccountName() !== 'undefined') {
                 tmpAcctList[tmpCnt++] = this.listOfAccts[i];
-                console.log(`New index ${tmpCnt-1} is Account: ${tmpAcctList[tmpCnt-1].acctName}`);
             }
         }
     
@@ -282,9 +281,6 @@ export class AccountController {
                 
                 if (i !== (tmpAcctList.length - 1)) {
                     
-                    console.log(`Compare index ${i+1} Account: ${tmpAcctList[i+1].acctName}`);
-                    console.log(`To index ${i} Account: ${tmpAcctList[i].acctName}`);
-
                     if (tmpAcctList[i+1].acctName < tmpAcctList[i].acctName) {
                         tmpAcct = tmpAcctList[i];
                         tmpAcctList[i] = tmpAcctList[i+1];

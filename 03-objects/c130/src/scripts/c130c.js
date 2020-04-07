@@ -64,7 +64,7 @@ const c130c = {
     // When the div is added or deleted, the event listeners need to be created or removed.
     //
     
-    createdivAddAcct: () => {
+    createdivAddAcct: (client) => {
     
         if (document.getElementById("idAddAcct") === null) {
 
@@ -76,7 +76,7 @@ const c130c = {
                 // Add the code to Create the account.
                 //
         
-                c130c.createNewAcct(duane);
+                c130c.createNewAcct(client);
 
                 //
                 // Account was added. Now with Add div.
@@ -124,7 +124,7 @@ const c130c = {
             newAcctNum = client.addAccount(inputNewAcct.value.trim(), inputAmt.value, 
                 inputRadioCredit.checked);
             
-            // c130c.refreshAccountList(duane);
+            c130c.refreshAccountList(client);
 
             idSum.textContent = `$${client.sumAccounts()}`;
 
@@ -176,35 +176,17 @@ const c130c = {
     refreshAccountList: (client) => {
 
         //
-        // First delete the existing list li elements.
+        // First delete the existing list li and select elements.
         //
 
         c130c.deleteAccountList();
 
         //
-        // Create the list in new sort order.
+        // Create the new list li and select in account name sort order.
         //
 
         c130c.createAccountList(client);
         
-        //     let removedCount = 0;
-        
-        //     if (targetFromEvent.nodeName === "LI") {
-            
-            //         targetFromEvent.parentElement.removeChild(targetFromEvent);
-            //         removedCount++;
-            //     }
-            //     //return targetFromEvent.parentElement.nodeName;
-            //     return removedCount;
-            
-            //     //let removedCount = 0;
-            
-            //     //if (eventDiv.target.nodeName === "LI") {
-                
-                //     //    eventDiv.target.parentElement.removeChild(eventDiv.target);
-                //     //    removedCount++;
-                //     //}
-                //     //return removedCount;
     },
             
     deleteAccountList: () => {
@@ -249,7 +231,34 @@ const c130c = {
             }
         }
 
-        if (delBalCnt === delNameCnt) return delNameCnt;
+        maxLoop = selectAcct.children.length - 1;
+        let delSrcSelCnt = 0
+        
+        for (let i = maxLoop; i > -1; i--) {
+
+            if (selectAcct.children[i].value !== "srcSelect" && 
+                selectAcct.children[i].value !== "srcAddAcct") {
+
+                selectAcct.removeChild(selectAcct.children[i]);
+                delSrcSelCnt++;
+
+            }
+        }
+
+        maxLoop = selectDestAcct.children.length - 1;
+        let delDestSelCnt = 0
+        
+        for (let i = maxLoop; i > -1; i--) {
+
+            if (selectDestAcct.children[i].value !== "destSelect") {
+
+                selectDestAcct.removeChild(selectDestAcct.children[i]);
+                delDestSelCnt++;
+
+            }
+        }
+
+        if (delBalCnt === delNameCnt && delNameCnt === delSrcSelCnt && delSrcSelCnt === delDestSelCnt) return delBalCnt;
         else return -1;
 
     },
@@ -294,136 +303,33 @@ const c130c = {
             addSumCnt++;
         }
 
-        if (addSumCnt === addNameCnt) return addSumCnt;
+        let addSrcCnt = 0
+        
+        for (let i = 0; i < tempArr.length; i++) {
+            
+            const srcAdd = document.createElement("OPTION");
+            srcAdd.textContent = `${client.getAcctName(tempArr[i])}`;
+            srcAdd.setAttribute("value", `srcAcct${tempArr[i]}`);
+            
+            selectAcct.appendChild(srcAdd);
+            addSrcCnt++;
+        }
+
+        let addDestCnt = 0
+        
+        for (let i = 0; i < tempArr.length; i++) {
+            
+            const srcDest = document.createElement("OPTION");
+            srcDest.textContent = `${client.getAcctName(tempArr[i])}`;
+            srcDest.setAttribute("value", `destAcct${tempArr[i]}`);
+            
+            selectDestAcct.appendChild(srcDest);
+            addDestCnt++;
+        }
+
+        if (addSumCnt === addNameCnt && addNameCnt === addSrcCnt && addSrcCnt === addDestCnt) return addSumCnt;
         else return -1;
     }
-
-    // //
-    // // First check and make sure the target was an LI type then continue to delete it. Then
-    // // loop through the ol1 and delete all li that match the outerText values of the list.
-    // // I find it strange I could not find an index value in the eIDdiv1 showing which index was targetted.
-    // // Return the number of LI elements removed.
-    // //
-    // // Note: This was my first attempt at deleting using the target. I finally realized I could use the target as
-    // // the pointer and NOT the array. I therefore switched to using the method removeTargetLIFromOL, but kept this
-    // // around for learning and reference.
-    // //
-
-    // removeMatchingLIFromOL: (eventDiv) => {
-
-    //     let removedCount = 0;
-
-    //     if (eventDiv.target.nodeName === "LI") {
-
-    //         const parentOL = document.getElementById("ol1");
-    //         let childLI;
-    //         console.log("Inside removeMatchingLIFromOL");
-    //         console.log(eventDiv);
-        
-    //         for (let i = 0; i < document.getElementsByTagName("li").length; i++) {
-    //             if (document.getElementsByTagName("li")[i].outerText === eventDiv.target.outerText) {
-    //                 childLI = document.getElementsByTagName("li")[i];
-    //                 parentOL.removeChild(childLI);
-    //                 removedCount++;
-    //             }
-    //         }
-    //     }
-    //     return removedCount;
-    // },
-
-    // //
-    // // Add a child LI element to the parent OL element.
-    // // Specify "END" to add as the last of the list, or "START" to the beginning or 1st of the list.
-    // //
-
-    // addliElement: (addWhere) => {
-        
-    //     const ol1Document = document.getElementById("ol1");
-    //     const liNewElement = document.createElement("li");
-    //     liNewElement.appendChild(document.createTextNode("Item " + (Number(ol1Document.childElementCount)+1)));
-
-    //     if (addWhere === "END") ol1Document.appendChild(liNewElement);
-    //     else if (addWhere === "START") ol1Document.insertBefore(liNewElement,ol1Document.childNodes[0]);
-    //     else addCount = 0;
-
-    //     return ol1Document.textContent;
-    // },
-
-    // displayAllCardElements: (leftCardsElement, rightCardsElement) => {
-    //     // 
-    //     // The following method displays all the card elements on left side and right side to a returned string field that can be used to 
-    //     // display/show them to the user.
-    //     //
-    //     let textOfElements = "[";
-    //     for (let i = 0; i < leftCardsElement.length; i++) {
-    //             if (i === (leftCardsElement.length-1)) textOfElements += leftCardsElement[i].textContent;
-    //             else textOfElements += leftCardsElement[i].textContent + ", ";
-    //     }
-    //     textOfElements += "],[";
-
-    //     for (let i = 0; i < rightCardsElement.length; i++) {
-    //         if (i === (rightCardsElement.length-1)) textOfElements += rightCardsElement[i].textContent;
-    //         else textOfElements += rightCardsElement[i].textContent + ", ";
-    //     }
-
-    //     textOfElements += "]";
-
-    //     return textOfElements;
-    // },
-
-    // //
-    // // Add a card element. "ADD" to the end. "BEFORE" before the target card. "AFTER" after the target card.
-    // //
-
-    // addCardElement: (addWhere, targetFromEvent, nextCardNumber) => {
-        
-    //     console.log("Next Number will be: " + nextCardNumber);
-
-    //     let addCount = 1;
-    //     const divLPDocument = document.getElementsByClassName("divLeftPanel");
-    //     const divNewElement = document.createElement("div");
-    //     let att = document.createAttribute("class");
-    //     att.value = "clCardLS";
-    //     divNewElement.setAttributeNode(att);
-
-    //     const pNewElement = document.createElement("p");
-    //     pNewElement.appendChild(document.createTextNode("Card " + nextCardNumber));
-    //     divNewElement.appendChild(pNewElement);
-
-    //     const addBeforeButtonNewElement = document.createElement("BUTTON");
-    //     addBeforeButtonNewElement.textContent = "Add Before";
-    //     divNewElement.appendChild(addBeforeButtonNewElement);
-
-    //     const addAfterButtonNewElement = document.createElement("BUTTON");
-    //     addAfterButtonNewElement.textContent = "Add After";
-    //     divNewElement.appendChild(addAfterButtonNewElement);
-
-    //     const addDeleteButtonNewElement = document.createElement("BUTTON");
-    //     addDeleteButtonNewElement.textContent = "Delete";
-    //     divNewElement.appendChild(addDeleteButtonNewElement);
-
-    //     if (addWhere === "END") divLPDocument[0].appendChild(divNewElement);
-    //     else if (addWhere === "BEFORE") targetFromEvent.parentElement.insertBefore(divNewElement, targetFromEvent);
-    //     else if (addWhere === "AFTER") targetFromEvent.parentElement.insertBefore(divNewElement, targetFromEvent.nextElementSibling);
-    //     else addCount = 0;
- 
-    //     return addCount;
-    // },
-
-    // //
-    // // Delete the target card element.
-    // //
-
-    // deleteCardElement: (targetFromEvent) => {
-
-    //     let removedCount = 0;
-
-    //     targetFromEvent.parentElement.removeChild(targetFromEvent);
-    //     removedCount++;
-
-    //     return removedCount;
-    // }
-
 };
 
 export default c130c;
