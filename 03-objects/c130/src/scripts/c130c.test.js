@@ -99,7 +99,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.getAcctBalance(1)).toBe(0);
     expect(duane.isCredit(1)).toBeFalsy();
     expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(1)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(1)}. ` +
+        `with Initial Balance of $0.00. ` +
         `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Chequing.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -109,7 +109,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.getAcctBalance(2)).toBe(200);
     expect(duane.isCredit(2)).toBeFalsy();
     expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(2)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(2)}. ` +
+        `with Initial Balance of $200.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -120,7 +120,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.getAcctBalance(3)).toBe(100);
     expect(duane.isCredit(3)).toBeTruthy();
     expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(3)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(3)}. ` +
+        `with Initial Balance of $100.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -161,8 +161,8 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     inputAmt.value = 500;
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(` ${actionType} $500 ${actionPreposition} ` +
-        `${duane.getAcctName(acctNum)}. Balance is now: $700. Your HIGHest value account ` +
+    expect(messageArea.textContent).toBe(` ${actionType} $500.00 ${actionPreposition} ` +
+        `${duane.getAcctName(acctNum)}. Balance is now: $700.00. Your HIGHest value account ` +
         `is Account: Savings. Your LOWest value account is Account: Chequing.`);
     expect(duane.getAcctBalance(acctNum)).toBe(700);
     
@@ -170,8 +170,8 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     // New account balance should show in account list.
     //
     
-    expect(document.getElementById(`sumAcct${acctNum}`).textContent).toBe(`$700`);
-    expect(idSum.textContent).toBe("$800");
+    expect(document.getElementById(`sumAcct${acctNum}`).textContent).toBe(`$700.00`);
+    expect(idSum.textContent).toBe("$800.00");
     
     //
     // Select Menu and Input values get reset.
@@ -216,8 +216,8 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     inputAmt.value = 200;
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(` ${actionType} $200 ${actionPreposition} ` +
-        `${duane.getAcctName(acctNum)}. Balance is now: $500. ` +
+    expect(messageArea.textContent).toBe(` ${actionType} $200.00 ${actionPreposition} ` +
+        `${duane.getAcctName(acctNum)}. Balance is now: $500.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
     expect(duane.getAcctBalance(acctNum)).toBe(500);
     
@@ -225,8 +225,8 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     // New account balance should show in account list.
     //
     
-    expect(document.getElementById(`sumAcct${acctNum}`).textContent).toBe(`$500`);
-    expect(idSum.textContent).toBe("$600");
+    expect(document.getElementById(`sumAcct${acctNum}`).textContent).toBe(`$500.00`);
+    expect(idSum.textContent).toBe("$600.00");
     
     //
     // Select Menu and Input values get reset.
@@ -341,7 +341,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.isCredit(newAcctNum)).toBeFalsy();
     // messageArea.textContent = duane.getMessages();
     expect(messageArea.textContent).toBe(` Created New Account ${duane.getAcctName(4)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(4)}. ` +
+        `with Initial Balance of $10,000.00. ` +
         `Your HIGHest value account is Account: High Interest. Your LOWest value account is Account: Chequing.`);
     // expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -371,7 +371,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     expect(ulAcctBal.children[0].id).toBe("sumAcct1");
     expect(ulAcctBal.children[0].classList.contains("liOdd")).toBeTruthy();
-    expect(ulAcctBal.children[0].textContent).toBe("$0");
+    expect(ulAcctBal.children[0].textContent).toBe("$0.00");
     
     expect(ulAcctList.children[1].id).toBe("listAcct3");
     expect(ulAcctList.children[1].classList.contains("liEven")).toBeTruthy();
@@ -379,7 +379,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     expect(ulAcctBal.children[1].id).toBe("sumAcct3");
     expect(ulAcctBal.children[1].classList.contains("liEven")).toBeTruthy();
-    expect(ulAcctBal.children[1].textContent).toBe("$100");
+    expect(ulAcctBal.children[1].textContent).toBe("$100.00");
 
     expect(ulAcctList.children[2].id).toBe("listAcct4");
     expect(ulAcctList.children[2].classList.contains("liOdd")).toBeTruthy();
@@ -387,7 +387,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     expect(ulAcctBal.children[2].id).toBe("sumAcct4");
     expect(ulAcctBal.children[2].classList.contains("liOdd")).toBeTruthy();
-    expect(ulAcctBal.children[2].textContent).toBe("$10000");
+    expect(ulAcctBal.children[2].textContent).toBe("$10,000.00");
 
     expect(ulAcctList.children[3].id).toBe("listAcct2");
     expect(ulAcctList.children[3].classList.contains("liEven")).toBeTruthy();
@@ -395,7 +395,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     
     expect(ulAcctBal.children[3].id).toBe("sumAcct2");
     expect(ulAcctBal.children[3].classList.contains("liEven")).toBeTruthy();
-    expect(ulAcctBal.children[3].textContent).toBe("$500");
+    expect(ulAcctBal.children[3].textContent).toBe("$500.00");
 
     expect(selectAcct.children[0].value).toBe("srcSelect");
     expect(selectAcct.children[1].value).toBe("srcAddAcct");
@@ -438,8 +438,8 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     inputAmt.value = 100;
     actionType = "Withdraw";
     c130c.actionTransaction(actionType, duane);
-    expect(messageArea.textContent).toBe(` ${actionType} $100 ${actionPreposition} ` +
-        `${duane.getAcctName(3)}. Balance is now: $0. ` +
+    expect(messageArea.textContent).toBe(` ${actionType} $100.00 ${actionPreposition} ` +
+        `${duane.getAcctName(3)}. Balance is now: $0.00. ` +
         `Your HIGHest value account is Account: High Interest. Your LOWest value account is Account: Chequing.`);
     expect(duane.getAcctBalance(3)).toBe(0);
 
@@ -456,8 +456,17 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(ulAcctList.children[1].textContent).toBe("High Interest");
     
     expect(ulAcctBal.children[1].id).toBe("sumAcct4");
-    expect(ulAcctBal.children[1].textContent).toBe("$10000");
+    expect(ulAcctBal.children[1].textContent).toBe("$10,000.00");
     expect(selectAcct.children[1+2].value).toBe("srcAcct4");
     expect(selectDestAcct.children[0+2].value).toBe("destAcct4");
- 
+
+//
+// Testing CAD Currency Formatter.
+//
+
+    expect(c130c.formatCurrency.format(-2500)).toBe("-$2,500.00");
+    expect(c130c.formatCurrency.format(2999566.34)).toBe("$2,999,566.34");
+    expect(c130c.formatCurrency.format(2999566.344)).toBe("$2,999,566.34");
+    expect(c130c.formatCurrency.format(2999566.346)).toBe("$2,999,566.35");
+    expect(c130c.formatCurrency.format(2999566.345)).toBe("$2,999,566.35");
 });

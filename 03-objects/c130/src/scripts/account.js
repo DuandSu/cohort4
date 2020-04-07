@@ -1,5 +1,14 @@
 // This is competency 130a, 130b & 130c.
 
+//
+// Not working in methods or outside of class delcaration.
+// Leaving to figure out later.
+//
+// formatCurrency = new Intl.NumberFormat('en-US', {
+//     style: 'currency',
+//     currency: 'USD',
+// })
+
 export class Account {
 
     //
@@ -129,7 +138,7 @@ export class AccountController {
         if (creditFlag) newAcct.setToCredit();
         this.listOfAccts[newAcct.acctNum] = newAcct;
         
-        this.addMessage(`Created New Account ${acctName} with Initial Balance of $${acctBalance}.`);
+        this.addMessage(`Created New Account ${acctName} with Initial Balance of ${this.formatDollar(acctBalance)}.`);
         this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
         this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
 
@@ -191,15 +200,15 @@ export class AccountController {
         if (typeof this.listOfAccts[acctNum].getAccountName() !== 'undefined') {
              
             const newBal = this.listOfAccts[acctNum].deposit(amt);
-            this.addMessage(`Deposit $${amt} to ${this.listOfAccts[acctNum].getAccountName()}. ` +
-                `Balance is now: $${newBal}.`);
+            this.addMessage(`Deposit ${this.formatDollar(amt)} to ${this.listOfAccts[acctNum].getAccountName()}. ` +
+                `Balance is now: ${this.formatDollar(newBal)}.`);
             this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
             this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
             return newBal;
         }
         else {
 
-            this.addMessage(`Deposit $${amt} attempt FAILED to an account that does NOT exist.`);
+            this.addMessage(`Deposit ${this.formatDollar(amt)} attempt FAILED to an account that does NOT exist.`);
             return NaN;
 
         }
@@ -210,8 +219,8 @@ export class AccountController {
         if (typeof this.listOfAccts[acctNum].getAccountName() !== 'undefined') {
             
             const newBal = this.listOfAccts[acctNum].withdraw(amt);
-            this.addMessage(`Withdraw $${amt} from ${this.listOfAccts[acctNum].getAccountName()}. ` +
-            `Balance is now: $${newBal}.`);
+            this.addMessage(`Withdraw ${this.formatDollar(amt)} from ${this.listOfAccts[acctNum].getAccountName()}. ` +
+            `Balance is now: ${this.formatDollar(newBal)}.`);
             this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
             this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
             return newBal;
@@ -219,7 +228,7 @@ export class AccountController {
         }
         else {
 
-            this.addMessage(`Withdraw $${amt} attempt FAILED from an account that does NOT exist.`);
+            this.addMessage(`Withdraw ${this.formatDollar(amt)} attempt FAILED from an account that does NOT exist.`);
             return NaN;
 
         }
@@ -350,5 +359,15 @@ export class AccountController {
             return lowAcctNum;
         }
         return 0;
+    }
+
+    formatDollar (dollarAmt) {
+
+        const formatCurrency = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        })
+
+        return formatCurrency.format(dollarAmt);
     }
 }

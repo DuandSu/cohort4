@@ -72,7 +72,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctBalance(1)).toBe(200);
     expect(duane.isCredit(1)).toBeFalsy();
     expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(1)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(1)}. ` +
+        `with Initial Balance of $200.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Savings.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -86,7 +86,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctBalance(2)).toBe(5);
     expect(duane.isCredit(2)).toBeFalsy();
     expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(2)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(2)}. ` +
+        `with Initial Balance of $5.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -100,7 +100,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctBalance(3)).toBe(0);
     expect(duane.isCredit(3)).toBeTruthy();
     expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(3)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(3)}. ` +
+        `with Initial Balance of $0.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: MasterCard.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -114,7 +114,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctBalance(4)).toBe(-200);
     expect(duane.isCredit(4)).toBeTruthy();
     expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(4)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(4)}. ` +
+        `with Initial Balance of -$200.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -151,7 +151,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     // Attempt Deposit to non-Account
     //
     expect(duane.deposit(3, 50)).toBe(NaN);
-    expect(duane.getMessages()).toBe(" Deposit $50 attempt FAILED to an account that does NOT exist.");
+    expect(duane.getMessages()).toBe(" Deposit $50.00 attempt FAILED to an account that does NOT exist.");
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
     
@@ -161,8 +161,8 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     
     expect(duane.deposit(1, 50)).toBe(250);
     expect(duane.isMessage()).toBeTruthy();
-    expect(duane.getMessages()).toBe(` Deposit $50 to ${duane.getAcctName(1)}. ` +
-        `Balance is now: $250. ` +
+    expect(duane.getMessages()).toBe(` Deposit $50.00 to ${duane.getAcctName(1)}. ` +
+        `Balance is now: $250.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -173,8 +173,8 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     
     expect(duane.deposit(2, 300)).toBe(305);
     expect(duane.isMessage()).toBeTruthy();
-    expect(duane.getMessages()).toBe(` Deposit $300 to ${duane.getAcctName(2)}. ` +
-        `Balance is now: $305. ` +
+    expect(duane.getMessages()).toBe(` Deposit $300.00 to ${duane.getAcctName(2)}. ` +
+        `Balance is now: $305.00. ` +
         `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -183,7 +183,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     // Attempt Withdraw to non-Account
     //
     expect(duane.withdraw(3, 50)).toBe(NaN);
-    expect(duane.getMessages()).toBe(" Withdraw $50 attempt FAILED from an account that does NOT exist.");
+    expect(duane.getMessages()).toBe(" Withdraw $50.00 attempt FAILED from an account that does NOT exist.");
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
 
@@ -193,8 +193,8 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     
     expect(duane.withdraw(4, 1000)).toBe(-1200);
     expect(duane.isMessage()).toBeTruthy();
-    expect(duane.getMessages()).toBe(` Withdraw $1000 from ${duane.getAcctName(4)}. ` +
-        `Balance is now: $-1200. ` +
+    expect(duane.getMessages()).toBe(` Withdraw $1,000.00 from ${duane.getAcctName(4)}. ` +
+        `Balance is now: -$1,200.00. ` +
         `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -209,7 +209,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctBalance(5)).toBe(-5000);
     expect(duane.isCredit(5)).toBeTruthy();
     expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(5)} ` +
-        `with Initial Balance of $${duane.getAcctBalance(5)}. ` +
+        `with Initial Balance of -$5,000.00. ` +
         `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Visa.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();
@@ -272,8 +272,8 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
 
     expect(duane.deposit(5, 4500)).toBe(0);
     expect(duane.isMessage()).toBeTruthy();
-    expect(duane.getMessages()).toBe(` Deposit $4500 to ${duane.getAcctName(5)}. ` +
-        `Balance is now: $0. ` +
+    expect(duane.getMessages()).toBe(` Deposit $4,500.00 to ${duane.getAcctName(5)}. ` +
+        `Balance is now: $0.00. ` +
         `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
     expect(duane.isMessage()).toBeFalsy();

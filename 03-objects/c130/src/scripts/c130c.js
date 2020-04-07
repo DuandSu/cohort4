@@ -126,7 +126,7 @@ const c130c = {
             
             c130c.refreshAccountList(client);
 
-            idSum.textContent = `$${client.sumAccounts()}`;
+            idSum.textContent = `${c130c.formatCurrency.format(client.sumAccounts())}`;
 
             if (client.isMessage()) {
                 messageArea.textContent = client.getMessages();
@@ -182,7 +182,7 @@ const c130c = {
                 }
                 
                 c130c.refreshAccountList(client);
-                idSum.textContent = `$${client.sumAccounts()}`;
+                idSum.textContent = `${c130c.formatCurrency.format(client.sumAccounts())}`;
             }
         }
     },
@@ -215,8 +215,8 @@ const c130c = {
                 client.resetMessage();
             }
 
-            document.getElementById(`sumAcct${acctNum}`).textContent = `$${client.getAcctBalance(acctNum)}`;
-            idSum.textContent = `$${client.sumAccounts()}`;
+            document.getElementById(`sumAcct${acctNum}`).textContent = `${c130c.formatCurrency.format(client.getAcctBalance(acctNum))}`;
+            idSum.textContent = `${c130c.formatCurrency.format(client.sumAccounts())}`;
 
             selectAcct.value = "srcSelect";
             inputAmt.value = 0.00;
@@ -344,7 +344,7 @@ const c130c = {
         for (let i = 0; i < tempArr.length; i++) {
             
             const liAdd = document.createElement("li");
-            liAdd.textContent = `$${client.getAcctBalance(tempArr[i])}`;
+            liAdd.textContent = `${c130c.formatCurrency.format(client.getAcctBalance(tempArr[i]))}`;
             liAdd.setAttribute("id", `sumAcct${tempArr[i]}`);
             if ((i+1) % 2 == 0) liAdd.setAttribute("class", "liEven");
             else liAdd.setAttribute("class", "liOdd");
@@ -379,7 +379,14 @@ const c130c = {
 
         if (addSumCnt === addNameCnt && addNameCnt === addSrcCnt && addSrcCnt === addDestCnt) return addSumCnt;
         else return -1;
-    }
+    },
+    
+    formatCurrency: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    })
+
 };
+
 
 export default c130c;
