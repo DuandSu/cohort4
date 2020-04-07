@@ -99,7 +99,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctName(3)).toBe("MasterCard");
     expect(duane.getAcctBalance(3)).toBe(0);
     expect(duane.isCredit(3)).toBeTruthy();
-    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(3)} ` +
+    expect(duane.getMessages()).toBe(` Created New Credit Account ${duane.getAcctName(3)} ` +
         `with Initial Balance of $0.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: MasterCard.`);
     expect(duane.resetMessage()).toBeTruthy();
@@ -113,7 +113,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctName(4)).toBe("Line of Credit");
     expect(duane.getAcctBalance(4)).toBe(-200);
     expect(duane.isCredit(4)).toBeTruthy();
-    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(4)} ` +
+    expect(duane.getMessages()).toBe(` Created New Credit Account ${duane.getAcctName(4)} ` +
         `with Initial Balance of -$200.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Line of Credit.`);
     expect(duane.resetMessage()).toBeTruthy();
@@ -208,7 +208,7 @@ test('130c: Does Account Controller class instantiation and methods work?', () =
     expect(duane.getAcctName(5)).toBe("Visa");
     expect(duane.getAcctBalance(5)).toBe(-5000);
     expect(duane.isCredit(5)).toBeTruthy();
-    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(5)} ` +
+    expect(duane.getMessages()).toBe(` Created New Credit Account ${duane.getAcctName(5)} ` +
         `with Initial Balance of -$5,000.00. ` +
         `Your HIGHest value account is Account: Chequing. Your LOWest value account is Account: Visa.`);
     expect(duane.resetMessage()).toBeTruthy();

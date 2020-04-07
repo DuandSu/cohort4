@@ -119,7 +119,7 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(duane.getAcctName(3)).toBe("Credit Card");
     expect(duane.getAcctBalance(3)).toBe(100);
     expect(duane.isCredit(3)).toBeTruthy();
-    expect(duane.getMessages()).toBe(` Created New Account ${duane.getAcctName(3)} ` +
+    expect(duane.getMessages()).toBe(` Created New Credit Account ${duane.getAcctName(3)} ` +
         `with Initial Balance of $100.00. ` +
         `Your HIGHest value account is Account: Savings. Your LOWest value account is Account: Chequing.`);
     expect(duane.resetMessage()).toBeTruthy();

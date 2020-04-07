@@ -1,14 +1,5 @@
 // This is competency 130a, 130b & 130c.
 
-//
-// Not working in methods or outside of class delcaration.
-// Leaving to figure out later.
-//
-// formatCurrency = new Intl.NumberFormat('en-US', {
-//     style: 'currency',
-//     currency: 'USD',
-// })
-
 export class Account {
 
     //
@@ -138,7 +129,8 @@ export class AccountController {
         if (creditFlag) newAcct.setToCredit();
         this.listOfAccts[newAcct.acctNum] = newAcct;
         
-        this.addMessage(`Created New Account ${acctName} with Initial Balance of ${this.formatDollar(acctBalance)}.`);
+        // this.addMessage(`Created New Account ${acctName} with Initial Balance of ${this.formatDollar(acctBalance)}.`);
+        this.addMessage(`Created New ${this.isCredit(newAcct.acctNum) ? "Credit " : ""}Account ${acctName} with Initial Balance of ${this.formatDollar(acctBalance)}.`);
         this.addMessage(`Your HIGHest value account is Account: ${this.getAcctName(this.findHighAccount())}.`);
         this.addMessage(`Your LOWest value account is Account: ${this.getAcctName(this.findLowAccount())}.`);
 
