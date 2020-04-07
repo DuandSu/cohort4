@@ -139,9 +139,7 @@ const c130c = {
 
     deleteAccount: (client) => {
 
-        console.log(`At beginning of deleteAccountList`);
         const srcValue = selectAcct.value;
-        console.log(`srcValue = ${srcValue}`);
         if (srcValue === "srcSelect") {
             messageArea.textContent = `Please Select an Account.`;
         }
@@ -186,7 +184,6 @@ const c130c = {
                 idSum.textContent = `$${client.sumAccounts()}`;
             }
         }
-        console.log(`At end of deleteAccountList`);
     },
     
     actionTransaction: (actionType, client) => {

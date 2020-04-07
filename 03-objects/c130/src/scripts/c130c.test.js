@@ -357,13 +357,8 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(inputAmt.value).toBe("0");
 
     //
-    // Testing deletion of the account list. Note that createNewAcct method will
-    // NOT yet have added an li element for the new account, so number of li
-    // deleted might seem one less than expected. The new account li gets
-    // added as a part of the refreshAccountList method, of which deleteAccountList
-    // is the first method called for that. New account will show after the 
-    // createAccountList is called after the deleteAccountList, again within the
-    // createNewAcct method.
+    // Testing routines individually to refresh the account list after
+    // adding an account. That is, these are the routines that make up the Add Account.
     //
 
     expect(c130c.deleteAccountList()).toBe(4);
@@ -414,4 +409,26 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(selectDestAcct.children[0+2].value).toBe("destAcct3");
     expect(selectDestAcct.children[0+3].value).toBe("destAcct4");
     expect(selectDestAcct.children[0+4].value).toBe("destAcct2");
+
+    //
+    // Test deleting account from delete button.
+    //
+
+    //
+    // Simulate no account selected yet.
+    //
+
+    selectAcct.value = "srcSelect";
+    c130c.deleteAccount(duane);
+    expect(messageArea.textContent).toBe(`Please Select an Account.`);
+
+    //
+    // Simulate delete the Credit Card account which is not 0 balance.
+    //
+
+    selectAcct.value = "srcAcct3";
+    c130c.deleteAccount(duane);
+    expect(messageArea.textContent).toBe(` Account ${duane.getAcctName(3)} ` +
+    `must be a 0 balance for deletion. Deposit or Withdraw to $0.`);
+
 });
