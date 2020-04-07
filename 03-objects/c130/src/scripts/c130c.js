@@ -180,7 +180,8 @@ const c130c = {
         
                     }
                 }
-
+                
+                c130c.refreshAccountList(client);
                 idSum.textContent = `$${client.sumAccounts()}`;
             }
         }

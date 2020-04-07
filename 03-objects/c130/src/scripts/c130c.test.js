@@ -431,4 +431,33 @@ test('130c: Does the Bank Interface Work with Account Controller?', () => {
     expect(messageArea.textContent).toBe(` Account ${duane.getAcctName(3)} ` +
     `must be a 0 balance for deletion. Deposit or Withdraw to $0.`);
 
+    //
+    // Withdraw account to balance $0, so we can delete the account.
+    //
+    
+    inputAmt.value = 100;
+    actionType = "Withdraw";
+    c130c.actionTransaction(actionType, duane);
+    expect(messageArea.textContent).toBe(` ${actionType} $100 ${actionPreposition} ` +
+        `${duane.getAcctName(3)}. Balance is now: $0. ` +
+        `Your HIGHest value account is Account: High Interest. Your LOWest value account is Account: Chequing.`);
+    expect(duane.getAcctBalance(3)).toBe(0);
+
+    //
+    // List will have shifted forward in array after deletion.
+    //
+
+    selectAcct.value = "srcAcct3";
+    c130c.deleteAccount(duane);
+    expect(messageArea.textContent).toBe(` Deleted Account Credit Card. ` +
+    `Your HIGHest value account is Account: High Interest. Your LOWest value account is Account: Chequing.`);
+   
+    expect(ulAcctList.children[1].id).toBe("listAcct4");
+    expect(ulAcctList.children[1].textContent).toBe("High Interest");
+    
+    expect(ulAcctBal.children[1].id).toBe("sumAcct4");
+    expect(ulAcctBal.children[1].textContent).toBe("$10000");
+    expect(selectAcct.children[1+2].value).toBe("srcAcct4");
+    expect(selectDestAcct.children[0+2].value).toBe("destAcct4");
+ 
 });
