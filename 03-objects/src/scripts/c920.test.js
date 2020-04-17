@@ -145,15 +145,14 @@ test('920: Udemy Fetch Assignment #2 & #3 with my answer to replace .next() with
                 expect(posts.length).toBe(100);
                 expect(albums.length).toBe(100);
             } catch (err) {
-                // expect(err).toStrictlyEqual(`Beer`);
-                // expect(err).toContain(`FetchError`);
-                // expect(err).toStrictlyEqual(`[FetchError: request to https://jsonplaceholderTYPO.typicode.com/albums failed, reason: getaddrinfo ENOTFOUND jsonplaceholdertypo.typicode.com]`);
+                expect(err.name).toContain(`Error`);
+                // expect(err.name).toContain(`Beer`); // Failing test to fail.
+                // expect(err.message).toContain(`failed`); // Alternate expect strategy to detect specific error message.
             }
         }
         
-        // await getDataDWMX();
+        await getDataDWMX();
+        // expect(getDataDWMX).toThrow();
 
         done();
-
-        // expect(getDataDWMX).toThrow();
     });
