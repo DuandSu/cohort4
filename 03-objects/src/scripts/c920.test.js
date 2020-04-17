@@ -59,7 +59,7 @@ test('920: Discovery for Udemy Fetch Assignments', () => {
     'https://jsonplaceholder.typicode.com/albums']);
 });
 
-test('920: Udemy Fetch Assignment #1', async (done) => {
+test('920: Udemy 240 Fetch Assignment #1', async (done) => {
     
     async function fetchUsers() {
         try {
@@ -76,7 +76,7 @@ test('920: Udemy Fetch Assignment #1', async (done) => {
     done();
 });
 
-test('920: Udemy Fetch Assignment #2 as taught with .next()', async (done) => {
+test('920: Udemy 240 Fetch Assignment #2 as taught with .next()', async (done) => {
 
     const urls = [
         'https://jsonplaceholder.typicode.com/users',
@@ -101,7 +101,7 @@ test('920: Udemy Fetch Assignment #2 as taught with .next()', async (done) => {
     done();
 });
 
-test('920: Udemy Fetch Assignment #2 & #3 with my answer to replace .next() with async await', async (done) => {
+test('920: Udemy 240 Fetch Assignment #2 & #3 with my answer to replace .next() with async await', async (done) => {
 
     const urls = [
         'https://jsonplaceholder.typicode.com/users',
@@ -134,25 +134,85 @@ test('920: Udemy Fetch Assignment #2 & #3 with my answer to replace .next() with
         ]
 
     
-        const getDataDWMX = async function() {
-            try {
-                const [ users, posts, albums ] = await Promise.all(urlsX.map(async function (url) {
-                    const resp = await fetch(url)
-                    const data = await resp.json()
-                    return data;
-                }));
-                expect(users.length).toBe(10);
-                expect(posts.length).toBe(100);
-                expect(albums.length).toBe(100);
-            } catch (err) {
-                expect(err.name).toContain(`Error`); // All 6 types of errors contain "Error" in their name.
-                // expect(err.name).toContain(`Beer`); // Failing test to fail.
-                // expect(err.message).toContain(`failed`); // Alternate expect strategy to detect specific error message.
-            }
+    const getDataDWMX = async function() {
+        try {
+            const [ users, posts, albums ] = await Promise.all(urlsX.map(async function (url) {
+                const resp = await fetch(url)
+                const data = await resp.json()
+                return data;
+            }));
+            expect(users.length).toBe(10);
+            expect(posts.length).toBe(100);
+            expect(albums.length).toBe(100);
+        } catch (err) {
+            expect(err.name).toContain(`Error`); // All 6 types of errors contain "Error" in their name.
+            // expect(err.name).toContain(`Beer`); // Failing test to fail.
+            // expect(err.message).toContain(`failed`); // Alternate expect strategy to detect specific error message.
         }
-        
-        await getDataDWMX();
-        // expect(getDataDWMX).toThrow();
+    }
+    
+    await getDataDWMX();
+    // expect(getDataDWMX).toThrow();
+    
+    done();
+});
 
-        done();
-    });
+test('920: Udemy 242 for await Example for ES9', async (done) => {
+    
+    const urls = [
+        'https://jsonplaceholder.typicode.com/users',
+        'https://jsonplaceholder.typicode.com/posts',
+        'https://jsonplaceholder.typicode.com/albums'
+    ]
+    
+    const getData = async function() {
+
+        const arrayOfPromises = urls.map(url => fetch(url));
+
+        for await (let request of arrayOfPromises) {
+
+            const data = await request.json();
+            expect(data.length).toBeGreaterThanOrEqual(10);
+        }
+    }
+
+    await getData();
+
+    done();
+});
+
+
+test('920: Udemy 242 try catch finally', async (done) => {
+    
+    const urls = [
+        'https://jsonplaceholder.typicode.com/users',
+        'https://jsonplaceholder.typicode.com/posts',
+        'https://jsonplaceholder.typicode.com/albums'
+    ]
+    
+    const getData = async function() {
+
+        try {
+
+            const arrayOfPromises = urls.map(url => fetch(url));
+
+            for await (let request of arrayOfPromises) {
+
+                const data = await request.json();
+                expect(data.length).toBeGreaterThanOrEqual(10);
+            }
+        } catch (err) {
+
+            expect(err.name).toContain(`Error`); // All 6 types of errors contain "Error" in their name.
+        } finally {
+
+            const calledFinally = true;
+            expect(calledFinally).toBeTruthy();
+        }
+
+    }
+
+    await getData();
+
+    done();
+});
