@@ -145,7 +145,7 @@ test('920: Udemy Fetch Assignment #2 & #3 with my answer to replace .next() with
                 expect(posts.length).toBe(100);
                 expect(albums.length).toBe(100);
             } catch (err) {
-                expect(err.name).toContain(`Error`);
+                expect(err.name).toContain(`Error`); // All 6 types of errors contain "Error" in their name.
                 // expect(err.name).toContain(`Beer`); // Failing test to fail.
                 // expect(err.message).toContain(`failed`); // Alternate expect strategy to detect specific error message.
             }
