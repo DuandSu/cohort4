@@ -183,7 +183,16 @@ test('920: Udemy 242 for await Example for ES9', async (done) => {
 
 
 test('920: Udemy 242 try catch finally', async (done) => {
-    
+
+    //
+    // Creating typo "/usersTYPO" below did not call the catch() or the try(), but resulted in
+    // ": Timeout - Async callback was not invoked within the 5000ms timeout specified by 
+    // jest.setTimeout.Timeout - Async callback was not invoked within the 5000ms timeout 
+    // specified by jest.setTimeout.Error:".
+    //
+    // set back to "/users" so test will pass. Fight this in competencies.
+    //
+
     const urls = [
         'https://jsonplaceholder.typicode.com/users',
         'https://jsonplaceholder.typicode.com/posts',
