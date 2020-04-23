@@ -54,20 +54,20 @@ const c920 = {
     },
 
     async getUsers() {
-        console.log("In getUsers")
+        // console.log("In getUsers")
         let data = [];
         try {
-            console.log(c920.url);
+            // console.log(c920.url);
             const response = await fetch(c920.url);
             if (response.ok) {
                 data = await response.json();
             }
             else {
                 data = response.status;
-                console.log("HTTP-Error: " + data);
+                // console.log("HTTP-Error: " + data);
             }
         } catch (err) {
-            console.log('DWM Error:', err);
+            // console.log('DWM Error:', err);
             throw (err);
             return err;
         }
@@ -76,19 +76,19 @@ const c920 = {
 
     async workWithData() {
         const data = await c920.getUsers();
-        console.log("In workWithData", data);
+        // console.log("In workWithData", data);
         if (data instanceof Array) {
-            console.log("Found DATA");
-            console.log(c920.getFirstName(data));
-            console.log(c920.getAllFirstNames(data));
+            // console.log("Found DATA");
+            // console.log(c920.getFirstName(data));
+            // console.log(c920.getAllFirstNames(data));
             return true;
         }
         else if (data instanceof TypeError) {
-            console.log("Found error");
+            // console.log("Found error");
             return false;
         }
         else {
-            console.log("Likely string message of failed fetch!: " + data);
+            // console.log("Likely string message of failed fetch!: " + data);
             return false;
         }
     },
@@ -108,13 +108,13 @@ const c920 = {
             referrer: 'no-referrer',    // no-referrer, *client
             body: JSON.stringify(data)  // body data type must match "Content-Type" header
         });
-        if (response.ok) {
-            console.log("HTTP-Status: " + response.status);
+        // if (response.ok) {
+            // console.log("HTTP-Status: " + response.status);
             // return await response.json();   // parses JSON response into native JavaScript objects
-        }
-        else {
-            console.log("HTTP-Error: " + response.status);
-        }
+        // }
+        // else {
+            // console.log("HTTP-Error: " + response.status);
+        // }
         return response.status;
     }
 };

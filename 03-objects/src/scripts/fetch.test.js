@@ -300,6 +300,8 @@ test('920: Test Send Fetch names', async (done) => {
   // Still a mystery to answer, but appears to be working.
   // 
   // There are times though it times out, but a retry usually works.
+  // Also it seems console.log will sometimes be the cause of the error in combination with a timeout. So seems good
+  // practice to not leave console.log in the function for too long, only for quick diagnostic debugging.
   //
 
   let pdResult = await c920.postData(me);
