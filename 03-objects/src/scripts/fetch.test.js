@@ -1,5 +1,7 @@
+global.fetch = require('node-fetch'); // Was Larry's solution vs the isomorphic-fetch solution that I found.
+
 import c920 from './fetch.js'
-import "isomorphic-fetch";
+// import "isomorphic-fetch";
 
 const data = [
     {
@@ -304,8 +306,8 @@ test('920: Test Send Fetch names', async (done) => {
   // practice to not leave console.log in the function for too long, only for quick diagnostic debugging.
   //
 
-  let pdResult = await c920.postData(me);
-  expect(pdResult).toBe(201);
+  let pdResult = await c920.postData(c920.url, me);
+  expect(pdResult.status).toBe(201);
 
   done();
 });
@@ -338,6 +340,95 @@ test('920: Test Failed Fetch names', async (done) => {
   
   let wwdResult = await c920.workWithData();
   expect(wwdResult).toBeFalsy();
+  
+  done();
+});
+
+
+
+test('920: Test Python', async (done) => {
+
+  // const url = "http://127.0.0.1:5000";
+  // const url = "http://127.0.0.1:5000/users";
+  const url = 'http://localhost:5000/'; // Larry's api.test url.
+
+  const clients = [
+    {key:1, name:"Larry"},
+    {key:2, name:"Lorraine"},
+  ]
+  console.log(clients);
+
+  const sclients = JSON.stringify(clients);
+  console.log(sclients);
+
+  //
+  // Expect status 201 Created - The request has been fulfilled and resulted in a new resource being created.
+  //
+  // Initial attempt received status 405 using "http://127.0.0.1:5000/", which is "Not Allowed - The 
+  // request method is known by the server but has been disabled and cannot be used".
+  //
+  // Next attempte received status 404 using "http://127.0.0.1:5000/users", which is "Not Found - The server 
+  // can not find the requested resource".
+  // 
+  //
+
+  // Check that the server is running and clear any data. Expect status 200 - 
+  // The request has succeeded.
+  //
+  let data = await c920.postData(url + "clear");
+  expect(data.status).toBe(200);
+
+  data = await c920.postData(url + 'all');
+  expect(data.status).toEqual(200);
+  expect(data.length).toBe(0);
+
+  data = await c920.postData(url + 'add', clients[0]);
+  expect(data.status).toEqual(200);
+
+  data = await c920.postData(url + 'all');
+  expect(data.status).toEqual(200);
+  expect(data.length).toBe(1);
+  expect(data[0].name).toBe("Larry");
+
+  // add a second with the same key which should be an error
+  data = await c920.postData(url + 'add', clients[0]);
+  expect(data.status).toEqual(400);
+
+  // add a second which should be ok
+  data = await c920.postData(url + 'add', clients[1]);
+  expect(data.status).toEqual(200);
+
+  data = await c920.postData(url + 'all');
+  expect(data.status).toEqual(200);
+  expect(data.length).toBe(2);
+  expect(data[1].name).toBe("Lorraine");
+
+  // Console below results in [ { key: 1, name: 'George' }, status: 200, statusText: 'OK' ]
+  console.log ("After Adds: ");
+  console.log (data);
+
+  data = await c920.postData(url + 'read', {key:1});
+  expect(data.status).toEqual(200);
+  expect(data.length).toBe(1);
+  expect(data[0].name).toBe("Larry");
+
+  data = await c920.postData(url + 'update', {key:1, name:"George"});
+  expect(data.status).toEqual(200);
+  
+  data = await c920.postData(url + 'read', {key:1});
+  expect(data.status).toEqual(200);
+  expect(data.length).toBe(1);
+  expect(data[0].name).toBe("George");
+
+  // Console below results in [ { key: 1, name: 'George' }, status: 200, statusText: 'OK' ]
+  console.log ("After Update: ");
+  console.log (data);
+
+  data = await c920.postData(url + 'delete', {key:1});
+  expect(data.status).toEqual(200);
+
+  data = await c920.postData(url + 'read', {key:1});
+  expect(data.status).toEqual(400);  
   
   done();
 });

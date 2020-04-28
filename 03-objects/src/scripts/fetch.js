@@ -93,9 +93,9 @@ const c920 = {
         }
     },
 
-    async postData(data) {
+    async postData(url = '', data = {}) {
         // Default options are marked with *
-        const response = await fetch(c920.url, {
+        const response = await fetch(url, {
             method: 'POST',     // *GET, POST, PUT, DELETE, etc.
             mode: 'cors',       // no-cors, *cors, same-origin
             cache: 'no-cache',  // *default, no-cache, reload, force-cache, only-if-cached
@@ -115,7 +115,12 @@ const c920 = {
         // else {
             // console.log("HTTP-Error: " + response.status);
         // }
-        return response.status;
+
+        const json = await response.json();    // parses JSON response into native JavaScript objects
+        json.status = response.status;
+        json.statusText = response.statusText;
+    
+        return json;
     }
 };
 

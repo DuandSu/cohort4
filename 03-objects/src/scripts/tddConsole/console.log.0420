@@ -1,0 +1,597 @@
+for (let k = 0; k < a.length; k = k + 1) { console.log("On the ", k+1, " day of Christmas, my true love gave to me ", k+1, a[k] )  }
+On the  1  day of Christmas, my true love gave to me  1 one partridge
+On the  2  day of Christmas, my true love gave to me  2 two turtle doves
+On the  3  day of Christmas, my true love gave to me  3 three french hens
+On the  4  day of Christmas, my true love gave to me  4 four calling birds
+On the  5  day of Christmas, my true love gave to me  5 five golden rings
+On the  6  day of Christmas, my true love gave to me  6 six geese a-laying
+On the  7  day of Christmas, my true love gave to me  7 swans a-swimming
+
+a.forEach ( function (element) { console.log("On the ", k+1, " day of Christmas, my true love gave to me ", k+1, a[k] } )                              )
+Uncaught SyntaxError: missing ) after argument list
+a.forEach ( function (element) { console.log("On the ", k+1, " day of Christmas, my true love gave to me ", k+1, a[k]) } )  
+On the  7  day of Christmas, my true love gave to me  7 swans a-swimming
+
+a.forEach ( function (element,index) { console.log("On the ", index+1, " day of Christmas, my true love gave to me ", index+1, a[index]) } )  
+On the  1  day of Christmas, my true love gave to me  1 one partridge
+On the  2  day of Christmas, my true love gave to me  2 two turtle doves
+On the  3  day of Christmas, my true love gave to me  3 three french hens
+On the  4  day of Christmas, my true love gave to me  4 four calling birds
+On the  5  day of Christmas, my true love gave to me  5 five golden rings
+On the  6  day of Christmas, my true love gave to me  6 six geese a-laying
+On the  7  day of Christmas, my true love gave to me  7 swans a-swimming
+
+let value = 15
+
+function square (value) return value * value
+Uncaught SyntaxError: Unexpected token 'return'
+function square (value) { return value * value }
+
+square (value) 
+225
+square (1)
+1
+square (2)
+4
+square (20)
+400
+square ('apple')
+NaN
+function shout (action) {
+    console.log ( action() )
+}
+
+shout()
+Uncaught TypeError: action is not a function
+    at shout (<anonymous>:2:19)
+    at <anonymous>:1:1
+shout @ VM4575:2
+(anonymous) @ VM4596:1
+shout(1)
+Uncaught TypeError: action is not a function
+    at shout (<anonymous>:2:19)
+    at <anonymous>:1:1
+shout @ VM4575:2
+(anonymous) @ VM4619:1
+function shoutAction () { return "Hello there" }
+
+shout ( shoutAction )
+Hello there
+
+function evaluate ( action, value ) {
+    console.log ( action (value) )
+}
+
+square(1)
+1
+square(2)
+4
+evaluate ( square, -30 )
+900
+
+"90" < "80"
+false
+"90" < "95"
+true
+"90" < "901"
+true
+"-90" < "-80"
+false
+"Aaron-90" < "Aaron-80"
+false
+"Aaron-80"
+"Aaron-80"
+"Aaron-80"
+"Aaron-80"
+"Aaron-90"
+"Aaron-90"
+-90 < -80
+true
+"-90" < "-80"
+false
+square
+ƒ square (value) { return value * value }
+function cube (value) { return value * value * value }
+
+cube(3)
+27
+function negative (value) { return -value }
+
+negative(2)
+-2
+negative(-20)
+20
+function magic (value) { return value * (value - 1) }
+
+magic (1)
+0
+magic (2)
+2
+magic (3)
+6
+square
+ƒ square (value) { return value * value }
+cube
+ƒ cube (value) { return value * value * value }
+negative
+ƒ negative (value) { return -value }
+magic
+ƒ magic (value) { return value * (value - 1) }
+evaluate
+ƒ evaluate ( action, value ) {
+    console.log ( action (value) )
+}
+const myFunctions [square, cube, negative, magic]
+Uncaught SyntaxError: Missing initializer in const declaration
+const myFunctions = [square, cube, negative, magic]
+
+myFunctions
+(4) [ƒ, ƒ, ƒ, ƒ]0: ƒ square(value)length: 1name: "square"arguments: nullcaller: nullprototype: {constructor: ƒ}__proto__: ƒ ()[[FunctionLocation]]: VM4278:1[[Scopes]]: Scopes[2]0: Script {myArray: Array(0), myArray2: Array(0), a: Array(7), myNextElement: 5, myNewArrayLength: 5, …}1: Global {parent: Window, opener: null, top: Window, length: 0, frames: Window, …}1: ƒ cube(value)2: ƒ negative(value)3: ƒ magic(value)length: 4__proto__: Array(0)
+myFunctions[0]
+ƒ square (value) { return value * value }
+for (let k = 0; k < myFunction.length; k = k + 1) {
+    evaluate( myFunctions[i] , 3 )
+}
+Uncaught ReferenceError: myFunction is not defined
+    at <anonymous>:1:21
+(anonymous) @ VM6630:1
+for (let k = 0; k < myFunctions.length; k = k + 1) {
+    evaluate( myFunctions[i] , 3 )
+}
+Uncaught TypeError: action is not a function
+    at evaluate (<anonymous>:2:19)
+    at <anonymous>:2:5
+evaluate @ VM5039:2
+(anonymous) @ VM6638:2
+for (let k = 0; k < myFunctions.length; k = k + 1) {
+    
+    evaluate( myFunctions[k] , 3 )
+}
+9
+27
+-3
+6
+
+const data = [1, 2, 3, 4, 5]
+
+for (let i = 0; i < data.length; i += 1) {
+    for (let j = 0; j < myFunctions.length; j++) {
+        evaluate( myFunctions[j], data[i]
+Uncaught SyntaxError: missing ) after argument list
+for (let i = 0; i < data.length; i += 1) {
+    for (let j = 0; j < myFunctions.length; j++) {
+        console.log ("My i is ", i, "; my j is ", j) 
+        evaluate( myFunctions[j], data[i] )
+        
+    }
+}
+My i is  0 ; my j is  0
+1
+My i is  0 ; my j is  1
+1
+My i is  0 ; my j is  2
+-1
+My i is  0 ; my j is  3
+0
+My i is  1 ; my j is  0
+4
+My i is  1 ; my j is  1
+8
+My i is  1 ; my j is  2
+-2
+My i is  1 ; my j is  3
+2
+My i is  2 ; my j is  0
+9
+My i is  2 ; my j is  1
+27
+My i is  2 ; my j is  2
+-3
+My i is  2 ; my j is  3
+6
+My i is  3 ; my j is  0
+16
+My i is  3 ; my j is  1
+64
+My i is  3 ; my j is  2
+-4
+My i is  3 ; my j is  3
+12
+My i is  4 ; my j is  0
+25
+My i is  4 ; my j is  1
+125
+My i is  4 ; my j is  2
+-5
+My i is  4 ; my j is  3
+20
+
+for (let i = 0; i < data.length; i += 1) {
+    for (let j = 0; j < myFunctions.length; j++) {
+        console.log ("My i is ", i, "; my j is ", j)
+        console.log ("My data item is", data[i], "; my function is ", muFunctions[j]) 
+        evaluate( myFunctions[j], data[i] )
+        
+    }
+}
+My i is  0 ; my j is  0
+Uncaught ReferenceError: muFunctions is not defined
+    at <anonymous>:4:71
+(anonymous) @ VM7555:4
+for (let i = 0; i < data.length; i += 1) {
+    for (let j = 0; j < myFunctions.length; j++) {
+        console.log ("My i is ", i, "; my j is ", j)
+        console.log ("My data item is", data[i], "; my function is ", myFunctions[j]) 
+        evaluate( myFunctions[j], data[i] )
+        
+    }
+}
+My i is  0 ; my j is  0
+My data item is 1 ; my function is  ƒ square (value) { return value * value }
+1
+My i is  0 ; my j is  1
+My data item is 1 ; my function is  ƒ cube (value) { return value * value * value }
+1
+My i is  0 ; my j is  2
+My data item is 1 ; my function is  ƒ negative (value) { return -value }
+-1
+My i is  0 ; my j is  3
+My data item is 1 ; my function is  ƒ magic (value) { return value * (value - 1) }
+0
+My i is  1 ; my j is  0
+My data item is 2 ; my function is  ƒ square (value) { return value * value }
+4
+My i is  1 ; my j is  1
+My data item is 2 ; my function is  ƒ cube (value) { return value * value * value }
+8
+My i is  1 ; my j is  2
+My data item is 2 ; my function is  ƒ negative (value) { return -value }
+-2
+My i is  1 ; my j is  3
+My data item is 2 ; my function is  ƒ magic (value) { return value * (value - 1) }
+2
+My i is  2 ; my j is  0
+My data item is 3 ; my function is  ƒ square (value) { return value * value }
+9
+My i is  2 ; my j is  1
+My data item is 3 ; my function is  ƒ cube (value) { return value * value * value }
+27
+My i is  2 ; my j is  2
+My data item is 3 ; my function is  ƒ negative (value) { return -value }
+-3
+My i is  2 ; my j is  3
+My data item is 3 ; my function is  ƒ magic (value) { return value * (value - 1) }
+6
+My i is  3 ; my j is  0
+My data item is 4 ; my function is  ƒ square (value) { return value * value }
+16
+My i is  3 ; my j is  1
+My data item is 4 ; my function is  ƒ cube (value) { return value * value * value }
+64
+My i is  3 ; my j is  2
+My data item is 4 ; my function is  ƒ negative (value) { return -value }
+-4
+My i is  3 ; my j is  3
+My data item is 4 ; my function is  ƒ magic (value) { return value * (value - 1) }
+12
+My i is  4 ; my j is  0
+My data item is 5 ; my function is  ƒ square (value) { return value * value }
+25
+My i is  4 ; my j is  1
+My data item is 5 ; my function is  ƒ cube (value) { return value * value * value }
+125
+My i is  4 ; my j is  2
+My data item is 5 ; my function is  ƒ negative (value) { return -value }
+-5
+My i is  4 ; my j is  3
+My data item is 5 ; my function is  ƒ magic (value) { return value * (value - 1) }
+20
+
+data
+(5) [1, 2, 3, 4, 5]
+data.length
+5
+data.forEach
+ƒ forEach() { [native code] }
+data.map
+ƒ map() { [native code] }
+data.sort
+ƒ sort() { [native code] }
+data.filter
+ƒ filter() { [native code] }
+data.reduce
+ƒ reduce() { [native code] }
+evaluate
+ƒ evaluate ( action, value ) {
+    console.log ( action (value) )
+}
+function reveal (a, b, c) {
+   console.log('a =', a, '; b =', b, ';c = ', c)
+}
+
+reveal(1, 2, 3)
+a = 1 ; b = 2 ;c =  3
+
+data
+(5) [1, 2, 3, 4, 5]
+data.forEach ( reveal ) 
+a = 1 ; b = 0 ;c =  (5) [1, 2, 3, 4, 5]
+a = 2 ; b = 1 ;c =  (5) [1, 2, 3, 4, 5]
+a = 3 ; b = 2 ;c =  (5) [1, 2, 3, 4, 5]
+a = 4 ; b = 3 ;c =  (5) [1, 2, 3, 4, 5]
+a = 5 ; b = 4 ;c =  (5) [1, 2, 3, 4, 5]
+
+a
+(7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a.forEach ( reveal ) 
+a = one partridge ; b = 0 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = two turtle doves ; b = 1 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = three french hens ; b = 2 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = four calling birds ; b = 3 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = five golden rings ; b = 4 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = six geese a-laying ; b = 5 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = swans a-swimming ; b = 6 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+
+const funnyData = ['banana', 'apple', 'pear', 'apple', 'banana']
+
+funnyData
+(5) ["banana", "apple", "pear", "apple", "banana"]
+function tellSomethingtoReveal ( action, x, y, z ) {
+    action (x, y, z)
+}
+
+tellSomethingtoReveal ( reveal, "Happy", "New", "Year" )
+a = Happy ; b = New ;c =  Year
+
+tellSomethingtoReveal ( reveal, "Happy", "New" )
+a = Happy ; b = New ;c =  undefined
+tellSomethingtoReveal ( reveal )
+a = undefined ; b = undefined ;c =  undefined
+
+a.forEach (reveal)
+a = one partridge ; b = 0 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = two turtle doves ; b = 1 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = three french hens ; b = 2 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = four calling birds ; b = 3 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = five golden rings ; b = 4 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = six geese a-laying ; b = 5 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a = swans a-swimming ; b = 6 ;c =  (7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+
+a
+(7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a.forEach ( 
+    function (value) {
+       console.log ('My dear love gave to me', value)
+    }
+)
+My dear love gave to me one partridge
+My dear love gave to me two turtle doves
+My dear love gave to me three french hens
+My dear love gave to me four calling birds
+My dear love gave to me five golden rings
+My dear love gave to me six geese a-laying
+My dear love gave to me swans a-swimming
+
+a.forEach ( 
+    function (value, index) {
+       console.log ('On the', index-1, 'day of Christmas, my dear love gave to me', value)
+    }
+)
+On the -1 day of Christmas, my dear love gave to me one partridge
+On the 0 day of Christmas, my dear love gave to me two turtle doves
+On the 1 day of Christmas, my dear love gave to me three french hens
+On the 2 day of Christmas, my dear love gave to me four calling birds
+On the 3 day of Christmas, my dear love gave to me five golden rings
+On the 4 day of Christmas, my dear love gave to me six geese a-laying
+On the 5 day of Christmas, my dear love gave to me swans a-swimming
+
+a.forEach ( 
+    function (value, index) {
+       console.log ('On the', index+1, 'day of Christmas, my dear love gave to me', value)
+    }
+)
+On the 1 day of Christmas, my dear love gave to me one partridge
+On the 2 day of Christmas, my dear love gave to me two turtle doves
+On the 3 day of Christmas, my dear love gave to me three french hens
+On the 4 day of Christmas, my dear love gave to me four calling birds
+On the 5 day of Christmas, my dear love gave to me five golden rings
+On the 6 day of Christmas, my dear love gave to me six geese a-laying
+On the 7 day of Christmas, my dear love gave to me swans a-swimming
+
+a.forEach ( 
+    function (value, index, array) {
+       console.log ('On the', index+1, 'day of Christmas, my dear love gave to me', value, '. And by the way, there were', array.length,' days')
+    }
+)
+On the 1 day of Christmas, my dear love gave to me one partridge . And by the way, there were 7  days
+On the 2 day of Christmas, my dear love gave to me two turtle doves . And by the way, there were 7  days
+On the 3 day of Christmas, my dear love gave to me three french hens . And by the way, there were 7  days
+On the 4 day of Christmas, my dear love gave to me four calling birds . And by the way, there were 7  days
+On the 5 day of Christmas, my dear love gave to me five golden rings . And by the way, there were 7  days
+On the 6 day of Christmas, my dear love gave to me six geese a-laying . And by the way, there were 7  days
+On the 7 day of Christmas, my dear love gave to me swans a-swimming . And by the way, there were 7  days
+
+a.forEach ( 
+    function () {
+       console.log ('Ha')
+    }
+)
+Ha
+
+a
+(7) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "swans a-swimming"]
+a[7] = "eight maids a-milking"
+"eight maids a-milking"
+a.forEach ( 
+    function (value, index, array) {
+       console.log ('On the', index+1, 'day of Christmas, my dear love gave to me', value, '. And by the way, there were', array.length,' days')
+    }
+)
+On the 1 day of Christmas, my dear love gave to me one partridge . And by the way, there were 8  days
+On the 2 day of Christmas, my dear love gave to me two turtle doves . And by the way, there were 8  days
+On the 3 day of Christmas, my dear love gave to me three french hens . And by the way, there were 8  days
+On the 4 day of Christmas, my dear love gave to me four calling birds . And by the way, there were 8  days
+On the 5 day of Christmas, my dear love gave to me five golden rings . And by the way, there were 8  days
+On the 6 day of Christmas, my dear love gave to me six geese a-laying . And by the way, there were 8  days
+On the 7 day of Christmas, my dear love gave to me swans a-swimming . And by the way, there were 8  days
+On the 8 day of Christmas, my dear love gave to me eight maids a-milking . And by the way, there were 8  days
+
+a.filter ( 
+
+    function (value) {
+        if ( value.includes("partridge") ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+["one partridge"]
+a.filter ( 
+
+    function (value) {
+        if ( value.includes("a") ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+(5) ["one partridge", "four calling birds", "six geese a-laying", "swans a-swimming", "eight maids a-milking"]
+a[6] = "seven " + a[6]
+"seven swans a-swimming"
+a.filter ( 
+
+    function (value) {
+        if ( value.includes("a") ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+(5) ["one partridge", "four calling birds", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking"]
+a.filter ( 
+
+    function (value) {
+        if ( value.includes("e") ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+(7) ["one partridge", "two turtle doves", "three french hens", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking"]0: "one partridge"1: "two turtle doves"2: "three french hens"3: "five golden rings"4: "six geese a-laying"5: "seven swans a-swimming"6: "eight maids a-milking"length: 7__proto__: Array(0)
+const elements_with_t = a.filter ( 
+
+    function (value) {
+        if ( value.includes("t") ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+
+elements_with_t
+(4) ["one partridge", "two turtle doves", "three french hens", "eight maids a-milking"]
+a
+(8) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking"]
+a.filter ( 
+
+    function (value, index) {
+        if ( index % 2 == 0 ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+(4) ["one partridge", "three french hens", "five golden rings", "seven swans a-swimming"]0: "one partridge"1: "three french hens"2: "five golden rings"3: "seven swans a-swimming"length: 4__proto__: Array(0)
+a.filter ( 
+
+    function (value, index) {
+        if ( index % 2 == 1 ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+(4) ["two turtle doves", "four calling birds", "six geese a-laying", "eight maids a-milking"]
+a.filter ( 
+
+    function (value, index, array) {
+        if ( index == array.length - 1 ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+["eight maids a-milking"]
+a.filter ( 
+
+    function (value, index, array) {
+        if ( index >= array.length - 1 ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+["eight maids a-milking"]
+a.filter ( 
+
+    function (value, index, array) {
+        if ( index >= array.length - 2 ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+(2) ["seven swans a-swimming", "eight maids a-milking"]
+a.filter ( 
+
+    function (value, index, array) {
+        if ( index >= array.length - 5 ) {
+           return true
+        } else {
+           return false
+        }
+    }
+)
+(5) ["four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking"]
+a.map ( 
+
+    function (value) {
+       return ('Also' + value)
+    }
+)
+(8) ["Alsoone partridge", "Alsotwo turtle doves", "Alsothree french hens", "Alsofour calling birds", "Alsofive golden rings", "Alsosix geese a-laying", "Alsoseven swans a-swimming", "Alsoeight maids a-milking"]
+a.map ( 
+
+    function (value) {
+       return ('Also ' + value)
+    }
+)
+(8) ["Also one partridge", "Also two turtle doves", "Also three french hens", "Also four calling birds", "Also five golden rings", "Also six geese a-laying", "Also seven swans a-swimming", "Also eight maids a-milking"]
+a
+(8) ["one partridge", "two turtle doves", "three french hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking"]
+a.map ( 
+
+    function (value, index) {
+       return ('Also ' + value + ' on day ' + (index + 1) )
+    }
+)
+(8) ["Also one partridge on day 1", "Also two turtle doves on day 2", "Also three french hens on day 3", "Also four calling birds on day 4", "Also five golden rings on day 5", "Also six geese a-laying on day 6", "Also seven swans a-swimming on day 7", "Also eight maids a-milking on day 8"]
+a.map ( 
+
+    function (value, index, array) {
+       return ('Also ' + value + ' on day ' + (index + 1) + ' out of ' + array.length + ' days of Christmas!')
+    }
+)
+(8) ["Also one partridge on day 1 out of 8 days of Christmas!", "Also two turtle doves on day 2 out of 8 days of Christmas!", "Also three french hens on day 3 out of 8 days of Christmas!", "Also four calling birds on day 4 out of 8 days of Christmas!", "Also five golden rings on day 5 out of 8 days of Christmas!", "Also six geese a-laying on day 6 out of 8 days of Christmas!", "Also seven swans a-swimming on day 7 out of 8 days of Christmas!", "Also eight maids a-milking on day 8 out of 8 days of Christmas!"]
+a.map ( value => 'Also ' + value )
+(8) ["Also one partridge", "Also two turtle doves", "Also three french hens", "Also four calling birds", "Also five golden rings", "Also six geese a-laying", "Also seven swans a-swimming", "Also eight maids a-milking"]
