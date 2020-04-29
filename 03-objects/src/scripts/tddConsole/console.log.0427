@@ -1,0 +1,480 @@
+utter
+ƒ (name, what, language) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}, 
+        "action": function(name) {return name + " buddy"} }…
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          // console.log('Oh! I found my language', somelanguage)
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('','en','')
+null
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('','en','')
+VM11197:17 Oh! I found my language {lang: "en", words: {…}}
+null
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          console.log('And my words are')
+          for (word in somelanguage.words) {
+             console.log(word)
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('','en','')
+VM11377:17 Oh! I found my language {lang: "en", words: {…}}
+VM11377:18 And my words are
+VM11377:20 greet
+VM11377:20 farewell
+null
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          console.log('And my words are')
+          for (word in somelanguage.words) {
+             console.log(word, somelanguage.words[word])
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('','pt','')
+VM11524:17 Oh! I found my language {lang: "pt", words: {…}}
+VM11524:18 And my words are
+VM11524:20 greet Olá
+VM11524:20 farewell Tchau
+null
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          for (word in somelanguage.words) {
+             if (somelanguage.words[word] === what) {
+                console.log('And here is the word')
+                console.log(word, somelanguage.words[word])
+             }
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('greet','pt','')
+VM11695:17 Oh! I found my language {lang: "pt", words: {…}}
+null
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          for (word in somelanguage.words) {
+             console.log('Checking', somelanguage.words[word], what)
+             if (somelanguage.words[word] === what) {
+                console.log('And here is the word')
+                console.log(word, somelanguage.words[word])
+             }
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('greet','pt','')
+VM11877:17 Oh! I found my language {lang: "pt", words: {…}}
+VM11877:19 Checking Olá greet
+VM11877:19 Checking Tchau greet
+null
+translate('Olá','pt','')
+VM11877:17 Oh! I found my language {lang: "pt", words: {…}}
+VM11877:19 Checking Olá Olá
+VM11877:21 And here is the word
+VM11877:22 greet Olá
+VM11877:19 Checking Tchau Olá
+null
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          for (wordKey in somelanguage.words) {
+             console.log('Checking', somelanguage.words[wordKey], what)
+             if (somelanguage.words[wordKey] === what) {
+                console.log('And here is the word')
+                console.log(somelanguage.words[wordKey])
+             }
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('Hallo','de','')
+VM11989:17 Oh! I found my language {lang: "de", words: {…}}
+VM11989:19 Checking Hallo Hallo
+VM11989:21 And here is the word
+VM11989:22 Hallo
+VM11989:19 Checking Auf wiedersehen Hallo
+null
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          for (wordKey in somelanguage.words) {
+             console.log('Checking', somelanguage.words[wordKey], what)
+             if (somelanguage.words[wordKey] === what) {
+                console.log('And here is the word')
+                console.log(somelanguage.words[wordKey])
+                break
+             }
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    let keyWeNeed = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          for (wordKey in somelanguage.words) {
+             console.log('Checking', somelanguage.words[wordKey], what)
+             if (somelanguage.words[wordKey] === what) {
+                console.log('And here is the word')
+                console.log(somelanguage.words[wordKey])
+                keyWeNeed = wordKey
+                break
+             }
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    result = keyWeNeed
+
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('Hallo','de','')
+VM12223:18 Oh! I found my language {lang: "de", words: {…}}
+VM12223:20 Checking Hallo Hallo
+VM12223:22 And here is the word
+VM12223:23 Hallo
+"greet"
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    let keyWeNeed = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          console.log('Oh! I found my language', somelanguage)
+          for (wordKey in somelanguage.words) {
+             console.log('Checking', somelanguage.words[wordKey], what)
+             if (somelanguage.words[wordKey] === what) {
+                console.log('And here is the word')
+                console.log(somelanguage.words[wordKey])
+                keyWeNeed = wordKey
+                break
+             }
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    // now that we have the key, we can translate
+    
+    for (somelanguage of phrases) {
+       if (somelanguage.lang === targetLanguage) {
+          result = somelanguage.words[keyWeNeed]
+          break
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('Hallo','de','en')
+VM12560:18 Oh! I found my language {lang: "de", words: {…}}
+VM12560:20 Checking Hallo Hallo
+VM12560:22 And here is the word
+VM12560:23 Hallo
+"Hello"
+translate('Hasta luego','es','it')
+VM12560:18 Oh! I found my language {lang: "es", words: {…}}
+VM12560:20 Checking Hola Hasta luego
+VM12560:20 Checking Hasta luego Hasta luego
+VM12560:22 And here is the word
+VM12560:23 Hasta luego
+"Addio"
+translate = function (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "Hallo", "farewell": "Auf wiedersehen"}},
+       {"lang": "es", "words": { "greet": "Hola", "farewell": "Hasta luego"}},
+       {"lang": "pt", "words": { "greet": "Olá", "farewell": "Tchau"}},
+       {"lang": "it", "words": { "greet": "Ciao", "farewell": "Addio"}}
+    ]
+
+    // logic
+    let result = null
+    let keyWeNeed = null
+    // console.log (what, language)
+    for (somelanguage of phrases) {
+       // console.log('Next language is', somelanguage)
+       if (somelanguage.lang === sourceLanguage) {
+          // console.log('Oh! I found my language', somelanguage)
+          for (wordKey in somelanguage.words) {
+             // console.log('Checking', somelanguage.words[wordKey], what)
+             if (somelanguage.words[wordKey] === what) {
+                // console.log('And here is the word')
+                // console.log(somelanguage.words[wordKey])
+                keyWeNeed = wordKey
+                break
+             }
+          }
+          // console.log("The word i'm looking for is", somelanguage.words[what])
+          break
+       } else {
+          // console.log('Nope, that is not what I want')
+       }
+    }
+    // now that we have the key, we can translate
+    
+    for (somelanguage of phrases) {
+       if (somelanguage.lang === targetLanguage) {
+          result = somelanguage.words[keyWeNeed]
+          break
+       }
+    }
+    return result
+}
+ƒ (what, sourceLanguage, targetLanguage) {
+    // environment
+    let phrases = [
+       {"lang": "en", "words": { "greet": "Hello", "farewell": "Goodbye"}},
+       {"lang": "de", "words": { "greet": "…
+translate('Hello','en','pt')
+"Olá"
