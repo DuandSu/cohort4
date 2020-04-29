@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Competency 130d</title>
+	<link rel="stylesheet" type="text/css" href="c130d.css">
+</head>
+<body>
+	<header>
+
+	</header>
+	<nav>
+		<a href="index.html">
+			<h3>Go Back</h3>
+		</a>
+	</nav>
+	<section class ="sectionMain">
+		<h1>Welcome to the Community and City</h1>
+		<div class="divBankActions">
+			<div class="divAcctSelect">
+				Account Name: <select id=selectAcct>
+					<option value="srcSelect">Select Account</option>
+					<option value="srcAddAcct">Add New Account</option>
+					<option value="srcAcct1">Chequing</option>
+					<option value="srcAcct2">Savings</option>
+					<option value="srcAcct3">Credit Card</option>
+				</select>
+				-> <select id="selectDestAcct">
+					<option value="destSelect">Select Destination Account</option>
+					<option value="destAcct1">Chequing</option>
+					<option value="destAcct2">Savings</option>
+					<option value="destAcct3">Credit Card</option>
+				</select>
+			</div>
+			<div class="divAcctActions">
+				$ <input id="inputAmt" type=number value=0>
+				<button id="btnAddAcct" type="button">Add New Account</button>
+				<button id="btnDelAcct" type="button">Delete</button>
+				<button id="btnDeposit" type="button">Deposit</button>
+				<button id="btnWithdraw" type="button">Withdraw</button>
+				<button id="btnTransfer" type="button">Transfer</button>
+			</div>
+			<p id="messageArea" position="absolute"></p>
+		</div>
+		<!-- <div id=idAddAcct class="divAddAcct" visibility: visible> -->
+		<div id=idAddAcct class="divAddAcct">
+			Enter Name of New Account: <input id="inputNewAcct" type=text>
+			<button id="btnCreateAcct" type="button">Create</button>
+			<button id="btnCancelAcct" type="button">Cancel</button>
+		</div>
+		<div id=idAccts class="divAccounts">
+			<div class="divAcctsList">
+			<section class="sectionAcctList">
+				<h4>Account</h4>
+				<ul id="ulAcctList">
+					<li id="listAcct1" class="liOdd">Chequing</li>
+					<li id="listAcct2" class="liEven">Savings</li>
+					<li id="listAcct3" class="liOdd">Credit Card</li>
+					<li id="idSumTxt" class="liSum">Summary of All Accounts</li>
+				</ul>
+			</section>
+			<aside class="asideAcctBal">
+				<h4>Balance</h4>
+			 	<ul id="ulAcctBal">
+					<li id="sumAcct1"class="liOdd">$0.00</li>
+					<li id="sumAcct2" class="liEven">$200.00</li>
+					<li id="sumAcct3"class="liOdd">$100.00</li>
+					<li id="idSum" class="liSum">$300.00</li>
+			 	</ul>
+			 </aside>
+			</div>
+		</div>
+	</section>
+	<footer>
+	</footer>
+	<script type="module" src="./scripts/c130dindex.js"></script>
+</body>
+</html>
