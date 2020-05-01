@@ -18,6 +18,15 @@ test('130d: Testing the TDD Pipes', () => {
     
 });
 
+test('130d: Play Area', () => {
+    
+    let fruits = ["Banana", "Orange", "Apple", "Mango"];
+    let orange = fruits.splice(1,1);
+    expect(fruits).toEqual(["Banana", "Apple", "Mango"]);
+    expect(orange).toEqual(["Orange"]);
+    
+});
+
 test('130d: Does Community controller class instantiation and methods work?', () => {
     
     const canada = new community.Community ("Canada");
@@ -59,16 +68,76 @@ test('130d: Does Community controller class instantiation and methods work?', ()
     expect(canada.cityList[newIndex].howBig()).toBe(1917);
     expect(canada.cityList[newIndex].howBig("Category")).toBe("Town");
     
+    let delIndex = canada.findKeyIndex(1);
+    expect(delIndex).toBe(1);
+
+    expect(canada.cityList[1].name).toBe("Calgary");
+    canada.deleteCity(1);
+    expect(canada.cityList[1].name).toBe("Vulcan");
+
+    createResult = canada.createCity ("Calgary", 51.0447, -114.0719, 1547484, 1);
+    expect(createResult).toEqual([2,1]);
+    expect(canada.cityList[1].name).toBe("Vulcan");
+    expect(canada.cityList[1].key).toBe(2);
+    expect(canada.cityList[2].name).toBe("Calgary");
+    expect(canada.cityList[2].key).toBe(1);
+    
+    createResult = canada.createCity ("Hell", 51.0447, -114.0719, 1547484, "3");
+    expect(createResult).toEqual([3,3]);
 });
 
-test('130d: Async ASP Testing with Community', async (done) => {
+test('130d: Test Other Community class methods', () => {
+
+    const canada = new community.Community ("Canada");
+
+    expect(canada.getMostNorthern()).toBe(0);
+    expect(canada.getMostSouthern()).toBe(0);
+    
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    canada.createCity ("Vulcan South", -50.3367, -13.2380, 1917);
+    canada.createCity ("Equator City", 0, -13.2380, 1000001);
+    canada.createCity ("Just Below Equatorton", -1, -13.2380, 2000);
+    canada.createCity ("Minus Zero", -0, -13.2380, 0);
+    
+    expect(canada.whichSphere(1)).toBe("N");
+    expect(canada.whichSphere(4)).toBe("S");
+    expect(canada.whichSphere(5)).toBe("N");
+    expect(canada.whichSphere(6)).toBe("S");
+    expect(canada.whichSphere(7)).toBe("N");
+    
+    expect(canada.getMostNorthern()).toBe(1);
+    
+    canada.createCity ("Edmonton", 53.5461, -113.4938, 1461182);
+    
+    expect(canada.getMostNorthern()).toBe(8);
+    
+    canada.createCity ("Edmonton Mirror", 53.5461, -113.4938, 1461183);
+    
+    expect(canada.getMostNorthern()).toBe(9);
+    
+    expect(canada.getMostSouthern()).toBe(4);
+    
+    canada.createCity ("Vulcan Big South", -50.3367, -13.2380, 1918);
+
+    expect(canada.getMostSouthern()).toBe(10);
+
+    expect(canada.getPopulation()).toBe(5477622);
+    
+});
+
+test('130d: Async ASP Basic Testing with Community', async (done) => {
+    
+    let data = await c920.postData(url + "clear");
+    expect(data.status).toBe(200);
     
     const canada = new community.Community ("Canada");
     
     canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
     canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
 
-    let data = await c920.postData(url + "clear");
+    data = await c920.postData(url + "clear");
     expect(data.status).toBe(200);
 
     
@@ -150,6 +219,27 @@ test('130d: Async ASP Testing with Community', async (done) => {
     expect(data.length).toBe(1);
     expect(data[0].population).toBe(1547500);
 
+    function findKey(pcity, pkey) {
+
+        // console.log(pcity.name, pcity.key, pkey);
+        return pcity.key === pkey;
+    }
+
+    expect(findKey(canada.cityList[1],1)).toBeTruthy();
+
+    let delIndex = -1;
+    for (let i = 1; i < canada.cityList.length; i++) {
+        if (findKey(canada.cityList[i], 1)) {
+            delIndex = i;
+            break;
+        }
+    }
+
+    expect(delIndex).toBe(1);
+    
+    // delIndex = canada.cityList.findIndex( findKey(canada.cityList, 1));
+    // expect(delIndex).toBe(1);
+
     data = await c920.postData(url + 'delete', key1);
     // data = await c920.postData(url + 'delete', {key:1});
     expect(data.status).toEqual(200);
@@ -157,6 +247,8 @@ test('130d: Async ASP Testing with Community', async (done) => {
     data = await c920.postData(url + 'read', key1);
     // data = await c920.postData(url + 'read', {key:1});
     expect(data.status).toEqual(400);
+
+
 
     done();
 });
