@@ -37,20 +37,20 @@ const c130d = {
                     console.log("Done 1st postData:" + data.status + " " + data.length);
                     tmpObj.nextKey = data[0].nextKey;
                     
-                    let data = await c920.postData(url + 'update', tmpObj);
+                    data = await c920.postData(url + 'update', tmpObj);
                     
                     tmpObj = {};
                     tmpObj.key = 0;
                     
                     data = await c920.postData(url + 'read', tmpObj);
-                    return data;
             }
 
         } catch (err) {
-                    data.status = err.name;
-                    data.statusText = err.message;
-                    return data;
+            data.status = err.name;
+            data.statusText = err.message;
         }
+
+        return data;
     }
  };
 
