@@ -32,7 +32,7 @@ test('130d: Does Community controller class instantiation and methods work?', ()
     const canada = new community.Community ("Canada");
 
     expect(canada.name).toBe("Canada");
-    expect(canada.cityList[0]).toEqual({key: 0, nextKey: 1});
+    expect(canada.cityList[0]).toEqual({key: 0, name: "Canada", nextKey: 1});
     expect(canada.cityList[0].key).toBe(0);
     expect(canada.cityList[0].nextKey).toBe(1);
 
@@ -124,7 +124,7 @@ test('130d: Test Other Community class methods', () => {
     expect(canada.getMostSouthern()).toBe(10);
 
     expect(canada.getPopulation()).toBe(5477622);
-    
+
 });
 
 test('130d: Async ASP Basic Testing with Community', async (done) => {

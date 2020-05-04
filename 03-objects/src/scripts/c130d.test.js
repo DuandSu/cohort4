@@ -150,34 +150,56 @@ test('130d: Play Area with Try Catch Block and scope references', () => {
     
 });
 
-test('130d: Async ASP Interface with Community', async (done) => {
-
+test('130d: Async ASP confirmAPIConnect', async (done) => {
+    
     
     let data = await c130d.confirmAPIConnect (urlBad);
     expect(data.status).not.toBe(200);
     
     data = await c920.postData(url + "clear");
     expect(data.status).toBe(200);
-
+    
     data = await c130d.confirmAPIConnect (url);
     expect(data.status).toBe(200);
     
     const canada = new community.Community ("Canada");
     data = await c920.postData(url + 'add', canada.cityList[0]);
     expect(data.status).toEqual(200);
-
+    
     data = await c920.postData(url + 'all');
     expect(data.status).toEqual(200);
-
+    
     expect(data.length).toBe(1); 
     expect(data[0].key).toBe(0);
     expect(data[0].nextKey).toBe(1);
-
+    
     data = await c130d.confirmAPIConnect (url);
     expect(data.status).toBe(200);
     expect(data.length).toBe(1); 
     expect(data[0].key).toBe(0);
     expect(data[0].nextKey).toBe(1);
     
+    done();
+});
+
+test('130d: Async ASP create and delete APICommunity', async (done) => {
+    
+    let data = await c920.postData(url + "clear");
+    expect(data.status).toBe(200);
+
+    const canada = new community.Community ("Canada");
+
+    data = await c130d.createAPICommunity (url, canada.cityList[0]);
+    expect(data.status).toBe(200);
+    
+    data = await c920.postData(url + 'all');
+    expect(data.status).toEqual(200);
+    
+    data = await c130d.deleteAPICommunity (url);
+
+    data = await c920.postData(url + 'all');
+    expect(data.status).toEqual(200);
+    expect(data.length).toBe(0); 
+
     done();
 });

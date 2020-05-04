@@ -11,12 +11,12 @@ const c130d = {
         // Check API is availabe for simple read of all records
         //
         let data;
-
+        
         try {
-
+            
             data = await c920.postData(url + 'all');
-
-            console.log("Done 1st postData:" + data.status + " " + data.length);
+            
+            // console.log("Done 1st postData:" + data.status + " " + data.length);
             
             if (data.status === 200 && data.length > 0) {
                 
@@ -28,30 +28,85 @@ const c130d = {
                 // a key value that is not there will likely get a reference error.
                 //
                 
-                console.log("Before Try: " + data.status + " " + data.length);
-                    console.log("After Try" + data.status + " " + data.length);
-                    console.log("Entered Try");
-                    let tmpObj = {};
-                    tmpObj.key = 0;
-                    console.log("Before Data Array Reference");
-                    console.log("Done 1st postData:" + data.status + " " + data.length);
-                    tmpObj.nextKey = data[0].nextKey;
-                    
-                    data = await c920.postData(url + 'update', tmpObj);
-                    
-                    tmpObj = {};
-                    tmpObj.key = 0;
-                    
-                    data = await c920.postData(url + 'read', tmpObj);
+                // console.log("Before Try: " + data.status + " " + data.length);
+                // console.log("After Try" + data.status + " " + data.length);
+                // console.log("Entered Try");
+                let tmpObj = {};
+                tmpObj.key = 0;
+                // console.log("Before Data Array Reference");
+                // console.log("Done 1st postData:" + data.status + " " + data.length);
+                tmpObj.nextKey = data[0].nextKey;
+                
+                data = await c920.postData(url + 'update', tmpObj);
+                
+                tmpObj = {};
+                tmpObj.key = 0;
+                
+                data = await c920.postData(url + 'read', tmpObj);
             }
-
+            
         } catch (err) {
+            data.status = err.name;
+            data.statusText = err.message;
+        }
+        
+        return data;
+    },
+    
+    createAPICommunity: async (url, community) => {
+        
+        let data;
+
+        try {
+
+            // console.log("About to confirmAPIConnect!, URL: " + url);
+            data = await c130d.confirmAPIConnect (url);
+            // console.log("Done confirmAPIConnect!, Status: " + data.status);
+            
+            if (data.status === 200) {
+                
+                // console.log("About to postData to create the community add, Key: " + community.key + " NextKey: " + community.nextKey);
+                data = await c920.postData(url + 'add', community);
+                // console.log("Done postData for community add, Status: " + data.status);
+                
+            }
+            
+        }
+        catch (err) {
+            data.status = err.name;
+            data.statusText = err.message;
+        }
+
+        return data;
+    },
+
+        
+    deleteAPICommunity: async (url) => {
+        
+        let data;
+
+        try {
+
+            console.log("About to confirmAPIConnect!, URL: " + url);
+            data = await c130d.confirmAPIConnect (url);
+            console.log("Done confirmAPIConnect!, Status: " + data.status);
+            
+            if (data.status === 200) {
+                
+                console.log("About to postData to delete the community");
+                data = await c920.postData(url + "clear");
+                console.log("Done postData for community delete, Status: " + data.status);
+                
+            }
+            
+        }
+        catch (err) {
             data.status = err.name;
             data.statusText = err.message;
         }
 
         return data;
     }
- };
+};
 
 export default c130d;

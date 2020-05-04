@@ -10,6 +10,7 @@ class Community {
         this.name = name;
         this.cityList = [];
         this.cityList.push({key: 0, nextKey: 1});
+        this.cityList[0].name = name;
     }
 
     //
