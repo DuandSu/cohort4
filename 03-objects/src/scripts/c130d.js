@@ -16,8 +16,6 @@ const c130d = {
             
             data = await c920.postData(url + 'all');
             
-            // console.log("Done 1st postData:" + data.status + " " + data.length);
-            
             if (data.status === 200 && data.length > 0) {
                 
                 //
@@ -31,6 +29,7 @@ const c130d = {
                 let tmpObj = {};
                 tmpObj.key = 0;
                 tmpObj.nextKey = data[0].nextKey;
+                tmpObj.name = data[0].name;
                 
                 data = await c920.postData(url + 'update', tmpObj);
                 
@@ -38,6 +37,7 @@ const c130d = {
                 tmpObj.key = 0;
                 
                 data = await c920.postData(url + 'read', tmpObj);
+
             }
             
         } catch (err) {
@@ -59,7 +59,6 @@ const c130d = {
             if (data.status === 200) {
                 
                 data = await c920.postData(url + 'add', community);
-                
             }
             
         }
@@ -83,7 +82,6 @@ const c130d = {
             if (data.status === 200) {
                 
                 data = await c920.postData(url + "clear");
-                
             }
             
         }
@@ -112,6 +110,8 @@ const c130d = {
                     let keyCtrl = {};
                     keyCtrl.key = 0;
                     keyCtrl.nextKey = ctrl.nextKey;
+                    keyCtrl.name = ctrl.name;
+
                     data = await c920.postData(url + 'update', keyCtrl);
                 }
                 
@@ -139,10 +139,7 @@ const c130d = {
                 let keyDel = {};
                 keyDel.key = city.key;
                 data = await c920.postData(url + 'delete', keyDel);
-
-                
             }
-            
         }
         catch (err) {
             data.status = err.name;
@@ -166,24 +163,22 @@ const c130d = {
                 keyGet.key = city.key;
 
                 data = await c920.postData(url + 'read', keyGet);
-
             }
-            
         }
         catch (err) {
             data.status = err.name;
             data.statusText = err.message;
         }
-
+        
         return data;
     },
-
+    
     updateAPICity: async (url, city) => {
         
         let data;
-
+        
         try {
-
+            
             data = await c130d.confirmAPIConnect (url);
             
             if (data.status === 200) {
@@ -194,43 +189,40 @@ const c130d = {
                 keyUpd.latitude = city.latitude;
                 keyUpd.longitude = city.longitude;
                 keyUpd.population = city.population;
-
-                data = await c920.postData(url + 'delete', keyUpd);
-
+                
+                data = await c920.postData(url + 'update', keyUpd);
             }
-            
         }
         catch (err) {
             data.status = err.name;
             data.statusText = err.message;
         }
-
+        
         return data;
     },
-
+    
     
     getAllAPI: async (url) => {
         
         let data;
-
+        
         try {
-
+            
             data = await c130d.confirmAPIConnect (url);
             
             if (data.status === 200) {
                 
                 data = await c920.postData(url + 'all');
             }
-            
         }
         catch (err) {
             data.status = err.name;
             data.statusText = err.message;
         }
-
+        
         return data;
     }
-
+    
 };
 
 export default c130d;

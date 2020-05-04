@@ -194,6 +194,7 @@ test('130d: Async ASP create and delete APICommunity', async (done) => {
     
     data = await c920.postData(url + 'all');
     expect(data.status).toEqual(200);
+    expect(data[0].name).toBe("Canada");
     
     data = await c130d.deleteAPICommunity (url);
     
@@ -204,15 +205,21 @@ test('130d: Async ASP create and delete APICommunity', async (done) => {
     done();
 });
 
-    
+
 test('130d: Async ASP create, delete and update APICity', async (done) => {
-        
+    
     let data = await c920.postData(url + "clear");
     expect(data.status).toBe(200);
-
+    
     const canada = new community.Community ("Canada");
     data = await c130d.createAPICommunity (url, canada.cityList[0]);
     expect(data.status).toBe(200);
+    
+    data = await c920.postData(url + 'all');
+    expect(data.status).toEqual(200);
+    expect(data[0].name).toBe("Canada");
+    console.log("Post createAPICommunity: Data: ");
+    console.log(data);
     
     let createResult = canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
     expect(createResult).toEqual([1,1]);
@@ -222,10 +229,13 @@ test('130d: Async ASP create, delete and update APICity', async (done) => {
     
     data = await c130d.createAPICity (url, canada.cityList[1], canada.cityList[0]);
     expect(data.status).toBe(200);
-
+    
     data = await c920.postData(url + 'all');
     expect(data.status).toEqual(200);
 
+    console.log("Post createAPICity: Data: ");
+    console.log(data);
+    expect(data[0].name).toBe("Canada");
     expect(data[newIndex].name).toBe("Calgary");
     expect(data[newIndex].latitude).toBe(51.0447);
     expect(data[newIndex].longitude).toBe(-114.0719);
@@ -281,8 +291,8 @@ test('130d: Async ASP create, delete and update APICity', async (done) => {
     expect(data.status).toEqual(200);
 
     expect(data.length).toBe(1);
-    expect(data[1].name).toBe("Calgary");
-    expect(data[1].population).toBe(1548000);
+    expect(data[0].name).toBe("Calgary");
+    expect(data[0].population).toBe(1548000);
 
     data = await c130d.getAllAPI (url);
     expect(data.status).toEqual(200);    
