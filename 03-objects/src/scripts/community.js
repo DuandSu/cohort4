@@ -58,6 +58,18 @@ class Community {
         
     }
     
+    movedOutOfCity(pKey, peopleMoved) {
+        
+        let updIndex = this.findKeyIndex(pKey);
+        return this.cityList[updIndex].movedOut(peopleMoved);
+    }
+
+    movedIntoCity(pKey, peopleMoved) {
+        
+        let updIndex = this.findKeyIndex(pKey);
+        return this.cityList[updIndex].movedIn(peopleMoved);
+    }
+    
     whichSphere (pKey) {
         
         let index = this.findKeyIndex(pKey);

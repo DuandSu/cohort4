@@ -125,6 +125,9 @@ test('130d: Test Other Community class methods', () => {
 
     expect(canada.getPopulation()).toBe(5477622);
 
+    expect(canada.movedOutOfCity(1, 484)).toBe(1547000);
+    expect(canada.movedIntoCity(1, 1000)).toBe(1548000);
+
 });
 
 test('130d: Async ASP Basic Testing with Community', async (done) => {

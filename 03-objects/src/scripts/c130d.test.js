@@ -205,7 +205,7 @@ test('130d: Async ASP create and delete APICommunity', async (done) => {
 });
 
     
-test('130d: Async ASP create and delete APICity', async (done) => {
+test('130d: Async ASP create, delete and update APICity', async (done) => {
         
     let data = await c920.postData(url + "clear");
     expect(data.status).toBe(200);
@@ -257,6 +257,41 @@ test('130d: Async ASP create and delete APICity', async (done) => {
     expect(data[newIndex].name).toBe("Calgary");
     expect(data[newIndex].key).toBe(newKey);
     expect(data[0].nextKey).toBe(2);
+
+    expect(canada.movedOutOfCity(1, 484)).toBe(1547000);
+    data = await c130d.updateAPICity (url, canada.cityList[1]);
+
+    data = await c920.postData(url + 'all');
+    expect(data.status).toEqual(200);
+    
+    expect(data[1].name).toBe("Calgary");
+    expect(data[1].population).toBe(1547000);
+    
+    expect(canada.movedIntoCity(1, 1000)).toBe(1548000);
+    data = await c130d.updateAPICity (url, canada.cityList[1]);
+    expect(data.status).toEqual(200);
+    
+    data = await c920.postData(url + 'all');
+    expect(data.status).toEqual(200);
+    
+    expect(data[1].name).toBe("Calgary");
+    expect(data[1].population).toBe(1548000);
+    
+    data = await c130d.getAPICity (url, canada.cityList[1]);
+    expect(data.status).toEqual(200);
+
+    expect(data.length).toBe(1);
+    expect(data[1].name).toBe("Calgary");
+    expect(data[1].population).toBe(1548000);
+
+    data = await c130d.getAllAPI (url);
+    expect(data.status).toEqual(200);    
+
+    expect(data.length).toBe(2);
+    expect(data[0].name).toBe("Canada");
+    expect(data[0].nextKey).toBe(2);
+    expect(data[1].name).toBe("Calgary");
+    expect(data[1].population).toBe(1548000);
 
     done();
 
