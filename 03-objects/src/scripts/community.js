@@ -19,24 +19,22 @@ class Community {
     //
 
     createCity (name, latitude, longitude, population, pKey) {
-        // async createCity (name, latitude, longitude, population) {
             
         const tempCity = new city.City (name, latitude, longitude, population);
         let key = -1;
         
         let newIndex = this.cityList.length;
-        if (typeof pKey === "number") 
+        if (typeof pKey === "number") {
             key = pKey;
-        else if (typeof pKey === "string")
+        } else if (typeof pKey === "string") {
             key = Number(pKey);
-        else
+        }
+        else {
             key = this.cityList[0].nextKey++;
+        }
         
         this.cityList.push(tempCity);
         this.cityList[newIndex].key = key;
-        
-        // let data = await c920.postData(url + 'add', this.cityList[newIndex]);
-        // expect(data.status).toEqual(200);
         
         return [newIndex, key];
     }

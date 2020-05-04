@@ -28,13 +28,8 @@ const c130d = {
                 // a key value that is not there will likely get a reference error.
                 //
                 
-                // console.log("Before Try: " + data.status + " " + data.length);
-                // console.log("After Try" + data.status + " " + data.length);
-                // console.log("Entered Try");
                 let tmpObj = {};
                 tmpObj.key = 0;
-                // console.log("Before Data Array Reference");
-                // console.log("Done 1st postData:" + data.status + " " + data.length);
                 tmpObj.nextKey = data[0].nextKey;
                 
                 data = await c920.postData(url + 'update', tmpObj);
@@ -59,15 +54,11 @@ const c130d = {
 
         try {
 
-            // console.log("About to confirmAPIConnect!, URL: " + url);
             data = await c130d.confirmAPIConnect (url);
-            // console.log("Done confirmAPIConnect!, Status: " + data.status);
             
             if (data.status === 200) {
                 
-                // console.log("About to postData to create the community add, Key: " + community.key + " NextKey: " + community.nextKey);
                 data = await c920.postData(url + 'add', community);
-                // console.log("Done postData for community add, Status: " + data.status);
                 
             }
             
@@ -87,15 +78,75 @@ const c130d = {
 
         try {
 
-            console.log("About to confirmAPIConnect!, URL: " + url);
             data = await c130d.confirmAPIConnect (url);
-            console.log("Done confirmAPIConnect!, Status: " + data.status);
             
             if (data.status === 200) {
                 
-                console.log("About to postData to delete the community");
                 data = await c920.postData(url + "clear");
-                console.log("Done postData for community delete, Status: " + data.status);
+                
+            }
+            
+        }
+        catch (err) {
+            data.status = err.name;
+            data.statusText = err.message;
+        }
+
+        return data;
+    },
+
+    createAPICity: async (url, city, ctrl) => {
+        
+        let data;
+
+        try {
+
+            data = await c130d.confirmAPIConnect (url);
+            
+            if (data.status === 200) {
+                
+                data = await c920.postData(url + 'add', city);
+
+                if (data.status === 200) {
+
+                    let keyCtrl = {};
+                    keyCtrl.key = 0;
+                    keyCtrl.nextKey = ctrl.nextKey;
+                    data = await c920.postData(url + 'update', keyCtrl);
+                }
+                
+            }
+            
+        }
+        catch (err) {
+            data.status = err.name;
+            data.statusText = err.message;
+        }
+
+        return data;
+    },
+
+    deleteAPICity: async (url, city) => {
+        
+        let data;
+
+        try {
+
+            data = await c130d.confirmAPIConnect (url);
+            
+            if (data.status === 200) {
+                
+                let keyCtrl = {};
+                keyCtrl.key = city.key;
+                data = await c920.postData(url + 'delete', keyCtrl);
+
+                // if (data.status === 200) {
+
+                //     let keyCtrl = {};
+                //     keyCtrl.key = 0;
+                //     keyCtrl.nextKey = ctrl.nextKey;
+                //     data = await c920.postData(url + 'update', keyCtrl);
+                // }
                 
             }
             

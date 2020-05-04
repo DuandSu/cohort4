@@ -186,9 +186,9 @@ test('130d: Async ASP create and delete APICommunity', async (done) => {
     
     let data = await c920.postData(url + "clear");
     expect(data.status).toBe(200);
-
+    
     const canada = new community.Community ("Canada");
-
+    
     data = await c130d.createAPICommunity (url, canada.cityList[0]);
     expect(data.status).toBe(200);
     
@@ -196,10 +196,68 @@ test('130d: Async ASP create and delete APICommunity', async (done) => {
     expect(data.status).toEqual(200);
     
     data = await c130d.deleteAPICommunity (url);
-
+    
     data = await c920.postData(url + 'all');
     expect(data.status).toEqual(200);
     expect(data.length).toBe(0); 
+    
+    done();
+});
+
+    
+test('130d: Async ASP create and delete APICity', async (done) => {
+        
+    let data = await c920.postData(url + "clear");
+    expect(data.status).toBe(200);
+
+    const canada = new community.Community ("Canada");
+    data = await c130d.createAPICommunity (url, canada.cityList[0]);
+    expect(data.status).toBe(200);
+    
+    let createResult = canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    expect(createResult).toEqual([1,1]);
+    
+    let newIndex = createResult[0];
+    let newKey = createResult[1];
+    
+    data = await c130d.createAPICity (url, canada.cityList[1], canada.cityList[0]);
+    expect(data.status).toBe(200);
+
+    data = await c920.postData(url + 'all');
+    expect(data.status).toEqual(200);
+
+    expect(data[newIndex].name).toBe("Calgary");
+    expect(data[newIndex].latitude).toBe(51.0447);
+    expect(data[newIndex].longitude).toBe(-114.0719);
+    expect(data[newIndex].population).toBe(1547484);
+    expect(data[newIndex].key).toBe(newKey);
+    expect(data[0].nextKey).toBe(2);
+
+    data = await c130d.deleteAPICity (url, canada.cityList[1]);
+    expect(data.status).toBe(200);
+
+    data = await c920.postData(url + 'all');
+    expect(data.status).toEqual(200);
+
+    expect(data.length).toBe(1);
+    expect(data[0].nextKey).toBe(2);
+
+    let keyDel = {};
+    keyDel.key = newKey;
+
+    data = await c920.postData(url + 'read', keyDel);
+    expect(data.status).toEqual(400);
+
+    data = await c130d.createAPICity (url, canada.cityList[1], canada.cityList[0]);
+    expect(data.status).toBe(200);
+
+    data = await c920.postData(url + 'all');
+    expect(data.status).toEqual(200);
+
+    expect(data[newIndex].name).toBe("Calgary");
+    expect(data[newIndex].key).toBe(newKey);
+    expect(data[0].nextKey).toBe(2);
 
     done();
+
 });
