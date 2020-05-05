@@ -255,3 +255,28 @@ test('130d: Async ASP Basic Testing with Community', async (done) => {
 
     done();
 });
+
+test('130d: Testing Messages', () => {
+    
+    const canada = new community.Community ("Canada");
+
+    console.log(canada)
+
+    expect(canada.name).toBe("Canada");
+    expect(canada.cityList[0]).toEqual({key: 0, name: "Canada", nextKey: 1});
+    expect(canada.cityList[0].key).toBe(0);
+    expect(canada.cityList[0].nextKey).toBe(1);
+    
+    expect(canada.isMessage()).toBeFalsy();
+    expect(canada.getMessages()).toBe("");
+
+    expect(canada.addMessage("Welcome to Communities and Cities!")).toBe(true);
+    expect(canada.addMessage("Enjoy your experience and have a GREAT day.")).toBe(true);
+    expect(canada.isMessage()).toBeTruthy();
+    expect(canada.getMessages()).toBe(" Welcome to Communities and Cities!" +
+    " Enjoy your experience and have a GREAT day.");
+    expect(canada.resetMessage()).toBe(true);
+    expect(canada.isMessage()).toBeFalsy();
+    expect(canada.getMessages()).toBe("");
+    
+});

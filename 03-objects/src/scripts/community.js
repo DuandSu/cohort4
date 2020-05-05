@@ -11,6 +11,7 @@ class Community {
         this.cityList = [];
         this.cityList.push({key: 0, nextKey: 1});
         this.cityList[0].name = name;
+        this.msgQueue = [];
     }
 
     //
@@ -141,6 +142,39 @@ class Community {
             totPopulation += this.cityList[i].population;
         
         return totPopulation;
+
+    }
+
+    isMessage() {
+    
+        if (this.msgQueue.length > 0)
+            return true;
+        else
+            return false;
+    }
+
+    getMessages() {
+
+        let messages = "";
+        for (let i = 0; i < this.msgQueue.length; i++) {
+            messages += " " + `${this.msgQueue[i]}`;
+        }
+
+        return messages;
+    }
+    
+    addMessage(textMsg) {
+
+        this.msgQueue[this.msgQueue.length] = textMsg;
+
+        return true;
+    }
+
+    resetMessage() {
+
+        this.msgQueue = [];
+        
+        return true;
 
     }
 }
