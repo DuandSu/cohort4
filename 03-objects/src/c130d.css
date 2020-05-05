@@ -60,7 +60,7 @@ ul {
     /* position: absolute; */
     /* left: 0px;
     top: 0px; */
-    width: 984px;
+    width: 1250px;
     height: 800px;
     /* height: auto; */
     margin: 15;
@@ -81,7 +81,7 @@ ul {
     text-transform: none;
 }
 
-.divBankActions {
+.divComActions {
     box-sizing: border-box;
     border-width: 5px;
     border-style: solid;
@@ -92,7 +92,7 @@ ul {
     /* background-color: rgb(178, 236, 233); */
 }
 
-.divAddAcct {
+.divAddCity {
     box-sizing: border-box;
     border-width: 5px;
     border-style: solid;
@@ -103,15 +103,26 @@ ul {
     visibility: visible;
 }
 
-.divAcctSelect {
+.divAddCom {
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1);
+    margin: 15px;
+    padding: 10px;
+    background-color: rgb(185, 233, 230);
+    visibility: visible;
+}
+
+.divCitySelect {
     margin: 15px;
 }
 
-.divAcctActions {
+.divCityActions {
     margin: 15px;   
 }
-
-.divAccounts {
+ 
+.divCommunity {
     /* box-sizing: border-box;
     border-width: 5px;
     border-style: solid;
@@ -119,7 +130,7 @@ ul {
     margin: 30px;
 }
 
-/* .divAcctsList {
+/* .divCityList {
     box-sizing: border-box;
     border-width: 5px;
     border-style: solid;
@@ -127,14 +138,49 @@ ul {
     margin: 15px;
 } */
 
-.sectionAcctList {
+.sectionCityList {
     float: left;
     border-style: solid;
     border-color:black;
     text-align: left;
 }
 
-.asideAcctBal {
+.asideLatList {
+    border-style: solid;
+    border-color:black;
+    float: left;
+    text-align: right;
+}
+
+.asideLongList {
+    border-style: solid;
+    border-color:black;
+    float: left;
+    text-align: right;
+}
+
+.asidePopList {
+    border-style: solid;
+    border-color:black;
+    float: left;
+    text-align: right;
+}
+
+.asideSizeList {
+    border-style: solid;
+    border-color:black;
+    float: left;
+    text-align: right;
+}
+
+.asideHemList {
+    border-style: solid;
+    border-color:black;
+    float: left;
+    text-align: right;
+}
+
+.asideMaxList {
     border-style: solid;
     border-color:black;
     float: left;
@@ -146,6 +192,17 @@ h4 {
     background-color: rgb(185, 233, 230);
     /* background-color: rgb(223, 245, 244); */
  }
+
+.h4ComTitle {
+    /* margin: 0.5em; */
+    /* border-style: solid;
+    border-color:black;
+    padding-inline-start: 5px;
+    padding-inline-end: 5px; */
+    text-align: left;
+    /* margin: 15;
+    padding: 10px; */
+}
 
 .liOdd {
     padding-inline-start: 5px;

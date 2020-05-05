@@ -18,58 +18,108 @@
 	</nav>
 	<section class ="sectionMain">
 		<h1>Welcome to the Community and City</h1>
-		<div class="divBankActions">
-			<div class="divAcctSelect">
-				Account Name: <select id=selectAcct>
-					<option value="srcSelect">Select Account</option>
-					<option value="srcAddAcct">Add New Account</option>
-					<option value="srcAcct1">Chequing</option>
-					<option value="srcAcct2">Savings</option>
-					<option value="srcAcct3">Credit Card</option>
+		<div id=idAddCom class="divAddCom">
+			Enter Name of Community: <input id="inputNewCom" type=text>
+			<button id="btnCreateCom" type="button">Create</button>
+			<button id="btnCancelCom" type="button">Cancel</button>
+		</div>		
+		<div class="divComActions">
+			<div class="divCitySelect">
+				City Name: <select id=selectAcct>
+					<option value="srcSelect">Select City</option>
+					<option value="srcAddCity">Add New City</option>
+					<option value="srcCity1">Calgary</option>
+					<option value="srcCity2">Vulcan</option>
+					<option value="srcCity3">Kirkaldy</option>
 				</select>
-				-> <select id="selectDestAcct">
+				<!-- -> <select id="selectDestAcct">
 					<option value="destSelect">Select Destination Account</option>
 					<option value="destAcct1">Chequing</option>
 					<option value="destAcct2">Savings</option>
 					<option value="destAcct3">Credit Card</option>
-				</select>
+				</select> -->
 			</div>
-			<div class="divAcctActions">
-				$ <input id="inputAmt" type=number value=0>
-				<button id="btnAddAcct" type="button">Add New Account</button>
+			<div class="divCityActions">
+				Population: <input id="inputAmt" type=number value=0>
+				<button id="btnAddAcct" type="button">Add New City</button>
 				<button id="btnDelAcct" type="button">Delete</button>
-				<button id="btnDeposit" type="button">Deposit</button>
-				<button id="btnWithdraw" type="button">Withdraw</button>
-				<button id="btnTransfer" type="button">Transfer</button>
+				<button id="btnDeposit" type="button">Moved In</button>
+				<button id="btnWithdraw" type="button">Moved Out</button>
+				<!-- <button id="btnTransfer" type="button">Transfer</button> -->
 			</div>
 			<p id="messageArea" position="absolute"></p>
 		</div>
-		<!-- <div id=idAddAcct class="divAddAcct" visibility: visible> -->
-		<div id=idAddAcct class="divAddAcct">
-			Enter Name of New Account: <input id="inputNewAcct" type=text>
-			<button id="btnCreateAcct" type="button">Create</button>
-			<button id="btnCancelAcct" type="button">Cancel</button>
+		<div id=idAddCity class="divAddCity">
+			Enter Name of New City: <input id="inputNewCity" type=text>
+			<button id="btnCreateCity" type="button">Create</button>
+			<button id="btnCancelCity" type="button">Cancel</button>
 		</div>
-		<div id=idAccts class="divAccounts">
-			<div class="divAcctsList">
-			<section class="sectionAcctList">
-				<h4>Account</h4>
-				<ul id="ulAcctList">
-					<li id="listAcct1" class="liOdd">Chequing</li>
-					<li id="listAcct2" class="liEven">Savings</li>
-					<li id="listAcct3" class="liOdd">Credit Card</li>
-					<li id="idSumTxt" class="liSum">Summary of All Accounts</li>
+		<div id=idAccts class="divCommunity">
+			<h4 id="h4Community" class='h4ComTitle'>Community: Canada</h4>
+			<div class="divCityList">
+			<section class="sectionCityList">
+				<h4>City</h4>
+				<ul id="ulCityList">
+					<li id="liCity1" class="liOdd">Calgary</li>
+					<li id="liCity2" class="liEven">Vulcan</li>
+					<li id="liCity3" class="liOdd">Kirkaldy</li>
+					<li id="idSumTxt" class="liSum">Totals</li>
 				</ul>
 			</section>
-			<aside class="asideAcctBal">
-				<h4>Balance</h4>
-			 	<ul id="ulAcctBal">
-					<li id="sumAcct1"class="liOdd">$0.00</li>
-					<li id="sumAcct2" class="liEven">$200.00</li>
-					<li id="sumAcct3"class="liOdd">$100.00</li>
-					<li id="idSum" class="liSum">$300.00</li>
-			 	</ul>
-			 </aside>
+			<aside class="asideLatList">
+				<h4>Latitude</h4>
+				<ul id="ulLatList">
+					<li id="liLat1"class="liOdd">51.0447</li>
+					<li id="liLat2" class="liEven">50.4038</li>
+					<li id="liLat3"class="liOdd">50.3367</li>
+					<li class="liSum">.</li>
+				</ul>
+			</aside>
+			<aside class="asideLongList">
+				<h4>Longitude</h4>
+				<ul id="ulLongList">
+					<li id="liLong1"class="liOdd">-114.0719</li>
+					<li id="liLong2" class="liEven">-113.2622</li>
+					<li id="liLong3"class="liOdd">-13.2380</li>
+					<li class="liSum">.</li>
+				</ul>
+			</aside>
+			<aside class="asidePopList">
+				<h4>Population</h4>
+				<ul id="ulPopList">
+					<li id="liPop1"class="liOdd">1,547,484</li>
+					<li id="liPop2" class="liEven">1,917</li>
+					<li id="liPop3"class="liOdd">20</li>
+					<li id="idSum" class="liSum">1,549,421</li>
+				</ul>
+			</aside>
+			<aside class="asideSizeList">
+				<h4>Size</h4>
+				<ul id="ulSizeList">
+					<li id="liSize1"class="liOdd">City</li>
+					<li id="liSize2" class="liEven">Town</li>
+					<li id="liSize3"class="liOdd">Hamlet</li>
+					<li class="liSum">.</li>
+				</ul>
+			</aside>
+			<aside class="asideHemList">
+				<h4>N/S</h4>
+				<ul id="ulHemList">
+					<li id="liHem1"class="liOdd">N</li>
+					<li id="liHem2" class="liEven">N</li>
+					<li id="liHem3"class="liOdd">N</li>
+					<li class="liSum">.</li>
+				</ul>
+			</aside>
+			<aside class="asideMaxList">
+				<h4>Max N/S</h4>
+				<ul id="ulMaxList">
+					<li id="liMax1"class="liOdd">N</li>
+					<li id="liMax2" class="liEven">.</li>
+					<li id="liMax3"class="liOdd">S</li>
+					<li class="liSum">.</li>
+				</ul>
+			</aside>
 			</div>
 		</div>
 	</section>
