@@ -116,13 +116,13 @@ const c920 = {
             json.statusText = response.statusText;
 
             return json;
-
+            
         } catch (err) {
-
+            
             const catchErr = {};
             catchErr.status = err.name;
             catchErr.statusText = err.message;
-
+            
             return catchErr;
 
         }

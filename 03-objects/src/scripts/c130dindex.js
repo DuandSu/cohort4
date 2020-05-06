@@ -5,8 +5,6 @@ import c130d from './c130d.js'
 
 import c920 from './fetch.js'
 
-const url = 'http://localhost:5000/';
-
 //
 //
 // Initial setup required to handle the New Account Name.
@@ -28,24 +26,30 @@ const url = 'http://localhost:5000/';
 // ASP, or if empty, ask to create a community name. It will NOT clear. It will load.
 //
 
-let data = c920.postData(url + "clear");
+messageArea.textContent = "Loading Community and Cities";
+let data = c920.postData(c130d.url + "clear");
 // let data = await c920.postData(url + "clear");
 
+messageArea.textContent = "Loading Community and Cities .";
 const canada = new community.Community ("Canada");
-data = c130d.createAPICommunity (url, canada.cityList[0]);
+data = c130d.createAPICommunity (c130d.url, canada.cityList[0]);
 // data = await c130d.createAPICommunity (url, canada.cityList[0]);
 
+messageArea.textContent = "Loading Community and Cities ..";
 canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
-data = c130d.createAPICity (url, canada.cityList[1], canada.cityList[0]);
+data = c130d.createAPICity (c130d.url, canada.cityList[1], canada.cityList[0]);
 // data = await c130d.createAPICity (url, canada.cityList[1], canada.cityList[0]);
 
+messageArea.textContent = "Loading Community and Cities ...";
 canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
-data = c130d.createAPICity (url, canada.cityList[2], canada.cityList[0]);
+data = c130d.createAPICity (c130d.url, canada.cityList[2], canada.cityList[0]);
 // data = await c130d.createAPICity (url, canada.cityList[2], canada.cityList[0]);
 
+messageArea.textContent = "Loading Community and Cities ....";
 canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
-data = c130d.createAPICity (url, canada.cityList[3], canada.cityList[0]);
+data = c130d.createAPICity (c130d.url, canada.cityList[3], canada.cityList[0]);
 // data = await c130d.createAPICity (url, canada.cityList[3], canada.cityList[0]);
+messageArea.textContent = "Loading Community and Cities .... DONE";
 
 canada.resetMessage();
 
@@ -103,7 +107,7 @@ btnDelCity.addEventListener('click', (e => {
 
 btnMovedIn.addEventListener('click', (e => {
     
-    // c130c.actionTransaction("Deposit", duane);
+    c130d.actionMoved("IN", canada);
     console.log("Moved In Button Clicked!")
     
 }));
@@ -114,7 +118,7 @@ btnMovedIn.addEventListener('click', (e => {
 
 btnMovedOut.addEventListener('click', (e => {
     
-    // c130c.actionTransaction("Withdraw", duane);
+    c130d.actionMoved("OUT", canada);
     console.log("Moved Out Button Clicked!")
 
 }));

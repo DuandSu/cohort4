@@ -62,13 +62,29 @@ class Community {
     movedOutOfCity(pKey, peopleMoved) {
         
         let updIndex = this.findKeyIndex(pKey);
-        return this.cityList[updIndex].movedOut(peopleMoved);
-    }
+        let newPop = this.cityList[updIndex].movedOut(peopleMoved);
+        this.addMessage(
+            `${peopleMoved} have moved out. Population of ${this.cityList[updIndex].name} is now ${newPop}.`);
 
+        return newPop;
+    }
+    
     movedIntoCity(pKey, peopleMoved) {
         
         let updIndex = this.findKeyIndex(pKey);
-        return this.cityList[updIndex].movedIn(peopleMoved);
+        let newPop = this.cityList[updIndex].movedIn(peopleMoved);
+        console.log("Key: " + pKey + ". City: " + this.cityList[updIndex].name + ". New Population: " + newPop + ". Index: " + updIndex + ". Moved: " + peopleMoved);
+        this.addMessage(
+            `${peopleMoved} have moved in. Population of ${this.cityList[updIndex].name} is now ${newPop}.`);
+
+        return newPop;
+    }
+    
+    getCityPopulation(pKey) {
+        
+        let updIndex = this.findKeyIndex(pKey);
+        return this.cityList[updIndex].population;
+        
     }
     
     whichSphere (pKey) {

@@ -46,6 +46,7 @@ test('130d: Does Community controller class instantiation and methods work?', ()
     expect(canada.cityList[newIndex].latitude).toBe(51.0447);
     expect(canada.cityList[newIndex].longitude).toBe(-114.0719);
     expect(canada.cityList[newIndex].population).toBe(1547484);
+    expect(canada.getCityPopulation(newKey)).toBe(1547484);
     expect(canada.cityList[newIndex].key).toBe(newKey);
     expect(canada.cityList[0].nextKey).toBe(2);
     
@@ -62,6 +63,7 @@ test('130d: Does Community controller class instantiation and methods work?', ()
     expect(canada.cityList[newIndex].latitude).toBe(50.4038);
     expect(canada.cityList[newIndex].longitude).toBe(-113.2622);
     expect(canada.cityList[newIndex].population).toBe(1917);
+    expect(canada.getCityPopulation(newKey)).toBe(1917);
     expect(canada.cityList[newIndex].key).toBe(newKey);
     expect(canada.cityList[0].nextKey).toBe(3);
     

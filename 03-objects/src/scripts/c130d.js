@@ -4,7 +4,60 @@
 import c920 from './fetch.js'
 
 const c130d = {
+
+    url: 'http://localhost:5000/',
     
+    actionMoved: (actionType, community) => {
+
+        let data = c130d.confirmAPIConnect (c130d.url);
+
+        if (data.status != "200") {
+
+            const inputValue = inputAmt.value;
+            const srcValue = selectCity.value;
+            
+            let actionPreposition = "into";
+            if (actionType === "OUT") actionPreposition = "out of";
+            
+            if (srcValue === "srcSelect") {
+                messageArea.textContent = `Please Select a City.`;
+            }
+            else if (inputValue < 0) {
+                messageArea.textContent = `You May Only Move a Positive Number of People.`;
+            }
+            else if (inputValue < 1) {
+                messageArea.textContent = `Please Input the Number of People Moving Which is NOT 0.`;
+            }
+            else {
+                
+                const cityKey = Number(srcValue.replace("srcCity", ""));
+                if (actionType === "IN") {
+                    community.movedIntoCity(cityKey, Number(inputValue));
+                }
+                else if (actionType === "OUT") {
+                    community.movedOutOfCity(cityKey, Number(inputValue));
+                }
+
+                let cityIndex = community.findKeyIndex(cityKey);
+                data = c130d.updateAPICity (c130d.url, community.cityList[cityIndex]);
+
+                if (community.isMessage()) {
+                    messageArea.textContent = community.getMessages();
+                    community.resetMessage();
+                }
+
+                document.getElementById(`liPop${cityKey}`).textContent = `${community.getCityPopulation(cityKey)}`;
+                idSum.textContent = `${community.getPopulation()}`;
+
+                selectCity.value = "srcSelect";
+                inputAmt.value = 0.00;
+            }
+        } else {
+
+            messageArea.textContent = "API is unavailable for Update. Please try again later!";
+        }
+    },
+
     confirmAPIConnect: async (url) => {
         
         //
@@ -25,18 +78,18 @@ const c130d = {
                 // First check to ensure data format as expected. If try to reference
                 // a key value that is not there will likely get a reference error.
                 //
+
+                let testObj = {...data[0]};
+                // testObj.key = 0;
+                // testObj.nextKey = data[0].nextKey;
+                // testObj.name = data[0].name;
                 
-                let tmpObj = {};
-                tmpObj.key = 0;
-                tmpObj.nextKey = data[0].nextKey;
-                tmpObj.name = data[0].name;
+                data = await c920.postData(url + 'update', testObj);
                 
-                data = await c920.postData(url + 'update', tmpObj);
+                // testObj = {};
+                // testObj.key = 0;
                 
-                tmpObj = {};
-                tmpObj.key = 0;
-                
-                data = await c920.postData(url + 'read', tmpObj);
+                data = await c920.postData(url + 'read', testObj);
 
             }
             
