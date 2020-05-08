@@ -130,6 +130,11 @@ test('130d: Test Other Community class methods', () => {
     expect(canada.movedOutOfCity(1, 484)).toBe(1547000);
     expect(canada.movedIntoCity(1, 1000)).toBe(1548000);
 
+    console.log(canada.cityList);
+
+    expect(canada.cityList.length).toBe(11);
+    expect(canada.sortCityList("Name")).toEqual([1, 8, 9, 5, 6, 3, 7, 2, 10, 4]);
+
 });
 
 test('130d: Async ASP Basic Testing with Community', async (done) => {
@@ -261,8 +266,6 @@ test('130d: Async ASP Basic Testing with Community', async (done) => {
 test('130d: Testing Messages', () => {
     
     const canada = new community.Community ("Canada");
-
-    console.log(canada)
 
     expect(canada.name).toBe("Canada");
     expect(canada.cityList[0]).toEqual({key: 0, name: "Canada", nextKey: 1});

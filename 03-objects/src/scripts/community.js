@@ -58,6 +58,58 @@ class Community {
         this.cityList.splice(delIndex,1);
         
     }
+
+    sortCityList(sortBy) {
+
+        const tmpCityList = [];
+        let tmpCity = new city.City();
+        let tmpCnt = 0
+        let retArrKeys = [];
+
+        //
+        // Set up tmpCityList as duplicate of City List without
+        // the missing cities. Also ignore the control record in index
+        // 0.
+        //
+
+        for (let i = 1; i < this.cityList.length; i++) {
+
+            if (typeof this.cityList[i].name !== 'undefined') {
+                tmpCityList[tmpCnt++] = this.cityList[i];
+            }
+        }
+    
+        let tradesMade = true;
+
+        while (tradesMade) {
+
+            tradesMade = false;
+            for (let i = 0; i < tmpCityList.length; i++) {
+
+                
+                if (i !== (tmpCityList.length - 1)) {
+                    
+                    if (tmpCityList[i+1].name < tmpCityList[i].name) {
+                        tmpCity = tmpCityList[i];
+                        tmpCityList[i] = tmpCityList[i+1];
+                        tmpCityList[i+1] = tmpCity;
+                        tradesMade = true;
+                    }
+                }        
+            }
+        }
+
+        //
+        // Only need to return the keys acctNum sorted.
+        //
+
+        for (let i = 0; i < tmpCityList.length; i++) {
+
+            retArrKeys[i] = tmpCityList[i].key;
+        }
+
+        return retArrKeys;
+    }
     
     movedOutOfCity(pKey, peopleMoved) {
         
@@ -73,7 +125,7 @@ class Community {
         
         let updIndex = this.findKeyIndex(pKey);
         let newPop = this.cityList[updIndex].movedIn(peopleMoved);
-        console.log("Key: " + pKey + ". City: " + this.cityList[updIndex].name + ". New Population: " + newPop + ". Index: " + updIndex + ". Moved: " + peopleMoved);
+        // console.log("Key: " + pKey + ". City: " + this.cityList[updIndex].name + ". New Population: " + newPop + ". Index: " + updIndex + ". Moved: " + peopleMoved);
         this.addMessage(
             `${peopleMoved} have moved in. Population of ${this.cityList[updIndex].name} is now ${newPop}.`);
 
