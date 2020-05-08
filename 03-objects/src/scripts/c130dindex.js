@@ -94,9 +94,9 @@ import c920 from './fetch.js'
         btnDelCity.addEventListener('click', (e => {
             
             //
-            // Add New Account Name Entry, but only need 1.
+            // Delete New City.
             //
-            // c130c.deleteAccount(duane);
+            c130d.deleteCity(canada);
             console.log("Delete City Button Clicked!")
             
         }));

@@ -7,6 +7,65 @@ const c130d = {
 
     url: 'http://localhost:5000/',
     
+
+    deleteCity: async (community) => {
+
+        let data = await c130d.confirmAPIConnect (c130d.url);
+
+        if (data.status === 200) {
+            
+            const srcValue = selectCity.value;
+            if (srcValue === "srcSelect") {
+                messageArea.textContent = `Please Select a City.`;
+            }
+            else {
+                
+                const dKey = Number(srcValue.replace("srcCity", ""));
+                
+                const deleteOK = community.deleteCity(dKey);
+                
+                if (community.isMessage()) {
+                    messageArea.textContent = community.getMessages();
+                    community.resetMessage();
+                }
+                
+                if (deleteOK) {
+                    
+                    ulCityList.removeChild(document.getElementById(`liCity${dKey}`));
+                    ulLatList.removeChild(document.getElementById(`liLat${dKey}`));
+                    ulLongList.removeChild(document.getElementById(`liLong${dKey}`));
+                    ulPopList.removeChild(document.getElementById(`liPop${dKey}`));
+                    ulSizeList.removeChild(document.getElementById(`liSize${dKey}`));
+                    ulHemList.removeChild(document.getElementById(`liHem${dKey}`));
+                    ulMaxList.removeChild(document.getElementById(`liMax${dKey}`));
+
+                    let maxLoop = selectCity.children.length - 1;
+                    
+                    for (let i = maxLoop; i > -1; i--) {
+            
+                        if (selectCity.children[i].value === `srcCity${dKey}`) {
+            
+                            selectCity.removeChild(selectCity.children[i]);
+            
+                        }
+                    }
+                    
+                    let dAPIKey = {};
+                    dAPIKey.key = dKey;
+                    data = await c130d.deleteAPICity(c130d.url, dAPIKey);
+
+                    c130d.refreshCityList(community);
+                }
+
+                selectCity.value = "srcSelect";
+                inputAmt.value = 0.00;
+            }
+        } else {
+            
+            messageArea.textContent = "API is unavailable for Delete. Please try again later!";
+        }
+    },
+
     actionMoved: async (actionType, community) => {
 
         let data = await c130d.confirmAPIConnect (c130d.url);
@@ -113,13 +172,14 @@ const c130d = {
                     itemAdd.textContent = community.whichSphere(cityArr[i]);
                 } else if (item === "liMax") {
                     
-                    if (cityArr[i] ===  northMaxKey)
-                    itemAdd.textContent = "N";
+                    if (cityArr[i] === northMaxKey && cityArr[i] === southMaxKey)
+                        itemAdd.textContent = "NS";
+                    else if (cityArr[i] === northMaxKey)
+                        itemAdd.textContent = "N";
                     else if (cityArr[i] ===  southMaxKey)
-                    itemAdd.textContent = "S";
+                        itemAdd.textContent = "S";
                     else 
-                    itemAdd.textContent = ".";
-                    
+                        itemAdd.textContent = ".";
                 }
                 
                 itemAdd.setAttribute("id", `${item}${cityArr[i]}`);

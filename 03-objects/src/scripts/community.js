@@ -52,11 +52,17 @@ class Community {
         return delIndex;
     }
 
-    deleteCity (pKey) {
+    deleteCity(pKey) {
 
         let delIndex = this.findKeyIndex(pKey);
+        let delCity = this.cityList[delIndex].name;
+
         this.cityList.splice(delIndex,1);
-        
+
+        this.addMessage(
+            `The city of ${delCity} has been deleted.`);
+            
+        return true;
     }
 
     sortCityList(sortBy) {
@@ -196,7 +202,7 @@ class Community {
             }
         }
 
-        return nIndex;
+        return this.cityList[nIndex].key;
     }
     
     getMostSouthern () {
@@ -224,7 +230,7 @@ class Community {
             }
         }
         
-        return nIndex;
+        return this.cityList[nIndex].key;
     }
     
     getPopulation () {

@@ -1026,6 +1026,225 @@ document.body.innerHTML =
 
 });
 
+test('130d: Async Test addCity and deleteCity interface to DOM', async (done) => {
+    document.body.innerHTML =
+    '<section class ="sectionMain">' +
+        '<h1>Welcome to the Community and City</h1>' +
+    '   <div id=idAddCom class="divAddCom">' +
+            'Enter Name of Community: <input id="inputNewCom" type=text>' +
+            '<button id="btnCreateCom" type="button">Create</button>' +
+            '<button id="btnCancelCom" type="button">Cancel</button>' +
+        '</div>		' +
+        '<div class="divComActions">' +
+            '<div class="divCitySelect">' +
+                'City Name: <select id=selectCity>' +
+                    '<option value="srcSelect">Select City</option>' +
+                    '<option value="srcAddCity">Add New City</option>' +
+                    '<option value="srcCity1">Calgary</option>' +
+                    '<option value="srcCity2">Vulcan</option>' +
+                    '<option value="srcCity3">Kirkaldy</option>' +
+                '</select>' +
+            '</div>' +
+            '<div class="divCityActions">' +
+                'Population: <input id="inputAmt" type=number value=0>' +
+                '<button id="btnAddCity" type="button">Add New City</button>' +
+                '<button id="btnDelCity" type="button">Delete</button>' +
+                '<button id="btnMovedIn" type="button">Moved In</button>' +
+                '<button id="btnMovedOut" type="button">Moved Out</button>' +
+            '</div>' +
+            '<p id="messageArea" position="absolute"></p>' +
+        '</div>' +
+        '<div id=idAddCity class="divAddCity">' +
+            'Enter Name of New City: <input id="inputNewCity" type=text>' +
+            '<button id="btnCreateCity" type="button">Create</button>' +
+            '<button id="btnCancelCity" type="button">Cancel</button>' +
+        '</div>' +
+        '<div id=idAccts class="divCommunity">' +
+            '<h4 id="h4Community" class="h4ComTitle">Community: Canada</h4>' +
+            '<div class="divCityList">' +
+                '<section class="sectionCityList">' +
+                    '<h4>City</h4>' +
+                    '<ul id="ulCityList">' +
+                        '<li id="liCity1" class="liOdd">Calgary</li>' +
+                        '<li id="liCity2" class="liEven">Vulcan</li>' +
+                        '<li id="liCity3" class="liOdd">Kirkaldy</li>' +
+                        '<li id="idSumTxt" class="liSum">Totals</li>' +
+                    '</ul>' +
+                '</section>' +
+                '<aside class="asideLatList">' +
+                    '<h4>Latitude</h4>' +
+                    '<ul id="ulLatList">' +
+                        '<li id="liLat1" class="liOdd">51.0447</li>' +
+                        '<li id="liLat2" class="liEven">50.4038</li>' +
+                        '<li id="liLat3" class="liOdd">50.3367</li>' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideLongList">' +
+                    '<h4>Longitude</h4>' +
+                    '<ul id="ulLongList">' +
+                        '<li id="liLong1" class="liOdd">-114.0719</li>' +
+                        '<li id="liLong2" class="liEven">-113.2622</li>' +
+                        '<li id="liLong3" class="liOdd">-13.2380</li>' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asidePopList">' +
+                    '<h4>Population</h4>' +
+                    '<ul id="ulPopList">' +
+                        '<li id="liPop1" class="liOdd">1,547,484</li>' +
+                        '<li id="liPop2" class="liEven">1,917</li>' +
+                        '<li id="liPop3" class="liOdd">20</li>' +
+                        '<li id="idSum" class="liSum">1,549,421</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideSizeList">' +
+                    '<h4>Size</h4>' +
+                    '<ul id="ulSizeList">' +
+                        '<li id="liSize1" class="liOdd">City</li>' +
+                        '<li id="liSize2" class="liEven">Town</li>' +
+                        '<li id="liSize3" class="liOdd">Hamlet</li>' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideHemList">' +
+                    '<h4>N/S</h4>' +
+                    '<ul id="ulHemList">' +
+                        '<li id="liHem1" class="liOdd">N</li>' +
+                        '<li id="liHem2" class="liEven">N</li>' +
+                        '<li id="liHem3" class="liOdd">N</li>' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideMaxList">' +
+                    '<h4>Max N/S</h4>' +
+                    '<ul id="ulMaxList">' +
+                        '<li id="liMax1" class="liOdd">N</li>' +
+                        '<li id="liMax2" class="liEven">.</li>' +
+                        '<li id="liMax3" class="liOdd">S</li>' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+            '</div>' +
+        '</div>' +
+    '</section>';
+    
+    // 
+    // Confirm API.
+    //
+
+    let data = await c130d.confirmAPIConnect (c130d.url);
+    expect(data.status).toBe(200);
+
+    //
+    // Setup test Community to be Canada. Fill the Community with same
+    // cities as HTML for testing. Community and City classes
+    // have already been fully tested, as have the postData. Not re-testing
+    // these. Just doing initial setup for testing the interface to HTML
+    // and index.js.
+    //
+
+    data = await c920.postData(c130d.url + "clear");
+
+    const canada = new community.Community ("Canada");
+    data = await c130d.createAPICommunity (c130d.url, canada.cityList[0]);
+
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    data = await c130d.createAPICity (c130d.url, canada.cityList[1], canada.cityList[0]);
+
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    data = await c130d.createAPICity (c130d.url, canada.cityList[2], canada.cityList[0]);
+
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    data = await c130d.createAPICity (c130d.url, canada.cityList[3], canada.cityList[0]);
+
+    //
+    // Scenario: Attempt Delete button with nothing selected. Should receive error message.
+    // No changes to things like total.
+    //
+    // Note Showing tests for Add City and Delete City together since they go together well.
+    //
+
+    canada.resetMessage();
+    
+    inputAmt.value = 0;
+    selectCity.value = "srcSelect";
+
+    // c130d.deleteCity(canada);
+    data = await c130d.deleteCity(canada);
+    
+    expect(messageArea.textContent).toBe(`Please Select a City.`);
+    expect(idSum.textContent).toBe("1,549,421");
+
+    //
+    // User now selects a city to delete
+    //
+    
+    expect(ulCityList.children.length).toBe(4);
+    expect(ulLatList.children.length).toBe(4);
+    expect(ulLongList.children.length).toBe(4);
+    expect(ulPopList.children.length).toBe(4);
+    expect(ulSizeList.children.length).toBe(4);
+    expect(ulHemList.children.length).toBe(4);
+    expect(ulMaxList.children.length).toBe(4);
+    expect(selectCity.children.length).toBe(5);
+
+    expect(canada.findKeyIndex(1)).toBe(1);
+    expect(canada.cityList[1].name).toBe("Calgary");
+    
+    
+    selectCity.value = "srcCity1";    
+    messageArea.textContent = ""; // ??
+
+    // c130d.deleteCity(canada);
+    data = await c130d.deleteCity(canada);
+
+    expect(canada.findKeyIndex(1)).toBe(-1);
+    expect(canada.cityList[1].name).toBe("Vulcan");
+    expect(canada.cityList[1].key).toBe(2);
+    expect(canada.getPopulation(1)).toBe(1937);
+
+    expect(messageArea.textContent).toBe(" The city of Calgary has been deleted.");
+
+    expect(ulCityList.children.length).toBe(3);
+    expect(ulLatList.children.length).toBe(3);
+    expect(ulLongList.children.length).toBe(3);
+    expect(ulPopList.children.length).toBe(3);
+    expect(ulSizeList.children.length).toBe(3);
+    expect(ulHemList.children.length).toBe(3);
+    expect(ulMaxList.children.length).toBe(3);
+    expect(selectCity.children.length).toBe(4);
+
+    expect(ulPopList.children[0].textContent).toBe("20");
+    expect(ulPopList.children[1].textContent).toBe("1917");
+    expect(ulPopList.children[2].textContent).toBe("1937");
+    expect(idSum.textContent).toBe("1937");
+    expect(ulPopList.children[3]).toBeUndefined();
+
+    let dCity = {};
+    dCity.name = "Calgary";
+    dCity.key = 1;
+
+    data = await c130d.getAPICity (url, dCity);
+    expect(data.status).toEqual(400);
+
+    data = await c130d.getAllAPI(url);
+    expect(data.status).toEqual(200);
+
+    expect(data[0].name).toBe("Canada");
+    expect(data[1].name).toBe("Vulcan");
+    expect(data[2].name).toBe("Kirkaldy");
+
+    //
+    // Select Menu and Input values get reset.
+    //
+    
+    expect(selectCity.value).toBe("srcSelect");
+    expect(inputAmt.value).toBe("0");
+
+    done();
+});
+
 test('130d: Async Test actionMoved interface to DOM', async (done) => {
     document.body.innerHTML =
     '<section class ="sectionMain">' +
@@ -1266,143 +1485,3 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
 
     done();
 });
-
-// test('130d: Async Test NEXT interface to DOM', async (done) => {
-
-//     // 
-//     // Confirm API.
-//     //
-
-//     let data = await c130d.confirmAPIConnect (c130d.url);
-//     expect(data.status).toBe(200);
-
-//     //
-//     // Setup test Community to be Canada. Fill the Community with same
-//     // cities as HTML for testing. Community and City classes
-//     // have already been fully tested, as have the postData. Not re-testing
-//     // these. Just doing initial setup for testing the interface to HTML
-//     // and index.js.
-//     //
-
-//     data = await c920.postData(c130d.url + "clear");
-
-//     const canada = new community.Community ("Canada");
-//     data = await c130d.createAPICommunity (c130d.url, canada.cityList[0]);
-
-//     canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
-//     data = await c130d.createAPICity (c130d.url, canada.cityList[1], canada.cityList[0]);
-
-//     canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
-//     data = await c130d.createAPICity (c130d.url, canada.cityList[2], canada.cityList[0]);
-
-//     canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
-//     data = await c130d.createAPICity (c130d.url, canada.cityList[3], canada.cityList[0]);
-
-//     //
-//     // Scenario: Attempt Moved buttons with nothing selected. Should receive error message.
-//     // No changes to things like total.
-//     //
-//     // Note Showing tests for Moved In and Moved Out together since same function using a
-//     // parameter to decide which to perform.
-//     //
-
-//     canada.resetMessage();
-    
-//     inputAmt.value = 0;
-//     selectCity.value = "srcSelect";
-
-//     data = await c130d.actionMoved("IN", canada);
-//     expect(messageArea.textContent).toBe(`Please Select a City.`);
-//     expect(idSum.textContent).toBe("1,549,421");
-
-//     data = await c130d.actionMoved("OUT", canada);
-//     expect(messageArea.textContent).toBe(`Please Select a City.`);
-//     expect(idSum.textContent).toBe("1,549,421");
-
-//     //
-//     // Scenario: User next selects the city Calgary, but leaves the input amount as 0.
-//     // Should receive error message. No changes to things like total.
-//     //
-    
-//     selectCity.value = "srcCity1";
-
-//     data = await c130d.actionMoved("IN", canada);
-//     expect(messageArea.textContent).toBe(`Please Input the Number of People Moving Which is NOT 0.`);
-//     expect(idSum.textContent).toBe("1,549,421");
-    
-//     data = await c130d.actionMoved("OUT", canada);
-//     expect(messageArea.textContent).toBe(`Please Input the Number of People Moving Which is NOT 0.`);
-//     expect(idSum.textContent).toBe("1,549,421");
-
-//     //
-//     // Scenario: User next attempts a negative value $-1. Should receive error message. 
-//     // No changes to things like total.
-//     //
-    
-//     inputAmt.value = -1;
-    
-//     data = await c130d.actionMoved("IN", canada);
-//     expect(messageArea.textContent).toBe(`You May Only Move a Positive Number of People.`);
-//     expect(idSum.textContent).toBe("1,549,421");
-    
-//     data = await c130d.actionMoved("OUT", canada);
-//     expect(messageArea.textContent).toBe(`You May Only Move a Positive Number of People.`);
-//     expect(idSum.textContent).toBe("1,549,421");
-    
-//     //
-//     // Scenario: User now types in a value and attempts the Move buttons. Display action result.
-//     //
-    
-//     inputAmt.value = 16;
-    
-//     data = await c130d.actionMoved("IN", canada);
-
-//     expect(messageArea.textContent).toBe(" 16 have moved in. Population of Calgary is now 1547500.");
-    
-//     //
-//     // Select Menu and Input values get reset.
-//     //
-    
-//     expect(selectCity.value).toBe("srcSelect");
-//     expect(inputAmt.value).toBe("0");
-
-//     expect(liPop1.textContent).toBe("1547500");
-//     expect(canada.getCityPopulation(1)).toBe(1547500);
-    
-//     expect(idSum.textContent).toBe("1549437");
-//     expect(canada.getPopulation(1)).toBe(1549437);
-
-//     data = await c130d.getAPICity (url, canada.cityList[1]);
-//     expect(data.status).toEqual(200);
-
-//     expect(data[0].name).toBe("Calgary");
-//     expect(data[0].population).toBe(1547500);
-
-//     selectCity.value = "srcCity1";
-//     inputAmt.value = 1000;
-    
-//     data = await c130d.actionMoved("OUT", canada);
-
-//     expect(messageArea.textContent).toBe(" 1000 have moved out. Population of Calgary is now 1546500.");
-    
-//     //
-//     // Select Menu and Input values get reset.
-//     //
-    
-//     expect(selectCity.value).toBe("srcSelect");
-//     expect(inputAmt.value).toBe("0");
-
-//     expect(liPop1.textContent).toBe("1546500");
-//     expect(canada.getCityPopulation(1)).toBe(1546500);
-    
-//     expect(idSum.textContent).toBe("1548437");
-//     expect(canada.getPopulation(1)).toBe(1548437);
-
-//     data = await c130d.getAPICity (url, canada.cityList[1]);
-//     expect(data.status).toEqual(200);
-
-//     expect(data[0].name).toBe("Calgary");
-//     expect(data[0].population).toBe(1546500);
-
-//     done();
-// });
