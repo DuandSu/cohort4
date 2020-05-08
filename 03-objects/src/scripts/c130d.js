@@ -16,9 +16,6 @@ const c130d = {
             const inputValue = inputAmt.value;
             const srcValue = selectCity.value;
             
-            // let actionPreposition = "into";
-            // if (actionType === "OUT") actionPreposition = "out of";
-
             if (srcValue === "srcSelect") {
                 messageArea.textContent = `Please Select a City.`;
             }
@@ -58,24 +55,85 @@ const c130d = {
         }
     },
 
-    addLItoUI: (liType, liAttribute, cityArr) => {
+    refreshCityList: (community) => {
+
+        //
+        // First delete the existing list li and select elements.
+        //
+
+        c130d.deleteCityList();
+
+        //
+        // Create the new list li and select in city name sort order.
+        //
+
+        c130d.createCityList(community);
+        
+    },
+
+    addItemToList: (list, item, community, cityArr) => {
 
         let addCnt = 0
 
-        for (let i = 0; i < cityArr.length; i++) {
+        if (item === "srcCity") {
 
-            const liAdd = document.createElement("li");
+            for (let i = 0; i < cityArr.length; i++) {
+                
+                const itemAdd = document.createElement("OPTION");
 
-            liAdd.textContent = client.getAcctName(cityArr[i]);
-            liAdd.setAttribute("id", `${liType}${tempArr[i]}`);
+                itemAdd.textContent = `${community.getCityName(cityArr[i])}`;
+                itemAdd.setAttribute("value", `${item}${cityArr[i]}`);
+                
+                const listNode = document.getElementById(`${list}`);
+                listNode.appendChild(itemAdd);
 
-            if ((i+1) % 2 == 0) liAdd.setAttribute("class", "liEven");
-            else liAdd.setAttribute("class", "liOdd");
+                addCnt ++;
+            }
 
-            idSumTxt.parentElement.insertBefore(liAdd, idSumTxt);
+        } else {
 
-            addCnt ++;
+            let northMaxKey = community.getMostNorthern();
+            let southMaxKey = community.getMostSouthern();
+            
+            for (let i = 0; i < cityArr.length; i++) {
+                
+                const itemAdd = document.createElement("li");
+                
+                if (item === "liCity") {
+                    itemAdd.textContent = community.getCityName(cityArr[i]);
+                } else if (item === "liLat") {
+                    itemAdd.textContent = community.getCityLatitude(cityArr[i]);
+                } else if (item === "liLong") {
+                    itemAdd.textContent = community.getCityLongitude(cityArr[i]);
+                } else if (item === "liPop") {
+                    itemAdd.textContent = community.getCityPopulation(cityArr[i]);
+                } else if (item === "liSize") {
+                    itemAdd.textContent = community.getCityHowBig(cityArr[i]);
+                } else if (item === "liHem") {
+                    itemAdd.textContent = community.whichSphere(cityArr[i]);
+                } else if (item === "liMax") {
+                    
+                    if (cityArr[i] ===  northMaxKey)
+                    itemAdd.textContent = "N";
+                    else if (cityArr[i] ===  southMaxKey)
+                    itemAdd.textContent = "S";
+                    else 
+                    itemAdd.textContent = ".";
+                    
+                }
+                
+                itemAdd.setAttribute("id", `${item}${cityArr[i]}`);
+                if ((i+1) % 2 == 0) itemAdd.setAttribute("class", "liEven");
+                else itemAdd.setAttribute("class", "liOdd");
+                
+                const listNode = document.getElementById(`${list}`);
+                listNode.insertBefore(itemAdd, listNode.lastElementChild);
+                
+                addCnt ++;
+            }
+            if (item === "liPop") idSum.textContent = community.getPopulation();
         }
+        return addCnt;
     },
 
     createCityList: (community) => {
@@ -84,75 +142,43 @@ const c130d = {
         // First, sort the cities by City Name into temp array.
         //
 
-        const tempArr = community.sortCityList("Name");
+        let cityArr = community.sortCityList("Name");
         
         //
-        // Add the li elements in temp array order to create new list.
+        // Add the list elements in temp array order to create new list.
         //
 
-        addLItoUI: ("liCity", liAttribute, cityArr) => {
-
-        let addNameCnt = 0
-
-        for (let i = 0; i < tempArr.length; i++) {
-
-            const liAdd = document.createElement("li");
-            liAdd.textContent = client.getAcctName(tempArr[i]);
-            liAdd.setAttribute("id", `listAcct${tempArr[i]}`);
-            if ((i+1) % 2 == 0) liAdd.setAttribute("class", "liEven");
-            else liAdd.setAttribute("class", "liOdd");
-
-            idSumTxt.parentElement.insertBefore(liAdd, idSumTxt);
-            addNameCnt ++;
-        }
-
-        let addSumCnt = 0
+        let addNameCnt = c130d.addItemToList("ulCityList", "liCity", community, cityArr);
         
-        for (let i = 0; i < tempArr.length; i++) {
-            
-            const liAdd = document.createElement("li");
-            liAdd.textContent = `${c130c.formatCurrency.format(client.getAcctBalance(tempArr[i]))}`;
-            liAdd.setAttribute("id", `sumAcct${tempArr[i]}`);
-            if ((i+1) % 2 == 0) liAdd.setAttribute("class", "liEven");
-            else liAdd.setAttribute("class", "liOdd");
-            
-            idSum.parentElement.insertBefore(liAdd, idSum);
-            addSumCnt++;
-        }
-
-        let addSrcCnt = 0
+        let addLatCnt = c130d.addItemToList("ulLatList", "liLat", community, cityArr);
         
-        for (let i = 0; i < tempArr.length; i++) {
-            
-            const srcAdd = document.createElement("OPTION");
-            srcAdd.textContent = `${client.getAcctName(tempArr[i])}`;
-            srcAdd.setAttribute("value", `srcAcct${tempArr[i]}`);
-            
-            selectAcct.appendChild(srcAdd);
-            addSrcCnt++;
-        }
+        let addLongCnt = c130d.addItemToList("ulLongList", "liLong", community, cityArr);
 
-        let addDestCnt = 0
+        let addPopCnt = c130d.addItemToList("ulPopList", "liPop", community, cityArr);
+
+        let addSizeCnt = c130d.addItemToList("ulSizeList", "liSize", community, cityArr);
+
+        let addHemCnt = c130d.addItemToList("ulHemList", "liHem", community, cityArr);
         
-        for (let i = 0; i < tempArr.length; i++) {
+        let addMaxCnt = c130d.addItemToList("ulMaxList", "liMax", community, cityArr);
+       
+        let addSrcCnt = c130d.addItemToList("selectCity", "srcCity", community, cityArr);
             
-            const srcDest = document.createElement("OPTION");
-            srcDest.textContent = `${client.getAcctName(tempArr[i])}`;
-            srcDest.setAttribute("value", `destAcct${tempArr[i]}`);
-            
-            selectDestAcct.appendChild(srcDest);
-            addDestCnt++;
-        }
+        //
+        // The same number of LI elements should have been deleted from each UL list
+        //
 
-        if (addSumCnt === addNameCnt && addNameCnt === addSrcCnt && addSrcCnt === addDestCnt) return addSumCnt;
+        let chkCnt = addNameCnt;
+        if ((addNameCnt + addLatCnt + addLongCnt + addPopCnt + addSizeCnt + addHemCnt + addMaxCnt + addSrcCnt) / 8 === chkCnt) return chkCnt;
         else return -1;
+
     },
 
     //
     // Delete all the LI elements from the UL list except for the last summary element.
     //
 
-    deleteLIfromUI: (ulList) => {
+    deleteItemFromList: (ulList) => {
 
         let maxLoop = ulList.children.length - 1;
         let delCnt = 0
@@ -170,6 +196,8 @@ const c130d = {
                 }
             }
         }
+        if (ulList === "liPop") idSum.textContent = "0";
+
         return delCnt;
     },
 
@@ -178,43 +206,43 @@ const c130d = {
         //
         // Delete the city list names.
         //
-        let delNameCnt = c130d.deleteLIfromUI(ulCityList);
+        let delNameCnt = c130d.deleteItemFromList(ulCityList);
         
         //
         // Delete the Latitude list.
         //
         
-        let delLatCnt = c130d.deleteLIfromUI(ulLatList);
+        let delLatCnt = c130d.deleteItemFromList(ulLatList);
         
         //
         // Delete the Longitude list.
         //
         
-        let delLongCnt = c130d.deleteLIfromUI(ulLongList);
+        let delLongCnt = c130d.deleteItemFromList(ulLongList);
         
         //
         // Delete the Population list.
         //
         
-        let delPopCnt = c130d.deleteLIfromUI(ulPopList);
+        let delPopCnt = c130d.deleteItemFromList(ulPopList);
         
         //
         // Delete the City Size Category list.
         //
         
-        let delSizeCnt = c130d.deleteLIfromUI(ulSizeList);
+        let delSizeCnt = c130d.deleteItemFromList(ulSizeList);
         
         //
         // Delete the Hemisphere list.
         //
         
-        let delHemCnt = c130d.deleteLIfromUI(ulHemList);
+        let delHemCnt = c130d.deleteItemFromList(ulHemList);
         
         //
         // Delete the Max Northern Southern list.
         //
         
-        let delMaxCnt = c130d.deleteLIfromUI(ulMaxList);
+        let delMaxCnt = c130d.deleteItemFromList(ulMaxList);
         
         let maxLoop = selectCity.children.length - 1;
         let delSrcSelCnt = 0

@@ -389,7 +389,7 @@ test('130d: Async ASP create, delete and update APICity', async (done) => {
     
 });
 
-test('130d: Test deleteLIfromUI from the DOM', () => {
+test('130d: Test deleteItemFromList from the DOM', () => {
 
     document.body.innerHTML =
         '<section class="sectionCityList">' +
@@ -403,7 +403,7 @@ test('130d: Test deleteLIfromUI from the DOM', () => {
         '</section>';
 
     expect(ulCityList.children.length).toBe(4);
-    expect(c130d.deleteLIfromUI(ulCityList)).toBe(3);
+    expect(c130d.deleteItemFromList(ulCityList)).toBe(3);
     expect(ulCityList.children.length).toBe(1);
     expect(ulCityList.children[0].className).toBe("liSum");
 
@@ -517,6 +517,396 @@ test('130d: Test deleteCityList from the DOM', () => {
     expect(selectCity.children[0].value).toBe("srcSelect");
     expect(selectCity.children[1].value).toBe("srcAddCity");
     expect(selectCity.children[2]).toBeUndefined();
+
+});
+
+test('130d: Test liCity addItemToList from the DOM', () => {
+
+    document.body.innerHTML =
+        '<section class="sectionCityList">' +
+            '<h4>City</h4>' +
+            '<ul id="ulCityList">' +
+                '<li id="idSumTxt" class="liSum">Totals</li>' +
+            '</ul>' +
+        '</section>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(ulCityList.children.length).toBe(1);
+    expect(c130d.addItemToList("ulCityList", "liCity", canada, cityArr)).toBe(3);
+    expect(ulCityList.children.length).toBe(4);
+    
+    expect(ulCityList.children[0].textContent).toBe("Calgary");
+    expect(ulCityList.children[1].textContent).toBe("Kirkaldy");
+    expect(ulCityList.children[2].textContent).toBe("Vulcan");
+    expect(ulCityList.children[3].textContent).toBe("Totals");
+    
+    expect(ulCityList.children[0].className).toBe("liOdd");
+    expect(ulCityList.children[1].className).toBe("liEven");
+    expect(ulCityList.children[2].className).toBe("liOdd");
+    expect(ulCityList.children[3].className).toBe("liSum");
+
+});
+
+test('130d: Test liLat addItemToList from the DOM', () => {
+
+    document.body.innerHTML =
+    '<aside class="asideLatList">' +
+        '<h4>Latitude</h4>' +
+        '<ul id="ulLatList">' +
+            '<li class="liSum">.</li>' +
+        '</ul>' +
+    '</aside>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(ulLatList.children.length).toBe(1);
+    expect(c130d.addItemToList("ulLatList", "liLat", canada, cityArr)).toBe(3);
+    expect(ulLatList.children.length).toBe(4);
+    
+    expect(ulLatList.children[0].textContent).toBe("51.0447");
+    expect(ulLatList.children[1].textContent).toBe("50.3367");
+    expect(ulLatList.children[2].textContent).toBe("50.4038");
+    expect(ulLatList.children[3].textContent).toBe(".");
+    
+    expect(ulLatList.children[0].className).toBe("liOdd");
+    expect(ulLatList.children[1].className).toBe("liEven");
+    expect(ulLatList.children[2].className).toBe("liOdd");
+    expect(ulLatList.children[3].className).toBe("liSum");
+
+});
+
+test('130d: Test liLong addItemToList from the DOM', () => {
+
+    document.body.innerHTML =
+    '<aside class="asideLongList">' +
+        '<h4>Longitude</h4>' +
+        '<ul id="ulLongList">' +
+            '<li class="liSum">.</li>' +
+        '</ul>' +
+    '</aside>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(ulLongList.children.length).toBe(1);
+    expect(c130d.addItemToList("ulLongList", "liLong", canada, cityArr)).toBe(3);
+    expect(ulLongList.children.length).toBe(4);
+    
+    expect(ulLongList.children[0].textContent).toBe("-114.0719");
+    expect(ulLongList.children[1].textContent).toBe("-13.238");
+    expect(ulLongList.children[2].textContent).toBe("-113.2622");
+    expect(ulLongList.children[3].textContent).toBe(".");
+    
+    expect(ulLongList.children[0].className).toBe("liOdd");
+    expect(ulLongList.children[1].className).toBe("liEven");
+    expect(ulLongList.children[2].className).toBe("liOdd");
+    expect(ulLongList.children[3].className).toBe("liSum");
+
+});
+
+test('130d: Test liPop addItemToList from the DOM', () => {
+
+    document.body.innerHTML =
+    '<aside class="asidePopList">' +
+        '<h4>Population</h4>' +
+        '<ul id="ulPopList">' +
+            '<li id="idSum" class="liSum">0</li>' +
+        '</ul>' +
+    '</aside>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(ulPopList.children.length).toBe(1);
+    expect(c130d.addItemToList("ulPopList", "liPop", canada, cityArr)).toBe(3);
+    expect(ulPopList.children.length).toBe(4);
+    
+    expect(ulPopList.children[0].textContent).toBe("1547484");
+    expect(ulPopList.children[1].textContent).toBe("20");
+    expect(ulPopList.children[2].textContent).toBe("1917");
+    expect(ulPopList.children[3].textContent).toBe("1549421");
+    expect(idSum.textContent).toBe("1549421");
+    
+    expect(ulPopList.children[0].className).toBe("liOdd");
+    expect(ulPopList.children[1].className).toBe("liEven");
+    expect(ulPopList.children[2].className).toBe("liOdd");
+    expect(ulPopList.children[3].className).toBe("liSum");
+
+});
+
+test('130d: Test liSize addItemToList from the DOM', () => {
+
+    document.body.innerHTML =
+    '<aside class="asideSizeList">' +
+        '<h4>Size</h4>' +
+        '<ul id="ulSizeList">' +
+            '<li class="liSum">.</li>' +
+        '</ul>' +
+    '</aside>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(ulSizeList.children.length).toBe(1);
+    expect(c130d.addItemToList("ulSizeList", "liSize", canada, cityArr)).toBe(3);
+    expect(ulSizeList.children.length).toBe(4);
+    
+    expect(ulSizeList.children[0].textContent).toBe("City");
+    expect(ulSizeList.children[1].textContent).toBe("Hamlet");
+    expect(ulSizeList.children[2].textContent).toBe("Town");
+    expect(ulSizeList.children[3].textContent).toBe(".");
+    
+    expect(ulSizeList.children[0].className).toBe("liOdd");
+    expect(ulSizeList.children[1].className).toBe("liEven");
+    expect(ulSizeList.children[2].className).toBe("liOdd");
+    expect(ulSizeList.children[3].className).toBe("liSum");
+
+});
+
+test('130d: Test liHem addItemToList from the DOM', () => {
+
+    document.body.innerHTML =
+    '<aside class="asideHemList">' +
+        '<h4>N/S</h4>' +
+        '<ul id="ulHemList">' +
+            '<li class="liSum">.</li>' +
+        '</ul>' +
+    '</aside>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(ulHemList.children.length).toBe(1);
+    expect(c130d.addItemToList("ulHemList", "liHem", canada, cityArr)).toBe(3);
+    expect(ulHemList.children.length).toBe(4);
+    
+    expect(ulHemList.children[0].textContent).toBe("N");
+    expect(ulHemList.children[1].textContent).toBe("N");
+    expect(ulHemList.children[2].textContent).toBe("N");
+    expect(ulHemList.children[3].textContent).toBe(".");
+    
+    expect(ulHemList.children[0].className).toBe("liOdd");
+    expect(ulHemList.children[1].className).toBe("liEven");
+    expect(ulHemList.children[2].className).toBe("liOdd");
+    expect(ulHemList.children[3].className).toBe("liSum");
+
+});
+
+test('130d: Test liMax addItemToList from the DOM', () => {
+
+    document.body.innerHTML =
+    '<aside class="asideMaxList">' +
+        '<h4>Max N/S</h4>' +
+        '<ul id="ulMaxList">' +
+            '<li class="liSum">.</li>' +
+        '</ul>' +
+    '</aside>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(ulMaxList.children.length).toBe(1);
+    expect(c130d.addItemToList("ulMaxList", "liMax", canada, cityArr)).toBe(3);
+    expect(ulMaxList.children.length).toBe(4);
+    
+    expect(ulMaxList.children[0].textContent).toBe("N");
+    expect(ulMaxList.children[1].textContent).toBe("S");
+    expect(ulMaxList.children[2].textContent).toBe(".");
+    expect(ulMaxList.children[3].textContent).toBe(".");
+    
+    expect(ulMaxList.children[0].className).toBe("liOdd");
+    expect(ulMaxList.children[1].className).toBe("liEven");
+    expect(ulMaxList.children[2].className).toBe("liOdd");
+    expect(ulMaxList.children[3].className).toBe("liSum");
+
+});
+
+test('130d: Test srcCity addItemToList from the DOM', () => {
+
+    document.body.innerHTML =
+        '<div class="divCitySelect">' +
+            'City Name: <select id=selectCity>' +
+                '<option value="srcSelect">Select City</option>' +
+                '<option value="srcAddCity">Add New City</option>' +
+            '</select>' +
+        '</div>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(selectCity.children.length).toBe(2);
+    expect(c130d.addItemToList("selectCity", "srcCity", canada, cityArr)).toBe(3);
+    expect(selectCity.children.length).toBe(5);
+    
+    expect(selectCity.children[0].value).toBe("srcSelect");
+    expect(selectCity.children[0].textContent).toBe("Select City");
+    expect(selectCity.children[1].value).toBe("srcAddCity");
+    expect(selectCity.children[1].textContent).toBe("Add New City");
+    expect(selectCity.children[2].value).toBe("srcCity1");
+    expect(selectCity.children[2].textContent).toBe("Calgary");
+    expect(selectCity.children[3].value).toBe("srcCity3");
+    expect(selectCity.children[3].textContent).toBe("Kirkaldy");
+    expect(selectCity.children[4].value).toBe("srcCity2");
+    expect(selectCity.children[4].textContent).toBe("Vulcan");
+    expect(selectCity.children[5]).toBeUndefined();
+    
+});
+
+test('130d: Test createCityList and refreshCityList from DOM', () => {
+
+    document.body.innerHTML =
+    '<section class ="sectionMain">' +
+        '<h1>Welcome to the Community and City</h1>' +
+        '<div class="divComActions">' +
+            '<div class="divCitySelect">' +
+                'City Name: <select id=selectCity>' +
+                    '<option value="srcSelect">Select City</option>' +
+                    '<option value="srcAddCity">Add New City</option>' +
+                '</select>' +
+            '</div>' +
+        '</div>' +
+        '<div id=idAccts class="divCommunity">' +
+            '<h4 id="h4Community" class="h4ComTitle">Community: Canada</h4>' +
+            '<div class="divCityList">' +
+                '<section class="sectionCityList">' +
+                    '<h4>City</h4>' +
+                    '<ul id="ulCityList">' +
+                        '<li id="idSumTxt" class="liSum">Totals</li>' +
+                    '</ul>' +
+                '</section>' +
+                '<aside class="asideLatList">' +
+                    '<h4>Latitude</h4>' +
+                    '<ul id="ulLatList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideLongList">' +
+                    '<h4>Longitude</h4>' +
+                    '<ul id="ulLongList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asidePopList">' +
+                    '<h4>Population</h4>' +
+                    '<ul id="ulPopList">' +
+                        '<li id="idSum" class="liSum">1,549,421</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideSizeList">' +
+                    '<h4>Size</h4>' +
+                    '<ul id="ulSizeList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideHemList">' +
+                    '<h4>N/S</h4>' +
+                    '<ul id="ulHemList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideMaxList">' +
+                    '<h4>Max N/S</h4>' +
+                    '<ul id="ulMaxList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+            '</div>' +
+        '</div>' +
+    '</section>';
+
+    const canada = new community.Community ("Canada");
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    
+    let cityArr = canada.sortCityList("Name");
+    expect(cityArr).toEqual([1, 3, 2]);
+
+    expect(ulCityList.children.length).toBe(1);
+    expect(ulLatList.children.length).toBe(1);
+    expect(ulLongList.children.length).toBe(1);
+    expect(ulPopList.children.length).toBe(1);
+    expect(ulSizeList.children.length).toBe(1);
+    expect(ulHemList.children.length).toBe(1);
+    expect(ulMaxList.children.length).toBe(1);
+    expect(selectCity.children.length).toBe(2);
+
+    expect(c130d.createCityList(canada)).toBe(3);
+
+    expect(ulCityList.children.length).toBe(4);
+    expect(ulLatList.children.length).toBe(4);
+    expect(ulLongList.children.length).toBe(4);
+    expect(ulPopList.children.length).toBe(4);
+    expect(ulSizeList.children.length).toBe(4);
+    expect(ulHemList.children.length).toBe(4);
+    expect(ulMaxList.children.length).toBe(4);
+    expect(selectCity.children.length).toBe(5);
+
+    expect(ulPopList.children[0].textContent).toBe("1547484");
+    expect(ulPopList.children[1].textContent).toBe("20");
+    expect(ulPopList.children[2].textContent).toBe("1917");
+    expect(ulPopList.children[3].textContent).toBe("1549421");
+    expect(idSum.textContent).toBe("1549421");
+
+    c130d.refreshCityList(canada);
+
+    expect(ulCityList.children.length).toBe(4);
+    expect(ulLatList.children.length).toBe(4);
+    expect(ulLongList.children.length).toBe(4);
+    expect(ulPopList.children.length).toBe(4);
+    expect(ulSizeList.children.length).toBe(4);
+    expect(ulHemList.children.length).toBe(4);
+    expect(ulMaxList.children.length).toBe(4);
+    expect(selectCity.children.length).toBe(5);
+
+    expect(ulPopList.children[0].textContent).toBe("1547484");
+    expect(ulPopList.children[1].textContent).toBe("20");
+    expect(ulPopList.children[2].textContent).toBe("1917");
+    expect(ulPopList.children[3].textContent).toBe("1549421");
+    expect(idSum.textContent).toBe("1549421");
 
 });
 

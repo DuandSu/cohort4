@@ -131,14 +131,39 @@ class Community {
 
         return newPop;
     }
+
+    getCityName(pKey) {
+
+        let updIndex = this.findKeyIndex(pKey);
+        return this.cityList[updIndex].name;
+    }
     
+    getCityLatitude(pKey) {
+
+        let updIndex = this.findKeyIndex(pKey);
+        return this.cityList[updIndex].latitude;
+    }
+    
+    getCityLongitude(pKey) {
+
+        let updIndex = this.findKeyIndex(pKey);
+        return this.cityList[updIndex].longitude;
+    }
+
     getCityPopulation(pKey) {
         
         let updIndex = this.findKeyIndex(pKey);
         return this.cityList[updIndex].population;
         
     }
-    
+
+    getCityHowBig(pKey) {
+        
+        let index = this.findKeyIndex(pKey);
+
+        return this.cityList[index].howBig("Category");
+    }
+
     whichSphere (pKey) {
         
         let index = this.findKeyIndex(pKey);

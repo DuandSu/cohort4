@@ -43,8 +43,11 @@ test('130d: Does Community controller class instantiation and methods work?', ()
     let newKey = createResult[1];
     
     expect(canada.cityList[newIndex].name).toBe("Calgary");
+    expect(canada.getCityName(newKey)).toBe("Calgary");
     expect(canada.cityList[newIndex].latitude).toBe(51.0447);
+    expect(canada.getCityLatitude(newKey)).toBe(51.0447);
     expect(canada.cityList[newIndex].longitude).toBe(-114.0719);
+    expect(canada.getCityLongitude(newKey)).toBe(-114.0719);
     expect(canada.cityList[newIndex].population).toBe(1547484);
     expect(canada.getCityPopulation(newKey)).toBe(1547484);
     expect(canada.cityList[newIndex].key).toBe(newKey);
@@ -52,6 +55,7 @@ test('130d: Does Community controller class instantiation and methods work?', ()
     
     expect(canada.cityList[newIndex].howBig()).toBe(1547484);
     expect(canada.cityList[newIndex].howBig("Category")).toBe("City");
+    expect(canada.getCityHowBig(newKey)).toBe("City");
     
     createResult = canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
     expect(createResult).toEqual([2,2]);
@@ -59,17 +63,17 @@ test('130d: Does Community controller class instantiation and methods work?', ()
     newIndex = createResult[0];
     newKey = createResult[1];
     
-    expect(canada.cityList[newIndex].name).toBe("Vulcan");
-    expect(canada.cityList[newIndex].latitude).toBe(50.4038);
-    expect(canada.cityList[newIndex].longitude).toBe(-113.2622);
-    expect(canada.cityList[newIndex].population).toBe(1917);
+    expect(canada.getCityName(newKey)).toBe("Vulcan");
+    expect(canada.getCityLatitude(newKey)).toBe(50.4038);
+    expect(canada.getCityLongitude(newKey)).toBe(-113.2622);
     expect(canada.getCityPopulation(newKey)).toBe(1917);
     expect(canada.cityList[newIndex].key).toBe(newKey);
     expect(canada.cityList[0].nextKey).toBe(3);
     
     expect(canada.cityList[newIndex].howBig()).toBe(1917);
     expect(canada.cityList[newIndex].howBig("Category")).toBe("Town");
-    
+    expect(canada.getCityHowBig(newKey)).toBe("Town");
+
     let delIndex = canada.findKeyIndex(1);
     expect(delIndex).toBe(1);
 
