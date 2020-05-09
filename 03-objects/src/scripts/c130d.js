@@ -7,6 +7,103 @@ const c130d = {
 
     url: 'http://localhost:5000/',
     
+    divMakeAddCityElement: () => {
+
+        //
+        // Create the div for Adding City Name:
+        //
+        
+        const divAdd = document.createElement("div");
+        divAdd.textContent = "Enter Name of New City: ";
+        divAdd.setAttribute("id", "idAddAcct");
+        divAdd.setAttribute("class", "divAddAcct");
+         
+        const newAcctInput = document.createElement("INPUT");
+        newAcctInput.setAttribute("type", "text");
+        newAcctInput.setAttribute("id", "inputNewAcct");
+        divAdd.appendChild(newAcctInput);
+
+        const createBtn = document.createElement("BUTTON");
+        createBtn.textContent = "Create";
+        createBtn.setAttribute("type", "button");
+        createBtn.setAttribute("id", "btnCreateAcct");
+        divAdd.appendChild(createBtn);
+            
+        const cancelBtn = document.createElement("BUTTON");
+        cancelBtn.textContent = "Cancel";
+        cancelBtn.setAttribute("type", "button");
+        cancelBtn.setAttribute("id", "btnCancelAcct");
+        divAdd.appendChild(cancelBtn);
+    
+        const brLine = document.createElement("BR");
+        divAdd.appendChild(brLine);
+        divAdd.appendChild(brLine);
+        
+        const labelNewCreditFlg = document.createElement("LABEL");
+        labelNewCreditFlg.textContent = "Check if Credit Account: ";
+        labelNewCreditFlg.setAttribute("for", "inputRadioCredit");
+        divAdd.appendChild(labelNewCreditFlg);
+
+        const newCreditFlgRadio = document.createElement("INPUT");
+        newCreditFlgRadio.setAttribute("type", "radio");
+        newCreditFlgRadio.setAttribute("id", "inputRadioCredit");
+        newCreditFlgRadio.setAttribute("name", "inputRadioCredit");
+        newCreditFlgRadio.setAttribute("value", "inputRadioCredit");
+        divAdd.appendChild(newCreditFlgRadio);
+        
+        return divAdd;
+    },
+    
+    //
+    // The event listeners for "Create" and "Cancel" buttons, for the "Add Account" div are
+    // in the following functions, since they actually exist only when the div is created.
+    // When the div is added or deleted, the event listeners need to be created or removed.
+    //
+    
+    createdivAddCity: (community) => {
+    
+        if (document.getElementById("idAddCity") === null) {
+
+            idCitys.parentElement.insertBefore(c130c.divMakeAddCityElement(), idCitys);
+
+            btnCreateCity.addEventListener('click', (e => {
+ 
+                //
+                // Add the code to Create the account.
+                //
+        
+                c130c.createNewCity(community);
+
+                //
+                // Account was added. Now with Add div.
+                // Remove the div and events its buttons.
+                //
+
+                c130c.removedivAddCity();
+              
+            }));
+    
+            btnCancelCity.addEventListener('click', (e => {
+        
+                //          
+                // Cancel button would indicate done with Add div.
+                // Remove the div and events its buttons.
+                //
+                c130c.removedivAddCity();
+        
+            }));
+        }
+    },
+
+    removedivAddCity: () => {
+
+        btnCreateCity.removeEventListener("click", e => {});
+        btnCancelCity.removeEventListener("click", e => {});
+        idAddCity.parentElement.removeChild(idAddCity);
+
+        selectCity.value = "srcSelect";
+        inputAmt.value = 0.00;
+    },
 
     deleteCity: async (community) => {
 

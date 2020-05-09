@@ -82,7 +82,7 @@ import c920 from './fetch.js'
             // Add New Account Name Entry, but only need 1.
             //
 
-            // c130c.createdivAddAcct(duane);
+            // c130c.createdivAddCity(duane);
             console.log("Add City Button Clicked!")
             
         }));
@@ -94,15 +94,14 @@ import c920 from './fetch.js'
         btnDelCity.addEventListener('click', (e => {
             
             //
-            // Delete New City.
+            // Delete City.
             //
             c130d.deleteCity(canada);
-            console.log("Delete City Button Clicked!")
             
         }));
 
         //
-        // Event listener for the Deposit button.
+        // Event listener for the Moved In button.
         //
 
         btnMovedIn.addEventListener('click', (e => {
@@ -112,7 +111,7 @@ import c920 from './fetch.js'
         }));
 
         //
-        // Event listener for the Withdraw button.
+        // Event listener for the Moved Out button.
         //
 
         btnMovedOut.addEventListener('click', (e => {

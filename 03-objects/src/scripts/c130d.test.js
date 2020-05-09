@@ -808,7 +808,7 @@ test('130d: Test createCityList and refreshCityList from DOM', () => {
                 '</select>' +
             '</div>' +
         '</div>' +
-        '<div id=idAccts class="divCommunity">' +
+        '<div id=idCitys class="divCommunity">' +
             '<h4 id="h4Community" class="h4ComTitle">Community: Canada</h4>' +
             '<div class="divCityList">' +
                 '<section class="sectionCityList">' +
@@ -943,7 +943,7 @@ document.body.innerHTML =
         '<button id="btnCreateCity" type="button">Create</button>' +
         '<button id="btnCancelCity" type="button">Cancel</button>' +
     '</div>' +
-    '<div id=idAccts class="divCommunity">' +
+    '<div id=idCitys class="divCommunity">' +
         '<h4 id="h4Community" class="h4ComTitle">Community: Canada</h4>' +
         '<div class="divCityList">' +
             '<section class="sectionCityList">' +
@@ -1059,7 +1059,7 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
             '<button id="btnCreateCity" type="button">Create</button>' +
             '<button id="btnCancelCity" type="button">Cancel</button>' +
         '</div>' +
-        '<div id=idAccts class="divCommunity">' +
+        '<div id=idCitys class="divCommunity">' +
             '<h4 id="h4Community" class="h4ComTitle">Community: Canada</h4>' +
             '<div class="divCityList">' +
                 '<section class="sectionCityList">' +
@@ -1242,6 +1242,17 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(selectCity.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
 
+    selectCity.value = "srcCity1";
+    inputAmt.value = 16;
+
+    expect(document.getElementById("idAddCity")).not.toBeNull();
+
+    c130d.removedivAddCity();
+
+    expect(document.getElementById("idAddCity")).toBeNull();
+    expect(selectCity.value).toBe("srcSelect");
+    expect(inputAmt.value).toBe("0");
+
     done();
 });
 
@@ -1278,7 +1289,7 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
             '<button id="btnCreateCity" type="button">Create</button>' +
             '<button id="btnCancelCity" type="button">Cancel</button>' +
         '</div>' +
-        '<div id=idAccts class="divCommunity">' +
+        '<div id=idCitys class="divCommunity">' +
             '<h4 id="h4Community" class="h4ComTitle">Community: Canada</h4>' +
             '<div class="divCityList">' +
                 '<section class="sectionCityList">' +
