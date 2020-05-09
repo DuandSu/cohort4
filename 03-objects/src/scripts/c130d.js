@@ -14,43 +14,65 @@ const c130d = {
         //
         
         const divAdd = document.createElement("div");
-        divAdd.textContent = "Enter Name of New City: ";
-        divAdd.setAttribute("id", "idAddAcct");
-        divAdd.setAttribute("class", "divAddAcct");
-         
+        // divAdd.textContent = "Enter New City: ";
+        divAdd.setAttribute("id", "idAddCity");
+        divAdd.setAttribute("class", "divAddCity");
+
+        let label = document.createElement("LABEL");
+        label.textContent = "Enter New City: ";
+        label.setAttribute("for", "inputNewCity");
+        divAdd.appendChild(label);
+
         const newAcctInput = document.createElement("INPUT");
         newAcctInput.setAttribute("type", "text");
-        newAcctInput.setAttribute("id", "inputNewAcct");
+        newAcctInput.setAttribute("id", "inputNewCity");
         divAdd.appendChild(newAcctInput);
 
+        label = document.createElement("LABEL");
+        label.textContent = "Enter Population: ";
+        label.setAttribute("for", "inputNewPop");
+        divAdd.appendChild(label);
+
+        const newAcctInput = document.createElement("INPUT");
+        newAcctInput.setAttribute("type", "number");
+        newAcctInput.setAttribute("id", "inputNewPop");
+        divAdd.appendChild(newAcctInput);
+    
         const createBtn = document.createElement("BUTTON");
         createBtn.textContent = "Create";
         createBtn.setAttribute("type", "button");
-        createBtn.setAttribute("id", "btnCreateAcct");
+        createBtn.setAttribute("id", "btnCreateCity");
         divAdd.appendChild(createBtn);
+
+        const brLine = document.createElement("BR");
+        divAdd.appendChild(brLine);
+
+        label = document.createElement("LABEL");
+        label.textContent = "Enter Latitude : ";
+        label.setAttribute("for", "inputNewLat");
+        divAdd.appendChild(label);
+
+        const newAcctInput = document.createElement("INPUT");
+        newAcctInput.setAttribute("type", "number");
+        newAcctInput.setAttribute("id", "inputNewLat");
+        divAdd.appendChild(newAcctInput);
+
+        label = document.createElement("LABEL");
+        label.textContent = "Enter Longitude : ";
+        label.setAttribute("for", "inputNewLong");
+        divAdd.appendChild(label);
+
+        const newAcctInput = document.createElement("INPUT");
+        newAcctInput.setAttribute("type", "number");
+        newAcctInput.setAttribute("id", "inputNewLong");
+        divAdd.appendChild(newAcctInput);
             
         const cancelBtn = document.createElement("BUTTON");
         cancelBtn.textContent = "Cancel";
         cancelBtn.setAttribute("type", "button");
-        cancelBtn.setAttribute("id", "btnCancelAcct");
+        cancelBtn.setAttribute("id", "btnCancelCity");
         divAdd.appendChild(cancelBtn);
-    
-        const brLine = document.createElement("BR");
-        divAdd.appendChild(brLine);
-        divAdd.appendChild(brLine);
-        
-        const labelNewCreditFlg = document.createElement("LABEL");
-        labelNewCreditFlg.textContent = "Check if Credit Account: ";
-        labelNewCreditFlg.setAttribute("for", "inputRadioCredit");
-        divAdd.appendChild(labelNewCreditFlg);
-
-        const newCreditFlgRadio = document.createElement("INPUT");
-        newCreditFlgRadio.setAttribute("type", "radio");
-        newCreditFlgRadio.setAttribute("id", "inputRadioCredit");
-        newCreditFlgRadio.setAttribute("name", "inputRadioCredit");
-        newCreditFlgRadio.setAttribute("value", "inputRadioCredit");
-        divAdd.appendChild(newCreditFlgRadio);
-        
+            
         return divAdd;
     },
     
@@ -103,6 +125,54 @@ const c130d = {
 
         selectCity.value = "srcSelect";
         inputAmt.value = 0.00;
+    },
+
+    createNewCity: async (client) => {
+
+        let data = await c130d.confirmAPIConnect (c130d.url);
+
+        if (data.status === 200) {
+            
+            let newKey = 0
+
+            if (inputNewCity.value.trim() === "") {
+    
+                messageArea.textContent = `Please input the new City name.`;
+                return newKey;
+
+            }
+            else if (Number(inputNewLat.value) === 0) {
+    
+                messageArea.textContent = `Please input the Latitude.`;
+                return newKey;
+
+            }
+            else if (Number(inputNewLong.value) === 0) {
+    
+                messageArea.textContent = `Please input the new Longitude.`;
+                return newKey;
+
+            }
+            else {
+
+                let newCity = community.createCity(inputNewCity.value.trim(), Number(inputNewPop.value), 
+                    Number(inputNewLat.value), Number(inputNewLong.value),);
+                
+                data = await c130d.createAPICity(c130d.url, community.cityList[newCity[1]], community.cityList[0]);
+                    
+                c130c.refreshCityList(community);
+
+                if (community.isMessage()) {
+                    messageArea.textContent = community.getMessages();
+                    community.resetMessage();
+                }
+                    
+                return newCity[0];
+            }
+        } else {
+            
+            messageArea.textContent = "API is unavailable for Delete. Please try again later!";
+        }
     },
 
     deleteCity: async (community) => {
