@@ -23,7 +23,7 @@ const c130d = {
         label.setAttribute("for", "inputNewCity");
         divAdd.appendChild(label);
 
-        const newAcctInput = document.createElement("INPUT");
+        let newAcctInput = document.createElement("INPUT");
         newAcctInput.setAttribute("type", "text");
         newAcctInput.setAttribute("id", "inputNewCity");
         divAdd.appendChild(newAcctInput);
@@ -33,7 +33,7 @@ const c130d = {
         label.setAttribute("for", "inputNewPop");
         divAdd.appendChild(label);
 
-        const newAcctInput = document.createElement("INPUT");
+        newAcctInput = document.createElement("INPUT");
         newAcctInput.setAttribute("type", "number");
         newAcctInput.setAttribute("id", "inputNewPop");
         divAdd.appendChild(newAcctInput);
@@ -52,7 +52,7 @@ const c130d = {
         label.setAttribute("for", "inputNewLat");
         divAdd.appendChild(label);
 
-        const newAcctInput = document.createElement("INPUT");
+        newAcctInput = document.createElement("INPUT");
         newAcctInput.setAttribute("type", "number");
         newAcctInput.setAttribute("id", "inputNewLat");
         divAdd.appendChild(newAcctInput);
@@ -62,7 +62,7 @@ const c130d = {
         label.setAttribute("for", "inputNewLong");
         divAdd.appendChild(label);
 
-        const newAcctInput = document.createElement("INPUT");
+        newAcctInput = document.createElement("INPUT");
         newAcctInput.setAttribute("type", "number");
         newAcctInput.setAttribute("id", "inputNewLong");
         divAdd.appendChild(newAcctInput);
@@ -86,22 +86,22 @@ const c130d = {
     
         if (document.getElementById("idAddCity") === null) {
 
-            idCitys.parentElement.insertBefore(c130c.divMakeAddCityElement(), idCitys);
+            idCitys.parentElement.insertBefore(c130d.divMakeAddCityElement(), idCitys);
 
-            btnCreateCity.addEventListener('click', (e => {
+            btnCreateCity.addEventListener('click', (async e => {
  
                 //
                 // Add the code to Create the account.
                 //
         
-                c130c.createNewCity(community);
+                await c130d.createNewCity(community);
 
                 //
                 // Account was added. Now with Add div.
                 // Remove the div and events its buttons.
                 //
 
-                c130c.removedivAddCity();
+                c130d.removedivAddCity();
               
             }));
     
@@ -111,7 +111,7 @@ const c130d = {
                 // Cancel button would indicate done with Add div.
                 // Remove the div and events its buttons.
                 //
-                c130c.removedivAddCity();
+                c130d.removedivAddCity();
         
             }));
         }
@@ -127,16 +127,16 @@ const c130d = {
         inputAmt.value = 0.00;
     },
 
-    createNewCity: async (client) => {
+    createNewCity: async (community) => {
 
+        let newKey = 0
+        
         let data = await c130d.confirmAPIConnect (c130d.url);
 
         if (data.status === 200) {
             
-            let newKey = 0
-
             if (inputNewCity.value.trim() === "") {
-    
+
                 messageArea.textContent = `Please input the new City name.`;
                 return newKey;
 
@@ -149,25 +149,34 @@ const c130d = {
             }
             else if (Number(inputNewLong.value) === 0) {
     
-                messageArea.textContent = `Please input the new Longitude.`;
+                messageArea.textContent = `Please input the Longitude.`;
                 return newKey;
 
             }
             else {
 
-                let newCity = community.createCity(inputNewCity.value.trim(), Number(inputNewPop.value), 
-                    Number(inputNewLat.value), Number(inputNewLong.value),);
-                
-                data = await c130d.createAPICity(c130d.url, community.cityList[newCity[1]], community.cityList[0]);
-                    
-                c130c.refreshCityList(community);
+                let nInputNewPop = Number(inputNewPop.value);
+                let nInputAmt = Number(inputAmt.value);
+
+                if (nInputNewPop === 0) {
+                    if (nInputAmt != 0) {
+                        nInputNewPop = nInputAmt;
+                    }
+                }
+
+                let newCity = community.createCity(inputNewCity.value.trim(),  
+                    Number(inputNewLat.value), Number(inputNewLong.value), nInputNewPop,);
+
+                data = await c130d.createAPICity(c130d.url, community.cityList[newCity[0]], community.cityList[0]);
+
+                c130d.refreshCityList(community);
 
                 if (community.isMessage()) {
                     messageArea.textContent = community.getMessages();
                     community.resetMessage();
                 }
                     
-                return newCity[0];
+                return newCity[1];
             }
         } else {
             
@@ -592,7 +601,7 @@ const c130d = {
             data = await c130d.confirmAPIConnect (url);
             
             if (data.status === 200) {
-                
+
                 data = await c920.postData(url + 'add', city);
 
                 if (data.status === 200) {

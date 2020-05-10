@@ -1196,7 +1196,6 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     selectCity.value = "srcCity1";    
     messageArea.textContent = ""; // ??
 
-    // c130d.deleteCity(canada);
     data = await c130d.deleteCity(canada);
 
     expect(canada.findKeyIndex(1)).toBe(-1);
@@ -1247,11 +1246,75 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
 
     expect(document.getElementById("idAddCity")).not.toBeNull();
 
+    //
+    // Remove the New City Name entry div to confirm it works.
+    // It also simulates them clicking the Add New Account Cancel
+    // button.
+    //
+
     c130d.removedivAddCity();
 
     expect(document.getElementById("idAddCity")).toBeNull();
     expect(selectCity.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
+    
+    //
+    // Create it again simulating user has clicked the "Add New City"
+    // button or selected from source account menu. This div is made
+    // available to the user. Simulate them typing in a new city name
+    // and pressing the Add New City "Create" button.
+    //
+    
+    c130d.createdivAddCity();
+    expect(document.getElementById("idAddCity")).not.toBeNull();
+    
+    //
+    // First simulate them clicking the "Create" button without typing
+    // a city name.
+    //
+
+    inputNewCity.value = "";
+    inputAmt.value = 0;
+    inputNewPop.value = 0;
+    inputNewLat.value = 0;
+    inputNewLong.value = 0;
+
+    expect(await c130d.createNewCity(canada)).toBe(0);
+    expect(messageArea.textContent).toBe(`Please input the new City name.`);
+
+    inputNewCity.value = "Edmonton";
+
+    expect(await c130d.createNewCity(canada)).toBe(0);
+    expect(messageArea.textContent).toBe(`Please input the Latitude.`);
+
+    inputNewLat.value = 53.5461;
+
+    expect(await c130d.createNewCity(canada)).toBe(0);
+    expect(messageArea.textContent).toBe(`Please input the Longitude.`);
+
+    inputNewCity.value = "Edmonton";
+    inputAmt.value = 0;
+    inputNewPop.value = 1461182;
+    inputNewLong.value = -113.4938;
+
+    let newKey = await c130d.createNewCity(canada);
+
+    expect(newKey).toBe(4);
+    expect(canada.getCityName(newKey)).toBe("Edmonton");
+    expect(canada.getCityLatitude(newKey)).toBe(53.5461);
+    expect(canada.getCityLongitude(newKey)).toBe(-113.4938);
+    expect(canada.getCityPopulation(newKey)).toBe(1461182);
+
+    let newIndex = canada.findKeyIndex(newKey);
+
+    data = await c130d.getAPICity (url, canada.cityList[newIndex]);
+
+    expect(data.status).toEqual(200);
+
+    expect(data[0].name).toBe("Edmonton");
+    expect(data[0].population).toBe(1461182);
+    expect(data[0].latitude).toBe(53.5461);
+    expect(data[0].longitude).toBe(-113.4938);
 
     done();
 });

@@ -22,7 +22,7 @@ import c920 from './fetch.js'
         // Remove the New Account Name entry. JS will create again when needed.
         //
 
-        // idAddCity.parentElement.removeChild(idAddCity);
+        c130d.removedivAddCity();
 
         //
         // This is just a temporary fix for testing so it matches my starter
@@ -82,8 +82,7 @@ import c920 from './fetch.js'
             // Add New Account Name Entry, but only need 1.
             //
 
-            // c130c.createdivAddCity(duane);
-            console.log("Add City Button Clicked!")
+            c130d.createdivAddCity(canada);
             
         }));
 
@@ -136,7 +135,7 @@ import c920 from './fetch.js'
                 // Add New Account Name Entry, but only need 1
                 //
 
-                // c130c.createdivAddAcct(duane);
+                c130d.createdivAddCity(canada);
                 console.log("Something was to Add a City!")
 
             }
