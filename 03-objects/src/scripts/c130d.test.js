@@ -23,6 +23,21 @@ test('130d: Testing the TDD Pipes', () => {
     
 });
 
+test('130d: Play Area with toLocaleString', () => {
+
+    let i = 512;
+    expect(i.toString(2)).toBe("1000000000");
+    expect(i.toString(8)).toBe("1000");
+    expect(i.toString(10)).toBe("512");
+    expect(i.toString(16)).toBe("200");
+
+    i = 1234567.89999;
+    expect(i.toLocaleString('en-US', {minimumFractionDigits: 5})).toBe("1,234,567.89999");
+
+    i = 1234567.8901;
+    expect(i.toLocaleString('en-US', {minimumFractionDigits: 5})).toBe("1,234,567.89010");
+});
+
 test('130d: Play Area with Spread Operator', () => {
 
     const ctrl = {key:0, name:"Canada", nextKey:1};
@@ -265,6 +280,145 @@ test('130d: Async ASP confirmAPIConnect', async (done) => {
     expect(data[0].key).toBe(0);
     expect(data[0].nextKey).toBe(1);
     
+    done();
+});
+
+test('130d: Async ASP loadAPICommunity with No API data', async (done) => {
+
+    document.body.innerHTML =    
+            '<p id="messageArea" position="absolute"></p>';
+
+    //
+    // Test scenario of no data on API server.
+    //
+
+    let data = await c920.postData(url + "clear");
+    expect(data.status).toBe(200);
+
+    data = await c130d.loadAPICommunity(c130d.url);
+
+    expect(data).toBe(0);
+    expect(messageArea.textContent).toBe("There was no data to load from the API. "
+        + "Please enter the name of your new Community.");
+
+    done();
+});
+
+test('130d: Async ASP loadAPICommunity', async (done) => {
+
+    document.body.innerHTML =
+    '<section class ="sectionMain">' +
+        '<h1>Welcome to the Community and City</h1>' +
+    '   <div id=idAddCom class="divAddCom">' +
+            'Enter Name of Community: <input id="inputNewCom" type=text>' +
+            '<button id="btnCreateCom" type="button">Create</button>' +
+            '<button id="btnCancelCom" type="button">Cancel</button>' +
+        '</div>		' +
+        '<div class="divComActions">' +
+            '<div class="divCitySelect">' +
+                'City Name: <select id=selectCity>' +
+                    '<option value="srcSelect">Select City</option>' +
+                    '<option value="srcAddCity">Add New City</option>' +
+                '</select>' +
+            '</div>' +
+            '<div class="divCityActions">' +
+                'Population: <input id="inputAmt" type=number value=0>' +
+                '<button id="btnAddCity" type="button">Add New City</button>' +
+                '<button id="btnDelCity" type="button">Delete</button>' +
+                '<button id="btnMovedIn" type="button">Moved In</button>' +
+                '<button id="btnMovedOut" type="button">Moved Out</button>' +
+            '</div>' +
+            '<p id="messageArea" position="absolute"></p>' +
+        '</div>' +
+        '<div id=idCitys class="divCommunity">' +
+            '<h4 id="h4Community" class="h4ComTitle">Community: Canada</h4>' +
+            '<div class="divCityList">' +
+                '<section class="sectionCityList">' +
+                    '<h4>City</h4>' +
+                    '<ul id="ulCityList">' +
+                        '<li id="idSumTxt" class="liSum">Totals</li>' +
+                    '</ul>' +
+                '</section>' +
+                '<aside class="asideLatList">' +
+                    '<h4>Latitude</h4>' +
+                    '<ul id="ulLatList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideLongList">' +
+                    '<h4>Longitude</h4>' +
+                    '<ul id="ulLongList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asidePopList">' +
+                    '<h4>Population</h4>' +
+                    '<ul id="ulPopList">' +
+                        '<li id="idSum" class="liSum">1,549,421</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideSizeList">' +
+                    '<h4>Size</h4>' +
+                    '<ul id="ulSizeList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideHemList">' +
+                    '<h4>N/S</h4>' +
+                    '<ul id="ulHemList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+                '<aside class="asideMaxList">' +
+                    '<h4>Max N/S</h4>' +
+                    '<ul id="ulMaxList">' +
+                        '<li class="liSum">.</li>' +
+                    '</ul>' +
+                '</aside>' +
+            '</div>' +
+        '</div>' +
+    '</section>';
+    
+    //
+    // Test scenario of data existing on the server. First clear the API, then
+    // add some known data to the API.
+    //
+    //
+
+    let data = await c920.postData(url + "clear");
+    expect(data.status).toBe(200);
+
+    const canada = new community.Community ("Canada");
+    data = await c130d.createAPICommunity (url, canada.cityList[0]);    
+    expect(data.status).toBe(200);
+
+    canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+    data = await c130d.createAPICity (url, canada.cityList[1], canada.cityList[0]);
+    expect(data.status).toBe(200);
+
+    canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+    data = await c130d.createAPICity (c130d.url, canada.cityList[2], canada.cityList[0]);
+    expect(data.status).toBe(200);
+
+    canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+    data = await c130d.createAPICity (c130d.url, canada.cityList[3], canada.cityList[0]);
+    expect(data.status).toBe(200);
+
+    let newCommunity = await c130d.loadAPICommunity(c130d.url);
+
+    expect(messageArea.textContent).toBe("Loading Community and Cities ....... DONE");
+    expect(newCommunity.name).toBe("Canada");
+    
+    expect(newCommunity.cityList[1].name).toBe("Calgary");
+    expect(newCommunity.cityList[2].name).toBe("Vulcan");
+    expect(newCommunity.cityList[3].name).toBe("Kirkaldy");
+    expect(newCommunity.getPopulation()).toBe(1549421);
+
+    expect(liCity1.textContent).toBe("Calgary");
+    expect(liCity2.textContent).toBe("Vulcan");
+    expect(liCity3.textContent).toBe("Kirkaldy");
+    expect(idSum.textContent).toBe("1,549,421");
+
     done();
 });
 
@@ -611,7 +765,7 @@ test('130d: Test liLong addItemToList from the DOM', () => {
     expect(ulLongList.children.length).toBe(4);
     
     expect(ulLongList.children[0].textContent).toBe("-114.0719");
-    expect(ulLongList.children[1].textContent).toBe("-13.238");
+    expect(ulLongList.children[1].textContent).toBe("-13.2380");
     expect(ulLongList.children[2].textContent).toBe("-113.2622");
     expect(ulLongList.children[3].textContent).toBe(".");
     
@@ -644,11 +798,11 @@ test('130d: Test liPop addItemToList from the DOM', () => {
     expect(c130d.addItemToList("ulPopList", "liPop", canada, cityArr)).toBe(3);
     expect(ulPopList.children.length).toBe(4);
     
-    expect(ulPopList.children[0].textContent).toBe("1547484");
+    expect(ulPopList.children[0].textContent).toBe("1,547,484");
     expect(ulPopList.children[1].textContent).toBe("20");
-    expect(ulPopList.children[2].textContent).toBe("1917");
-    expect(ulPopList.children[3].textContent).toBe("1549421");
-    expect(idSum.textContent).toBe("1549421");
+    expect(ulPopList.children[2].textContent).toBe("1,917");
+    expect(ulPopList.children[3].textContent).toBe("1,549,421");
+    expect(idSum.textContent).toBe("1,549,421");
     
     expect(ulPopList.children[0].className).toBe("liOdd");
     expect(ulPopList.children[1].className).toBe("liEven");
@@ -808,6 +962,14 @@ test('130d: Test createCityList and refreshCityList from DOM', () => {
                 '</select>' +
             '</div>' +
         '</div>' +
+        '<div class="divCityActions">' +
+            'Population: <input id="inputAmt" type=number value=0>' +
+            '<button id="btnAddCity" type="button">Add New City</button>' +
+            '<button id="btnDelCity" type="button">Delete</button>' +
+            '<button id="btnMovedIn" type="button">Moved In</button>' +
+            '<button id="btnMovedOut" type="button">Moved Out</button>' +
+        '</div>' +
+        '<p id="messageArea" position="absolute"></p>' +
         '<div id=idCitys class="divCommunity">' +
             '<h4 id="h4Community" class="h4ComTitle">Community: Canada</h4>' +
             '<div class="divCityList">' +
@@ -885,11 +1047,11 @@ test('130d: Test createCityList and refreshCityList from DOM', () => {
     expect(ulMaxList.children.length).toBe(4);
     expect(selectCity.children.length).toBe(5);
 
-    expect(ulPopList.children[0].textContent).toBe("1547484");
+    expect(ulPopList.children[0].textContent).toBe("1,547,484");
     expect(ulPopList.children[1].textContent).toBe("20");
-    expect(ulPopList.children[2].textContent).toBe("1917");
-    expect(ulPopList.children[3].textContent).toBe("1549421");
-    expect(idSum.textContent).toBe("1549421");
+    expect(ulPopList.children[2].textContent).toBe("1,917");
+    expect(ulPopList.children[3].textContent).toBe("1,549,421");
+    expect(idSum.textContent).toBe("1,549,421");
 
     c130d.refreshCityList(canada);
 
@@ -902,11 +1064,11 @@ test('130d: Test createCityList and refreshCityList from DOM', () => {
     expect(ulMaxList.children.length).toBe(4);
     expect(selectCity.children.length).toBe(5);
 
-    expect(ulPopList.children[0].textContent).toBe("1547484");
+    expect(ulPopList.children[0].textContent).toBe("1,547,484");
     expect(ulPopList.children[1].textContent).toBe("20");
-    expect(ulPopList.children[2].textContent).toBe("1917");
-    expect(ulPopList.children[3].textContent).toBe("1549421");
-    expect(idSum.textContent).toBe("1549421");
+    expect(ulPopList.children[2].textContent).toBe("1,917");
+    expect(ulPopList.children[3].textContent).toBe("1,549,421");
+    expect(idSum.textContent).toBe("1,549,421");
 
 });
 
@@ -1215,9 +1377,9 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(selectCity.children.length).toBe(4);
 
     expect(ulPopList.children[0].textContent).toBe("20");
-    expect(ulPopList.children[1].textContent).toBe("1917");
-    expect(ulPopList.children[2].textContent).toBe("1937");
-    expect(idSum.textContent).toBe("1937");
+    expect(ulPopList.children[1].textContent).toBe("1,917");
+    expect(ulPopList.children[2].textContent).toBe("1,937");
+    expect(idSum.textContent).toBe("1,937");
     expect(ulPopList.children[3]).toBeUndefined();
 
     let dCity = {};
@@ -1293,7 +1455,7 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(messageArea.textContent).toBe(`Please input the Longitude.`);
 
     inputNewCity.value = "Edmonton";
-    inputAmt.value = 0;
+    inputAmt.value = 222222;
     inputNewPop.value = 1461182;
     inputNewLong.value = -113.4938;
 
@@ -1305,6 +1467,12 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(canada.getCityLongitude(newKey)).toBe(-113.4938);
     expect(canada.getCityPopulation(newKey)).toBe(1461182);
 
+    expect(liCity4.textContent).toBe("Edmonton");
+    expect(liLat4.textContent).toBe("53.5461");
+    expect(liLong4.textContent).toBe("-113.4938");
+    expect(liPop4.textContent).toBe("1,461,182");
+    expect(idSum.textContent).toBe("1,463,119");
+
     let newIndex = canada.findKeyIndex(newKey);
 
     data = await c130d.getAPICity (url, canada.cityList[newIndex]);
@@ -1315,6 +1483,43 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(data[0].population).toBe(1461182);
     expect(data[0].latitude).toBe(53.5461);
     expect(data[0].longitude).toBe(-113.4938);
+
+    expect(selectCity.value).toBe("srcSelect");
+    expect(inputAmt.value).toBe("0");
+
+    inputNewCity.value = "Lethbridge";
+    inputAmt.value = 92730;
+    inputNewPop.value = 0; // If not set able to use the other input if user typed number in.
+    inputNewLat.value = 49.6956;
+    inputNewLong.value = -112.8451;
+
+    newKey = await c130d.createNewCity(canada);
+
+    expect(newKey).toBe(5);
+    expect(canada.getCityName(newKey)).toBe("Lethbridge");
+    expect(canada.getCityLatitude(newKey)).toBe(49.6956);
+    expect(canada.getCityLongitude(newKey)).toBe(-112.8451);
+    expect(canada.getCityPopulation(newKey)).toBe(92730);
+
+    expect(liCity5.textContent).toBe("Lethbridge");
+    expect(liLat5.textContent).toBe("49.6956");
+    expect(liLong5.textContent).toBe("-112.8451");
+    expect(liPop5.textContent).toBe("92,730");
+    expect(idSum.textContent).toBe("1,555,849");
+
+    newIndex = canada.findKeyIndex(newKey);
+
+    data = await c130d.getAPICity (url, canada.cityList[newIndex]);
+
+    expect(data.status).toEqual(200);
+
+    expect(data[0].name).toBe("Lethbridge");
+    expect(data[0].population).toBe(92730);
+    expect(data[0].latitude).toBe(49.6956);
+    expect(data[0].longitude).toBe(-112.8451);
+
+    expect(selectCity.value).toBe("srcSelect");
+    expect(inputAmt.value).toBe("0");
 
     done();
 });

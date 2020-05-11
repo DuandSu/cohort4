@@ -25,64 +25,90 @@ import c920 from './fetch.js'
         c130d.removedivAddCity();
 
         //
+        // Load community from API if there, otherwise get name of community.
+        //
+
+        let newCommunity = await c130d.loadAPICommunity(c130d.url);
+
+        //
         // This is just a temporary fix for testing so it matches my starter
         // community and city in HTML. Eventually page will start empty, then either load in from
         // ASP, or if empty, ask to create a community name. It will NOT clear. It will load.
         //
 
-        messageArea.textContent = "Loading Community and Cities";
-        let data = await c920.postData(c130d.url + "clear");
+        // messageArea.textContent = "Loading Community and Cities";
+        // let data = await c920.postData(c130d.url + "clear");
 
-        messageArea.textContent = "Loading Community and Cities .";
-        const canada = new community.Community ("Canada");
-        data = await c130d.createAPICommunity (c130d.url, canada.cityList[0]);
+        // messageArea.textContent = "Loading Community and Cities .";
+        // const newCommunity = new community.Community ("Canada");
+        // data = await c130d.createAPICommunity (c130d.url, newCommunity.cityList[0]);
 
-        messageArea.textContent = "Loading Community and Cities ..";
-        canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
-        data = await c130d.createAPICity (c130d.url, canada.cityList[1], canada.cityList[0]);
+        // messageArea.textContent = "Loading Community and Cities ..";
+        // newCommunity.createCity ("Calgary", 51.0447, -114.0719, 1547484);
+        // data = await c130d.createAPICity (c130d.url, newCommunity.cityList[1], newCommunity.cityList[0]);
 
-        messageArea.textContent = "Loading Community and Cities ...";
-        canada.createCity ("Vulcan", 50.4038, -113.2622, 1917);
-        data = await c130d.createAPICity (c130d.url, canada.cityList[2], canada.cityList[0]);
+        // messageArea.textContent = "Loading Community and Cities ...";
+        // newCommunity.createCity ("Vulcan", 50.4038, -113.2622, 1917);
+        // data = await c130d.createAPICity (c130d.url, newCommunity.cityList[2], newCommunity.cityList[0]);
 
-        messageArea.textContent = "Loading Community and Cities ....";
-        canada.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
-        data = await c130d.createAPICity (c130d.url, canada.cityList[3], canada.cityList[0]);
+        // messageArea.textContent = "Loading Community and Cities ....";
+        // newCommunity.createCity ("Kirkaldy", 50.3367, -13.2380, 20);
+        // data = await c130d.createAPICity (c130d.url, newCommunity.cityList[3], newCommunity.cityList[0]);
 
-        messageArea.textContent = "Loading Community and Cities .... DONE";
-
-        canada.resetMessage();
+        // messageArea.textContent = "Loading Community and Cities .... DONE";
 
         //
         // Add some gretting messages for duane to demonstrate message queue funtionality,
         // but first clear out any residual from original HTML.
         //
+        if (newCommunity != 0) {
+            if (newCommunity.isMessage()) newCommunity.resetMessage();
 
-        if (canada.isMessage()) canada.resetMessage();
+            newCommunity.addMessage("Welcome to Communities and Cities!");
+            newCommunity.addMessage("Enjoy your experience and have a GREAT day.");
 
-        canada.addMessage("Welcome to Communities and Cities!");
-        canada.addMessage("Enjoy your experience and have a GREAT day.");
+            //
+            // Visual Setup for web page complete. Display Greeting Messages.
+            //
 
-        //
-        // Visual Setup for web page complete. Display Greeting Messages.
-        //
-
-        if (canada.isMessage()) {
-            messageArea.textContent = canada.getMessages();
-            canada.resetMessage();
+            if (newCommunity.isMessage()) {
+                messageArea.textContent = newCommunity.getMessages();
+                newCommunity.resetMessage();
+            }
         }
+
+        //
+        // Event listener for the Add New Community button.
+        //
+
+        btnCreateCom.addEventListener('click', (async e => {
+
+            newCommunity = await c130d.createNewCommunity();
+            
+        }));
+
+        //
+        // Event listener for the Add New Community button.
+        //
+
+        btnCancelCom.addEventListener('click', (e => {
+
+            inputNewCom.value = "";
+            messageArea.textContent = "Create Community cancelled. To proceed, you must first enter a name for your Community!";
+            
+        }));
 
         //
         // Event listener for the Add New City button.
         //
 
         btnAddCity.addEventListener('click', (e => {
-            
-            //
-            // Add New Account Name Entry, but only need 1.
-            //
 
-            c130d.createdivAddCity(canada);
+            if (newCommunity != 0) {
+                c130d.createdivAddCity(newCommunity);
+            } else {
+                messageArea.textContent = "Please first enter a name for your Community!";
+            }
             
         }));
 
@@ -95,8 +121,12 @@ import c920 from './fetch.js'
             //
             // Delete City.
             //
-            c130d.deleteCity(canada);
-            
+
+            if (newCommunity != 0) {
+                c130d.deleteCity(newCommunity);
+            } else {
+                messageArea.textContent = "Please first enter a name for your Community!";
+            }            
         }));
 
         //
@@ -105,8 +135,11 @@ import c920 from './fetch.js'
 
         btnMovedIn.addEventListener('click', (e => {
             
-            c130d.actionMoved("IN", canada);
-            
+            if (newCommunity != 0) {
+                c130d.actionMoved("IN", newCommunity);
+            } else {
+                messageArea.textContent = "Please first enter a name for your Community!";
+            }
         }));
 
         //
@@ -115,8 +148,11 @@ import c920 from './fetch.js'
 
         btnMovedOut.addEventListener('click', (e => {
             
-            c130d.actionMoved("OUT", canada);
-
+            if (newCommunity != 0) {
+                c130d.actionMoved("OUT", newCommunity);
+            } else {
+                messageArea.textContent = "Please first enter a name for your Community!";
+            }
         }));
 
         //
@@ -135,8 +171,11 @@ import c920 from './fetch.js'
                 // Add New Account Name Entry, but only need 1
                 //
 
-                c130d.createdivAddCity(canada);
-                console.log("Something was to Add a City!")
+                if (newCommunity != 0) {
+                    c130d.createdivAddCity(newCommunity);
+                } else {
+                    messageArea.textContent = "Please first enter a name for your Community!";
+                }
 
             }
         
@@ -152,11 +191,9 @@ import c920 from './fetch.js'
             //  SELECT opens up to not enough clearing. Need to find the difference for Add from Select.
             //  Maybe add a flag.
             //
-            console.log("Mouse Clicked!")
             if (e.target.nodeName !== 'BUTTON') {
 
                 messageArea.textContent = "";
-                console.log("NOT a Button!");
 
             }
 

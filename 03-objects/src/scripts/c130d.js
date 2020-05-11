@@ -1,12 +1,13 @@
 //
 // This is competency 130d.
 //
+import community from './community.js';
 import c920 from './fetch.js'
 
 const c130d = {
 
     url: 'http://localhost:5000/',
-    
+
     divMakeAddCityElement: () => {
 
         //
@@ -14,7 +15,6 @@ const c130d = {
         //
         
         const divAdd = document.createElement("div");
-        // divAdd.textContent = "Enter New City: ";
         divAdd.setAttribute("id", "idAddCity");
         divAdd.setAttribute("class", "divAddCity");
 
@@ -127,6 +127,54 @@ const c130d = {
         inputAmt.value = 0.00;
     },
 
+    removedivAddCom: () => {
+
+        btnCreateCom.removeEventListener("click", e => {});
+        btnCancelCom.removeEventListener("click", e => {});
+        idAddCom.parentElement.removeChild(idAddCom);
+
+        selectCity.value = "srcSelect";
+        inputAmt.value = 0.00;
+    },
+
+    createNewCommunity: async () => {
+
+        let newCom = 0
+        
+        let data = await c130d.confirmAPIConnect (c130d.url);
+
+        if (data.status === 200) {
+            
+            if (inputNewCom.value.trim() === "") {
+
+                messageArea.textContent = `Please input the new Community name.`;
+                return newCom;
+
+            }
+            else {
+
+                newCom = new community.Community (inputNewCom.value.trim());
+
+                data = await c130d.createAPICommunity(c130d.url, newCom.cityList[0]);
+
+                h4Community.textContent = "Community: " + inputNewCom.value.trim();
+                messageArea.textContent = "Community " + inputNewCom.value.trim() + " has been created.";
+                
+                c130d.removedivAddCom();
+
+                if (newCom.isMessage()) {
+                    messageArea.textContent = newCom.getMessages();
+                    newCom.resetMessage();
+                }
+                    
+                return newCom;
+            }
+        } else {
+            
+            messageArea.textContent = "API is unavailable for Create Community. Please try again later!";
+        }
+    },
+    
     createNewCity: async (community) => {
 
         let newKey = 0
@@ -303,6 +351,9 @@ const c130d = {
         //
 
         c130d.createCityList(community);
+
+        selectCity.value = "srcSelect";
+        inputAmt.value = "0";
         
     },
 
@@ -337,11 +388,11 @@ const c130d = {
                 if (item === "liCity") {
                     itemAdd.textContent = community.getCityName(cityArr[i]);
                 } else if (item === "liLat") {
-                    itemAdd.textContent = community.getCityLatitude(cityArr[i]);
+                    itemAdd.textContent = community.getCityLatitude(cityArr[i]).toLocaleString('en-US', {minimumFractionDigits: 4});
                 } else if (item === "liLong") {
-                    itemAdd.textContent = community.getCityLongitude(cityArr[i]);
+                    itemAdd.textContent = community.getCityLongitude(cityArr[i]).toLocaleString('en-US', {minimumFractionDigits: 4});
                 } else if (item === "liPop") {
-                    itemAdd.textContent = community.getCityPopulation(cityArr[i]);
+                    itemAdd.textContent = community.getCityPopulation(cityArr[i]).toLocaleString();
                 } else if (item === "liSize") {
                     itemAdd.textContent = community.getCityHowBig(cityArr[i]);
                 } else if (item === "liHem") {
@@ -367,7 +418,7 @@ const c130d = {
                 
                 addCnt ++;
             }
-            if (item === "liPop") idSum.textContent = community.getPopulation();
+            if (item === "liPop") idSum.textContent = community.getPopulation().toLocaleString();
         }
         return addCnt;
     },
@@ -547,6 +598,51 @@ const c130d = {
         return data;
     },
     
+    loadAPICommunity: async (url) => {
+
+        messageArea.textContent = "Loading Community and Cities";
+        let data = await c130d.getAllAPI(url);
+
+        if (data.status === 200) {
+
+            if (data.length > 0) {
+                const newCom = new community.Community ("");
+                messageArea.textContent = "Loading Community and Cities .";
+                //
+                // There is API data so start loading it. If none. Display
+                // message to enter the Community Name. 
+                //
+                for (let i = 0; i < data.length; i++) {
+
+                    messageArea.textContent += ".";
+
+                    if (i === 0) {
+                        if (data[i].key === 0) {
+                            newCom.name = data[i].name;
+                            newCom.cityList[0].name = data[i].name;
+                            newCom.cityList[0].nextKey = data[i].nextKey;
+                            h4Community.textContent = "Community: " + data[i].name;
+                        }
+                    }
+                    else {
+                        newCom.createCity (data[i].name, data[i].latitude, data[i].longitude, data[i].population, data[i].key);
+                    }
+                }
+                messageArea.textContent += ".";
+                c130d.refreshCityList(newCom);
+
+                messageArea.textContent += ". DONE";
+                return newCom;
+            }
+            else {
+                messageArea.textContent = "There was no data to load from the API. "
+                    + "Please enter the name of your new Community.";
+            }
+        }
+
+        return 0;
+    },
+
     createAPICommunity: async (url, community) => {
         
         let data;
@@ -699,7 +795,6 @@ const c130d = {
         
         return data;
     },
-    
     
     getAllAPI: async (url) => {
         
