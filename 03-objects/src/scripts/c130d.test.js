@@ -1,3 +1,7 @@
+//
+// This test contains both competencies 130d and 130e.
+//
+
 import community from './community.js';
 import c130d from './c130d.js'
 
@@ -21,6 +25,55 @@ test('130d: Testing the TDD Pipes', () => {
     consoleLog[consoleLine++] = "Testing the TDD pipes";
     expect(consoleLog[0]).toBe("Testing the TDD pipes");
     
+});
+
+test('130d: Play Area with Roman Logic', () => {
+
+    function factorial (n) {
+
+        let factorialResult = 1;
+
+        for (let i = 0; i < n; i++) {
+            factorialResult *= n-i;
+        }
+
+        return factorialResult;
+    }
+
+    function polynomial (n) {
+
+        let factorialResult = 1;
+
+        for (let i = 0; i < n; i++) {
+            factorialResult *= n-i;
+        }
+
+        return factorialResult;
+    }
+
+    expect (factorial(1)).toBe(1);
+    expect (factorial(2)).toBe(2);
+    expect (factorial(3)).toBe(6);
+    expect (factorial(4)).toBe(24);
+    expect (factorial(5)).toBe(120);
+    expect (factorial(6)).toBe(720);
+    expect (factorial(7)).toBe(5040);
+    expect (factorial(8)).toBe(40320);
+    expect (factorial(9)).toBe(362880);
+    expect (factorial(10)).toBe(3628800);
+    expect (factorial(100)).toBe(9.332621544394418e+157);
+    expect (factorial(125)).toBe(1.882677176888926e+209);
+    expect (factorial(150)).toBe(5.7133839564458575e+262);
+    expect (factorial(165)).toBe(5.423910666131583e+295);
+    expect (factorial(170)).toBe(7.257415615308004e+306);
+    expect (factorial(171)).toBe(Infinity);
+    expect (factorial(172)).toBe(Infinity);
+    expect (factorial(173)).toBe(Infinity);
+    expect (factorial(175)).toBe(Infinity);
+    expect (factorial(250)).toBe(Infinity);
+    expect (factorial(500)).toBe(Infinity);
+    expect (factorial(1000)).toBe(Infinity);
+
 });
 
 test('130d: Play Area with toLocaleString', () => {
@@ -1761,6 +1814,72 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
 
     expect(data[0].name).toBe("Calgary");
     expect(data[0].population).toBe(1546500);
+
+    done();
+});
+
+test('130e: Async Test Object Reference', async (done) => {
+
+    let data = await c920.postData(c130d.url + "clear");
+    expect(data.status).toEqual(200);
+
+    const canada = new community.Community ("Canada");
+    data = await c130d.createAPICommunity (c130d.url, canada.cityList[0]);
+    expect(data.status).toEqual(200);
+
+    //
+    // Create myCity as per instructions. Only creating within the community as per 130d.
+    // Also updating the API with Key 1 as assigned by the Community Controller.
+    //
+
+    canada.createCity ("myCity", 51.0447, -114.0719, 1547484);
+    data = await c130d.createAPICity (c130d.url, canada.cityList[1], canada.cityList[0]);
+    expect(data.status).toEqual(200);
+
+    //
+    // Create myFav as per instructions. It is a direct assignment pointing at the same
+    // address as myCity referenced in the community cityList array.
+    //
+    // Notice that the values like name, population and key are all the same in both
+    // myCity and myFav. This is because they are the same key value pair. Both variables are
+    // pointing to and referencing the same address.
+    //
+
+    let myFav = canada.cityList[1];
+
+    expect(canada.cityList[1].name).toBe("myCity");
+    expect(myFav.name).toBe("myCity");
+    expect(canada.cityList[1].population).toBe(1547484);
+    expect(myFav.population).toBe(1547484);
+    expect(canada.cityList[1].key).toBe(1);
+    expect(myFav.key).toBe(1);
+
+    //
+    // Change the population of myCity. The population appears to
+    // change in myFav. But again it is just because both are pointing to
+    // the value at the same address reference.
+    //
+
+    expect(canada.movedOutOfCity(1, 484)).toBe(1547000);
+    expect(canada.cityList[1].population).toBe(1547000);
+    expect(myFav.population).toBe(1547000);
+
+    //
+    // Update the population to the myCity city in the API using the key 1.
+    //
+
+    data = await c130d.updateAPICity(c130d.url, canada.cityList[1]);
+    expect(data.status).toEqual(200);
+
+    //
+    // We have not yet attempted to add myFav yet to the API, but this is where
+    // I can prove my code would reject the duplicate. Since myFav also has the
+    // same key #1 as myCity, it will be rejected because you can not add a second
+    // city with the same key. It rejects it with API status error 400.
+    //
+
+    data = await c130d.createAPICity (c130d.url, myFav, canada.cityList[0]);
+    expect(data.status).toEqual(400);
 
     done();
 });

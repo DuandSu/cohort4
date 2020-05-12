@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Competency 130e</title>
+	<link rel="stylesheet" type="text/css" href="c130e.css">
+</head>
+<body>
+	<a href="index.html">
+		<h2>Go Back</h2>
+	</a>
+	<h1>130E - Exercise - Object Reference</h1>
+	<h2>Surprise. This was really just a simple add-on to 130d:</h2>
+	<ul>
+		<li>Reference the TDD test c130e in the file c130d.test.js file</li>
+		<li>Create myCity as per instructions. Only creating within the community as per 130d.
+			Also updating the API with Key 1 as assigned by the Community Controller.</li>
+		<li>Create myFav as per instructions. It is a direct assignment pointing at the same
+			address as myCity referenced in the community cityList array.</li>
+		<li>Notice that the values like name, population and key are all the same in both
+			myCity and myFav. This is because they are the same key value pair. Both variables are
+			pointing to and referencing the same address.</li>
+		<li>Change the population of myCity. The population appears to
+			change in myFav. But again it is just because both are pointing to
+			the value at the same address reference.</li>
+		<li>Update the population to the myCity city in the API using the key 1.</li>
+		<li>We have not yet attempted to add myFav yet to the API, but this is where
+			I can prove my code would reject the duplicate. Since myFav also has the
+			same key #1 as myCity, it will be rejected because you can not add a second
+			city with the same key. It rejects it with API status error 400.</li>
+	</ul>
+</body>
+</html>
