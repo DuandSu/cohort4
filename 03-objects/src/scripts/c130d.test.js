@@ -336,10 +336,33 @@ test('130d: Async ASP confirmAPIConnect', async (done) => {
     done();
 });
 
-test('130d: Async ASP loadAPICommunity with No API data', async (done) => {
+test('130d: Async ASP loadAPICommunity and createNewCommunity with No API data', async (done) => {
 
     document.body.innerHTML =    
-            '<p id="messageArea" position="absolute"></p>';
+    '   <div id=idAddCom class="divAddCom">' +
+            'Enter Name of Community: <input id="inputNewCom" type=text>' +
+            '<button id="btnCreateCom" type="button">Create</button>' +
+            '<button id="btnCancelCom" type="button">Cancel</button>' +
+        '</div>		' +
+        '<div class="divComActions">' +
+            '<div class="divCitySelect">' +
+                'City Name: <select id=selectCity>' +
+                    '<option value="srcSelect">Select City</option>' +
+                    '<option value="srcAddCity">Add New City</option>' +
+                '</select>' +
+            '</div>' +
+            '<div class="divCityActions">' +
+                'Population: <input id="inputAmt" type=number value=0>' +
+                '<button id="btnAddCity" type="button">Add New City</button>' +
+                '<button id="btnDelCity" type="button">Delete</button>' +
+                '<button id="btnMovedIn" type="button">Moved In</button>' +
+                '<button id="btnMovedOut" type="button">Moved Out</button>' +
+            '</div>' +
+            '<p id="messageArea" position="absolute"></p>' +
+        '</div>' +
+        '<div id=idCitys class="divCommunity">' +
+            '<h4 id="h4Community" class="h4ComTitle">Community: NOT Entered Yet!!</h4>' +
+        '</div>';
 
     //
     // Test scenario of no data on API server.
@@ -354,6 +377,30 @@ test('130d: Async ASP loadAPICommunity with No API data', async (done) => {
     expect(messageArea.textContent).toBe("There was no data to load from the API. "
         + "Please enter the name of your new Community.");
 
+    expect(document.getElementById("idAddCom")).not.toBeNull();
+    
+    inputNewCom.value = "";
+    
+    data = await c130d.createNewCommunity();
+    
+    expect(data).toBe(0);
+    expect(messageArea.textContent).toBe("Please input the new Community name.");
+    
+    expect(document.getElementById("idAddCom")).not.toBeNull();
+    
+    inputNewCom.value = "North America";
+    
+    let newCom = await c130d.createNewCommunity();
+    
+    expect(newCom.name).toBe("North America");
+    expect(newCom.cityList[0].name).toBe("North America");
+    expect(newCom.cityList[0].key).toBe(0);
+    expect(newCom.cityList[0].nextKey).toBe(1);
+    expect(messageArea.textContent).toBe("Community North America has been created.");
+    expect(h4Community.textContent).toBe("Community: North America");
+    
+    expect(document.getElementById("idAddCom")).toBeNull();
+    
     done();
 });
 
