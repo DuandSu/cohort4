@@ -228,7 +228,7 @@ const c130d = {
             }
         } else {
             
-            messageArea.textContent = "API is unavailable for Delete. Please try again later!";
+            messageArea.textContent = "API is unavailable for Add. Please try again later!";
         }
     },
 
@@ -326,8 +326,9 @@ const c130d = {
                     community.resetMessage();
                 }
 
-                document.getElementById(`liPop${cityKey}`).textContent = `${community.getCityPopulation(cityKey)}`;
-                idSum.textContent = `${community.getPopulation()}`;
+                document.getElementById(`liPop${cityKey}`).textContent = `${community.getCityPopulation(cityKey).toLocaleString()}`;
+                document.getElementById(`liSize${cityKey}`).textContent = `${community.getCityHowBig(cityKey)}`;
+                idSum.textContent = `${community.getPopulation().toLocaleString()}`;
 
                 selectCity.value = "srcSelect";
                 inputAmt.value = 0.00;
@@ -632,6 +633,9 @@ const c130d = {
                 c130d.refreshCityList(newCom);
 
                 messageArea.textContent += ". DONE";
+
+                c130d.removedivAddCom();
+                
                 return newCom;
             }
             else {

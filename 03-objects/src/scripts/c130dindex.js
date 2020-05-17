@@ -75,29 +75,29 @@ import c920 from './fetch.js'
                 messageArea.textContent = newCommunity.getMessages();
                 newCommunity.resetMessage();
             }
+        } else {
+
+            //
+            // Event listener for the Add New Community button.
+            //
+
+            btnCreateCom.addEventListener('click', (async e => {
+
+                newCommunity = await c130d.createNewCommunity();
+                
+            }));
+
+            //
+            // Event listener for the Add New Community button.
+            //
+
+            btnCancelCom.addEventListener('click', (e => {
+
+                inputNewCom.value = "";
+                messageArea.textContent = "Create Community cancelled. To proceed, you must first enter a name for your Community!";
+                
+            }));
         }
-
-        //
-        // Event listener for the Add New Community button.
-        //
-
-        btnCreateCom.addEventListener('click', (async e => {
-
-            newCommunity = await c130d.createNewCommunity();
-            
-        }));
-
-        //
-        // Event listener for the Add New Community button.
-        //
-
-        btnCancelCom.addEventListener('click', (e => {
-
-            inputNewCom.value = "";
-            messageArea.textContent = "Create Community cancelled. To proceed, you must first enter a name for your Community!";
-            
-        }));
-
         //
         // Event listener for the Add New City button.
         //
@@ -161,8 +161,6 @@ import c920 from './fetch.js'
 
         selectCity.addEventListener('change', (eSelectCity => {
 
-            console.log("Select City selected something!")
-            console.log (eSelectCity.target);
             const selectedValue = document.getElementById("selectCity").value;
             
             if (selectedValue === "srcAddCity") {

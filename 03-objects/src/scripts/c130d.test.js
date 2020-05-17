@@ -1465,7 +1465,7 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(canada.cityList[1].key).toBe(2);
     expect(canada.getPopulation(1)).toBe(1937);
 
-    expect(messageArea.textContent).toBe(" The city of Calgary has been deleted.");
+    expect(messageArea.textContent).toBe(" Calgary has been deleted.");
 
     expect(ulCityList.children.length).toBe(3);
     expect(ulLatList.children.length).toBe(3);
@@ -1815,7 +1815,7 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     
     data = await c130d.actionMoved("IN", canada);
 
-    expect(messageArea.textContent).toBe(" 16 have moved in. Population of Calgary is now 1547500.");
+    expect(messageArea.textContent).toBe(" 16 have moved in. Population of Calgary is now 1,547,500.");
     
     //
     // Select Menu and Input values get reset.
@@ -1824,10 +1824,10 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     expect(selectCity.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
 
-    expect(liPop1.textContent).toBe("1547500");
+    expect(liPop1.textContent).toBe("1,547,500");
     expect(canada.getCityPopulation(1)).toBe(1547500);
     
-    expect(idSum.textContent).toBe("1549437");
+    expect(idSum.textContent).toBe("1,549,437");
     expect(canada.getPopulation(1)).toBe(1549437);
 
     data = await c130d.getAPICity (url, canada.cityList[1]);
@@ -1841,7 +1841,7 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     
     data = await c130d.actionMoved("OUT", canada);
 
-    expect(messageArea.textContent).toBe(" 1000 have moved out. Population of Calgary is now 1546500.");
+    expect(messageArea.textContent).toBe(" 1,000 have moved out. Population of Calgary is now 1,546,500.");
     
     //
     // Select Menu and Input values get reset.
@@ -1850,10 +1850,10 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     expect(selectCity.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
 
-    expect(liPop1.textContent).toBe("1546500");
+    expect(liPop1.textContent).toBe("1,546,500");
     expect(canada.getCityPopulation(1)).toBe(1546500);
     
-    expect(idSum.textContent).toBe("1548437");
+    expect(idSum.textContent).toBe("1,548,437");
     expect(canada.getPopulation(1)).toBe(1548437);
 
     data = await c130d.getAPICity (url, canada.cityList[1]);

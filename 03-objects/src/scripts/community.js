@@ -37,6 +37,9 @@ class Community {
         this.cityList.push(tempCity);
         this.cityList[newIndex].key = key;
         
+        this.addMessage(
+            `${tempCity.name} has been added.`);
+            
         return [newIndex, key];
     }
 
@@ -60,7 +63,7 @@ class Community {
         this.cityList.splice(delIndex,1);
 
         this.addMessage(
-            `The city of ${delCity} has been deleted.`);
+            `${delCity} has been deleted.`);
             
         return true;
     }
@@ -122,7 +125,7 @@ class Community {
         let updIndex = this.findKeyIndex(pKey);
         let newPop = this.cityList[updIndex].movedOut(peopleMoved);
         this.addMessage(
-            `${peopleMoved} have moved out. Population of ${this.cityList[updIndex].name} is now ${newPop}.`);
+            `${peopleMoved.toLocaleString()} have moved out. Population of ${this.cityList[updIndex].name} is now ${newPop.toLocaleString()}.`);
 
         return newPop;
     }
@@ -133,7 +136,7 @@ class Community {
         let newPop = this.cityList[updIndex].movedIn(peopleMoved);
         // console.log("Key: " + pKey + ". City: " + this.cityList[updIndex].name + ". New Population: " + newPop + ". Index: " + updIndex + ". Moved: " + peopleMoved);
         this.addMessage(
-            `${peopleMoved} have moved in. Population of ${this.cityList[updIndex].name} is now ${newPop}.`);
+            `${peopleMoved.toLocaleString()} have moved in. Population of ${this.cityList[updIndex].name} is now ${newPop.toLocaleString()}.`);
 
         return newPop;
     }
