@@ -22,6 +22,10 @@ const CardList = ({ robots }) => {
 
 //OR the following is even more cleaner:
 
+    if (true) {
+        throw new Error('NOOOOOOOOOO!');
+    }
+
     return (
       <div>
         {
