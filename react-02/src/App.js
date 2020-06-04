@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+// import React from 'react';
 import logo from './svg/logo.svg';
 import shipST from './svg/star-trek-svgrepo-com.svg';
 import insigniaST from './svg/section_31_geeksvgs.com.svg';
@@ -9,33 +10,42 @@ import spockHI from './svg/star_trek_27_geeksvgs.com.svg';
 import './App.css';
 
 function App() {
+
+  const [messageArea, setMessage] = useState("Edit src/App.js and save to reload.");
+
+  const onPushMe = (e) => {
+
+    setMessage(`Clicked: ${e.target.className}`);
+    
+  }
+
   return (
     <div>
         <div className="App-svg-area">
             <div>
-              <img src={shipST} className="App-svg1" alt="shipST" />
+              <img src={shipST} className="App-svg1" alt="shipST" onClick={onPushMe} />
             </div>
             <div>
-              <img src={insigniaST} className="App-svg2" alt="insigniaST" />
+              <img src={insigniaST} className="App-svg2" alt="insigniaST" onClick={onPushMe} />
             </div>
             <div>
-              <img src={insigniaKL1} className="App-svg3" alt="insigniaKL1" />
+              <img src={insigniaKL1} className="App-svg3" alt="insigniaKL1" onClick={onPushMe} />
             </div>
             <div>
-              <img src={insigniaKL2} className="App-svg4" alt="insigniaKL2" />
+              <img src={insigniaKL2} className="App-svg4" alt="insigniaKL2" onClick={onPushMe} />
             </div>
             <div>
-              <img src={kittyKL} className="App-svg5" alt="kittyKL" />
+              <img src={kittyKL} className="App-svg5" alt="kittyKL" onClick={onPushMe} />
             </div>
             <div>
-              <img src={spockHI} className="App-svg6" alt="spockHI" />
+              <img src={spockHI} className="App-svg6" alt="spockHI" onClick={onPushMe} />
             </div>
         </div>
         <div className="App">
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
               <p>
-                Edit <code>src/App.js</code> and save to reload.
+                {messageArea}
               </p>
               <a
                 className="App-link"

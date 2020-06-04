@@ -20,14 +20,21 @@
 
 .App-svg1 {
   height: 20vmin;
-  pointer-events: none;
   margin: 50px;
   border-radius: 100%;
   border: 5px solid;
 }
 
 .App-svg1:hover {
-  border:100px solid;
+  height: 24vmin;
+  margin: 32px;
+  border: 10px solid;
+}
+
+.App-svg1:active {
+  height: 24vmin;
+  margin: 22px;
+  border: 20px solid red;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -38,10 +45,21 @@
 
 .App-svg2 {
   height: 20vmin;
-  pointer-events: none;
   margin: 50px;
   border-radius: 100%;
   border: 5px solid;}
+
+.App-svg2:hover {
+  height: 24vmin;
+  margin: 32px;
+  border: 10px solid;
+}
+
+.App-svg2:active {
+  height: 24vmin;
+  margin: 22px;
+  border: 20px solid red;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-svg2 {
@@ -51,10 +69,22 @@
 
 .App-svg3 {
   height: 20vmin;
-  pointer-events: none;
   margin: 50px;
-  border-radius: 100%;
-  border: 5px solid;}
+  /* border-radius: 100%; */
+  border: 5px solid;
+}
+
+.App-svg3:hover {
+  height: 24vmin;
+  margin: 32px;
+  border: 10px solid;
+}
+
+.App-svg3:active {
+  height: 24vmin;
+  margin: 22px;
+  border: 20px solid red;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-svg3 {
@@ -64,10 +94,21 @@
 
 .App-svg4 {
   height: 20vmin;
-  pointer-events: none;
   margin: 50px;
-  border-radius: 100%;
+  /* border-radius: 100%; */
   border: 5px solid;
+}
+
+.App-svg4:hover {
+  height: 24vmin;
+  margin: 32px;
+  border: 10px solid;
+}
+
+.App-svg4:active {
+  height: 24vmin;
+  margin: 22px;
+  border: 20px solid red;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -78,10 +119,22 @@
 
 .App-svg5 {
   height: 20vmin;
-  pointer-events: none;
   margin: 50px;
-  border-radius: 100%;
-  border: 5px solid;}
+  /* border-radius: 100%; */
+  border: 5px solid;
+}
+
+.App-svg5:hover {
+  height: 24vmin;
+  margin: 32px;
+  border: 10px solid;
+}
+
+.App-svg5:active {
+  height: 24vmin;
+  margin: 22px;
+  border: 20px solid red;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-svg5 {
@@ -91,10 +144,22 @@
 
 .App-svg6 {
   height: 20vmin;
-  pointer-events: none;
   margin: 50px;
-  border-radius: 100%;
-  border: 5px solid;}
+  /* border-radius: 100%; */
+  border: 5px solid;
+}
+
+.App-svg6:hover {
+  height: 24vmin;
+  margin: 32px;
+  border: 10px solid;
+}
+
+.App-svg6:active {
+  height: 24vmin;
+  margin: 22px;
+  border: 20px solid red;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-svg6 {
