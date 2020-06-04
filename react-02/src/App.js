@@ -13,22 +13,22 @@ function App() {
     <div>
         <div className="App-svg-area">
             <div>
-              <img src={shipST} className="App-svg" alt="shipST" />
+              <img src={shipST} className="App-svg1" alt="shipST" />
             </div>
             <div>
-              <img src={insigniaST} className="App-svg" alt="insigniaST" />
+              <img src={insigniaST} className="App-svg2" alt="insigniaST" />
             </div>
             <div>
-              <img src={insigniaKL1} className="App-svg" alt="insigniaKL1" />
+              <img src={insigniaKL1} className="App-svg3" alt="insigniaKL1" />
             </div>
             <div>
-              <img src={insigniaKL2} className="App-svg" alt="insigniaKL2" />
+              <img src={insigniaKL2} className="App-svg4" alt="insigniaKL2" />
             </div>
             <div>
-              <img src={kittyKL} className="App-svg" alt="kittyKL" />
+              <img src={kittyKL} className="App-svg5" alt="kittyKL" />
             </div>
             <div>
-              <img src={spockHI} className="App-svg" alt="spockHI" />
+              <img src={spockHI} className="App-svg6" alt="spockHI" />
             </div>
         </div>
         <div className="App">
