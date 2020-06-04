@@ -6,18 +6,6 @@
   justify-content: center;
 }
 
-.App-svg {
-  height: 20vmin;
-  pointer-events: none;
-  margin: 50px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-svg {
-    animation: App-logo-spin-counterCW infinite 20s linear;
-  }
-}
-
 .App-svg1 {
   height: 20vmin;
   margin: 50px;
@@ -166,37 +154,6 @@
     animation: App-logo-spin-counterCW infinite 20s linear, back2red alternate infinite 20s linear;
   }
 }
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin-CW infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 
 @keyframes App-logo-spin-CW {
   from {
