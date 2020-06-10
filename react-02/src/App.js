@@ -10,6 +10,7 @@
 //  5. When someone wins, highlight the three squares that caused the win. Status: DONE! Changed color to GREEN.
 //  6. When no one wins, display a message about the result being a draw. Status: DONE!
 //
+//  Investigate error: logo.5d5d9eef.svg:1 GET http://localhost:3000/static/media/logo.5d5d9eef.svg net::ERR_CONNECTION_REFUSED
 
 import React, { useState } from 'react';
 
