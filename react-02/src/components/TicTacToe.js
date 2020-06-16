@@ -29,21 +29,21 @@ function Square(props) {
     render() {
       return (
         <div>
-          <div>1 . 2 . 3</div>
+          <a>C1 C2 C3</a>
           <div className="board-row">
-           .1
+            <a>R1</a>
             {this.renderSquare(0)}
             {this.renderSquare(1)}
             {this.renderSquare(2)}
           </div>
           <div className="board-row">
-            .2
+            <a>R2</a>
             {this.renderSquare(3)}
             {this.renderSquare(4)}
             {this.renderSquare(5)}
           </div>
           <div className="board-row">
-            .3
+            <a>R3</a>
             {this.renderSquare(6)}
             {this.renderSquare(7)}
             {this.renderSquare(8)}

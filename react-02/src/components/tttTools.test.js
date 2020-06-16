@@ -9,6 +9,18 @@ test('140b: Testing the TDD Pipes', () => {
     consoleLine = 0;
     consoleLog[consoleLine++] = "Testing the TDD pipes";
     expect(consoleLog[0]).toBe("Testing the TDD pipes");
+    expect(consoleLog[0]).toBe("Testing the TDD pipes");
+    
+});
+
+test('140b: Playing with Conditions', () => {
+    
+    expect("X").toBeTruthy();
+    expect("O").toBeTruthy();
+    expect(-1).toBeTruthy();
+    expect(0).toBeFalsy();
+    expect(8).toBeFalsy();
+    expect(null).toBeFalsy();
     
 });
 
@@ -144,15 +156,30 @@ test('140b: Testing suggestMove', () => {
     testBoard[8] = "X";
     expect (tttTools.suggestMove(testBoard, tttTools.xPlayer, 2)).toBe("R: 1 C: 3");
 
-    //
+    testBoard[0] = "X";
+    testBoard[4] = "O";
+    testBoard[8] = "X";
+
+    expect (tttTools.suggestMove(testBoard, tttTools.oPlayer, 3)).toBe("R: 1 C: 2");
+
+    testBoard[4] = null;
+    testBoard[8] = null;
+
+    testBoard[0] = "X";
+    testBoard[1] = "O";
+    testBoard[7] = "X";
+
+    expect (tttTools.suggestMove(testBoard, tttTools.oPlayer, 3)).toBe("R: 2 C: 2");
+
+    testBoard[1] = null;
+    testBoard[7] = null;
 
     testBoard[0] = "X";
     testBoard[4] = "O";
     testBoard[8] = "X";
     testBoard[1] = "O";
 
-    expect (tttTools.suggestMove(testBoard, tttTools.xPlayer, 2)).toBe("R: 3 C: 2");
-
+    expect (tttTools.suggestMove(testBoard, tttTools.xPlayer, 4)).toBe("R: 3 C: 2");
 });
 
 test('140b: Testing the possibleWin', () => {

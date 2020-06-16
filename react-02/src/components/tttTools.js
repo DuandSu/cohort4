@@ -41,15 +41,16 @@ const tttTools = {
     },
 
     //
-    // Turn = 0    Go(0)   (upper left corner).
-    // Turn = 1    If Board[4] is blank, Go(4), else Go(0).
-    // Turn = 2    If Board[8] is blank, Go(8), else Go(2).
-    // Turn = 3    If Posswin(X) is not 0, then Go(Posswin(X)) i.e. [ block opponent’s win], else Go(Make2).
-    // Turn = 4    if Posswin(X) is not 0 then Go(Posswin(X)) [i.e. win], else if Posswin(O) is not 0, then Go(Posswin(O)) [i.e. block win], else if Board[6] is blank, then Go(6), else Go(2). [to explore other possibility if there be any ].
-    // Turn = 5    If Posswin(O) is not 0 then Go(Posswin(O)), else if Posswin(X) is not 0, then Go(Posswin(X)), else Go(Make2).
-    // Turn = 6    If Posswin(X) is not 0 then Go(Posswin(X)), else if Posswin(X) is not 0, then Go(Posswin(O)) else go anywhere that is blank.
-    // Turn = 7    if Posswin(O) is not 0 then Go(Posswin(O)), else if Posswin(X) is not 0, then Go(Posswin(X)), else go anywhere that is blank.
-    // Turn = 8    Same as Turn=6.
+    // Turn = 0 X   Go(0)   (upper left corner).
+    // Turn = 1 O   If Board[4] is blank, Go(4), else Go(0).
+    // Turn = 2 X   If Board[8] is blank, Go(8), else Go(2).
+    // Turn = 3 O  If Posswin(X) is not 0, then Go(Posswin(X)) i.e. [ block opponent’s win], else Go(Make2).
+    // Turn = 4 X  if Posswin(X) is not 0 then Go(Posswin(X)) [i.e. win], else if Posswin(O) is not 0, then Go(Posswin(O)) [i.e. block win], else if Board[6] is blank, then Go(6), else Go(2). [to explore other possibility if there be any ].
+    //  Add function lookForWin. If player has Board[4]. Then go for corner square. For every null element see if there is a null across or next to it.
+    // Turn = 5 O  If Posswin(O) is not 0 then Go(Posswin(O)), else if Posswin(X) is not 0, then Go(Posswin(X)), else Go(Make2).
+    // Turn = 6 X  If Posswin(X) is not 0 then Go(Posswin(X)), else if Posswin(X) is not 0, then Go(Posswin(O)) else go anywhere that is blank.
+    // Turn = 7 O  if Posswin(O) is not 0 then Go(Posswin(O)), else if Posswin(X) is not 0, then Go(Posswin(X)), else go anywhere that is blank.
+    // Turn = 8 X  Same as Turn=6.
     //
     // Make2: returns 4 if the center square of the board is null. Otherwise, this function returns any non-corner square (1, 3, 5 or 7).
     //
@@ -57,6 +58,11 @@ const tttTools = {
     suggestMove: (board, player, stepNumber) => {
 
         let chkWin = [];
+
+        console.log("suggestMove: board:");
+        console.log(board);
+        console.log("Player: " + player);
+        console.log("stepNumber: " + stepNumber);
 
         if (player === "X" && stepNumber === 0) {
             return (tttTools.cvt2Grid(0));
@@ -71,7 +77,7 @@ const tttTools = {
                 return (tttTools.cvt2Grid(8));
             else return tttTools.cvt2Grid(2);
         }
-        else if (player===  "O" && stepNumber=== 3) {
+        else if (player ===  "O" && stepNumber === 3) {
 
             chkWin = tttTools.possibleWin(board, player);
 
@@ -87,7 +93,7 @@ const tttTools = {
                 else if (board[7] === null) 
                     return tttTools.cvt2Grid(7);
             }
-            else return (tttTools.cvt2Grid(chkWin[1]));
+            else return (tttTools.cvt2Grid(chkWin[0]));
         }
         else if (player === "X" && stepNumber === 4) {
 
@@ -101,10 +107,59 @@ const tttTools = {
                 else if (board[2] === null) 
                     return tttTools.cvt2Grid(2);
             }
-            else return (tttTools.cvt2Grid(chkWin[1]));
+            else return (tttTools.cvt2Grid(chkWin[0]));
         }
+        else if (player === "O" && stepNumber === 5) {
+
+            chkWin = tttTools.possibleWin(board, player);
+
+            if (chkWin[0] < 0) {
+                if (board[4] === null)
+                    return (tttTools.cvt2Grid(4));
+                else if (board[4] === "O") {
+                    if (board [0] === null)
+                        return tttTools.cvt2Grid(0);
+                    else if (board [2] === null)
+                        return tttTools.cvt2Grid(2);
+                    else if (board [6] === null)
+                        return tttTools.cvt2Grid(6);
+                    else if (board [8] === null)
+                        return tttTools.cvt2Grid(8);
+                }
+                else if (board[1] === null) 
+                    return tttTools.cvt2Grid(1);
+                else if (board[3] === null) 
+                    return tttTools.cvt2Grid(3);
+                else if (board[5] === null) 
+                    return tttTools.cvt2Grid(5);
+                else if (board[7] === null) 
+                    return tttTools.cvt2Grid(7);
+            }
+            else return (tttTools.cvt2Grid(chkWin[0]));
+        }
+        else if (player === "X" && stepNumber === 6) {
+
+            chkWin = tttTools.possibleWin(board, player);
+
+            if (chkWin[0] < 0) return (tttTools.cvt2Grid(board.findIndex((element) => element === null)));
+            else return (tttTools.cvt2Grid(chkWin[0]));
+        }
+        else if (player === "O" && stepNumber === 7) {
+
+            chkWin = tttTools.possibleWin(board, player);
+
+            if (chkWin[0] < 0) return (tttTools.cvt2Grid(board.findIndex((element) => element === null)));
+            else return (tttTools.cvt2Grid(chkWin[0]));
+        }
+        else if (player === "X" && stepNumber === 8) {
+            
+            chkWin = tttTools.possibleWin(board, player);
+            
+            if (chkWin[0] < 0) return (tttTools.cvt2Grid(board.findIndex((element) => element === null)));
+            else return (tttTools.cvt2Grid(chkWin[0]));
+        }
+        else if (stepNumber === 9) return "Game is Over";
         else return "No Suggestion";
-      
     },
 
     possibleWin: (board, player) => {
