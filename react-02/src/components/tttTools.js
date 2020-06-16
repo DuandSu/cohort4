@@ -117,13 +117,13 @@ const tttTools = {
                 if (board[4] === null)
                     return (tttTools.cvt2Grid(4));
                 else if (board[4] === "O") {
-                    if (board [0] === null)
+                    if (board[0] === null)
                         return tttTools.cvt2Grid(0);
-                    else if (board [2] === null)
+                    else if (board[2] === null)
                         return tttTools.cvt2Grid(2);
-                    else if (board [6] === null)
+                    else if (board[6] === null)
                         return tttTools.cvt2Grid(6);
-                    else if (board [8] === null)
+                    else if (board[8] === null)
                         return tttTools.cvt2Grid(8);
                 }
                 else if (board[1] === null) 
@@ -169,7 +169,6 @@ const tttTools = {
                 else if (element === "O") return 5;
                 else return 2
             });
-        let chk3 = [];
         const noWin = [-1, null];
         let win = noWin.slice();
         let calcWin;

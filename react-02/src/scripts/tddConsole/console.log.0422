@@ -1,0 +1,1031 @@
+const song = [
+    "a partridge in a pear tree",
+    "two turtle doves",
+    "three French hens",
+    "four calling birds",
+    "five golden rings",
+    "six geese a-laying",
+    "seven swans a-swimming",
+    "eight maids a-milking",
+    "nine ladies dancing",
+    "ten lords a-leaping",
+    "eleven pipers piping",
+    "twelve drummers drumming",
+]
+undefined
+song
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+song.length
+12
+song.filter (  element => element.includes('a') )                             )
+VM809:1 Uncaught SyntaxError: Unexpected token ')'
+song.filter(  element => element.includes('a') )
+(7)�["a partridge in a pear tree", "four calling birds", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping"]
+function f1 (element) {
+    if (element.includes('a') {
+VM1103:2 Uncaught SyntaxError: Unexpected token '{'
+function f1 (element) {
+    if (element.includes('a') {
+       return true
+    } else {
+       return false
+    }
+}
+VM1227:2 Uncaught SyntaxError: Unexpected token '{'
+function f1 (element) {
+    if (element.includes('a')) {
+       return true
+    } else {
+       return false
+    }
+}
+undefined
+song.filter ( f1 )
+(7)�["a partridge in a pear tree", "four calling birds", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping"]0: "a partridge in a pear tree"1: "four calling birds"2: "six geese a-laying"3: "seven swans a-swimming"4: "eight maids a-milking"5: "nine ladies dancing"6: "ten lords a-leaping"length: 7__proto__: Array(0)
+function f2 () { return true }
+undefined
+song.filter ( f2 )
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+function f3 () { return false }
+undefined
+song.filter ( f3 )
+[]
+function f4 (element, index) { return index < 5 }
+undefined
+song.filter ( f4 )
+(5)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings"]0: "a partridge in a pear tree"1: "two turtle doves"2: "three French hens"3: "four calling birds"4: "five golden rings"length: 5__proto__: Array(0)
+song.filter (  function f5 (element, index) { return index >=5 }  )
+(7)�["six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+song.filter (  function (element, index) { return index % 2 == 0 }  )
+(6)�["a partridge in a pear tree", "three French hens", "five golden rings", "seven swans a-swimming", "nine ladies dancing", "eleven pipers piping"]
+const f6 = function (element, index) { return index % 2 == 1 }
+undefined
+song.filter (  f6 )
+(6)�["two turtle doves", "four calling birds", "six geese a-laying", "eight maids a-milking", "ten lords a-leaping", "twelve drummers drumming"]
+const f7 = (element, index) => { return index % 3 == 2 }
+undefined
+song.filter (f7)
+(4)�["three French hens", "six geese a-laying", "nine ladies dancing", "twelve drummers drumming"]
+const f8 = element => { return element.length >= 20 }
+undefined
+song.filter (f8)
+(5)�["a partridge in a pear tree", "seven swans a-swimming", "eight maids a-milking", "eleven pipers piping", "twelve drummers drumming"]
+const f9 = element => element.length < 20
+undefined
+song.filter (f9)
+(7)�["two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "nine ladies dancing", "ten lords a-leaping"]0: "two turtle doves"1: "three French hens"2: "four calling birds"3: "five golden rings"4: "six geese a-laying"5: "nine ladies dancing"6: "ten lords a-leaping"length: 7__proto__: Array(0)
+song.filter ( element => element.length % 2 === 0 )
+(7)�["a partridge in a pear tree", "two turtle doves", "four calling birds", "six geese a-laying", "seven swans a-swimming", "eleven pipers piping", "twelve drummers drumming"]
+song.filter ( element => element.length % 2 === 1 )
+(5)�["three French hens", "five golden rings", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping"]0: "three French hens"1: "five golden rings"2: "eight maids a-milking"3: "nine ladies dancing"4: "ten lords a-leaping"length: 5__proto__: Array(0)
+function f10 (element) {
+   let result
+
+   if (element.length % 2 === 1) {
+      result = true
+   } else {
+      result = false
+   }
+   return result
+}
+undefined
+song.filter (f10)
+(5)�["three French hens", "five golden rings", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping"]
+const lied = [
+  'Der du von dem Himmel bist',
+  'Alles Leid und Schmerzen stillest',
+  'Doppelt mit Erquickung f�llest'
+]
+undefined
+lied.filter( f10)
+["Alles Leid und Schmerzen stillest"]
+const literature = [ song, lied ]
+undefined
+for (const i = 0; i < literature.length; i = i + 1) {
+   literature[i].filter (f10)
+}
+VM3312:1 Uncaught TypeError: Assignment to constant variable.
+    at <anonymous>:1:44
+(anonymous) @ VM3312:1
+for (let i = 0; i < literature.length; i = i + 1) {
+   literature[i].filter (f10)
+}
+["Alles Leid und Schmerzen stillest"]0: "Alles Leid und Schmerzen stillest"length: 1__proto__: Array(0)
+literature.length
+2
+for (let i = 0; i < literature.length; i = i + 1) {
+   console.log(literature[i])
+   literature[i].filter (f10)
+}
+VM3523:2 (12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]0: "a partridge in a pear tree"1: "two turtle doves"2: "three French hens"3: "four calling birds"4: "five golden rings"5: "six geese a-laying"6: "seven swans a-swimming"7: "eight maids a-milking"8: "nine ladies dancing"9: "ten lords a-leaping"10: "eleven pipers piping"11: "twelve drummers drumming"length: 12__proto__: Array(0)
+VM3523:2 (3)�["Der du von dem Himmel bist", "Alles Leid und Schmerzen stillest", "Doppelt mit Erquickung f�llest"]
+["Alles Leid und Schmerzen stillest"]
+for (let i = 0; i < literature.length; i = i + 1) {
+   console.log(literature[i].filter (f10)
+   
+}
+VM3602:2 Uncaught SyntaxError: missing ) after argument list
+for (let i = 0; i < literature.length; i = i + 1) {
+   console.log(literature[i].filter (f10))
+   
+}
+VM3610:2 (5)�["three French hens", "five golden rings", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping"]0: "three French hens"1: "five golden rings"2: "eight maids a-milking"3: "nine ladies dancing"4: "ten lords a-leaping"length: 5__proto__: Array(0)
+VM3610:2 ["Alles Leid und Schmerzen stillest"]0: "Alles Leid und Schmerzen stillest"length: 1__proto__: Array(0)
+undefined
+const numbers = [182, 157, 180, 160, 230]
+undefined
+numbers.sort()
+(5)�[157, 160, 180, 182, 230]0: 1571: 1602: 1803: 1824: 230length: 5__proto__: Array(0)
+numbers
+(5)�[157, 160, 180, 182, 230]
+numbers.push(1111111)
+6
+numbers
+(6)�[157, 160, 180, 182, 230, 1111111]
+numbers.sort()
+(6)�[1111111, 157, 160, 180, 182, 230]
+function s1 (a, b) {
+    let result
+    if (a < b) {
+       result = -1
+    } else if (a > b) {
+       result = 1
+    } else {
+       result = 0
+    }
+    return result
+}
+undefined
+numbers.sort ( s1 )
+(6)�[157, 160, 180, 182, 230, 1111111]
+function randomNumbers (howMany, min, max) {
+    result = []
+    for (let i = 0; i < howMany; i = i + 1) {
+        result.push( Math.round (Math.random() * (max - min)) + min )
+    }
+    return result
+}
+undefined
+const n2 = randomNumbers(10, 0, 100)
+undefined
+n2
+(10)�[8, 44, 37, 29, 41, 90, 37, 1, 91, 40]
+n2.sort ( s1 )
+(10)�[1, 8, 29, 37, 37, 40, 41, 44, 90, 91]0: 11: 82: 293: 374: 375: 406: 417: 448: 909: 91length: 10__proto__: Array(0)
+function s2 (a, b) {
+    let result
+    if (a > b) {
+       result = -1
+    } else if (a < b) {
+       result = 1
+    } else {
+       result = 0
+    }
+    return result
+}
+undefined
+n2.sort( s2 )
+(10)�[91, 90, 44, 41, 40, 37, 37, 29, 8, 1]
+n2.sort( s1 )
+(10)�[1, 8, 29, 37, 37, 40, 41, 44, 90, 91]
+n2.sort( s2 )
+(10)�[91, 90, 44, 41, 40, 37, 37, 29, 8, 1]
+n2.sort( s1 )
+(10)�[1, 8, 29, 37, 37, 40, 41, 44, 90, 91]
+lied
+(3)�["Der du von dem Himmel bist", "Alles Leid und Schmerzen stillest", "Doppelt mit Erquickung f�llest"]
+song
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]0: "a partridge in a pear tree"1: "two turtle doves"2: "three French hens"3: "four calling birds"4: "five golden rings"5: "six geese a-laying"6: "seven swans a-swimming"7: "eight maids a-milking"8: "nine ladies dancing"9: "ten lords a-leaping"10: "eleven pipers piping"11: "twelve drummers drumming"length: 12__proto__: Array(0)
+const song2 = song.map (a=>a)
+undefined
+song2
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]0: "a partridge in a pear tree"1: "two turtle doves"2: "three French hens"3: "four calling birds"4: "five golden rings"5: "six geese a-laying"6: "seven swans a-swimming"7: "eight maids a-milking"8: "nine ladies dancing"9: "ten lords a-leaping"10: "eleven pipers piping"11: "twelve drummers drumming"length: 12__proto__: Array(0)
+song2.sort()
+(12)�["a partridge in a pear tree", "eight maids a-milking", "eleven pipers piping", "five golden rings", "four calling birds", "nine ladies dancing", "seven swans a-swimming", "six geese a-laying", "ten lords a-leaping", "three French hens", "twelve drummers drumming", "two turtle doves"]
+song2.sort ( s2 )
+(12)�["two turtle doves", "twelve drummers drumming", "three French hens", "ten lords a-leaping", "six geese a-laying", "seven swans a-swimming", "nine ladies dancing", "four calling birds", "five golden rings", "eleven pipers piping", "eight maids a-milking", "a partridge in a pear tree"]0: "two turtle doves"1: "twelve drummers drumming"2: "three French hens"3: "ten lords a-leaping"4: "six geese a-laying"5: "seven swans a-swimming"6: "nine ladies dancing"7: "four calling birds"8: "five golden rings"9: "eleven pipers piping"10: "eight maids a-milking"11: "a partridge in a pear tree"length: 12__proto__: Array(0)
+const fancyNumberSorter = (a, b) => a - b
+undefined
+const n3 = randomNumbers (10, 100, 200)
+undefined
+n3
+(10)�[122, 111, 109, 182, 112, 182, 174, 107, 145, 159]
+n3.sort (fancyNumberSorter)
+(10)�[107, 109, 111, 112, 122, 145, 159, 174, 182, 182]
+function s1fancy (a, b) {
+    let result
+    if (a < b) {
+       result = a - b
+    } else if (a > b) {
+       result = a - b
+    } else {
+       result = a - b
+    }
+    return result
+}
+undefined
+let n4 = randomNumbers (10 , 200, 300)
+undefined
+n4
+(10)�[259, 294, 236, 279, 201, 267, 266, 277, 249, 252]
+n4.sort (s1fancy)
+(10)�[201, 236, 249, 252, 259, 266, 267, 277, 279, 294]
+function s1fancyVerbose (a, b) {
+    let result
+    if (a < b) {
+       result = a - b
+    } else if (a > b) {
+       result = a - b
+    } else {
+       result = a - b
+    }
+    console.log("a, b, result:", a, b, result)
+    return result
+}
+undefined
+n4 = randomNumbers (10 , 200, 300)
+(10)�[264, 295, 205, 288, 262, 212, 285, 261, 205, 237]
+n4.sort (s1fancyVerbose)
+VM6048:10 a, b, result: 295 264 31
+2VM6048:10 a, b, result: 205 295 -90
+VM6048:10 a, b, result: 205 264 -59
+VM6048:10 a, b, result: 288 264 24
+VM6048:10 a, b, result: 288 295 -7
+VM6048:10 a, b, result: 262 288 -26
+VM6048:10 a, b, result: 262 264 -2
+VM6048:10 a, b, result: 262 205 57
+VM6048:10 a, b, result: 212 264 -52
+VM6048:10 a, b, result: 212 262 -50
+VM6048:10 a, b, result: 212 205 7
+VM6048:10 a, b, result: 285 264 21
+VM6048:10 a, b, result: 285 295 -10
+VM6048:10 a, b, result: 285 288 -3
+VM6048:10 a, b, result: 261 264 -3
+VM6048:10 a, b, result: 261 212 49
+VM6048:10 a, b, result: 261 262 -1
+VM6048:10 a, b, result: 205 264 -59
+VM6048:10 a, b, result: 205 261 -56
+VM6048:10 a, b, result: 205 212 -7
+VM6048:10 a, b, result: 205 205 0
+VM6048:10 a, b, result: 237 262 -25
+VM6048:10 a, b, result: 237 212 25
+VM6048:10 a, b, result: 237 261 -24
+(10)�[205, 205, 212, 237, 261, 262, 264, 285, 288, 295]
+function s1Verbose (a, b) {
+    let result
+    if (a < b) {
+       result = -1
+    } else if (a > b) {
+       result = 1
+    } else {
+       result = 0
+    }
+    console.log('a, b, result', a, b, result)
+    return result
+}
+undefined
+n4 = randomNumbers (10 , 200, 300)
+(10)�[237, 240, 262, 297, 290, 233, 295, 252, 298, 221]
+n4.sort (s1Verbose)
+VM6243:10 a, b, result 240 237 1
+VM6243:10 a, b, result 262 240 1
+VM6243:10 a, b, result 297 262 1
+VM6243:10 a, b, result 290 297 -1
+VM6243:10 a, b, result 290 262 1
+VM6243:10 a, b, result 290 297 -1
+VM6243:10 a, b, result 233 262 -1
+VM6243:10 a, b, result 233 240 -1
+VM6243:10 a, b, result 233 237 -1
+VM6243:10 a, b, result 295 262 1
+VM6243:10 a, b, result 295 297 -1
+VM6243:10 a, b, result 295 290 1
+VM6243:10 a, b, result 252 262 -1
+VM6243:10 a, b, result 252 237 1
+VM6243:10 a, b, result 252 240 1
+VM6243:10 a, b, result 298 262 1
+VM6243:10 a, b, result 298 295 1
+VM6243:10 a, b, result 298 297 1
+VM6243:10 a, b, result 221 262 -1
+VM6243:10 a, b, result 221 240 -1
+VM6243:10 a, b, result 221 237 -1
+VM6243:10 a, b, result 221 233 -1
+(10)�[221, 233, 237, 240, 252, 262, 290, 295, 297, 298]
+let song3 = song.map (a=>a)
+undefined
+song3
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+n4
+(10)�[221, 233, 237, 240, 252, 262, 290, 295, 297, 298]
+n4 = randomNumbers (10 , 200, 300)
+
+(10)�[223, 220, 285, 228, 260, 216, 266, 253, 242, 231]
+n4.sort ( (a, b) => a - b )
+(10)�[216, 220, 223, 228, 231, 242, 253, 260, 266, 285]
+song3.sort ( (a, b) => a - b )
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]0: "a partridge in a pear tree"1: "two turtle doves"2: "three French hens"3: "four calling birds"4: "five golden rings"5: "six geese a-laying"6: "seven swans a-swimming"7: "eight maids a-milking"8: "nine ladies dancing"9: "ten lords a-leaping"10: "eleven pipers piping"11: "twelve drummers drumming"length: 12__proto__: Array(0)
+"abc" - "def"
+NaN
+function wrongSorter (a, b) {
+   console.log('a, b, result', a, b, a-b)
+   return a-b
+}
+undefined
+song3.sort (wrongSorter)
+VM6915:2 a, b, result two turtle doves a partridge in a pear tree NaN
+VM6915:2 a, b, result three French hens two turtle doves NaN
+VM6915:2 a, b, result four calling birds three French hens NaN
+VM6915:2 a, b, result five golden rings four calling birds NaN
+VM6915:2 a, b, result six geese a-laying five golden rings NaN
+VM6915:2 a, b, result seven swans a-swimming six geese a-laying NaN
+VM6915:2 a, b, result eight maids a-milking seven swans a-swimming NaN
+VM6915:2 a, b, result nine ladies dancing eight maids a-milking NaN
+VM6915:2 a, b, result ten lords a-leaping nine ladies dancing NaN
+VM6915:2 a, b, result eleven pipers piping ten lords a-leaping NaN
+VM6915:2 a, b, result twelve drummers drumming eleven pipers piping NaN
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+s1
+� s1 (a, b) {
+    let result
+    if (a < b) {
+       result = -1
+    } else if (a > b) {
+       result = 1
+    } else {
+       result = 0
+    }
+    return result
+}
+s1fancy
+� s1fancy (a, b) {
+    let result
+    if (a < b) {
+       result = a - b
+    } else if (a > b) {
+       result = a - b
+    } else {
+       result = a - b
+    }
+    return result
+}
+
+song3.sort (s1fancy)
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+song3.sort ( s1Verbose )
+VM6243:10 a, b, result two turtle doves a partridge in a pear tree 1
+2VM6243:10 a, b, result three French hens two turtle doves -1
+VM6243:10 a, b, result three French hens a partridge in a pear tree 1
+VM6243:10 a, b, result four calling birds three French hens -1
+VM6243:10 a, b, result four calling birds a partridge in a pear tree 1
+VM6243:10 a, b, result five golden rings three French hens -1
+VM6243:10 a, b, result five golden rings four calling birds -1
+VM6243:10 a, b, result five golden rings a partridge in a pear tree 1
+VM6243:10 a, b, result six geese a-laying four calling birds 1
+VM6243:10 a, b, result six geese a-laying two turtle doves -1
+VM6243:10 a, b, result six geese a-laying three French hens -1
+VM6243:10 a, b, result seven swans a-swimming six geese a-laying -1
+VM6243:10 a, b, result seven swans a-swimming five golden rings 1
+VM6243:10 a, b, result seven swans a-swimming four calling birds 1
+VM6243:10 a, b, result eight maids a-milking seven swans a-swimming -1
+VM6243:10 a, b, result eight maids a-milking five golden rings -1
+VM6243:10 a, b, result eight maids a-milking a partridge in a pear tree 1
+VM6243:10 a, b, result nine ladies dancing seven swans a-swimming -1
+VM6243:10 a, b, result nine ladies dancing five golden rings 1
+VM6243:10 a, b, result nine ladies dancing four calling birds 1
+VM6243:10 a, b, result ten lords a-leaping nine ladies dancing 1
+VM6243:10 a, b, result ten lords a-leaping three French hens -1
+VM6243:10 a, b, result ten lords a-leaping six geese a-laying 1
+VM6243:10 a, b, result eleven pipers piping seven swans a-swimming -1
+VM6243:10 a, b, result eleven pipers piping five golden rings -1
+VM6243:10 a, b, result eleven pipers piping eight maids a-milking 1
+VM6243:10 a, b, result twelve drummers drumming nine ladies dancing 1
+VM6243:10 a, b, result twelve drummers drumming ten lords a-leaping 1
+VM6243:10 a, b, result twelve drummers drumming two turtle doves -1
+VM6243:10 a, b, result twelve drummers drumming three French hens 1
+(12)�["a partridge in a pear tree", "eight maids a-milking", "eleven pipers piping", "five golden rings", "four calling birds", "nine ladies dancing", "seven swans a-swimming", "six geese a-laying", "ten lords a-leaping", "three French hens", "twelve drummers drumming", "two turtle doves"]
+n4 = randomNumbers (10 , 0, 100)
+
+(10)�[81, 50, 58, 100, 29, 46, 48, 5, 43, 72]
+n4.filter ( element => element % 2 === 1 )
+(4)�[81, 29, 5, 43]
+n4.filter ( element => element % 2 === 0 )
+(6)�[50, 58, 100, 46, 48, 72]
+let h = function ( value ) { return value * 2 }
+undefined
+"a" * 2
+NaN
+n4.map (h)
+(10)�[162, 100, 116, 200, 58, 92, 96, 10, 86, 144]
+n4
+(10)�[81, 50, 58, 100, 29, 46, 48, 5, 43, 72]
+h = function ( value ) { return value % 2 === 0 }
+� ( value ) { return value % 2 === 0 }
+h(1)
+false
+h(0)
+true
+n4.map (h)
+(10)�[false, true, true, true, false, true, true, false, false, true]
+n4 = randomNumbers (20 , 90, 170)
+
+(20)�[115, 97, 151, 162, 113, 126, 132, 120, 139, 139, 132, 167, 94, 160, 145, 107, 165, 108, 147, 121]
+n4
+(20)�[115, 97, 151, 162, 113, 126, 132, 120, 139, 139, 132, 167, 94, 160, 145, 107, 165, 108, 147, 121]
+n4.filter ( a = a >= 120 )
+VM8015:1 Uncaught ReferenceError: a is not defined
+    at <anonymous>:1:17
+(anonymous) @ VM8015:1
+n4.filter ( a => a >= 120 )
+(14)�[151, 162, 126, 132, 120, 139, 139, 132, 167, 160, 145, 165, 147, 121]
+n4.map ( a => a >= 120 )
+(20)�[false, false, true, true, false, true, true, true, true, true, true, true, false, true, true, false, true, false, true, true]0: false1: false2: true3: true4: false5: true6: true7: true8: true9: true10: true11: true12: false13: true14: true15: false16: true17: false18: true19: truelength: 20__proto__: Array(0)
+function ourOwnFilter ( someArray, filterCallback ) {
+
+    const testers = someArray.map ( fiterCallback )
+    const result = []
+    for (let i = 0; i < someArray.length; i++ ) {
+       if (testers[i]) { result.push (someArray[i]) }
+    }
+    return result
+}
+undefined
+n4
+(20)�[115, 97, 151, 162, 113, 126, 132, 120, 139, 139, 132, 167, 94, 160, 145, 107, 165, 108, 147, 121]
+ourOwnFilter ( n4, a => a >= 120 )
+VM8597:3 Uncaught ReferenceError: fiterCallback is not defined
+    at ourOwnFilter (<anonymous>:3:37)
+    at <anonymous>:1:1
+ourOwnFilter @ VM8597:3
+(anonymous) @ VM8723:1
+function ourOwnFilter1 ( someArray, filterCallback ) {
+
+    const testers = someArray.map ( filterCallback )
+    const result = []
+    for (let i = 0; i < someArray.length; i++ ) {
+       if (testers[i]) { result.push (someArray[i]) }
+    }
+    return result
+}
+undefined
+ourOwnFilter1 ( n4, a => a >= 120 )
+(14)�[151, 162, 126, 132, 120, 139, 139, 132, 167, 160, 145, 165, 147, 121]
+n4.filter ( a => a >= 120 )
+(14)�[151, 162, 126, 132, 120, 139, 139, 132, 167, 160, 145, 165, 147, 121]
+h = function (value, index) { return value + index }
+� (value, index) { return value + index }
+n4 = randomNumbers (10 , 0, 20)
+
+(10)�[14, 16, 8, 6, 10, 16, 13, 4, 18, 13]0: 141: 162: 83: 64: 105: 166: 137: 48: 189: 13length: 10__proto__: Array(0)
+n4.map ( h )
+(10)�[14, 17, 10, 9, 14, 21, 19, 11, 26, 22]0: 141: 172: 103: 94: 145: 216: 197: 118: 269: 22length: 10__proto__: Array(0)
+h = function (value, index, array) { return value + index + array.length}
+� (value, index, array) { return value + index + array.length}
+n4.map ( h )
+(10)�[24, 27, 20, 19, 24, 31, 29, 21, 36, 32]
+h = function (value, index, array) { 
+    console.log(value, index, array.length)
+    return value + index + array.length}
+� (value, index, array) { 
+    console.log(value, index, array.length)
+    return value + index + array.length}
+n4.map ( h )
+VM9165:2 14 0 10
+VM9165:2 16 1 10
+VM9165:2 8 2 10
+VM9165:2 6 3 10
+VM9165:2 10 4 10
+VM9165:2 16 5 10
+VM9165:2 13 6 10
+VM9165:2 4 7 10
+VM9165:2 18 8 10
+VM9165:2 13 9 10
+(10)�[24, 27, 20, 19, 24, 31, 29, 21, 36, 32]0: 241: 272: 203: 194: 245: 316: 297: 218: 369: 32length: 10__proto__: Array(0)
+n4 = n4.map ( element => element.toString() )
+(10)�["14", "16", "8", "6", "10", "16", "13", "4", "18", "13"]
+n4.map( element => Number(element).reduce ( (acc,value) => acc+value )
+VM9650:1 Uncaught SyntaxError: missing ) after argument list
+n4.map( element => Number(element) ).reduce( (acc,value) => acc+value )
+118
+n4 = [1, 2, 3]
+(3)�[1, 2, 3]
+h = function (acc, value) { return acc + value }
+� (acc, value) { return acc + value }
+n4.reduce (h)
+6
+n4
+(3)�[1, 2, 3]
+n4 = [24, 27, 20, 19, 24, 31, 29, 21, 36, 32]
+(10)�[24, 27, 20, 19, 24, 31, 29, 21, 36, 32]
+n4.reduce (h)
+263
+n4.map( element => { console.log(Number(element)); return Number(element) } ).reduce( (acc,value) => acc+value )
+VM10395:1 24
+VM10395:1 27
+VM10395:1 20
+VM10395:1 19
+VM10395:1 24
+VM10395:1 31
+VM10395:1 29
+VM10395:1 21
+VM10395:1 36
+VM10395:1 32
+263
+n4.map( element => { return Number(element) } ).reduce( (acc,value) => acc+value )
+263
+n4.map( element => Number(element) ).reduce( (acc,value) => acc+value )
+263
+n4 = [1, 2, 3, 4]
+(4)�[1, 2, 3, 4]0: 11: 22: 33: 4length: 4__proto__: Array(0)
+n4.reduce ( (acc, value) => acc + value )
+10
+n4.reduce ( (acc, value) => acc - value )
+-8
+n4.reduce ( (acc, value) => acc - value, 0 )
+-10
+n4.reduce ( (acc, value) => acc + value, 0 )
+10
+n4 = song.map (a=>a)
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+n4
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+h = function (acc, value) { console.log(value); return acc }
+� (acc, value) { console.log(value); return acc }
+n4 = [1, 2, 3, 4]
+(4)�[1, 2, 3, 4]
+n4.reduce ( h, 0 )
+VM10995:1 1
+VM10995:1 2
+VM10995:1 3
+VM10995:1 4
+0
+h = function (acc, value) { console.log('value:',value); return acc }
+� (acc, value) { console.log('value:',value); return acc }
+n4.reduce ( h, 0 )
+VM11084:1 value: 1
+VM11084:1 value: 2
+VM11084:1 value: 3
+VM11084:1 value: 4
+0
+h = function (acc, value) { console.log('value:',value); return acc + value }
+� (acc, value) { console.log('value:',value); return acc + value }
+n4.reduce ( h, 0 )
+VM11110:1 value: 1
+VM11110:1 value: 2
+VM11110:1 value: 3
+VM11110:1 value: 4
+10
+n4.reduce ( h )
+VM11110:1 value: 2
+VM11110:1 value: 3
+VM11110:1 value: 4
+10
+h = function (acc, value) { console.log('value:',value); return acc + Math(sqrt(value) }
+VM11195:1 Uncaught SyntaxError: missing ) after argument list
+h = function (acc, value) { console.log('value:',value); return acc + Math(sqrt(value)) }
+� (acc, value) { console.log('value:',value); return acc + Math(sqrt(value)) }
+n4 = [1, 4, 9, 16]
+(4)�[1, 4, 9, 16]
+n4.reduce ( h )
+VM11202:1 value: 4
+VM11202:1 Uncaught ReferenceError: sqrt is not defined
+    at h (<anonymous>:1:58)
+    at Array.reduce (<anonymous>)
+    at <anonymous>:1:4
+h @ VM11202:1
+(anonymous) @ VM11312:1
+h = function (acc, value) { console.log('value:',value); return acc + Math.sqrt(value) }
+� (acc, value) { console.log('value:',value); return acc + Math.sqrt(value) }
+n4.reduce ( h )
+VM11347:1 value: 4
+VM11347:1 value: 9
+VM11347:1 value: 16
+10
+n4 = [1, 9, 16, 25]
+(4)�[1, 9, 16, 25]
+n4.reduce ( h )
+VM11347:1 value: 9
+VM11347:1 value: 16
+VM11347:1 value: 25
+13
+n4 = [4]
+[4]
+n4.reduce( h) 
+4
+n4.reduce ( h, 0 )
+VM11347:1 value: 4
+2
+n4 = [-4, 4, 9, 16]
+(4)�[-4, 4, 9, 16]
+n4.reduce (h)
+VM11347:1 value: 4
+VM11347:1 value: 9
+VM11347:1 value: 16
+5
+n4.reduce (h,0)
+VM11347:1 value: -4
+VM11347:1 value: 4
+VM11347:1 value: 9
+VM11347:1 value: 16
+NaN
+n4 = randomNumbers (10 , 0, 100)
+
+(10)�[43, 92, 92, 82, 8, 38, 76, 73, 68, 90]
+n4 = n4.map (number => number.toString())
+(10)�["43", "92", "92", "82", "8", "38", "76", "73", "68", "90"]
+n4
+(10)�["43", "92", "92", "82", "8", "38", "76", "73", "68", "90"]
+n4.map ( element => Number(element) )
+(10)�[43, 92, 92, 82, 8, 38, 76, 73, 68, 90]
+let xxx = n4.map (element => Number (element))
+undefined
+xxx
+(10)�[43, 92, 92, 82, 8, 38, 76, 73, 68, 90]
+xxx.reduce ( (acc,value) => acc + value, 0 )
+662
+n4
+(10)�["43", "92", "92", "82", "8", "38", "76", "73", "68", "90"]
+ (n4.map( element => Number(element) )).reduce ( (acc, value) => acc + value, 0)
+662
+([1, 2, 3, 4]).reduce( (acc, value) => acc + value, 0)
+10
+h
+� (acc, value) { console.log('value:',value); return acc + Math.sqrt(value) }
+h = function (acc, value) { return acc+value }
+� (acc, value) { return acc+value }
+let initialValue = 0
+undefined
+([1, 2, 3, 4]).reduce ( h, initialValue )
+10
+n4 = [1, 2, 3, 4]
+(4)�[1, 2, 3, 4]
+n4.filter ( element => element %2 === 0 )
+(2)�[2, 4]
+n4.find ( element => element %2 === 0 )
+2
+n4 = [1, 5, 3, 4]
+(4)�[1, 5, 3, 4]
+n4.find ( element => element %2 === 0 )
+4
+n4 = [1, 5, 3, 7]
+(4)�[1, 5, 3, 7]
+n4.find ( element => element %2 === 0 )
+undefined
+n4 = [1, 2, 3, 4]
+(4)�[1, 2, 3, 4]
+n4.findIndex ( element => element %2 === 0 )
+1
+n4 [  n4.findIndex ( element => element %2 === 0 ) ]
+2
+n4 = [1, 5, 3, 4]
+(4)�[1, 5, 3, 4]
+n4.findIndex ( element => element %2 === 0 )
+3
+n4 = [1, 5, 3, 7]
+(4)�[1, 5, 3, 7]
+n4.findIndex ( element => element %2 === 0 )
+-1
+I AM HERE!!
+for (let i = 0; i < song.length; i ++ ) {
+   console.log("Also " + song[i])
+}
+VM13562:2 Also a partridge in a pear tree
+VM13562:2 Also two turtle doves
+VM13562:2 Also three French hens
+VM13562:2 Also four calling birds
+VM13562:2 Also five golden rings
+VM13562:2 Also six geese a-laying
+VM13562:2 Also seven swans a-swimming
+VM13562:2 Also eight maids a-milking
+VM13562:2 Also nine ladies dancing
+VM13562:2 Also ten lords a-leaping
+VM13562:2 Also eleven pipers piping
+VM13562:2 Also twelve drummers drumming
+undefined
+for (const line of song) {
+   console.log("Also " + line)
+}
+VM13748:2 Also a partridge in a pear tree
+VM13748:2 Also two turtle doves
+VM13748:2 Also three French hens
+VM13748:2 Also four calling birds
+VM13748:2 Also five golden rings
+VM13748:2 Also six geese a-laying
+VM13748:2 Also seven swans a-swimming
+VM13748:2 Also eight maids a-milking
+VM13748:2 Also nine ladies dancing
+VM13748:2 Also ten lords a-leaping
+VM13748:2 Also eleven pipers piping
+VM13748:2 Also twelve drummers drumming
+undefined
+for (const whatever of song) {
+   console.log("Also " + whatever)
+}
+VM13788:2 Also a partridge in a pear tree
+VM13788:2 Also two turtle doves
+VM13788:2 Also three French hens
+VM13788:2 Also four calling birds
+VM13788:2 Also five golden rings
+VM13788:2 Also six geese a-laying
+VM13788:2 Also seven swans a-swimming
+VM13788:2 Also eight maids a-milking
+VM13788:2 Also nine ladies dancing
+VM13788:2 Also ten lords a-leaping
+VM13788:2 Also eleven pipers piping
+VM13788:2 Also twelve drummers drumming
+undefined
+for (const whatever in song) {
+   console.log("Also " + whatever)
+}
+VM13803:2 Also 0
+VM13803:2 Also 1
+VM13803:2 Also 2
+VM13803:2 Also 3
+VM13803:2 Also 4
+VM13803:2 Also 5
+VM13803:2 Also 6
+VM13803:2 Also 7
+VM13803:2 Also 8
+VM13803:2 Also 9
+VM13803:2 Also 10
+VM13803:2 Also 11
+undefined
+for (const whatever in song) {
+   console.log("Also " + song[whatever])
+}
+VM13837:2 Also a partridge in a pear tree
+VM13837:2 Also two turtle doves
+VM13837:2 Also three French hens
+VM13837:2 Also four calling birds
+VM13837:2 Also five golden rings
+VM13837:2 Also six geese a-laying
+VM13837:2 Also seven swans a-swimming
+VM13837:2 Also eight maids a-milking
+VM13837:2 Also nine ladies dancing
+VM13837:2 Also ten lords a-leaping
+VM13837:2 Also eleven pipers piping
+VM13837:2 Also twelve drummers drumming
+undefined
+for (let i = 0; i < song.length; i ++ ) {
+   console.log("Also on day", i, "i got", song[i])
+}
+VM13921:2 Also on day 0 i got a partridge in a pear tree
+VM13921:2 Also on day 1 i got two turtle doves
+VM13921:2 Also on day 2 i got three French hens
+VM13921:2 Also on day 3 i got four calling birds
+VM13921:2 Also on day 4 i got five golden rings
+VM13921:2 Also on day 5 i got six geese a-laying
+VM13921:2 Also on day 6 i got seven swans a-swimming
+VM13921:2 Also on day 7 i got eight maids a-milking
+VM13921:2 Also on day 8 i got nine ladies dancing
+VM13921:2 Also on day 9 i got ten lords a-leaping
+VM13921:2 Also on day 10 i got eleven pipers piping
+VM13921:2 Also on day 11 i got twelve drummers drumming
+undefined
+for (let i = 0; i < song.length; i ++ ) {
+   console.log("Also on day", i+1, "i got", song[i])
+}
+VM13932:2 Also on day 1 i got a partridge in a pear tree
+VM13932:2 Also on day 2 i got two turtle doves
+VM13932:2 Also on day 3 i got three French hens
+VM13932:2 Also on day 4 i got four calling birds
+VM13932:2 Also on day 5 i got five golden rings
+VM13932:2 Also on day 6 i got six geese a-laying
+VM13932:2 Also on day 7 i got seven swans a-swimming
+VM13932:2 Also on day 8 i got eight maids a-milking
+VM13932:2 Also on day 9 i got nine ladies dancing
+VM13932:2 Also on day 10 i got ten lords a-leaping
+VM13932:2 Also on day 11 i got eleven pipers piping
+VM13932:2 Also on day 12 i got twelve drummers drumming
+undefined
+for (const whatever of song) {
+   console.log("Also " + whatever)
+}
+VM13942:2 Also a partridge in a pear tree
+VM13942:2 Also two turtle doves
+VM13942:2 Also three French hens
+VM13942:2 Also four calling birds
+VM13942:2 Also five golden rings
+VM13942:2 Also six geese a-laying
+VM13942:2 Also seven swans a-swimming
+VM13942:2 Also eight maids a-milking
+VM13942:2 Also nine ladies dancing
+VM13942:2 Also ten lords a-leaping
+VM13942:2 Also eleven pipers piping
+VM13942:2 Also twelve drummers drumming
+undefined
+for (const whatever in song) {
+   console.log("Also on day", whatever+1, "i got", song[whatever])
+}
+VM14022:2 Also on day 01 i got a partridge in a pear tree
+VM14022:2 Also on day 11 i got two turtle doves
+VM14022:2 Also on day 21 i got three French hens
+VM14022:2 Also on day 31 i got four calling birds
+VM14022:2 Also on day 41 i got five golden rings
+VM14022:2 Also on day 51 i got six geese a-laying
+VM14022:2 Also on day 61 i got seven swans a-swimming
+VM14022:2 Also on day 71 i got eight maids a-milking
+VM14022:2 Also on day 81 i got nine ladies dancing
+VM14022:2 Also on day 91 i got ten lords a-leaping
+VM14022:2 Also on day 101 i got eleven pipers piping
+VM14022:2 Also on day 111 i got twelve drummers drumming
+undefined
+for (const whatever in song) {
+   console.log("Also on day", Number(whatever)+1, "i got", song[whatever])
+}
+VM14057:2 Also on day 1 i got a partridge in a pear tree
+VM14057:2 Also on day 2 i got two turtle doves
+VM14057:2 Also on day 3 i got three French hens
+VM14057:2 Also on day 4 i got four calling birds
+VM14057:2 Also on day 5 i got five golden rings
+VM14057:2 Also on day 6 i got six geese a-laying
+VM14057:2 Also on day 7 i got seven swans a-swimming
+VM14057:2 Also on day 8 i got eight maids a-milking
+VM14057:2 Also on day 9 i got nine ladies dancing
+VM14057:2 Also on day 10 i got ten lords a-leaping
+VM14057:2 Also on day 11 i got eleven pipers piping
+VM14057:2 Also on day 12 i got twelve drummers drumming
+undefined
+for (const whatever in song) {
+   console.log("Also on day", Number(whatever)+1, "i got", song[Number(whatever)])
+}
+VM14108:2 Also on day 1 i got a partridge in a pear tree
+VM14108:2 Also on day 2 i got two turtle doves
+VM14108:2 Also on day 3 i got three French hens
+VM14108:2 Also on day 4 i got four calling birds
+VM14108:2 Also on day 5 i got five golden rings
+VM14108:2 Also on day 6 i got six geese a-laying
+VM14108:2 Also on day 7 i got seven swans a-swimming
+VM14108:2 Also on day 8 i got eight maids a-milking
+VM14108:2 Also on day 9 i got nine ladies dancing
+VM14108:2 Also on day 10 i got ten lords a-leaping
+VM14108:2 Also on day 11 i got eleven pipers piping
+VM14108:2 Also on day 12 i got twelve drummers drumming
+undefined
+for (const whatever in song) {
+   if (whatever in [1, 5, 7]) {
+      console.log("Also on day", Number(whatever)+1, "i got", song[Number(whatever)])
+   }
+}
+VM14218:3 Also on day 1 i got a partridge in a pear tree
+VM14218:3 Also on day 2 i got two turtle doves
+VM14218:3 Also on day 3 i got three French hens
+undefined
+for (const whatever in song) {
+   if (([1, 5, 7]).findIndex(whatever) !== -1) {
+      console.log("Also on day", Number(whatever)+1, "i got", song[Number(whatever)])
+   }
+}
+VM14316:2 Uncaught TypeError: 0 is not a function
+    at Array.findIndex (<anonymous>)
+    at <anonymous>:2:20
+(anonymous) @ VM14316:2
+for (const whatever in song) {
+   if (([1, 5, 7]).findIndex(element => element ===whatever) !== -1) {
+      console.log("Also on day", Number(whatever)+1, "i got", song[Number(whatever)])
+   }
+}
+undefined
+for (const whatever in song) {
+   if (([1, 5, 7]).findIndex(element => element == whatever) !== -1) {
+      console.log("Also on day", Number(whatever)+1, "i got", song[Number(whatever)])
+   }
+}
+VM14375:3 Also on day 2 i got two turtle doves
+VM14375:3 Also on day 6 i got six geese a-laying
+VM14375:3 Also on day 8 i got eight maids a-milking
+undefined
+song.filter ( (element, index) ==> index === 5 ).map ( (element, index) => "Also on day",index+1,"i got",element)
+VM14928:1 Uncaught SyntaxError: Unexpected token '>'
+song.filter ( (element, index) ==> index === 5 ).map ( (element, index) => {"Also on day",index+1,"i got",element})
+VM14962:1 Uncaught SyntaxError: Unexpected token '>'
+song.filter ( (element, index) => index === 5 ).map ( (element, index) => {"Also on day",index+1,"i got",element})
+[undefined]
+song.filter ( (element, index) => index === 5 )
+["six geese a-laying"]
+console.log(song.filter ( (element, index) => index === 5 ).map ( (element, index) => {"Also on day",index+1,"i got",element}))
+VM15032:1 [undefined]0: undefinedlength: 1__proto__: Array(0)
+undefined
+console.log(song.filter ( (element, index) => index === 5 ).map ( (element, index) => {console.log(element, index)}))
+VM15119:1 six geese a-laying 0
+VM15119:1 [undefined]
+undefined
+console.log(song.filter ( (element, index) => index === 5 ).map ( (element, index) => {console.log("Also on day",index+1,"i got",element)}))
+VM15239:1 Also on day 1 i got six geese a-laying
+VM15239:1 [undefined]
+undefined
+song
+(12)�["a partridge in a pear tree", "two turtle doves", "three French hens", "four calling birds", "five golden rings", "six geese a-laying", "seven swans a-swimming", "eight maids a-milking", "nine ladies dancing", "ten lords a-leaping", "eleven pipers piping", "twelve drummers drumming"]
+song.map ( (element,index) => "Also on day",index+1,"I got",element)
+VM15463:1 Uncaught ReferenceError: index is not defined
+    at <anonymous>:1:45
+(anonymous) @ VM15463:1
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element)
+(12)�["Also on day 1 I got a partridge in a pear tree", "Also on day 2 I got two turtle doves", "Also on day 3 I got three French hens", "Also on day 4 I got four calling birds", "Also on day 5 I got five golden rings", "Also on day 6 I got six geese a-laying", "Also on day 7 I got seven swans a-swimming", "Also on day 8 I got eight maids a-milking", "Also on day 9 I got nine ladies dancing", "Also on day 10 I got ten lords a-leaping", "Also on day 11 I got eleven pipers piping", "Also on day 12 I got twelve drummers drumming"]
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter ( (element,index) => index %2 = 0) 
+VM15650:1 Uncaught SyntaxError: Invalid left-hand side in assignment
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter( (element,index) => index %2 = 0) 
+VM15683:1 Uncaught SyntaxError: Invalid left-hand side in assignment
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter( (element,index) => index % 2 = 0) 
+VM15693:1 Uncaught SyntaxError: Invalid left-hand side in assignment
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element)
+(12)�["Also on day 1 I got a partridge in a pear tree", "Also on day 2 I got two turtle doves", "Also on day 3 I got three French hens", "Also on day 4 I got four calling birds", "Also on day 5 I got five golden rings", "Also on day 6 I got six geese a-laying", "Also on day 7 I got seven swans a-swimming", "Also on day 8 I got eight maids a-milking", "Also on day 9 I got nine ladies dancing", "Also on day 10 I got ten lords a-leaping", "Also on day 11 I got eleven pipers piping", "Also on day 12 I got twelve drummers drumming"]
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter ( function (element, index) { return index % 2 === 0 } )
+    
+(6)�["Also on day 1 I got a partridge in a pear tree", "Also on day 3 I got three French hens", "Also on day 5 I got five golden rings", "Also on day 7 I got seven swans a-swimming", "Also on day 9 I got nine ladies dancing", "Also on day 11 I got eleven pipers piping"]
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter ( function (element, index) { 
+     let usefulEntries = [2, 5, 8]
+     return usefulEntries.findIndex ( entry => index == entry ) === -1 } )
+    
+(9)�["Also on day 1 I got a partridge in a pear tree", "Also on day 2 I got two turtle doves", "Also on day 4 I got four calling birds", "Also on day 5 I got five golden rings", "Also on day 7 I got seven swans a-swimming", "Also on day 8 I got eight maids a-milking", "Also on day 10 I got ten lords a-leaping", "Also on day 11 I got eleven pipers piping", "Also on day 12 I got twelve drummers drumming"]
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter ( function (element, index) { 
+     let usefulEntries = [2, 5, 8]
+     return usefulEntries.findIndex ( (value) => value == index ) === -1 } )
+    
+(9)�["Also on day 1 I got a partridge in a pear tree", "Also on day 2 I got two turtle doves", "Also on day 4 I got four calling birds", "Also on day 5 I got five golden rings", "Also on day 7 I got seven swans a-swimming", "Also on day 8 I got eight maids a-milking", "Also on day 10 I got ten lords a-leaping", "Also on day 11 I got eleven pipers piping", "Also on day 12 I got twelve drummers drumming"]
+function (element, index) {
+   let useful = [2, 5, 8]
+   if (useful.findIndex ( (element) => element == index ) {
+      return true
+       } else {
+VM16442:1 Uncaught SyntaxError: Function statements require a function name
+function (element, index) {
+   let useful = [2, 5, 8]
+   if (useful.findIndex ( (element) => element == index ) ) {
+      return true
+       } else { return false } }
+VM16485:1 Uncaught SyntaxError: Function statements require a function name
+h = function (element, index) {
+   let useful = [2, 5, 8]
+   if (useful.findIndex ( (element) => element == index ) ) {
+      return true
+       } else { return false } }
+� (element, index) {
+   let useful = [2, 5, 8]
+   if (useful.findIndex ( (element) => element == index ) ) {
+      return true
+       } else { return false } }
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element)
+(12)�["Also on day 1 I got a partridge in a pear tree", "Also on day 2 I got two turtle doves", "Also on day 3 I got three French hens", "Also on day 4 I got four calling birds", "Also on day 5 I got five golden rings", "Also on day 6 I got six geese a-laying", "Also on day 7 I got seven swans a-swimming", "Also on day 8 I got eight maids a-milking", "Also on day 9 I got nine ladies dancing", "Also on day 10 I got ten lords a-leaping", "Also on day 11 I got eleven pipers piping", "Also on day 12 I got twelve drummers drumming"]
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter (h)
+(11)�["Also on day 1 I got a partridge in a pear tree", "Also on day 2 I got two turtle doves", "Also on day 4 I got four calling birds", "Also on day 5 I got five golden rings", "Also on day 6 I got six geese a-laying", "Also on day 7 I got seven swans a-swimming", "Also on day 8 I got eight maids a-milking", "Also on day 9 I got nine ladies dancing", "Also on day 10 I got ten lords a-leaping", "Also on day 11 I got eleven pipers piping", "Also on day 12 I got twelve drummers drumming"]
+n4 = [1,2,3,4,5,6,7,8,9,10]
+(10)�[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+n4.filter(h)
+(9)�[1, 2, 4, 5, 6, 7, 8, 9, 10]
+h( 10, 5)
+true
+h( 10, 2)
+false
+h( 10, 8)
+true
+h
+� (element, index) {
+   let useful = [2, 5, 8]
+   if (useful.findIndex ( (element) => element == index ) ) {
+      return true
+       } else { return false } }
+h(null, 1)
+true
+h = function (element, index) {
+        let useful = [2, 5, 8]
+        if (usefulfindIndex ( (usefulElement) => usefulElement == index ) == -1) { return false } else { return true }} 
+� (element, index) {
+        let useful = [2, 5, 8]
+        if (usefulfindIndex ( (usefulElement) => usefulElement == index ) == -1) { return false } else { return true }}
+h (null, 2)
+VM17223:3 Uncaught ReferenceError: usefulfindIndex is not defined
+    at h (<anonymous>:3:9)
+    at <anonymous>:1:1
+h @ VM17223:3
+(anonymous) @ VM17257:1
+h = function (element, index) {
+        let useful = [2, 5, 8]
+        if (useful.findIndex ( (usefulElement) => usefulElement == index ) == -1) { return false } else { return true }} 
+� (element, index) {
+        let useful = [2, 5, 8]
+        if (useful.findIndex ( (usefulElement) => usefulElement == index ) == -1) { return false } else { return true }}
+h (null, 2)
+true
+h (null, 1)
+false
+h (null, 3)
+false
+h (null, 4)
+false
+h (null, 5)
+true
+h (null, 6)
+false
+h (null, 7)
+false
+h (null, 8)
+true
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter (h)
+(3)�["Also on day 3 I got three French hens", "Also on day 6 I got six geese a-laying", "Also on day 9 I got nine ladies dancing"]
+h = function (element, index) {
+        let useful = [2, 5, 8]
+        return useful.find ( (usefulElement) => usefulElement == index ) } 
+� (element, index) {
+        let useful = [2, 5, 8]
+        return useful.find ( (usefulElement) => usefulElement == index ) }
+song.map ( (element,index) => "Also on day "+(index+1)+" I got "+element).filter (h)
+(3)�["Also on day 3 I got three French hens", "Also on day 6 I got six geese a-laying", "Also on day 9 I got nine ladies dancing"]0: "Also on day 3 I got three French hens"1: "Also on day 6 I got six geese a-laying"2: "Also on day 9 I got nine ladies dancing"length: 3__proto__: Array(0)
