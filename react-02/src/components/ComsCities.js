@@ -9,11 +9,55 @@ class ComsCities extends React.Component {
 
     constructor(props) {
         super(props);
+        this.newCommunity = null;
         this.state = {
            msgArea: "",
         };
     }
-  
+
+    btnCreateCom = async (e) => {
+
+        let tmpMsg = "";
+        
+        this.newCommunity = await c130d.createNewCommunity();
+        
+        // console.log("New Community:");
+        // console.log(this.newCommunity);
+
+        if (this.newCommunity.isMessage()) {
+            tmpMsg += this.newCommunity.getMessages();
+            this.newCommunity.resetMessage();
+        }
+
+        document.getElementById("inputNewCom").value = "";
+        
+        this.setState({
+            msgArea: tmpMsg,
+        });    
+    }
+
+    btnCancelCom = (e) => {
+
+        document.getElementById("inputNewCom").value = "";
+
+        let tmpMsg = "Create Community cancelled. To proceed, you must first enter a name for your Community!";
+        this.setState({
+            msgArea: tmpMsg,
+        });
+    }
+
+    secMain = (e) => {
+
+        if (e.target.nodeName !== 'BUTTON') {
+
+            let tmpMsg = "";
+            this.setState({
+                msgArea: tmpMsg,
+            });
+        }
+
+    }
+
     // 
     // First: Confirm API is available.
     //
@@ -26,44 +70,22 @@ class ComsCities extends React.Component {
 
         if (data.status === 200) {
             tmpMsg = "The API is DEFINITELY available!";    
-            let newCommunity = await c130d.loadAPICommunity(c130d.url);
-            if (newCommunity != 0) {
-                if (newCommunity.isMessage()) newCommunity.resetMessage();
-    
-                newCommunity.addMessage("Welcome to Communities and Cities!");
-                newCommunity.addMessage("Enjoy your experience and have a GREAT day.");
-    
-                //
-                // Visual Setup for web page complete. Display Greeting Messages.
-                //
-    
-                if (newCommunity.isMessage()) {
-                    tmpMsg = newCommunity.getMessages();
-                    newCommunity.resetMessage();
-                }
-            } else {
-    
-                //
-                // Event listener for the Add New Community button.
-                //
-    
-                // btnCreateCom.addEventListener('click', (async e => {
-    
-                //     newCommunity = await c130d.createNewCommunity();
-                    
-                // }));
-    
-                // //
-                // // Event listener for the Add New Community button.
-                // //
-    
-                // btnCancelCom.addEventListener('click', (e => {
-    
-                //     inputNewCom.value = "";
-                //     messageArea.textContent = "Create Community cancelled. To proceed, you must first enter a name for your Community!";
-                    
-                // }));
+            this.newCommunity = await c130d.loadAPICommunity(c130d.url);
+
+            console.log("In componentDidMount newCommunity = ");
+            console.log(this.newCommunity);
+
+            if (this.newCommunity.name !== "MessageOnly") {
+                // if (this.newCommunity.isMessage()) this.newCommunity.resetMessage();
+                this.newCommunity.addMessage("Welcome to Communities and Cities!");
+                this.newCommunity.addMessage("Enjoy your experience and have a GREAT day.");
             }
+
+            if (this.newCommunity.isMessage()) {
+                tmpMsg += this.newCommunity.getMessages();
+                this.newCommunity.resetMessage();
+            }
+
         } else {
             tmpMsg = "The API is NOT available. Close browser and try again later!";    
         }
@@ -71,19 +93,18 @@ class ComsCities extends React.Component {
         this.setState({
             msgArea: tmpMsg,
         });
-    
     }
 
     render() {
 
         return (
-            <section className ="sectionMain">
+            <section className ="sectionMain" onClick={this.secMain}>
                 <h1>Welcome to the Community and City</h1>
                 <div id="idAddCom" className="divAddCom">
                     <label htmlFor="inputNewCom">Enter Name of Community: </label>
                     <input id="inputNewCom" type="text"></input>
-                    <button id="btnCreateCom" type="button">Create</button>
-                    <button id="btnCancelCom" type="button">Cancel</button>
+                    <button id="btnCreateCom" type="button" onClick={this.btnCreateCom}>Create</button>
+                    <button id="btnCancelCom" type="button" onClick={this.btnCancelCom}>Cancel</button>
                 </div>
                 <div className="divComActions">
                     {/* <div class="divCitySelect">
@@ -104,6 +125,54 @@ class ComsCities extends React.Component {
                     </div> */}
                     <p id="messageArea" position="absolute">{this.state.msgArea}</p>
                 </div>
+                <div id="idCitys" className="divCommunity">
+                    <h4 id="h4Community" className="h4ComTitle">Community: NOT Entered Yet!!</h4>
+                    {/* <div className="divCityList">
+                        <section clasclassNames="sectionCityList">
+                            <h4>City</h4>
+                            <ul id="ulCityList">
+                                <li id="idSumTxt" className="liSum">Totals</li>
+                            </ul>
+                        </section>
+                        <aside className="asideLatList">
+                            <h4>Latitude</h4>
+                            <ul id="ulLatList">
+                                <li className="liSum">.</li>
+                            </ul>
+                        </aside>
+                        <aside className="asideLongList">
+                            <h4>Longitude</h4>
+                            <ul id="ulLongList">
+                                <li className="liSum">.</li>
+                            </ul>
+                        </aside>
+                        <aside className="asidePopList">
+                            <h4>Population</h4>
+                            <ul id="ulPopList">
+                                <li id="idSum" className="liSum">0</li>
+                            </ul>
+                        </aside>
+                        <aside className="asideSizeList">
+                            <h4>Size</h4>
+                            <ul id="ulSizeList">
+                                <li className="liSum">.</li>
+                            </ul>
+                        </aside>
+                        <aside className="asideHemList">
+                            <h4>N/S</h4>
+                            <ul id="ulHemList">
+                                <li className="liSum">.</li>
+                            </ul>
+                        </aside>
+                        <aside className="asideMaxList">
+                            <h4>Max N/S</h4>
+                            <ul id="ulMaxList">
+                                <li className="liSum">.</li>
+                            </ul>
+                        </aside>
+                    </div> */}
+                </div>
+
             </section>      
         );
     }

@@ -8,6 +8,47 @@ const c130d = {
 
     url: 'http://localhost:5000/',
 
+    createNewCommunity: async () => {
+
+        let newCom = new community.Community ("MessageOnly");
+
+        // console.log("In createNewCommunity newCom initially = ");
+        // console.log(newCom);
+
+        let tmpInput = document.getElementById("inputNewCom").value;
+    
+        let data = await c130d.confirmAPIConnect (c130d.url);
+
+        if (data.status === 200) {
+            
+            if (tmpInput.trim() === "") {
+
+                // console.log(`Please input the new Community name.`);
+                newCom.addMessage("Please input the new Community name.");
+
+                return newCom;
+
+            }
+            else {
+
+                newCom = new community.Community (tmpInput.trim());
+
+                data = await c130d.createAPICommunity(c130d.url, newCom.cityList[0]);
+
+                // h4Community.textContent = "Community: " + inputNewCom.value.trim();
+                newCom.addMessage("Community " + tmpInput.trim() + " has been created.");
+                
+                // c130d.removedivAddCom();
+
+                return newCom;
+            }
+        } else {
+
+            newCom.addMessage("API is unavailable for Create Community. Please try again later!");
+
+        }
+    },
+
     confirmAPIConnect: async (url) => {
         
         //
@@ -45,13 +86,15 @@ const c130d = {
     
     loadAPICommunity: async (url) => {
 
+        let newCom = new community.Community ("MessageOnly");
+
         // messageArea.textContent = "Loading Community and Cities";
         let data = await c130d.getAllAPI(url);
 
         if (data.status === 200) {
 
             if (data.length > 0) {
-                const newCom = new community.Community ("");
+                newCom = new community.Community ("");
                 // messageArea.textContent = "Loading Community and Cities .";
                 //
                 // There is API data so start loading it. If none. Display
@@ -84,14 +127,35 @@ const c130d = {
                 return newCom;
             }
             // else {
-            //     newCom.addMessage("There was no data to load from the API. "
-            //     + "Please enter the name of your new Community.");
+                newCom.addMessage("There was no data to load from the API. "
+                + "Please enter the name of your new Community.");
             // }
         }
 
-        return 0;
+        return newCom;
     },
 
+    createAPICommunity: async (url, community) => {
+        
+        let data;
+
+        try {
+
+            data = await c130d.confirmAPIConnect (url);
+            
+            if (data.status === 200) {
+                
+                data = await c920.postData(url + 'add', community);
+            }
+            
+        }
+        catch (err) {
+            data.status = err.name;
+            data.statusText = err.message;
+        }
+
+        return data;
+    },
 
     getAllAPI: async (url) => {
         

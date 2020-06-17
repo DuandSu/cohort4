@@ -58,7 +58,7 @@ import c920 from './fetch.js'
         // messageArea.textContent = "Loading Community and Cities .... DONE";
 
         //
-        // Add some gretting messages for duane to demonstrate message queue funtionality,
+        // Add some greeting messages for duane to demonstrate message queue funtionality,
         // but first clear out any residual from original HTML.
         //
         if (newCommunity != 0) {
