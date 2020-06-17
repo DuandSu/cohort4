@@ -14,9 +14,9 @@
 
 import React, { useState } from 'react';
 
-// import c140b from './containers/c140b';
 import Starter from './components/Starter';
 import TicTacToe from './components/TicTacToe';
+import ComsCities from './components/ComsCities';
 
 import './App.css';
 
@@ -32,9 +32,6 @@ function App() {
   const [messageArea, setMessage] = useState("Edit src/App.js and save to reload.");
   const [appKey, setAppKey] = useState("starter");
 
-  // let output = [];
-  // output.push(<TicTacToe sMessageArea={messageArea} key="2"/>);
-
   const onPushMe = (e) => {
 
     const tmpAppKey = e.target.getAttribute("ikey");
@@ -45,16 +42,15 @@ function App() {
   }
   // Enhancement: Add AppName below each svg.
 
-  console.log("---------- About to Render ------------");
-
   let output = [];
   if (appKey === "starter") {
       output.push(<Starter sMessageArea={messageArea} key={appKey}/>);
-      console.log("Met condition to call Starter!")
   }
   else if (appKey === "tictactoe") {
       output.push(<TicTacToe sMessageArea={messageArea} key={appKey}/>);
-      console.log("Met condition to call TicTacToe!")
+  }
+  else if (appKey === "comscities") {
+    output.push(<ComsCities sMessageArea={messageArea} key={appKey}/>);
   }
   else {
     output.push(<Starter sMessageArea={messageArea} key={appKey}/>);
@@ -73,7 +69,7 @@ function App() {
               <img src={insigniaKL1} className="App-svg3" alt="insigniaKL1" ikey="3" onClick={onPushMe} />
             </div>
             <div>
-              <img src={insigniaKL2} className="App-svg4" alt="insigniaKL2" ikey="4" onClick={onPushMe} />
+              <img src={insigniaKL2} className="App-svg4" alt="insigniaKL2" ikey="comscities" onClick={onPushMe} />
             </div>
             <div>
               <img src={kittyKL} className="App-svg5" alt="kittyKL" ikey="5" onClick={onPushMe} />
