@@ -11,7 +11,15 @@ class ComsCities extends React.Component {
         super(props);
         this.newCommunity = null;
         this.state = {
-           msgArea: "",
+            msgArea: "",
+            liCityList: null,
+            liLatList: null,
+            liLongList: null,
+            liPopList: null,
+            liSizeList: null,
+            liHemList: null,
+            liMaxList: null,
+            srcCityList: null,
         };
     }
 
@@ -20,6 +28,7 @@ class ComsCities extends React.Component {
         let tmpMsg = "";
         
         this.newCommunity = await c130d.createNewCommunity();
+        // this.newCommunity = await c130d.createNewCommunity(this.displayMessage);
         
         // console.log("New Community:");
         // console.log(this.newCommunity);
@@ -28,7 +37,7 @@ class ComsCities extends React.Component {
             tmpMsg += this.newCommunity.getMessages();
             this.newCommunity.resetMessage();
         }
-
+        // document.getElementById("h4Community").textContent = "Community: " + this.newCommunity.name;
         document.getElementById("inputNewCom").value = "";
         
         this.setState({
@@ -55,6 +64,15 @@ class ComsCities extends React.Component {
                 msgArea: tmpMsg,
             });
         }
+
+    }
+
+    displayMessage (msg) {
+
+        let tmpMsg = msg;
+        this.setState({
+            msgArea: tmpMsg,
+        });  
 
     }
 
@@ -92,6 +110,14 @@ class ComsCities extends React.Component {
 
         this.setState({
             msgArea: tmpMsg,
+            liCityList: this.newCommunity.allLists[0],
+            liLatList: this.newCommunity.allLists[1],
+            liLongList: this.newCommunity.allLists[2],
+            liPopList: this.newCommunity.allLists[3],
+            liSizeList: this.newCommunity.allLists[4],
+            liHemList: this.newCommunity.allLists[5],
+            liMaxList: this.newCommunity.allLists[6],
+            srcCityList: this.newCommunity.allLists[7],
         });
     }
 
@@ -107,31 +133,44 @@ class ComsCities extends React.Component {
                     <button id="btnCancelCom" type="button" onClick={this.btnCancelCom}>Cancel</button>
                 </div>
                 <div className="divComActions">
-                    {/* <div class="divCitySelect">
-                        City Name: <select id=selectCity>
+                    <div className="divCitySelect">
+                        <label htmlFor="selectCity">City Name: </label>
+                        <select id="selectCity">
                             <option value="srcSelect">Select City</option>
                             <option value="srcAddCity">Add New City</option>
-                            <!-- <option value="srcCity1">Calgary</option>
-                            <option value="srcCity2">Vulcan</option>
-                            <option value="srcCity3">Kirkaldy</option> -->
+                            {this.state.srcCityList}
                         </select>
-                    </div> */}
-                    {/* <div class="divCityActions">
-                        Population: <input id="inputAmt" type=number value=0>
+                    </div>
+                    <div className="divCityActions">
+                        <label htmlFor="inputAmt">Population: </label>
+                        <input id="inputAmt" type="number"></input>
+                        {/* <input id="inputAmt" type="number" value="0"></input> */}
                         <button id="btnAddCity" type="button">Add New City</button>
                         <button id="btnDelCity" type="button">Delete</button>
                         <button id="btnMovedIn" type="button">Moved In</button>
                         <button id="btnMovedOut" type="button">Moved Out</button>
-                    </div> */}
+                    </div>
                     <p id="messageArea" position="absolute">{this.state.msgArea}</p>
+                </div>
+                <div id="idAddCity" className="divAddCity">
+                    <label htmlFor="inputNewCity">Enter New City: </label>
+                    <input id="inputNewCity" type="text"></input>
+                    <label htmlFor="inputNewPop">Enter Population: </label>
+                    <input id="inputNewPop" type="number"></input>
+                    <button id="btnCreateCity" type="button">Create</button><br></br>
+                    <label htmlFor="inputNewLat">Enter Latitude: </label>
+                    <input id="inputNewLat" type="number"></input>
+                    <label htmlFor="inputNewLong">Enter Longitude: </label>
+                    <input id="inputNewLong" type="number"></input>
+                    <button id="btnCancelCity" type="button">Cancel</button>
                 </div>
                 <div id="idCitys" className="divCommunity">
                     <h4 id="h4Community" className="h4ComTitle">Community: NOT Entered Yet!!</h4>
-                    {/* <div className="divCityList">
-                        <section clasclassNames="sectionCityList">
+                    <div className="divCityList">
+                        <section className="sectionCityList">
                             <h4>City</h4>
                             <ul id="ulCityList">
-                                <li id="idSumTxt" className="liSum">Totals</li>
+                            <li id="idSumTxt" className="liSum">Totals</li>
                             </ul>
                         </section>
                         <aside className="asideLatList">
@@ -170,7 +209,7 @@ class ComsCities extends React.Component {
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
-                    </div> */}
+                    </div>
                 </div>
 
             </section>      
