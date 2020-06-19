@@ -14,9 +14,6 @@ const c130d = {
 
         let newCom = new community.Community ("MessageOnly");
 
-        // console.log("In createNewCommunity newCom initially = ");
-        // console.log(newCom);
-
         let tmpInput = document.getElementById("inputNewCom").value;
     
         let data = await c130d.confirmAPIConnect (c130d.url);
@@ -25,7 +22,6 @@ const c130d = {
             
             if (tmpInput.trim() === "") {
 
-                // console.log(`Please input the new Community name.`);
                 newCom.addMessage("Please input the new Community name.");
 
                 return newCom;
@@ -140,7 +136,6 @@ const c130d = {
                     dAPIKey.key = dKey;
                     data = await c130d.deleteAPICity(c130d.url, dAPIKey);
 
-                    console.log("Calling refreshCityLists from deleteCity.");
                     allLists = c130d.refreshCityList(community);
                 }
 
@@ -151,9 +146,6 @@ const c130d = {
         else {
             community.addMessage("API is unavailable for Delete. Please try again later!");
         }
-
-        console.log("In deleteCity and community =");
-        console.log(community);
 
         community.allLists = allLists;
 
@@ -213,7 +205,7 @@ const c130d = {
     },
 
     refreshCityList: (community) => {
-        console.log("In refreshCityList.");
+
         let allLists = [];
 
         //

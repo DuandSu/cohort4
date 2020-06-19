@@ -30,9 +30,6 @@ class ComsCities extends React.Component {
         this.newCommunity = await c130d.createNewCommunity();
         // this.newCommunity = await c130d.createNewCommunity(this.displayMessage);
         
-        // console.log("New Community:");
-        // console.log(this.newCommunity);
-
         if (this.newCommunity.isMessage()) {
             tmpMsg += this.newCommunity.getMessages();
             this.newCommunity.resetMessage();
@@ -86,9 +83,6 @@ class ComsCities extends React.Component {
 
         if (this.newCommunity != null) {
             this.newCommunity = await c130d.createNewCity(this.newCommunity);
-
-            // console.log("Left deleteCity and community =");
-            // console.log(this.newCommunity);
     
             if (this.newCommunity.isMessage()) {
                 tmpMsg += this.newCommunity.getMessages();
@@ -134,9 +128,6 @@ class ComsCities extends React.Component {
         if (this.newCommunity != null) {
             this.newCommunity = await c130d.deleteCity(this.newCommunity);
 
-            console.log("Left deleteCity and community =");
-            console.log(this.newCommunity);
-    
             if (this.newCommunity.isMessage()) {
                 tmpMsg += this.newCommunity.getMessages();
                 this.newCommunity.resetMessage();
@@ -181,9 +172,6 @@ class ComsCities extends React.Component {
         if (this.newCommunity != null) {
             this.newCommunity = await c130d.actionMoved("IN", this.newCommunity);
 
-            // console.log("Left deleteCity and community =");
-            // console.log(this.newCommunity);
-    
             if (this.newCommunity.isMessage()) {
                 tmpMsg += this.newCommunity.getMessages();
                 this.newCommunity.resetMessage();
@@ -228,9 +216,6 @@ class ComsCities extends React.Component {
         if (this.newCommunity != null) {
             this.newCommunity = await c130d.actionMoved("OUT", this.newCommunity);
 
-            // console.log("Left deleteCity and community =");
-            // console.log(this.newCommunity);
-    
             if (this.newCommunity.isMessage()) {
                 tmpMsg += this.newCommunity.getMessages();
                 this.newCommunity.resetMessage();
@@ -309,13 +294,13 @@ class ComsCities extends React.Component {
         return (
             <section className ="sectionMain" onClick={this.secMain}>
                 <h1>Welcome to the Community and City</h1>
-                <div id="idAddCom" className="divAddCom">
+                <div id="idAddCom" className="divAddCom divCCBlk">
                     <label htmlFor="inputNewCom">Enter Name of Community: </label>
                     <input id="inputNewCom" type="text"></input>
-                    <button id="btnCreateCom" type="button" onClick={this.btnCreateCom}>Create</button>
-                    <button id="btnCancelCom" type="button" onClick={this.btnCancelCom}>Cancel</button>
+                    <button id="btnCreateCom" className="btncc" type="button" onClick={this.btnCreateCom}>Create</button>
+                    <button id="btnCancelCom" className="btncc" type="button" onClick={this.btnCancelCom}>Cancel</button>
                 </div>
-                <div className="divComActions">
+                <div className="divComActions divCCBlk">
                     <div className="divCitySelect">
                         <label htmlFor="selectCity">City Name: </label>
                         <select id="selectCity">
@@ -328,27 +313,27 @@ class ComsCities extends React.Component {
                         <label htmlFor="inputAmt">Population: </label>
                         <input id="inputAmt" type="number"></input>
                         {/* <input id="inputAmt" type="number" value="0"></input> */}
-                        <button id="btnAddCity" type="button">Add New City</button>
-                        <button id="btnDelCity" type="button" onClick={this.btnDelCity}>Delete</button> 
-                        <button id="btnMovedIn" type="button" onClick={this.btnMovedIn}>Moved In</button>
-                        <button id="btnMovedOut" type="button" onClick={this.btnMovedOut}>Moved Out</button>
+                        <button id="btnAddCity" className="btncc" type="button">Add New City</button>
+                        <button id="btnDelCity" className="btncc" type="button" onClick={this.btnDelCity}>Delete</button> 
+                        <button id="btnMovedIn" className="btncc" type="button" onClick={this.btnMovedIn}>Moved In</button>
+                        <button id="btnMovedOut" className="btncc" type="button" onClick={this.btnMovedOut}>Moved Out</button>
                     </div>
                     <p id="messageArea" position="absolute">{this.state.msgArea}</p>
                 </div>
-                <div id="idAddCity" className="divAddCity">
+                <div id="idAddCity" className="divAddCity divCCBlk">
                     <label htmlFor="inputNewCity">Enter New City: </label>
                     <input id="inputNewCity" type="text"></input>
                     <label htmlFor="inputNewPop">Enter Population: </label>
                     <input id="inputNewPop" type="number"></input>
-                    <button id="btnCreateCity" type="button" onClick={this.btnAddCity}>Create</button><br></br>
+                    <button id="btnCreateCity" className="btncc" type="button" onClick={this.btnAddCity}>Create</button><br></br>
                     <label htmlFor="inputNewLat">Enter Latitude: </label>
                     <input id="inputNewLat" type="number"></input>
                     <label htmlFor="inputNewLong">Enter Longitude: </label>
                     <input id="inputNewLong" type="number"></input>
-                    <button id="btnCancelCity" type="button">Cancel</button>
+                    <button id="btnCancelCity" className="btncc" type="button">Cancel</button>
                 </div>
                 <div id="idCitys" className="divCommunity">
-                    <h4 id="h4Community" className="h4ComTitle">Community: NOT Entered Yet!!</h4>
+                    <h4 id="h4Community" className="h4ComTitle divCCBlk">Community: NOT Entered Yet!!</h4>
                     <div className="divCityList">
                         <section className="sectionCityList">
                             <h4>City</h4>
