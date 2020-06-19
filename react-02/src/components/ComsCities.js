@@ -76,6 +76,194 @@ class ComsCities extends React.Component {
 
     }
 
+    btnAddCity = async (e) => {
+            
+        //
+        // Add City.
+        //
+
+        let tmpMsg = "";
+
+        if (this.newCommunity != null) {
+            this.newCommunity = await c130d.createNewCity(this.newCommunity);
+
+            // console.log("Left deleteCity and community =");
+            // console.log(this.newCommunity);
+    
+            if (this.newCommunity.isMessage()) {
+                tmpMsg += this.newCommunity.getMessages();
+                this.newCommunity.resetMessage();
+            }
+
+            if (this.newCommunity.allLists.length === 0) {
+                this.setState({
+                    msgArea: tmpMsg,
+                });
+            }
+            else {
+                this.setState({
+                    msgArea: tmpMsg,
+                    liCityList: this.newCommunity.allLists[0],
+                    liLatList: this.newCommunity.allLists[1],
+                    liLongList: this.newCommunity.allLists[2],
+                    liPopList: this.newCommunity.allLists[3],
+                    liSizeList: this.newCommunity.allLists[4],
+                    liHemList: this.newCommunity.allLists[5],
+                    liMaxList: this.newCommunity.allLists[6],
+                    srcCityList: this.newCommunity.allLists[7],
+                });
+            }
+            
+        } else {
+            let tmpMsg = "Please first enter a name for your Community!";
+            this.setState({
+                msgArea: tmpMsg,
+            });            
+        }
+
+    };
+    
+    btnDelCity = async (e) => {
+            
+        //
+        // Delete City.
+        //
+
+        let tmpMsg = "";
+
+        if (this.newCommunity != null) {
+            this.newCommunity = await c130d.deleteCity(this.newCommunity);
+
+            console.log("Left deleteCity and community =");
+            console.log(this.newCommunity);
+    
+            if (this.newCommunity.isMessage()) {
+                tmpMsg += this.newCommunity.getMessages();
+                this.newCommunity.resetMessage();
+            }
+
+            if (this.newCommunity.allLists.length === 0) {
+                this.setState({
+                    msgArea: tmpMsg,
+                });
+            }
+            else {
+                this.setState({
+                    msgArea: tmpMsg,
+                    liCityList: this.newCommunity.allLists[0],
+                    liLatList: this.newCommunity.allLists[1],
+                    liLongList: this.newCommunity.allLists[2],
+                    liPopList: this.newCommunity.allLists[3],
+                    liSizeList: this.newCommunity.allLists[4],
+                    liHemList: this.newCommunity.allLists[5],
+                    liMaxList: this.newCommunity.allLists[6],
+                    srcCityList: this.newCommunity.allLists[7],
+                });
+            }
+            
+        } else {
+            let tmpMsg = "Please first enter a name for your Community!";
+            this.setState({
+                msgArea: tmpMsg,
+            });            
+        }
+
+    };
+
+    btnMovedIn = async (e) => {
+            
+        //
+        // Moved Into City.
+        //
+
+        let tmpMsg = "";
+
+        if (this.newCommunity != null) {
+            this.newCommunity = await c130d.actionMoved("IN", this.newCommunity);
+
+            // console.log("Left deleteCity and community =");
+            // console.log(this.newCommunity);
+    
+            if (this.newCommunity.isMessage()) {
+                tmpMsg += this.newCommunity.getMessages();
+                this.newCommunity.resetMessage();
+            }
+
+            if (this.newCommunity.allLists.length === 0) {
+                this.setState({
+                    msgArea: tmpMsg,
+                });
+            }
+            else {
+                this.setState({
+                    msgArea: tmpMsg,
+                    liCityList: this.newCommunity.allLists[0],
+                    liLatList: this.newCommunity.allLists[1],
+                    liLongList: this.newCommunity.allLists[2],
+                    liPopList: this.newCommunity.allLists[3],
+                    liSizeList: this.newCommunity.allLists[4],
+                    liHemList: this.newCommunity.allLists[5],
+                    liMaxList: this.newCommunity.allLists[6],
+                    srcCityList: this.newCommunity.allLists[7],
+                });
+            }
+            
+        } else {
+            let tmpMsg = "Please first enter a name for your Community!";
+            this.setState({
+                msgArea: tmpMsg,
+            });            
+        }
+
+    };
+
+    btnMovedOut = async (e) => {
+            
+        //
+        // Moved Out of City.
+        //
+
+        let tmpMsg = "";
+
+        if (this.newCommunity != null) {
+            this.newCommunity = await c130d.actionMoved("OUT", this.newCommunity);
+
+            // console.log("Left deleteCity and community =");
+            // console.log(this.newCommunity);
+    
+            if (this.newCommunity.isMessage()) {
+                tmpMsg += this.newCommunity.getMessages();
+                this.newCommunity.resetMessage();
+            }
+
+            if (this.newCommunity.allLists.length === 0) {
+                this.setState({
+                    msgArea: tmpMsg,
+                });
+            }
+            else {
+                this.setState({
+                    msgArea: tmpMsg,
+                    liCityList: this.newCommunity.allLists[0],
+                    liLatList: this.newCommunity.allLists[1],
+                    liLongList: this.newCommunity.allLists[2],
+                    liPopList: this.newCommunity.allLists[3],
+                    liSizeList: this.newCommunity.allLists[4],
+                    liHemList: this.newCommunity.allLists[5],
+                    liMaxList: this.newCommunity.allLists[6],
+                    srcCityList: this.newCommunity.allLists[7],
+                });
+            }
+            
+        } else {
+            let tmpMsg = "Please first enter a name for your Community!";
+            this.setState({
+                msgArea: tmpMsg,
+            });            
+        }
+
+    };
+
     // 
     // First: Confirm API is available.
     //
@@ -83,18 +271,13 @@ class ComsCities extends React.Component {
     async componentDidMount () {
 
         let tmpMsg = "";
-
-        let data = await c130d.confirmAPIConnect (c130d.url);
+        let data = await c130d.confirmAPIConnect(c130d.url);
 
         if (data.status === 200) {
-            tmpMsg = "The API is DEFINITELY available!";    
             this.newCommunity = await c130d.loadAPICommunity(c130d.url);
 
-            console.log("In componentDidMount newCommunity = ");
-            console.log(this.newCommunity);
-
             if (this.newCommunity.name !== "MessageOnly") {
-                // if (this.newCommunity.isMessage()) this.newCommunity.resetMessage();
+                if (this.newCommunity.isMessage()) this.newCommunity.resetMessage();
                 this.newCommunity.addMessage("Welcome to Communities and Cities!");
                 this.newCommunity.addMessage("Enjoy your experience and have a GREAT day.");
             }
@@ -146,9 +329,9 @@ class ComsCities extends React.Component {
                         <input id="inputAmt" type="number"></input>
                         {/* <input id="inputAmt" type="number" value="0"></input> */}
                         <button id="btnAddCity" type="button">Add New City</button>
-                        <button id="btnDelCity" type="button">Delete</button>
-                        <button id="btnMovedIn" type="button">Moved In</button>
-                        <button id="btnMovedOut" type="button">Moved Out</button>
+                        <button id="btnDelCity" type="button" onClick={this.btnDelCity}>Delete</button> 
+                        <button id="btnMovedIn" type="button" onClick={this.btnMovedIn}>Moved In</button>
+                        <button id="btnMovedOut" type="button" onClick={this.btnMovedOut}>Moved Out</button>
                     </div>
                     <p id="messageArea" position="absolute">{this.state.msgArea}</p>
                 </div>
@@ -157,7 +340,7 @@ class ComsCities extends React.Component {
                     <input id="inputNewCity" type="text"></input>
                     <label htmlFor="inputNewPop">Enter Population: </label>
                     <input id="inputNewPop" type="number"></input>
-                    <button id="btnCreateCity" type="button">Create</button><br></br>
+                    <button id="btnCreateCity" type="button" onClick={this.btnAddCity}>Create</button><br></br>
                     <label htmlFor="inputNewLat">Enter Latitude: </label>
                     <input id="inputNewLat" type="number"></input>
                     <label htmlFor="inputNewLong">Enter Longitude: </label>
@@ -170,42 +353,49 @@ class ComsCities extends React.Component {
                         <section className="sectionCityList">
                             <h4>City</h4>
                             <ul id="ulCityList">
-                            <li id="idSumTxt" className="liSum">Totals</li>
+                                {this.state.liCityList}
+                                <li id="idSumTxt" className="liSum">Totals</li>
                             </ul>
                         </section>
                         <aside className="asideLatList">
                             <h4>Latitude</h4>
                             <ul id="ulLatList">
+                                {this.state.liLatList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
                         <aside className="asideLongList">
                             <h4>Longitude</h4>
                             <ul id="ulLongList">
+                                {this.state.liLongList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
                         <aside className="asidePopList">
                             <h4>Population</h4>
                             <ul id="ulPopList">
+                                {this.state.liPopList}
                                 <li id="idSum" className="liSum">0</li>
                             </ul>
                         </aside>
                         <aside className="asideSizeList">
                             <h4>Size</h4>
                             <ul id="ulSizeList">
+                                {this.state.liSizeList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
                         <aside className="asideHemList">
                             <h4>N/S</h4>
                             <ul id="ulHemList">
+                                {this.state.liHemList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
                         <aside className="asideMaxList">
                             <h4>Max N/S</h4>
                             <ul id="ulMaxList">
+                                {this.state.liMaxList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>

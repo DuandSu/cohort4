@@ -51,14 +51,176 @@ const c130d = {
 
         }
     },
+    
+    createNewCity: async (community) => {
+
+        let newKey = 0
+        let allLists = [];
+
+        let data = await c130d.confirmAPIConnect (c130d.url);
+
+        if (data.status === 200) {
+
+            const inputAmt = Number(document.getElementById("inputAmt").value);
+            let inputNewPop = Number(document.getElementById("inputNewPop").value);
+            const inputNewCity = document.getElementById("inputNewCity").value.trim();
+            const inputNewLat = Number(document.getElementById("inputNewLat").value);
+            const inputNewLong = Number(document.getElementById("inputNewLong").value);
+            
+            if (inputNewCity === "") {
+
+                community.addMessage("Please input the new City name.");
+                // return newKey;
+
+            }
+            else if (inputNewLat === 0) {
+    
+                community.addMessage("Please input the Latitude.");
+                // return newKey;
+
+            }
+            else if (inputNewLong === 0) {
+    
+                community.addMessage("Please input the Longitude.");
+                // return newKey;
+
+            }
+            else {
+
+                // let nInputNewPop = Number(inputNewPop.value);
+                // let nInputAmt = Number(inputAmt.value);
+
+                if (inputNewPop === 0) {
+                    if (inputAmt != 0) {
+                        inputNewPop = inputAmt;
+                    }
+                }
+
+                let newCity = community.createCity(inputNewCity,  
+                    inputNewLat, inputNewLong, inputNewPop,);
+
+                data = await c130d.createAPICity(c130d.url, community.cityList[newCity[0]], community.cityList[0]);
+
+                allLists = c130d.refreshCityList(community);
+
+                // return newCity[1];
+            }
+        } else {
+            
+            community.addMessage("API is unavailable for Add. Please try again later!");
+        }
+    
+        community.allLists = allLists;
+
+        return community;
+    },
+
+    deleteCity: async (community) => {
+
+        let allLists = [];
+
+        let data = await c130d.confirmAPIConnect (c130d.url);
+
+        if (data.status === 200) {
+            
+            const srcValue = document.getElementById("selectCity").value;
+
+            if (srcValue === "srcSelect") {
+                community.addMessage("Please Select a City.");
+            }
+            else {
+                
+                const dKey = Number(srcValue.replace("srcCity", ""));
+                
+                const deleteOK = community.deleteCity(dKey);
+                
+                if (deleteOK) {
+                    
+                    let dAPIKey = {};
+                    dAPIKey.key = dKey;
+                    data = await c130d.deleteAPICity(c130d.url, dAPIKey);
+
+                    console.log("Calling refreshCityLists from deleteCity.");
+                    allLists = c130d.refreshCityList(community);
+                }
+
+                document.getElementById("selectCity").value = "srcSelect";
+                document.getElementById("inputAmt").value = "0";
+            }
+        } 
+        else {
+            community.addMessage("API is unavailable for Delete. Please try again later!");
+        }
+
+        console.log("In deleteCity and community =");
+        console.log(community);
+
+        community.allLists = allLists;
+
+        return community;
+    },
+
+    actionMoved: async (actionType, community) => {
+
+        let allLists = [];
+
+        let data = await c130d.confirmAPIConnect (c130d.url);
+
+        if (data.status === 200) {
+
+            const inputValue = document.getElementById("inputAmt").value;
+            const srcValue = document.getElementById("selectCity").value;
+            
+            if (srcValue === "srcSelect") {
+                community.addMessage("Please Select a City.");
+            }
+            else if (inputValue < 0) {
+                community.addMessage("You May Only Move a Positive Number of People.");
+            }
+            else if (inputValue < 1) {
+                community.addMessage("Please Input the Number of People Moving Which is NOT 0.");
+            }
+            else {
+                
+                const cityKey = Number(srcValue.replace("srcCity", ""));
+                if (actionType === "IN") {
+                    community.movedIntoCity(cityKey, Number(inputValue));
+                }
+                else if (actionType === "OUT") {
+                    community.movedOutOfCity(cityKey, Number(inputValue));
+                }
+
+                let cityIndex = community.findKeyIndex(cityKey);
+                data = await c130d.updateAPICity (c130d.url, community.cityList[cityIndex]);
+
+                // document.getElementById(`liPop${cityKey}`).textContent = `${community.getCityPopulation(cityKey).toLocaleString()}`;
+                // document.getElementById(`liSize${cityKey}`).textContent = `${community.getCityHowBig(cityKey)}`;
+                // idSum.textContent = `${community.getPopulation().toLocaleString()}`;
+
+                allLists = c130d.refreshCityList(community);
+
+                document.getElementById("selectCity").value = "srcSelect";
+                document.getElementById("inputAmt").value = "0";
+            }
+        } else {
+
+            community.addMessage("API is unavailable for Update. Please try again later!");
+        }
+
+        community.allLists = allLists;
+
+        return community;        
+    },
 
     refreshCityList: (community) => {
+        console.log("In refreshCityList.");
+        let allLists = [];
 
         //
         // First delete the existing list li and select elements.
         //
 
-        // c130d.deleteCityList();
+        allLists = c130d.deleteCityList();
 
         //
         // Create the new list li and select in city name sort order.
@@ -66,10 +228,10 @@ const c130d = {
 
         // createCityList returns [listName, listLat, listLong, listPop, listSize, listHem, listMax, listSrc]
 
-        const allLists = c130d.createCityList(community);
+        allLists = c130d.createCityList(community);
 
-        // selectCity.value = "srcSelect";
-        // inputAmt.value = "0";
+        document.getElementById("selectCity").value = "srcSelect";
+        document.getElementById("inputAmt").value = "0";
 
         return allLists;
 
@@ -80,70 +242,58 @@ const c130d = {
         let listItem = [];
 
         if (item === "srcCity") {
+            listItem = cityArr.map((eCity, i) => {
 
+                return (
+                    <option key={i} value={`${item}${eCity}`}>{`${community.getCityName(eCity)}`}</option>
+                );
+            });
+        }
+        else {
+
+            let northMaxKey = community.getMostNorthern();
+            let southMaxKey = community.getMostSouthern();
+
+            let itemAdd = null;
+            
             for (let i = 0; i < cityArr.length; i++) {
                 
-                // const itemAdd = document.createElement("OPTION");
-
-                // itemAdd.textContent = `${community.getCityName(cityArr[i])}`;
-                // itemAdd.setAttribute("value", `${item}${cityArr[i]}`);
+                let textContent = "";
+                if (item === "liCity") {
+                    textContent = community.getCityName(cityArr[i]);
+                } else if (item === "liLat") {
+                    textContent = community.getCityLatitude(cityArr[i]).toLocaleString('en-US', {minimumFractionDigits: 4});
+                } else if (item === "liLong") {
+                    textContent = community.getCityLongitude(cityArr[i]).toLocaleString('en-US', {minimumFractionDigits: 4});
+                } else if (item === "liPop") {
+                    textContent = community.getCityPopulation(cityArr[i]).toLocaleString();
+                } else if (item === "liSize") {
+                    textContent = community.getCityHowBig(cityArr[i]);
+                } else if (item === "liHem") {
+                    textContent = community.whichSphere(cityArr[i]);
+                } else if (item === "liMax") {
+                    
+                    if (cityArr[i] === northMaxKey && cityArr[i] === southMaxKey)
+                        textContent = "NS";
+                    else if (cityArr[i] === northMaxKey)
+                        textContent = "N";
+                    else if (cityArr[i] ===  southMaxKey)
+                        textContent = "S";
+                    else 
+                        textContent = ".";
+                }
                 
-                // const listNode = document.getElementById(`${list}`);
-                // listNode.appendChild(itemAdd);
-
-                listItem = cityArr.map((eCity, i) => {
-
-                    return (
-                        <option key={i} value={`${item}${eCity}`}>{`${community.getCityName(eCity)}`}</option>
-                    );
-                });
-                // addCnt ++;
+                let itemID =`${item}${cityArr[i]}`;
+                let itemClass = "";
+                if ((i+1) % 2 == 0) itemClass = "liEven";
+                else itemClass = "liOdd";
+                
+                listItem[i] = (<li id={itemID} className={itemClass} key={i}>{textContent}</li>);
+            }
+            if (item === "liPop") {
+                document.getElementById("idSum").textContent = community.getPopulation().toLocaleString();
             }
         }
-            // else {
-
-        //     let northMaxKey = community.getMostNorthern();
-        //     let southMaxKey = community.getMostSouthern();
-            
-        //     for (let i = 0; i < cityArr.length; i++) {
-                
-        //         const itemAdd = document.createElement("li");
-                
-        //         if (item === "liCity") {
-        //             itemAdd.textContent = community.getCityName(cityArr[i]);
-        //         } else if (item === "liLat") {
-        //             itemAdd.textContent = community.getCityLatitude(cityArr[i]).toLocaleString('en-US', {minimumFractionDigits: 4});
-        //         } else if (item === "liLong") {
-        //             itemAdd.textContent = community.getCityLongitude(cityArr[i]).toLocaleString('en-US', {minimumFractionDigits: 4});
-        //         } else if (item === "liPop") {
-        //             itemAdd.textContent = community.getCityPopulation(cityArr[i]).toLocaleString();
-        //         } else if (item === "liSize") {
-        //             itemAdd.textContent = community.getCityHowBig(cityArr[i]);
-        //         } else if (item === "liHem") {
-        //             itemAdd.textContent = community.whichSphere(cityArr[i]);
-        //         } else if (item === "liMax") {
-                    
-        //             if (cityArr[i] === northMaxKey && cityArr[i] === southMaxKey)
-        //                 itemAdd.textContent = "NS";
-        //             else if (cityArr[i] === northMaxKey)
-        //                 itemAdd.textContent = "N";
-        //             else if (cityArr[i] ===  southMaxKey)
-        //                 itemAdd.textContent = "S";
-        //             else 
-        //                 itemAdd.textContent = ".";
-        //         }
-                
-        //         itemAdd.setAttribute("id", `${item}${cityArr[i]}`);
-        //         if ((i+1) % 2 == 0) itemAdd.setAttribute("class", "liEven");
-        //         else itemAdd.setAttribute("class", "liOdd");
-                
-        //         const listNode = document.getElementById(`${list}`);
-        //         listNode.insertBefore(itemAdd, listNode.lastElementChild);
-                
-        //         addCnt ++;
-        //     }
-        //     if (item === "liPop") idSum.textContent = community.getPopulation().toLocaleString();
-        // }
         return listItem;
     },
 
@@ -174,23 +324,6 @@ const c130d = {
         let listMax = c130d.addItemToList("ulMaxList", "liMax", community, cityArr);
        
         let listSrc = c130d.addItemToList("selectCity", "srcCity", community, cityArr);
-            
-        //
-        // The same number of LI elements should have been deleted from each UL list
-        //
-
-        // let chkCnt = addNameCnt;
-        // if ((addNameCnt + addLatCnt + addLongCnt + addPopCnt + addSizeCnt + addHemCnt + addMaxCnt + addSrcCnt) / 8 === chkCnt) return chkCnt;
-        // else return -1;
-
-        // Until implemented set unused as dummy LI list.
-        listName = <option key="0" value="Name">Name</option>;
-        listLat = <option key="1" value="Lat">Lat</option>;
-        listLong = <option key="2" value="Long">Long</option>;
-        listPop = <option key="3" value="Pop">Pop</option>;
-        listSize = <option key="4" value="Size">Size</option>;
-        listHem = <option key="5" value="Hem">Hem</option>;
-        listMax = <option key="6" value="Max">Max</option>;
 
         return [listName, listLat, listLong, listPop, listSize, listHem, listMax, listSrc];
     },
@@ -199,97 +332,20 @@ const c130d = {
     // Delete all the LI elements from the UL list except for the last summary element.
     //
 
-    deleteItemFromList: (ulList) => {
-
-        // let maxLoop = ulList.children.length - 1;
-        // let delCnt = 0
-        
-        // for(let i = maxLoop; i > -1; i--) {
-
-        //     if (ulList.children[i].nodeName === "LI") {
-                
-        //         if (ulList.children[i].className !== "liSum") {
-        //         // if (ulList.children[i].id !== "idSumTxt") {
-                    
-        //             ulList.removeChild(document.getElementById(`${ulList.children[i].id}`));
-        //             delCnt++;
-                    
-        //         }
-        //     }
-        // }
-        // if (ulList === "liPop") idSum.textContent = "0";
-
-        // return delCnt;
-
-        return null; // REMOVE THIS LINE
-    },
-
     deleteCityList: () => {
 
-        // //
-        // // Delete the city list names.
-        // //
-        // let delNameCnt = c130d.deleteItemFromList(ulCityList);
-        
-        // //
-        // // Delete the Latitude list.
-        // //
-        
-        // let delLatCnt = c130d.deleteItemFromList(ulLatList);
-        
-        // //
-        // // Delete the Longitude list.
-        // //
-        
-        // let delLongCnt = c130d.deleteItemFromList(ulLongList);
-        
-        // //
-        // // Delete the Population list.
-        // //
-        
-        // let delPopCnt = c130d.deleteItemFromList(ulPopList);
-        
-        // //
-        // // Delete the City Size Category list.
-        // //
-        
-        // let delSizeCnt = c130d.deleteItemFromList(ulSizeList);
-        
-        // //
-        // // Delete the Hemisphere list.
-        // //
-        
-        // let delHemCnt = c130d.deleteItemFromList(ulHemList);
-        
-        // //
-        // // Delete the Max Northern Southern list.
-        // //
-        
-        // let delMaxCnt = c130d.deleteItemFromList(ulMaxList);
-        
-        // let maxLoop = selectCity.children.length - 1;
-        // let delSrcSelCnt = 0
-        
-        // for (let i = maxLoop; i > -1; i--) {
-            
-        //     if (selectCity.children[i].value !== "srcSelect" && 
-        //     selectCity.children[i].value !== "srcAddCity") {
-                
-        //         selectCity.removeChild(selectCity.children[i]);
-        //         delSrcSelCnt++;
-                
-        //     }
-        // }
-        
-        // //
-        // // The same number of LI elements should have been deleted from each UL list
-        // //
+        let listName = null;
+        let listLat = null;
+        let listLong = null;
+        let listPop = null;
+        let listSize = null;
+        let listHem = null;
+        let listMax = null;
+        let listSrc = null;
 
-        // let chkCnt = delNameCnt;
-        // if ((delNameCnt + delLatCnt + delLongCnt + delPopCnt + delSizeCnt + delHemCnt + delMaxCnt + delSrcSelCnt) / 8 === chkCnt) return chkCnt;
-        // else return -1;
+        document.getElementById("idSum").textContent = "0";
 
-        return null; // REMOVE THIS LINE!!
+        return [listName, listLat, listLong, listPop, listSize, listHem, listMax, listSrc];
 
     },
 
@@ -355,7 +411,6 @@ const c130d = {
                             newCom.cityList[0].name = data[i].name;
                             newCom.cityList[0].nextKey = data[i].nextKey;
                             document.getElementById("h4Community").textContent = "Community: " + data[i].name;
-                            // h4Community.textContent = "Community: " + ;
                         }
                     }
                     else {
@@ -370,7 +425,6 @@ const c130d = {
                 
                 // c130d.removedivAddCom();
                 
-                // return newCom;
             }
             else {
                 newCom.addMessage("There was no data to load from the API. "
@@ -380,6 +434,62 @@ const c130d = {
 
         newCom.allLists = allLists;
         return newCom;
+    },
+
+    createAPICity: async (url, city, ctrl) => {
+        
+        let data;
+
+        try {
+
+            data = await c130d.confirmAPIConnect (url);
+            
+            if (data.status === 200) {
+
+                data = await c920.postData(url + 'add', city);
+
+                if (data.status === 200) {
+
+                    let keyCtrl = {};
+                    keyCtrl.key = 0;
+                    keyCtrl.nextKey = ctrl.nextKey;
+                    keyCtrl.name = ctrl.name;
+
+                    data = await c920.postData(url + 'update', keyCtrl);
+                }
+                
+            }
+            
+        }
+        catch (err) {
+            data.status = err.name;
+            data.statusText = err.message;
+        }
+
+        return data;
+    },
+
+    deleteAPICity: async (url, city) => {
+        
+        let data;
+
+        try {
+
+            data = await c130d.confirmAPIConnect (url);
+            
+            if (data.status === 200) {
+                
+                let keyDel = {};
+                keyDel.key = city.key;
+                data = await c920.postData(url + 'delete', keyDel);
+            }
+        }
+        catch (err) {
+            data.status = err.name;
+            data.statusText = err.message;
+        }
+
+        return data;
     },
 
     createAPICommunity: async (url, community) => {
@@ -401,6 +511,34 @@ const c130d = {
             data.statusText = err.message;
         }
 
+        return data;
+    },
+
+    updateAPICity: async (url, city) => {
+        
+        let data;
+        
+        try {
+            
+            data = await c130d.confirmAPIConnect (url);
+            
+            if (data.status === 200) {
+                
+                let keyUpd = {};
+                keyUpd.key = city.key;
+                keyUpd.name = city.name;
+                keyUpd.latitude = city.latitude;
+                keyUpd.longitude = city.longitude;
+                keyUpd.population = city.population;
+                
+                data = await c920.postData(url + 'update', keyUpd);
+            }
+        }
+        catch (err) {
+            data.status = err.name;
+            data.statusText = err.message;
+        }
+        
         return data;
     },
 
