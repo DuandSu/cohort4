@@ -357,7 +357,7 @@ class ComsCities extends React.Component {
                     <button id="btnCreateCom" className="btncc" type="button" onClick={this.btnCreateCom}>Create</button>
                     <button id="btnCancelCom" className="btncc" type="button" onClick={this.btnCancelCom}>Cancel</button>
                 </div> */}
-                <div className="divComActions divCCBlk">onChselectCity
+                <div className="divComActions divCCBlk">
                     <div className="divCitySelect">
                         <label htmlFor="selectCity">City Name: </label>
                         <select id="selectCity" onChange={this.onChgselectCity}>
