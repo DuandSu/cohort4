@@ -78,6 +78,11 @@ class ComsCities extends React.Component {
         this.setDivBlock("AddCity");
     }
 
+    onChgselectCity = async (e) => {
+        if(document.getElementById("selectCity").value === "srcAddCity")
+            this.setDivBlock("AddCity");
+    }
+
     btnCreateCity = async (e) => {
             
         //
@@ -123,6 +128,7 @@ class ComsCities extends React.Component {
     };
 
     btnCancelCity = async (e) => {
+        document.getElementById("selectCity").value = "srcSelect";
         this.setDivBlock("ClrAddCity");
     }    
 
@@ -351,10 +357,10 @@ class ComsCities extends React.Component {
                     <button id="btnCreateCom" className="btncc" type="button" onClick={this.btnCreateCom}>Create</button>
                     <button id="btnCancelCom" className="btncc" type="button" onClick={this.btnCancelCom}>Cancel</button>
                 </div> */}
-                <div className="divComActions divCCBlk">
+                <div className="divComActions divCCBlk">onChselectCity
                     <div className="divCitySelect">
                         <label htmlFor="selectCity">City Name: </label>
-                        <select id="selectCity">
+                        <select id="selectCity" onChange={this.onChgselectCity}>
                             <option value="srcSelect">Select City</option>
                             <option value="srcAddCity">Add New City</option>
                             {this.state.srcCityList}
