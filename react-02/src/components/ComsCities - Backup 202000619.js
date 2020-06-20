@@ -12,7 +12,6 @@ class ComsCities extends React.Component {
         this.newCommunity = null;
         this.state = {
             msgArea: "",
-            divBlock: null,
             liCityList: null,
             liLatList: null,
             liLongList: null,
@@ -28,7 +27,7 @@ class ComsCities extends React.Component {
 
         let tmpMsg = "";
         
-        this.newCommunity = await c130d.createNewCommunity(this);
+        this.newCommunity = await c130d.createNewCommunity();
         // this.newCommunity = await c130d.createNewCommunity(this.displayMessage);
         
         if (this.newCommunity.isMessage()) {
@@ -36,8 +35,8 @@ class ComsCities extends React.Component {
             this.newCommunity.resetMessage();
         }
         // document.getElementById("h4Community").textContent = "Community: " + this.newCommunity.name;
-        // document.getElementById("inputNewCom").value = "";
-
+        document.getElementById("inputNewCom").value = "";
+        
         this.setState({
             msgArea: tmpMsg,
         });    
@@ -75,10 +74,6 @@ class ComsCities extends React.Component {
     }
 
     btnAddCity = async (e) => {
-        this.setDivBlock("AddCity");
-    }
-
-    btnCreateCity = async (e) => {
             
         //
         // Add City.
@@ -87,7 +82,7 @@ class ComsCities extends React.Component {
         let tmpMsg = "";
 
         if (this.newCommunity != null) {
-            this.newCommunity = await c130d.createNewCity(this.newCommunity, this);
+            this.newCommunity = await c130d.createNewCity(this.newCommunity);
     
             if (this.newCommunity.isMessage()) {
                 tmpMsg += this.newCommunity.getMessages();
@@ -121,11 +116,7 @@ class ComsCities extends React.Component {
         }
 
     };
-
-    btnCancelCity = async (e) => {
-        this.setDivBlock("ClrAddCity");
-    }    
-
+    
     btnDelCity = async (e) => {
             
         //
@@ -258,48 +249,6 @@ class ComsCities extends React.Component {
 
     };
 
-    setDivBlock = (setDvBlkFlg) => {
-
-        console.log("In setDivBlock and flag = " + setDvBlkFlg);
-        if (setDvBlkFlg  === "SetCommunity") {
-            this.setState({
-                divBlock: (
-                    <div id="idAddCom" className="divAddCom divCCBlk">
-                        <label htmlFor="inputNewCom">Enter Name of Community: </label>
-                        <input id="inputNewCom" type="text"></input>
-                        <button id="btnCreateCom" className="btncc" type="button" onClick={this.btnCreateCom}>Create</button>
-                        <button id="btnCancelCom" className="btncc" type="button" onClick={this.btnCancelCom}>Cancel</button>
-                    </div>
-                ),
-            }); 
-        }
-        else if (setDvBlkFlg  === "AddCity") {
-            this.setState({
-                divBlock: (
-                    <div id="idAddCity" className="divAddCity divCCBlk">
-                        <label htmlFor="inputNewCity">Enter New City: </label>
-                        <input id="inputNewCity" type="text"></input>
-                        <label htmlFor="inputNewPop">Enter Population: </label>
-                        <input id="inputNewPop" type="number"></input>
-                        <button id="btnCreateCity" className="btncc" type="button" onClick={this.btnCreateCity}>Create</button><br></br>
-                        <label htmlFor="inputNewLat">Enter Latitude: </label>
-                        <input id="inputNewLat" type="number"></input>
-                        <label htmlFor="inputNewLong">Enter Longitude: </label>
-                        <input id="inputNewLong" type="number"></input>
-                        <button id="btnCancelCity" className="btncc" type="button" onClick={this.btnCancelCity}>Cancel</button>
-                     </div>
-                ),
-            });
-        }
-        else if (setDvBlkFlg  === "ClrAddCity" || setDvBlkFlg  === "ClrSetCommunity") {
-            this.setState({
-                divBlock: (
-                    <div></div>
-                ),
-            });
-        }
-    }
-    
     // 
     // First: Confirm API is available.
     //
@@ -310,7 +259,7 @@ class ComsCities extends React.Component {
         let data = await c130d.confirmAPIConnect(c130d.url);
 
         if (data.status === 200) {
-            this.newCommunity = await c130d.loadAPICommunity(c130d.url, this);
+            this.newCommunity = await c130d.loadAPICommunity(c130d.url);
 
             if (this.newCommunity.name !== "MessageOnly") {
                 if (this.newCommunity.isMessage()) this.newCommunity.resetMessage();
@@ -345,12 +294,12 @@ class ComsCities extends React.Component {
         return (
             <section className ="sectionMain" onClick={this.secMain}>
                 <h1>Welcome to the Community and City</h1>
-                {/* <div id="idAddCom" className="divAddCom divCCBlk">
+                <div id="idAddCom" className="divAddCom divCCBlk">
                     <label htmlFor="inputNewCom">Enter Name of Community: </label>
                     <input id="inputNewCom" type="text"></input>
                     <button id="btnCreateCom" className="btncc" type="button" onClick={this.btnCreateCom}>Create</button>
                     <button id="btnCancelCom" className="btncc" type="button" onClick={this.btnCancelCom}>Cancel</button>
-                </div> */}
+                </div>
                 <div className="divComActions divCCBlk">
                     <div className="divCitySelect">
                         <label htmlFor="selectCity">City Name: </label>
@@ -364,14 +313,14 @@ class ComsCities extends React.Component {
                         <label htmlFor="inputAmt">Population: </label>
                         <input id="inputAmt" type="number"></input>
                         {/* <input id="inputAmt" type="number" value="0"></input> */}
-                        <button id="btnAddCity" className="btncc" type="button" onClick={this.btnAddCity}>Add New City</button>
+                        <button id="btnAddCity" className="btncc" type="button">Add New City</button>
                         <button id="btnDelCity" className="btncc" type="button" onClick={this.btnDelCity}>Delete</button> 
                         <button id="btnMovedIn" className="btncc" type="button" onClick={this.btnMovedIn}>Moved In</button>
                         <button id="btnMovedOut" className="btncc" type="button" onClick={this.btnMovedOut}>Moved Out</button>
                     </div>
                     <p id="messageArea" position="absolute">{this.state.msgArea}</p>
                 </div>
-                {/* <div id="idAddCity" className="divAddCity divCCBlk">
+                <div id="idAddCity" className="divAddCity divCCBlk">
                     <label htmlFor="inputNewCity">Enter New City: </label>
                     <input id="inputNewCity" type="text"></input>
                     <label htmlFor="inputNewPop">Enter Population: </label>
@@ -382,8 +331,7 @@ class ComsCities extends React.Component {
                     <label htmlFor="inputNewLong">Enter Longitude: </label>
                     <input id="inputNewLong" type="number"></input>
                     <button id="btnCancelCity" className="btncc" type="button">Cancel</button>
-                </div> */}
-                <div>{this.state.divBlock}</div>
+                </div>
                 <div id="idCitys" className="divCommunity">
                     <h4 id="h4Community" className="h4ComTitle divCCBlk">Community: NOT Entered Yet!!</h4>
                     <div className="divCityList">

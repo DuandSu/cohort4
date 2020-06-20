@@ -68,7 +68,8 @@ ul {
     height: 800px;
     /* height: auto; */
     margin: 15;
-    background-color: rgba(0, 128, 128, 0.388235294117647);
+    /* background-color: rgba(0, 128, 128, 0.388235294117647); */
+    background-color: rgba(0, 128, 128);
     box-sizing: border-box;
     border-width: 5px;
     border-style: solid;

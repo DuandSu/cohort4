@@ -9,7 +9,7 @@ const c130d = {
 
     url: 'http://localhost:5000/',
 
-    createNewCommunity: async () => {
+    createNewCommunity: async (comCities) => {
     // createNewCommunity: async (displayMessage) => {
 
         let newCom = new community.Community ("MessageOnly");
@@ -37,7 +37,8 @@ const c130d = {
                 newCom.addMessage("Community " + tmpInput.trim() + " has been created.");
                 
                 // c130d.removedivAddCom();
-
+                comCities.setDivBlock("ClrSetCommunity");
+                
                 return newCom;
             }
         } else {
@@ -48,7 +49,7 @@ const c130d = {
         }
     },
     
-    createNewCity: async (community) => {
+    createNewCity: async (community, comCities) => {
 
         let newKey = 0
         let allLists = [];
@@ -98,6 +99,8 @@ const c130d = {
                 data = await c130d.createAPICity(c130d.url, community.cityList[newCity[0]], community.cityList[0]);
 
                 allLists = c130d.refreshCityList(community);
+
+                comCities.setDivBlock("ClrAddCity");
 
                 // return newCity[1];
             }
@@ -376,7 +379,7 @@ const c130d = {
         return data;
     },
     
-    loadAPICommunity: async (url) => {
+    loadAPICommunity: async (url, comCities) => {
 
         let newCom = new community.Community ("MessageOnly");
         let allLists = [];
@@ -416,11 +419,13 @@ const c130d = {
                 newCom.addMessage("Community Loaded!");
                 
                 // c130d.removedivAddCom();
-                
+                comCities.setDivBlock("ClrSetCommunity");                
             }
             else {
                 newCom.addMessage("There was no data to load from the API. "
                 + "Please enter the name of your new Community.");
+
+                comCities.setDivBlock("SetCommunity");
             }
         }
 
