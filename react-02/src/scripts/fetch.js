@@ -95,6 +95,7 @@ const c920 = {
 
     async postData(url = '', data = {}) {
         // Default options are marked with *
+
         try {
 
             const response = await fetch(url, {
@@ -110,7 +111,7 @@ const c920 = {
                 referrer: 'no-referrer',    // no-referrer, *client
                 body: JSON.stringify(data)  // body data type must match "Content-Type" header
             });
-                    
+
             const json = await response.json();    // parses JSON response into native JavaScript objects
             json.status = response.status;
             json.statusText = response.statusText;
@@ -122,7 +123,7 @@ const c920 = {
             const catchErr = {};
             catchErr.status = err.name;
             catchErr.statusText = err.message;
-            
+
             return catchErr;
 
         }

@@ -29,7 +29,6 @@ class ComsCities extends React.Component {
         let tmpMsg = "";
         
         this.newCommunity = await c130d.createNewCommunity(this);
-        // this.newCommunity = await c130d.createNewCommunity(this.displayMessage);
         
         if (this.newCommunity.isMessage()) {
             tmpMsg += this.newCommunity.getMessages();
@@ -62,15 +61,6 @@ class ComsCities extends React.Component {
                 msgArea: tmpMsg,
             });
         }
-
-    }
-
-    displayMessage (msg) {
-
-        let tmpMsg = msg;
-        this.setState({
-            msgArea: tmpMsg,
-        });  
 
     }
 
@@ -264,6 +254,15 @@ class ComsCities extends React.Component {
 
     };
 
+    displayMessage = (msg) => {
+
+        let tmpMsg = msg;
+        this.setState({
+            msgArea: tmpMsg,
+        });  
+
+    }
+
     setDivBlock = (setDvBlkFlg) => {
 
         console.log("In setDivBlock and flag = " + setDvBlkFlg);
@@ -314,7 +313,7 @@ class ComsCities extends React.Component {
 
         let tmpMsg = "";
         let data = await c130d.confirmAPIConnect(c130d.url);
-
+        console.log(data);
         if (data.status === 200) {
             this.newCommunity = await c130d.loadAPICommunity(c130d.url, this);
 
@@ -329,21 +328,25 @@ class ComsCities extends React.Component {
                 this.newCommunity.resetMessage();
             }
 
+            this.setState({
+                msgArea: tmpMsg,
+                liCityList: this.newCommunity.allLists[0],
+                liLatList: this.newCommunity.allLists[1],
+                liLongList: this.newCommunity.allLists[2],
+                liPopList: this.newCommunity.allLists[3],
+                liSizeList: this.newCommunity.allLists[4],
+                liHemList: this.newCommunity.allLists[5],
+                liMaxList: this.newCommunity.allLists[6],
+                srcCityList: this.newCommunity.allLists[7],
+            });
+
         } else {
             tmpMsg = "The API is NOT available. Close browser and try again later!";    
-        }
 
-        this.setState({
-            msgArea: tmpMsg,
-            liCityList: this.newCommunity.allLists[0],
-            liLatList: this.newCommunity.allLists[1],
-            liLongList: this.newCommunity.allLists[2],
-            liPopList: this.newCommunity.allLists[3],
-            liSizeList: this.newCommunity.allLists[4],
-            liHemList: this.newCommunity.allLists[5],
-            liMaxList: this.newCommunity.allLists[6],
-            srcCityList: this.newCommunity.allLists[7],
-        });
+            this.setState({
+                msgArea: tmpMsg,
+            });        
+        }
     }
 
     render() {

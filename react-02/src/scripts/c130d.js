@@ -10,7 +10,6 @@ const c130d = {
     url: 'http://localhost:5000/',
 
     createNewCommunity: async (comCities) => {
-    // createNewCommunity: async (displayMessage) => {
 
         let newCom = new community.Community ("MessageOnly");
 
@@ -24,7 +23,7 @@ const c130d = {
 
                 newCom.addMessage("Please input the new Community name.");
 
-                return newCom;
+                // return newCom;
 
             }
             else {
@@ -39,14 +38,16 @@ const c130d = {
                 // c130d.removedivAddCom();
                 comCities.setDivBlock("ClrSetCommunity");
                 
-                return newCom;
+                // return newCom;
             }
         } else {
 
-            // displayMessage.bind(this)("API is unavailable for Create Community. Please try again later!");
+            // comCities.displayMessage("API is unavailable for Create Community. Please try again later!");
+            // newCom.addMessage("!");
             newCom.addMessage("API is unavailable for Create Community. Please try again later!");
 
         }
+        return newCom;
     },
     
     createNewCity: async (community, comCities) => {
@@ -354,7 +355,7 @@ const c130d = {
         try {
             
             data = await c920.postData(url + 'all');
-            
+
             if (data.status === 200 && data.length > 0) {
                 
                 //
