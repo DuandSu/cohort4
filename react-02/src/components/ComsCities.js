@@ -4,6 +4,8 @@ import './ComsCities.css';
 import community from '../scripts/community.js';
 import c130d from '../scripts/c130d.js';
 import c920 from '../scripts/fetch.js';
+import SetCommunity from './SetCommunity';
+import AddCity from './AddCity';
 
 class ComsCities extends React.Component {
 
@@ -269,30 +271,42 @@ class ComsCities extends React.Component {
         if (setDvBlkFlg  === "SetCommunity") {
             this.setState({
                 divBlock: (
-                    <div id="idAddCom" className="divAddCom divCCBlk">
-                        <label htmlFor="inputNewCom">Enter Name of Community: </label>
-                        <input id="inputNewCom" type="text"></input>
-                        <button id="btnCreateCom" className="btncc" type="button" onClick={this.btnCreateCom}>Create</button>
-                        <button id="btnCancelCom" className="btncc" type="button" onClick={this.btnCancelCom}>Cancel</button>
-                    </div>
+
+                    <SetCommunity 
+                        onclkCreateCom={() => this.btnCreateCom()}
+                        onclkCancelCom={() => this.btnCancelCom()}
+                    />
+          
+                    // <div id="idAddCom" className="divAddCom divCCBlk">
+                    //     <label htmlFor="inputNewCom">Enter Name of Community: </label>
+                    //     <input id="inputNewCom" type="text"></input>
+                    //     <button id="btnCreateCom" className="btncc" type="button" onClick={this.btnCreateCom}>Create</button>
+                    //     <button id="btnCancelCom" className="btncc" type="button" onClick={this.btnCancelCom}>Cancel</button>
+                    // </div>
                 ),
             }); 
         }
         else if (setDvBlkFlg  === "AddCity") {
             this.setState({
                 divBlock: (
-                    <div id="idAddCity" className="divAddCity divCCBlk">
-                        <label htmlFor="inputNewCity">Enter New City: </label>
-                        <input id="inputNewCity" type="text"></input>
-                        <label htmlFor="inputNewPop">Enter Population: </label>
-                        <input id="inputNewPop" type="number"></input>
-                        <button id="btnCreateCity" className="btncc" type="button" onClick={this.btnCreateCity}>Create</button><br></br>
-                        <label htmlFor="inputNewLat">Enter Latitude: </label>
-                        <input id="inputNewLat" type="number"></input>
-                        <label htmlFor="inputNewLong">Enter Longitude: </label>
-                        <input id="inputNewLong" type="number"></input>
-                        <button id="btnCancelCity" className="btncc" type="button" onClick={this.btnCancelCity}>Cancel</button>
-                     </div>
+
+                    <AddCity 
+                        onclkCreateCity={() => this.btnCreateCity()}
+                        onclkCancelCity={() => this.btnCancelCity()}
+                    />
+
+                    // <div id="idAddCity" className="divAddCity divCCBlk">
+                    //     <label htmlFor="inputNewCity">Enter New City: </label>
+                    //     <input id="inputNewCity" type="text"></input>
+                    //     <label htmlFor="inputNewPop">Enter Population: </label>
+                    //     <input id="inputNewPop" type="number"></input>
+                    //     <button id="btnCreateCity" className="btncc" type="button" onClick={this.btnCreateCity}>Create</button><br></br>
+                    //     <label htmlFor="inputNewLat">Enter Latitude: </label>
+                    //     <input id="inputNewLat" type="number"></input>
+                    //     <label htmlFor="inputNewLong">Enter Longitude: </label>
+                    //     <input id="inputNewLong" type="number"></input>
+                    //     <button id="btnCancelCity" className="btncc" type="button" onClick={this.btnCancelCity}>Cancel</button>
+                    //  </div>
                 ),
             });
         }
