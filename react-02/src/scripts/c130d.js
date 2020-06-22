@@ -35,7 +35,6 @@ const c130d = {
                 document.getElementById("h4Community").textContent = "Community: " + newCom.name;
                 newCom.addMessage("Community " + tmpInput.trim() + " has been created.");
                 
-                // c130d.removedivAddCom();
                 comCities.setDivBlock("ClrSetCommunity");
                 
                 // return newCom;
@@ -68,25 +67,19 @@ const c130d = {
             if (inputNewCity === "") {
 
                 community.addMessage("Please input the new City name.");
-                // return newKey;
 
             }
             else if (inputNewLat === 0) {
     
                 community.addMessage("Please input the Latitude.");
-                // return newKey;
 
             }
             else if (inputNewLong === 0) {
     
                 community.addMessage("Please input the Longitude.");
-                // return newKey;
 
             }
             else {
-
-                // let nInputNewPop = Number(inputNewPop.value);
-                // let nInputAmt = Number(inputAmt.value);
 
                 if (inputNewPop === 0) {
                     if (inputAmt != 0) {
@@ -103,7 +96,6 @@ const c130d = {
 
                 comCities.setDivBlock("ClrAddCity");
 
-                // return newCity[1];
             }
         } else {
             
@@ -188,10 +180,6 @@ const c130d = {
 
                 let cityIndex = community.findKeyIndex(cityKey);
                 data = await c130d.updateAPICity (c130d.url, community.cityList[cityIndex]);
-
-                // document.getElementById(`liPop${cityKey}`).textContent = `${community.getCityPopulation(cityKey).toLocaleString()}`;
-                // document.getElementById(`liSize${cityKey}`).textContent = `${community.getCityHowBig(cityKey)}`;
-                // idSum.textContent = `${community.getPopulation().toLocaleString()}`;
 
                 allLists = c130d.refreshCityList(community);
 

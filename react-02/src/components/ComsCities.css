@@ -10,7 +10,8 @@ h1 {
     margin-right: 0;
     font-weight: bold;
     font-style: italic;
-    color: rgb(111, 155, 46);
+    /* color: rgb(111, 155, 46); */
+    color: #a9c2c0;
 }
 
 h4 {
@@ -68,8 +69,8 @@ ul {
     height: 800px;
     /* height: auto; */
     margin: 15;
-    /* background-color: rgba(0, 128, 128, 0.388235294117647); */
-    background-color: rgba(0, 128, 128);
+    background-color: rgba(0, 128, 128, 0.388235294117647);
+    /* background-color: rgba(0, 128, 128); */
     box-sizing: border-box;
     border-width: 5px;
     border-style: solid;
@@ -93,7 +94,8 @@ ul {
     border-color: rgba(0, 0, 0, 1);
     margin: 15px;
     padding: 10px;
-    background-color: rgb(185, 233, 230);
+    background-color: #a9c2c0;
+    /* background-color: rgb(185, 233, 230); */
     /* visibility: visible; */
 }
 
@@ -156,7 +158,8 @@ ul {
 
 h4 {
     /* background-color: rgb(178, 236, 233); */
-    background-color: rgb(185, 233, 230);
+    background-color: #a9c2c0;
+    /* background-color: rgb(185, 233, 230); */
     /* background-color: rgb(223, 245, 244); */
  }
 
