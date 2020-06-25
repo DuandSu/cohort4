@@ -17,13 +17,13 @@
 
 .App-svg1:hover {
   height: 24vmin;
-  margin: 32px;
+  margin: 26px;
   border: 10px solid;
 }
 
 .App-svg1:active {
   height: 24vmin;
-  margin: 22px;
+  margin: 16px;
   border: 20px solid red;
 }
 
@@ -43,13 +43,13 @@
   
   .App-svg2:hover {
   height: 24vmin;
-  margin: 32px;
+  margin: 27px;
   border: 10px solid;
 }
 
 .App-svg2:active {
   height: 24vmin;
-  margin: 22px;
+  margin: 17px;
   border: 20px solid red;
 }
 
@@ -70,13 +70,13 @@
 
 .App-svg3:hover {
   height: 24vmin;
-  margin: 32px;
+  margin: 29px;
   border: 10px solid;
 }
 
 .App-svg3:active {
   height: 24vmin;
-  margin: 22px;
+  margin: 19px;
   border: 20px solid red;
 }
 
@@ -97,13 +97,13 @@
 
 .App-svg4:hover {
   height: 24vmin;
-  margin: 32px;
+  margin: 27px;
   border: 10px solid;
 }
 
 .App-svg4:active {
   height: 24vmin;
-  margin: 22px;
+  margin: 17px;
   border: 20px solid red;
 }
 
@@ -124,13 +124,13 @@
 
 .App-svg5:hover {
   height: 24vmin;
-  margin: 32px;
+  margin: 23px;
   border: 10px solid;
 }
 
 .App-svg5:active {
   height: 24vmin;
-  margin: 22px;
+  margin: 14px;
   border: 20px solid red;
 }
 
@@ -151,19 +151,52 @@
 
 .App-svg6:hover {
   height: 24vmin;
-  margin: 32px;
+  margin: 29px;
   border: 10px solid;
 }
 
 .App-svg6:active {
   height: 24vmin;
-  margin: 22px;
+  margin: 19px;
   border: 20px solid red;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-svg6 {
     animation: App-logo-spin-counterCW infinite 20s linear, back2red alternate infinite 20s linear;
+  }
+}
+
+.App-svg7 {
+  color: rgb(119, 150, 77);
+  height: 4vmin;
+  margin: 50px;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-radius: 100%;
+  padding: 10px;
+  padding-top: 28px;
+  border: 5px solid;
+}
+
+.App-svg7:hover {
+  height: 6vmin;
+  margin: 50px;
+  padding: 10px;
+  padding-top: 40px;
+}
+
+.App-svg7:active {
+  height: 6vmin;
+  margin: 35px;
+  padding: 10px;
+  padding-top: 40px;
+  border: 20px solid red;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-svg7 {
+    animation: App-logo-spin-CW infinite 20s linear, back2white alternate infinite 20s linear;
   }
 }
 

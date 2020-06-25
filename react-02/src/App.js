@@ -17,6 +17,7 @@ import React, { useState } from 'react';
 import Starter from './components/Starter';
 import TicTacToe from './components/TicTacToe';
 import ComsCities from './components/ComsCities';
+import Clock from './components/Clock';
 
 import './App.css';
 
@@ -35,7 +36,8 @@ function App() {
   const onPushMe = (e) => {
 
     const tmpAppKey = e.target.getAttribute("ikey");
-
+    console.log("tmpAppKey = " + tmpAppKey);
+    console.log(e.target);
     setMessage(`Call Application ${tmpAppKey}`);
     setAppKey(tmpAppKey);
 
@@ -77,6 +79,11 @@ function App() {
             <div>
               <img src={spockHI} className="App-svg6" alt="spockHI" ikey="6" onClick={onPushMe} />
             </div>
+              <Clock
+                cClass={"App-svg7"}
+                cKey={"7"} 
+                cOnPushMe={onPushMe}
+              />
         </div>
         <div className="AppArea">
             <div>
