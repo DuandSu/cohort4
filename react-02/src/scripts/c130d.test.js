@@ -2,7 +2,11 @@
 // This test contains both competencies 130d and 130e.
 //
 
+import React from "react";
+import { fireEvent, render, screen, act } from '@testing-library/react';
+
 import community from './community.js';
+import ComsCities from '../components/ComsCities.js';
 import c130d from './c130d.js'
 
 global.fetch = require('node-fetch'); // Was Larry's solution vs the isomorphic-fetch solution that I found.
@@ -25,6 +29,15 @@ test('130d: Testing the TDD Pipes', () => {
     consoleLog[consoleLine++] = "Testing the TDD pipes";
     expect(consoleLog[0]).toBe("Testing the TDD pipes");
     
+});
+
+
+test('130d: Learn', () => {
+    
+    render(<ComsCities sMessageArea={"Call Application comscities"} key={4}/>);
+
+    screen.getByText(/Welcome to the Community and City/);
+
 });
 
 test('130d: Play Area with Roman Logic', () => {
@@ -404,6 +417,7 @@ test('130d: Async ASP loadAPICommunity and createNewCommunity with No API data',
     done();
 });
 
+
 test('130d: Async ASP loadAPICommunity', async (done) => {
 
     document.body.innerHTML =
@@ -504,7 +518,7 @@ test('130d: Async ASP loadAPICommunity', async (done) => {
     data = await c130d.createAPICity (c130d.url, canada.cityList[3], canada.cityList[0]);
     expect(data.status).toBe(200);
 
-    let newCommunity = await c130d.loadAPICommunity(c130d.url);
+    let newCommunity = await c130d.loadAPICommunity(c130d.url,this);
 
     expect(messageArea.textContent).toBe("Loading Community and Cities ....... DONE");
     expect(newCommunity.name).toBe("Canada");
@@ -1930,3 +1944,21 @@ test('130e: Async Test Object Reference', async (done) => {
 
     done();
 });
+
+
+/*
+    utility functions to save tons of code
+*/
+function getValue(name) {
+    return document.querySelector(`[name=${name}]`).value;
+}
+
+function updateValue(name, value) {
+    document.querySelector(`[name=${name}]`).value = value;
+}
+
+function click (txt) {
+    fireEvent.click(
+        screen.getByText(txt)
+    );
+}
