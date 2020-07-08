@@ -12,7 +12,7 @@ test('renders learn react link', () => {
   let tempText = "Edit src/App.js and save to reload.";
   screen.getByText(/Edit src/);
 
-  fireEvent.click(document.getElementsByClassName("App-svg1"));
-  expect(onPushMe.mock.calls.length).toBe(1);
+  // fireEvent.click(document.getElementsByClassName("App-svg1"));
+  // expect(onPushMe.mock.calls.length).toBe(1);
   // `${linkElement}`
 });

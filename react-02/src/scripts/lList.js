@@ -3,8 +3,7 @@
 //
 // Changes to consider before attempting presentation in React JS:
 //
-//  1. Add method to "insertBefore". Otherwise can't append to the front of the list.
-//  2. Make head simply a reference to null, rather than having a control headNode "llHead" node
+//  1. Make head simply a reference to null, rather than having a control headNode "llHead" node
 //      as the head. headNode is not really necessary since have controller class. Though
 //      NOT hurting anything. Presentation logic won't be affected. Probably OK to leave for now.
 //
@@ -57,6 +56,28 @@ class LinkedList {
         if (this.current.nextPtr !== null) this.current.nextPtr.prevPtr = newNode;
         this.current.nextPtr = newNode;
 
+        this.current = newNode;
+
+        if (this.current.nextPtr === null) this.tail = newNode;
+
+        return this.current;
+
+    }
+
+    insertBefore(subject, amount) {
+
+        const newNode = new Node (subject, amount, 
+            this.current.prevPtr === null ? this.head : this.current.prevPtr,
+            this.current === this.head ? null : this.current);
+
+        if (this.current.prevPtr === null) {
+            this.current.nextPtr = newNode;
+        }
+        else {
+            this.current.prevPtr.nextPtr = newNode;
+            this.current.prevPtr = newNode;
+        }
+        
         this.current = newNode;
 
         if (this.current.nextPtr === null) this.tail = newNode;

@@ -36,8 +36,6 @@ function App() {
   const onPushMe = (e) => {
 
     const tmpAppKey = e.target.getAttribute("ikey");
-    console.log("tmpAppKey = " + tmpAppKey);
-    console.log(e.target);
     setMessage(`Call Application ${tmpAppKey}`);
     setAppKey(tmpAppKey);
 

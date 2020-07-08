@@ -69,7 +69,7 @@ const c920 = {
         } catch (err) {
             // console.log('DWM Error:', err);
             throw (err);
-            return err;
+            // return err;
         }
         return data;
     },

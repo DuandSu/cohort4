@@ -2,11 +2,8 @@
 // This test contains both competencies 130d and 130e.
 //
 
-import React from "react";
-import { fireEvent, render, screen, act } from '@testing-library/react';
-
+import React from 'react';
 import community from './community.js';
-import ComsCities from '../components/ComsCities.js';
 import c130d from './c130d.js'
 
 global.fetch = require('node-fetch'); // Was Larry's solution vs the isomorphic-fetch solution that I found.
@@ -29,15 +26,6 @@ test('130d: Testing the TDD Pipes', () => {
     consoleLog[consoleLine++] = "Testing the TDD pipes";
     expect(consoleLog[0]).toBe("Testing the TDD pipes");
     
-});
-
-
-test('130d: Learn', () => {
-    
-    render(<ComsCities sMessageArea={"Call Application comscities"} key={4}/>);
-
-    screen.getByText(/Welcome to the Community and City/);
-
 });
 
 test('130d: Play Area with Roman Logic', () => {
@@ -377,6 +365,7 @@ test('130d: Async ASP loadAPICommunity and createNewCommunity with No API data',
             '<h4 id="h4Community" class="h4ComTitle">Community: NOT Entered Yet!!</h4>' +
         '</div>';
 
+        const testClass = new TestDummy;
     //
     // Test scenario of no data on API server.
     //
@@ -384,22 +373,29 @@ test('130d: Async ASP loadAPICommunity and createNewCommunity with No API data',
     let data = await c920.postData(url + "clear");
     expect(data.status).toBe(200);
 
-    data = await c130d.loadAPICommunity(c130d.url);
+    data = await c130d.loadAPICommunity(c130d.url, testClass.displayMessage);
 
-    expect(data).toBe(0);
-    expect(messageArea.textContent).toBe("There was no data to load from the API. "
+    expect(data.allLists).toEqual([]);
+    expect(data.cityList[0].name).toBe("MessageOnly");
+    expect(data.msgQueue[0]).toBe("There was no data to load from the API. "
         + "Please enter the name of your new Community.");
 
-    expect(document.getElementById("idAddCom")).not.toBeNull();
+    //
+    //  This is now rendered from ComCities component, NOT the JS code.
+    //    
+    // expect(document.getElementById("idAddCom")).not.toBeNull();
     
     inputNewCom.value = "";
     
     data = await c130d.createNewCommunity();
     
-    expect(data).toBe(0);
-    expect(messageArea.textContent).toBe("Please input the new Community name.");
-    
-    expect(document.getElementById("idAddCom")).not.toBeNull();
+    expect(data.cityList[0].name).toBe("MessageOnly");
+    expect(data.msgQueue[0]).toBe("Please input the new Community name.");
+        
+    //
+    //  This is now rendered from ComCities component, NOT the JS code.
+    //  
+    // expect(document.getElementById("idAddCom")).not.toBeNull();
     
     inputNewCom.value = "North America";
     
@@ -409,14 +405,15 @@ test('130d: Async ASP loadAPICommunity and createNewCommunity with No API data',
     expect(newCom.cityList[0].name).toBe("North America");
     expect(newCom.cityList[0].key).toBe(0);
     expect(newCom.cityList[0].nextKey).toBe(1);
-    expect(messageArea.textContent).toBe("Community North America has been created.");
+
+    expect(newCom.msgQueue[0]).toBe("Community North America has been created.");
+
     expect(h4Community.textContent).toBe("Community: North America");
     
-    expect(document.getElementById("idAddCom")).toBeNull();
+    // expect(document.getElementById("idAddCom")).toBeNull();
     
     done();
 });
-
 
 test('130d: Async ASP loadAPICommunity', async (done) => {
 
@@ -492,6 +489,8 @@ test('130d: Async ASP loadAPICommunity', async (done) => {
             '</div>' +
         '</div>' +
     '</section>';
+
+    const testClass = new TestDummy;
     
     //
     // Test scenario of data existing on the server. First clear the API, then
@@ -518,9 +517,14 @@ test('130d: Async ASP loadAPICommunity', async (done) => {
     data = await c130d.createAPICity (c130d.url, canada.cityList[3], canada.cityList[0]);
     expect(data.status).toBe(200);
 
-    let newCommunity = await c130d.loadAPICommunity(c130d.url,this);
+    let newCommunity = await c130d.loadAPICommunity(c130d.url, testClass.displayMessage);
 
-    expect(messageArea.textContent).toBe("Loading Community and Cities ....... DONE");
+    //
+    // messageArea is now JSX then rendered, not loaded to messageArea old way.
+    // Since this is in calling component can't test from here.
+    //
+    // expect(messageArea.textContent).toBe("Loading Community and Cities ....... DONE");
+
     expect(newCommunity.name).toBe("Canada");
     
     expect(newCommunity.cityList[1].name).toBe("Calgary");
@@ -528,9 +532,21 @@ test('130d: Async ASP loadAPICommunity', async (done) => {
     expect(newCommunity.cityList[3].name).toBe("Kirkaldy");
     expect(newCommunity.getPopulation()).toBe(1549421);
 
-    expect(liCity1.textContent).toBe("Calgary");
-    expect(liCity2.textContent).toBe("Vulcan");
-    expect(liCity3.textContent).toBe("Kirkaldy");
+    expect(JSON.stringify(newCommunity.allLists[0])).toEqual(
+        JSON.stringify([
+            <li id="liCity1" className="liOdd" key="0">Calgary</li>, 
+            <li id="liCity3" className="liEven" key="1">Kirkaldy</li>, 
+            <li id="liCity2" className="liOdd" key="2">Vulcan</li>]
+        )
+    );
+
+    expect(newCommunity.allLists[0]).toEqual(
+            [
+            <li id="liCity1" className="liOdd" key="0">Calgary</li>, 
+            <li id="liCity3" className="liEven" key="1">Kirkaldy</li>, 
+            <li id="liCity2" className="liOdd" key="2">Vulcan</li>]
+    );
+
     expect(idSum.textContent).toBe("1,549,421");
 
     done();
@@ -549,12 +565,15 @@ test('130d: Async ASP create and delete APICommunity', async (done) => {
     data = await c920.postData(url + 'all');
     expect(data.status).toEqual(200);
     expect(data[0].name).toBe("Canada");
+
+    //
+    // Did not actually use in 130d. Did NOT convert in 140d.
+    //
+    // data = await c130d.deleteAPICommunity (url);
     
-    data = await c130d.deleteAPICommunity (url);
-    
-    data = await c920.postData(url + 'all');
-    expect(data.status).toEqual(200);
-    expect(data.length).toBe(0); 
+    // data = await c920.postData(url + 'all');
+    // expect(data.status).toEqual(200);
+    // expect(data.length).toBe(0); 
     
     done();
 });
@@ -637,12 +656,15 @@ test('130d: Async ASP create, delete and update APICity', async (done) => {
     expect(data[1].name).toBe("Calgary");
     expect(data[1].population).toBe(1548000);
     
-    data = await c130d.getAPICity (url, canada.cityList[1]);
-    expect(data.status).toEqual(200);
+    //
+    // Did not actually use getAPICity in 130d, so did NOT migrate to 140d.
+    //
+    // data = await c130d.getAPICity (url, canada.cityList[1]);
+    // expect(data.status).toEqual(200);
 
-    expect(data.length).toBe(1);
-    expect(data[0].name).toBe("Calgary");
-    expect(data[0].population).toBe(1548000);
+    // expect(data.length).toBe(1);
+    // expect(data[0].name).toBe("Calgary");
+    // expect(data[0].population).toBe(1548000);
 
     data = await c130d.getAllAPI (url);
     expect(data.status).toEqual(200);    
@@ -657,39 +679,33 @@ test('130d: Async ASP create, delete and update APICity', async (done) => {
     
 });
 
-test('130d: Test deleteItemFromList from the DOM', () => {
+//
+// Did not actually use deleteItemFromList in 130d, so did NOT migrate to 140d.
+//
+// test('130d: Test deleteItemFromList from the DOM', () => {
+
+//     document.body.innerHTML =
+//         '<section class="sectionCityList">' +
+//             '<h4>City</h4>' +
+//             '<ul id="ulCityList">' +
+//                 '<li id="liCity1" class="liOdd">Calgary</li>' +
+//                 '<li id="liCity2" class="liEven">Vulcan</li>' +
+//                 '<li id="liCity3" class="liOdd">Kirkaldy</li>' +
+//                 '<li id="idSumTxt" class="liSum">Totals</li>' +
+//             '</ul>' +
+//         '</section>';
+
+//     expect(ulCityList.children.length).toBe(4);
+//     expect(c130d.deleteItemFromList(ulCityList)).toBe(3);
+//     expect(ulCityList.children.length).toBe(1);
+//     expect(ulCityList.children[0].className).toBe("liSum");
+
+// });
+
+test('130d: Test deleteCityList JSX', () => {
 
     document.body.innerHTML =
-        '<section class="sectionCityList">' +
-            '<h4>City</h4>' +
-            '<ul id="ulCityList">' +
-                '<li id="liCity1" class="liOdd">Calgary</li>' +
-                '<li id="liCity2" class="liEven">Vulcan</li>' +
-                '<li id="liCity3" class="liOdd">Kirkaldy</li>' +
-                '<li id="idSumTxt" class="liSum">Totals</li>' +
-            '</ul>' +
-        '</section>';
 
-    expect(ulCityList.children.length).toBe(4);
-    expect(c130d.deleteItemFromList(ulCityList)).toBe(3);
-    expect(ulCityList.children.length).toBe(1);
-    expect(ulCityList.children[0].className).toBe("liSum");
-
-});
-
-test('130d: Test deleteCityList from the DOM', () => {
-
-    document.body.innerHTML =
-
-    '<div class="divCitySelect">' +
-        'City Name: <select id=selectCity>' +
-            '<option value="srcSelect">Select City</option>' +
-            '<option value="srcAddCity">Add New City</option>' +
-            '<option value="srcCity1">Calgary</option>' +
-            '<option value="srcCity2">Vulcan</option>' +
-            '<option value="srcCity3">Kirkaldy</option>' +
-        '</select>' +
-    '</div>' +
     '<div class="divCityList">' +
         '<section class="sectionCityList">' +
             '<h4>City</h4>' +
@@ -700,24 +716,6 @@ test('130d: Test deleteCityList from the DOM', () => {
                 '<li id="idSumTxt" class="liSum">Totals</li>' +
             '</ul>' +
         '</section>' +
-        '<aside class="asideLatList">' +
-            '<h4>Latitude</h4>' +
-            '<ul id="ulLatList">' +
-                '<li id="liLat1" class="liOdd">51.0447</li>' +
-                '<li id="liLat2" class="liEven">50.4038</li>' +
-                '<li id="liLat3" class="liOdd">50.3367</li>' +
-                '<li class="liSum">.</li>' +
-            '</ul>' +
-        '</aside>' +
-        '<aside class="asideLongList">' +
-            '<h4>Longitude</h4>' +
-            '<ul id="ulLongList">' +
-                '<li id="liLong1" class="liOdd">-114.0719</li>' +
-                '<li id="liLong2" class="liEven">-113.2622</li>' +
-                '<li id="liLong3" class="liOdd">-13.2380</li>' +
-                '<li class="liSum">.</li>' +
-            '</ul>' +
-        '</aside>' +
         '<aside class="asidePopList">' +
             '<h4>Population</h4>' +
             '<ul id="ulPopList">' +
@@ -727,68 +725,17 @@ test('130d: Test deleteCityList from the DOM', () => {
                 '<li id="idSum" class="liSum">1,549,421</li>' +
             '</ul>' +
         '</aside>' +
-        '<aside class="asideSizeList">' +
-            '<h4>Size</h4>' +
-            '<ul id="ulSizeList">' +
-                '<li id="liSize1" class="liOdd">City</li>' +
-                '<li id="liSize2" class="liEven">Town</li>' +
-                '<li id="liSize3" class="liOdd">Hamlet</li>' +
-                '<li class="liSum">.</li>' +
-            '</ul>' +
-        '</aside>' +
-        '<aside class="asideHemList">' +
-            '<h4>N/S</h4>' +
-            '<ul id="ulHemList">' +
-                '<li id="liHem1" class="liOdd">N</li>' +
-                '<li id="liHem2" class="liEven">N</li>' +
-                '<li id="liHem3" class="liOdd">N</li>' +
-                '<li class="liSum">.</li>' +
-            '</ul>' +
-        '</aside>' +
-        '<aside class="asideMaxList">' +
-            '<h4>Max N/S</h4>' +
-            '<ul id="ulMaxList">' +
-                '<li id="liMax1" class="liOdd">N</li>' +
-                '<li id="liMax2" class="liEven">.</li>' +
-                '<li id="liMax3" class="liOdd">S</li>' +
-                '<li class="liSum">.</li>' +
-            '</ul>' +
-        '</aside>' +
     '</div>';
 
-    expect(ulCityList.children.length).toBe(4);
-    expect(ulLatList.children.length).toBe(4);
-    expect(ulLongList.children.length).toBe(4);
-    expect(ulPopList.children.length).toBe(4);
-    expect(ulSizeList.children.length).toBe(4);
-    expect(ulHemList.children.length).toBe(4);
-    expect(ulMaxList.children.length).toBe(4);
-    expect(selectCity.children.length).toBe(5);
+    //
+    // deleteCityList no longer manipulates the DOM, but only clears the JSX
+    //
     
-    expect(c130d.deleteCityList()).toBe(3);
-
-    expect(ulCityList.children.length).toBe(1);
-    expect(ulCityList.children[0].className).toBe("liSum");
-    expect(ulLatList.children.length).toBe(1);
-    expect(ulLatList.children[0].className).toBe("liSum");
-    expect(ulLongList.children.length).toBe(1);
-    expect(ulLongList.children[0].className).toBe("liSum");
-    expect(ulPopList.children.length).toBe(1);
-    expect(ulPopList.children[0].className).toBe("liSum");
-    expect(ulSizeList.children.length).toBe(1);
-    expect(ulSizeList.children[0].className).toBe("liSum");
-    expect(ulHemList.children.length).toBe(1);
-    expect(ulHemList.children[0].className).toBe("liSum");
-    expect(ulMaxList.children.length).toBe(1);
-    expect(ulMaxList.children[0].className).toBe("liSum");
-    expect(selectCity.children.length).toBe(2);
-    expect(selectCity.children[0].value).toBe("srcSelect");
-    expect(selectCity.children[1].value).toBe("srcAddCity");
-    expect(selectCity.children[2]).toBeUndefined();
+    expect(c130d.deleteCityList()).toEqual([null, null, null, null, null, null, null, null]);
 
 });
 
-test('130d: Test liCity addItemToList from the DOM', () => {
+test('130d: Test liCity addItemToList JSX', () => {
 
     document.body.innerHTML =
         '<section class="sectionCityList">' +
@@ -796,7 +743,13 @@ test('130d: Test liCity addItemToList from the DOM', () => {
             '<ul id="ulCityList">' +
                 '<li id="idSumTxt" class="liSum">Totals</li>' +
             '</ul>' +
-        '</section>';
+        '</section>' +
+        '<aside class="asidePopList">' +
+            '<h4>Population</h4>' +
+            '<ul id="ulPopList">' +
+                '<li id="idSum" class="liSum">1,549,421</li>' +
+            '</ul>' +
+        '</aside>';
 
     const canada = new community.Community ("Canada");
     canada.createCity ("Calgary", 51.0447, -114.0719, 1547484);
@@ -806,23 +759,24 @@ test('130d: Test liCity addItemToList from the DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(ulCityList.children.length).toBe(1);
-    expect(c130d.addItemToList("ulCityList", "liCity", canada, cityArr)).toBe(3);
-    expect(ulCityList.children.length).toBe(4);
-    
-    expect(ulCityList.children[0].textContent).toBe("Calgary");
-    expect(ulCityList.children[1].textContent).toBe("Kirkaldy");
-    expect(ulCityList.children[2].textContent).toBe("Vulcan");
-    expect(ulCityList.children[3].textContent).toBe("Totals");
-    
-    expect(ulCityList.children[0].className).toBe("liOdd");
-    expect(ulCityList.children[1].className).toBe("liEven");
-    expect(ulCityList.children[2].className).toBe("liOdd");
-    expect(ulCityList.children[3].className).toBe("liSum");
+    //
+    // addItemToList no longer renders to the DOM. It creates the JSX for
+    // calling React component to render.
+    //
+
+    expect(c130d.addItemToList("ulCityList", "liCity", canada, cityArr)).toEqual(
+        [
+            <li id="liCity1" className="liOdd" key="0">Calgary</li>, 
+            <li id="liCity3" className="liEven" key="1">Kirkaldy</li>, 
+            <li id="liCity2" className="liOdd" key="2">Vulcan</li>
+        ]
+    );
+
+    expect(idSum.textContent).toBe("1,549,421");
 
 });
 
-test('130d: Test liLat addItemToList from the DOM', () => {
+test('130d: Test liLat addItemToList JSX', () => {
 
     document.body.innerHTML =
     '<aside class="asideLatList">' +
@@ -840,20 +794,18 @@ test('130d: Test liLat addItemToList from the DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(ulLatList.children.length).toBe(1);
-    expect(c130d.addItemToList("ulLatList", "liLat", canada, cityArr)).toBe(3);
-    expect(ulLatList.children.length).toBe(4);
-    
-    expect(ulLatList.children[0].textContent).toBe("51.0447");
-    expect(ulLatList.children[1].textContent).toBe("50.3367");
-    expect(ulLatList.children[2].textContent).toBe("50.4038");
-    expect(ulLatList.children[3].textContent).toBe(".");
-    
-    expect(ulLatList.children[0].className).toBe("liOdd");
-    expect(ulLatList.children[1].className).toBe("liEven");
-    expect(ulLatList.children[2].className).toBe("liOdd");
-    expect(ulLatList.children[3].className).toBe("liSum");
+    //
+    // addItemToList no longer renders to the DOM. It creates the JSX for
+    // calling React component to render.
+    //
 
+    expect(c130d.addItemToList("ulLatList", "liLat", canada, cityArr)).toEqual(
+        [
+            <li id="liLat1" className="liOdd" key="0">51.0447</li>, 
+            <li id="liLat3" className="liEven" key="1">50.3367</li>, 
+            <li id="liLat2" className="liOdd" key="2">50.4038</li>
+        ]
+    );
 });
 
 test('130d: Test liLong addItemToList from the DOM', () => {
@@ -874,23 +826,21 @@ test('130d: Test liLong addItemToList from the DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(ulLongList.children.length).toBe(1);
-    expect(c130d.addItemToList("ulLongList", "liLong", canada, cityArr)).toBe(3);
-    expect(ulLongList.children.length).toBe(4);
-    
-    expect(ulLongList.children[0].textContent).toBe("-114.0719");
-    expect(ulLongList.children[1].textContent).toBe("-13.2380");
-    expect(ulLongList.children[2].textContent).toBe("-113.2622");
-    expect(ulLongList.children[3].textContent).toBe(".");
-    
-    expect(ulLongList.children[0].className).toBe("liOdd");
-    expect(ulLongList.children[1].className).toBe("liEven");
-    expect(ulLongList.children[2].className).toBe("liOdd");
-    expect(ulLongList.children[3].className).toBe("liSum");
+    //
+    // addItemToList no longer renders to the DOM. It creates the JSX for
+    // calling React component to render.
+    //
 
+    expect(c130d.addItemToList("ulLongList", "liLong", canada, cityArr)).toEqual(
+        [
+            <li id="liLong1" className="liOdd" key="0">-114.0719</li>, 
+            <li id="liLong3" className="liEven" key="1">-13.2380</li>, 
+            <li id="liLong2" className="liOdd" key="2">-113.2622</li>
+        ]
+    );
 });
 
-test('130d: Test liPop addItemToList from the DOM', () => {
+test('130d: Test liPop addItemToList JSX', () => {
 
     document.body.innerHTML =
     '<aside class="asidePopList">' +
@@ -908,24 +858,24 @@ test('130d: Test liPop addItemToList from the DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(ulPopList.children.length).toBe(1);
-    expect(c130d.addItemToList("ulPopList", "liPop", canada, cityArr)).toBe(3);
-    expect(ulPopList.children.length).toBe(4);
+    //
+    // addItemToList no longer renders to the DOM. It creates the JSX for
+    // calling React component to render.
+    //
+
+    expect(c130d.addItemToList("ulPopList", "liPop", canada, cityArr)).toEqual(
+        [
+            <li id="liPop1" className="liOdd" key="0">1,547,484</li>, 
+            <li id="liPop3" className="liEven" key="1">20</li>, 
+            <li id="liPop2" className="liOdd" key="2">1,917</li>
+        ]
+    );
     
-    expect(ulPopList.children[0].textContent).toBe("1,547,484");
-    expect(ulPopList.children[1].textContent).toBe("20");
-    expect(ulPopList.children[2].textContent).toBe("1,917");
-    expect(ulPopList.children[3].textContent).toBe("1,549,421");
     expect(idSum.textContent).toBe("1,549,421");
-    
-    expect(ulPopList.children[0].className).toBe("liOdd");
-    expect(ulPopList.children[1].className).toBe("liEven");
-    expect(ulPopList.children[2].className).toBe("liOdd");
-    expect(ulPopList.children[3].className).toBe("liSum");
 
 });
 
-test('130d: Test liSize addItemToList from the DOM', () => {
+test('130d: Test liSize addItemToList JSX', () => {
 
     document.body.innerHTML =
     '<aside class="asideSizeList">' +
@@ -943,23 +893,21 @@ test('130d: Test liSize addItemToList from the DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(ulSizeList.children.length).toBe(1);
-    expect(c130d.addItemToList("ulSizeList", "liSize", canada, cityArr)).toBe(3);
-    expect(ulSizeList.children.length).toBe(4);
-    
-    expect(ulSizeList.children[0].textContent).toBe("City");
-    expect(ulSizeList.children[1].textContent).toBe("Hamlet");
-    expect(ulSizeList.children[2].textContent).toBe("Town");
-    expect(ulSizeList.children[3].textContent).toBe(".");
-    
-    expect(ulSizeList.children[0].className).toBe("liOdd");
-    expect(ulSizeList.children[1].className).toBe("liEven");
-    expect(ulSizeList.children[2].className).toBe("liOdd");
-    expect(ulSizeList.children[3].className).toBe("liSum");
+    //
+    // addItemToList no longer renders to the DOM. It creates the JSX for
+    // calling React component to render.
+    //
 
+    expect(c130d.addItemToList("ulSizeList", "liSize", canada, cityArr)).toEqual(
+        [
+            <li id="liSize1" className="liOdd" key="0">City</li>, 
+            <li id="liSize3" className="liEven" key="1">Hamlet</li>, 
+            <li id="liSize2" className="liOdd" key="2">Town</li>
+        ]
+    );
 });
 
-test('130d: Test liHem addItemToList from the DOM', () => {
+test('130d: Test liHem addItemToList JSX', () => {
 
     document.body.innerHTML =
     '<aside class="asideHemList">' +
@@ -977,23 +925,21 @@ test('130d: Test liHem addItemToList from the DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(ulHemList.children.length).toBe(1);
-    expect(c130d.addItemToList("ulHemList", "liHem", canada, cityArr)).toBe(3);
-    expect(ulHemList.children.length).toBe(4);
-    
-    expect(ulHemList.children[0].textContent).toBe("N");
-    expect(ulHemList.children[1].textContent).toBe("N");
-    expect(ulHemList.children[2].textContent).toBe("N");
-    expect(ulHemList.children[3].textContent).toBe(".");
-    
-    expect(ulHemList.children[0].className).toBe("liOdd");
-    expect(ulHemList.children[1].className).toBe("liEven");
-    expect(ulHemList.children[2].className).toBe("liOdd");
-    expect(ulHemList.children[3].className).toBe("liSum");
+    //
+    // addItemToList no longer renders to the DOM. It creates the JSX for
+    // calling React component to render.
+    //
 
+    expect(c130d.addItemToList("ulHemList", "liHem", canada, cityArr)).toEqual(
+        [
+            <li id="liHem1" className="liOdd" key="0">N</li>, 
+            <li id="liHem3" className="liEven" key="1">N</li>, 
+            <li id="liHem2" className="liOdd" key="2">N</li>
+        ]
+    );
 });
 
-test('130d: Test liMax addItemToList from the DOM', () => {
+test('130d: Test liMax addItemToList JSX', () => {
 
     document.body.innerHTML =
     '<aside class="asideMaxList">' +
@@ -1011,23 +957,21 @@ test('130d: Test liMax addItemToList from the DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(ulMaxList.children.length).toBe(1);
-    expect(c130d.addItemToList("ulMaxList", "liMax", canada, cityArr)).toBe(3);
-    expect(ulMaxList.children.length).toBe(4);
-    
-    expect(ulMaxList.children[0].textContent).toBe("N");
-    expect(ulMaxList.children[1].textContent).toBe("S");
-    expect(ulMaxList.children[2].textContent).toBe(".");
-    expect(ulMaxList.children[3].textContent).toBe(".");
-    
-    expect(ulMaxList.children[0].className).toBe("liOdd");
-    expect(ulMaxList.children[1].className).toBe("liEven");
-    expect(ulMaxList.children[2].className).toBe("liOdd");
-    expect(ulMaxList.children[3].className).toBe("liSum");
+    //
+    // addItemToList no longer renders to the DOM. It creates the JSX for
+    // calling React component to render.
+    //
 
+    expect(c130d.addItemToList("ulMaxList", "liMax", canada, cityArr)).toEqual(
+        [
+            <li id="liMax1" className="liOdd" key="0">N</li>, 
+            <li id="liMax3" className="liEven" key="1">S</li>, 
+            <li id="liMax2" className="liOdd" key="2">.</li>
+        ]
+    );
 });
 
-test('130d: Test srcCity addItemToList from the DOM', () => {
+test('130d: Test srcCity addItemToList JSX', () => {
 
     document.body.innerHTML =
         '<div class="divCitySelect">' +
@@ -1045,25 +989,21 @@ test('130d: Test srcCity addItemToList from the DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(selectCity.children.length).toBe(2);
-    expect(c130d.addItemToList("selectCity", "srcCity", canada, cityArr)).toBe(3);
-    expect(selectCity.children.length).toBe(5);
-    
-    expect(selectCity.children[0].value).toBe("srcSelect");
-    expect(selectCity.children[0].textContent).toBe("Select City");
-    expect(selectCity.children[1].value).toBe("srcAddCity");
-    expect(selectCity.children[1].textContent).toBe("Add New City");
-    expect(selectCity.children[2].value).toBe("srcCity1");
-    expect(selectCity.children[2].textContent).toBe("Calgary");
-    expect(selectCity.children[3].value).toBe("srcCity3");
-    expect(selectCity.children[3].textContent).toBe("Kirkaldy");
-    expect(selectCity.children[4].value).toBe("srcCity2");
-    expect(selectCity.children[4].textContent).toBe("Vulcan");
-    expect(selectCity.children[5]).toBeUndefined();
-    
+    //
+    // addItemToList no longer renders to the DOM. It creates the JSX for
+    // calling React component to render.
+    //
+
+    expect(c130d.addItemToList("selectCity", "srcCity", canada, cityArr)).toEqual(
+        [
+            <option value="srcCity1" key="0">Calgary</option>, 
+            <option value="srcCity3" key="1">Kirkaldy</option>, 
+            <option value="srcCity2" key="2">Vulcan</option>
+        ]
+    );    
 });
 
-test('130d: Test createCityList and refreshCityList from DOM', () => {
+test('130d: Test createCityList and refreshCityList JSX', () => {
 
     document.body.innerHTML =
     '<section class ="sectionMain">' +
@@ -1141,49 +1081,77 @@ test('130d: Test createCityList and refreshCityList from DOM', () => {
     let cityArr = canada.sortCityList("Name");
     expect(cityArr).toEqual([1, 3, 2]);
 
-    expect(ulCityList.children.length).toBe(1);
-    expect(ulLatList.children.length).toBe(1);
-    expect(ulLongList.children.length).toBe(1);
-    expect(ulPopList.children.length).toBe(1);
-    expect(ulSizeList.children.length).toBe(1);
-    expect(ulHemList.children.length).toBe(1);
-    expect(ulMaxList.children.length).toBe(1);
-    expect(selectCity.children.length).toBe(2);
+    //
+    // createCityList and refreshCityList no longer renders to the DOM. They creates the JSX for
+    // the calling React component to render.
+    //
+    // Only really need to test refreshCityList, since it is returning what was created by createCityList
+    //
 
-    expect(c130d.createCityList(canada)).toBe(3);
+    expect(c130d.refreshCityList(canada)[0]).toEqual(
+        [
+            <li id="liCity1" className="liOdd" key="0">Calgary</li>, 
+            <li id="liCity3" className="liEven" key="1">Kirkaldy</li>, 
+            <li id="liCity2" className="liOdd" key="2">Vulcan</li>
+        ]
+    );
 
-    expect(ulCityList.children.length).toBe(4);
-    expect(ulLatList.children.length).toBe(4);
-    expect(ulLongList.children.length).toBe(4);
-    expect(ulPopList.children.length).toBe(4);
-    expect(ulSizeList.children.length).toBe(4);
-    expect(ulHemList.children.length).toBe(4);
-    expect(ulMaxList.children.length).toBe(4);
-    expect(selectCity.children.length).toBe(5);
+    expect(c130d.refreshCityList(canada)[1]).toEqual(
+        [
+            <li id="liLat1" className="liOdd" key="0">51.0447</li>, 
+            <li id="liLat3" className="liEven" key="1">50.3367</li>, 
+            <li id="liLat2" className="liOdd" key="2">50.4038</li>
+        ]
+    );
+        
+    expect(c130d.refreshCityList(canada)[2]).toEqual(
+        [
+            <li id="liLong1" className="liOdd" key="0">-114.0719</li>, 
+            <li id="liLong3" className="liEven" key="1">-13.2380</li>, 
+            <li id="liLong2" className="liOdd" key="2">-113.2622</li>
+        ]
+    );
 
-    expect(ulPopList.children[0].textContent).toBe("1,547,484");
-    expect(ulPopList.children[1].textContent).toBe("20");
-    expect(ulPopList.children[2].textContent).toBe("1,917");
-    expect(ulPopList.children[3].textContent).toBe("1,549,421");
+    expect(c130d.refreshCityList(canada)[3]).toEqual(
+        [
+            <li id="liPop1" className="liOdd" key="0">1,547,484</li>, 
+            <li id="liPop3" className="liEven" key="1">20</li>, 
+            <li id="liPop2" className="liOdd" key="2">1,917</li>
+        ]
+    );
     expect(idSum.textContent).toBe("1,549,421");
 
-    c130d.refreshCityList(canada);
+    expect(c130d.refreshCityList(canada)[4]).toEqual(
+        [
+            <li id="liSize1" className="liOdd" key="0">City</li>, 
+            <li id="liSize3" className="liEven" key="1">Hamlet</li>, 
+            <li id="liSize2" className="liOdd" key="2">Town</li>
+        ]
+    );
 
-    expect(ulCityList.children.length).toBe(4);
-    expect(ulLatList.children.length).toBe(4);
-    expect(ulLongList.children.length).toBe(4);
-    expect(ulPopList.children.length).toBe(4);
-    expect(ulSizeList.children.length).toBe(4);
-    expect(ulHemList.children.length).toBe(4);
-    expect(ulMaxList.children.length).toBe(4);
-    expect(selectCity.children.length).toBe(5);
+    expect(c130d.refreshCityList(canada)[5]).toEqual(
+        [
+            <li id="liHem1" className="liOdd" key="0">N</li>, 
+            <li id="liHem3" className="liEven" key="1">N</li>, 
+            <li id="liHem2" className="liOdd" key="2">N</li>
+        ]
+    );
 
-    expect(ulPopList.children[0].textContent).toBe("1,547,484");
-    expect(ulPopList.children[1].textContent).toBe("20");
-    expect(ulPopList.children[2].textContent).toBe("1,917");
-    expect(ulPopList.children[3].textContent).toBe("1,549,421");
-    expect(idSum.textContent).toBe("1,549,421");
+    expect(c130d.refreshCityList(canada)[6]).toEqual(
+        [
+            <li id="liMax1" className="liOdd" key="0">N</li>, 
+            <li id="liMax3" className="liEven" key="1">S</li>, 
+            <li id="liMax2" className="liOdd" key="2">.</li>
+        ]
+    );
 
+    expect(c130d.refreshCityList(canada)[7]).toEqual(
+        [
+            <option value="srcCity1" key="0">Calgary</option>, 
+            <option value="srcCity3" key="1">Kirkaldy</option>, 
+            <option value="srcCity2" key="2">Vulcan</option>
+        ]
+    );  
 });
 
 test('130d: Test remove new City name div from DOM', () => {
@@ -1302,7 +1270,7 @@ document.body.innerHTML =
 
 });
 
-test('130d: Async Test addCity and deleteCity interface to DOM', async (done) => {
+test('130d: Async Test addCity and deleteCity JSX', async (done) => {
     document.body.innerHTML =
     '<section class ="sectionMain">' +
         '<h1>Welcome to the Community and City</h1>' +
@@ -1332,7 +1300,10 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
         '</div>' +
         '<div id=idAddCity class="divAddCity">' +
             'Enter Name of New City: <input id="inputNewCity" type=text>' +
+			'Enter Population: <input id="inputNewPop" type=number>' +
             '<button id="btnCreateCity" type="button">Create</button>' +
+			'Enter Latitude : <input id="inputNewLat" type=number>' +
+			'Enter Longitude : <input id="inputNewLong" type=number>' +
             '<button id="btnCancelCity" type="button">Cancel</button>' +
         '</div>' +
         '<div id=idCitys class="divCommunity">' +
@@ -1446,31 +1417,21 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     inputAmt.value = 0;
     selectCity.value = "srcSelect";
 
-    // c130d.deleteCity(canada);
     data = await c130d.deleteCity(canada);
-    
-    expect(messageArea.textContent).toBe(`Please Select a City.`);
+
+    expect(data.msgQueue[0]).toBe(`Please Select a City.`);
     expect(idSum.textContent).toBe("1,549,421");
 
     //
     // User now selects a city to delete
     //
     
-    expect(ulCityList.children.length).toBe(4);
-    expect(ulLatList.children.length).toBe(4);
-    expect(ulLongList.children.length).toBe(4);
-    expect(ulPopList.children.length).toBe(4);
-    expect(ulSizeList.children.length).toBe(4);
-    expect(ulHemList.children.length).toBe(4);
-    expect(ulMaxList.children.length).toBe(4);
-    expect(selectCity.children.length).toBe(5);
-
     expect(canada.findKeyIndex(1)).toBe(1);
     expect(canada.cityList[1].name).toBe("Calgary");
     
-    
+    canada.resetMessage();
+
     selectCity.value = "srcCity1";    
-    messageArea.textContent = ""; // ??
 
     data = await c130d.deleteCity(canada);
 
@@ -1479,29 +1440,20 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(canada.cityList[1].key).toBe(2);
     expect(canada.getPopulation(1)).toBe(1937);
 
-    expect(messageArea.textContent).toBe(" Calgary has been deleted.");
+    expect(data.msgQueue[0]).toBe("Calgary has been deleted.");
+        // expect(messageArea.textContent).toBe(" Calgary has been deleted.");
 
-    expect(ulCityList.children.length).toBe(3);
-    expect(ulLatList.children.length).toBe(3);
-    expect(ulLongList.children.length).toBe(3);
-    expect(ulPopList.children.length).toBe(3);
-    expect(ulSizeList.children.length).toBe(3);
-    expect(ulHemList.children.length).toBe(3);
-    expect(ulMaxList.children.length).toBe(3);
-    expect(selectCity.children.length).toBe(4);
-
-    expect(ulPopList.children[0].textContent).toBe("20");
-    expect(ulPopList.children[1].textContent).toBe("1,917");
-    expect(ulPopList.children[2].textContent).toBe("1,937");
     expect(idSum.textContent).toBe("1,937");
-    expect(ulPopList.children[3]).toBeUndefined();
 
-    let dCity = {};
-    dCity.name = "Calgary";
-    dCity.key = 1;
+    // let dCity = {};
+    // dCity.name = "Calgary";
+    // dCity.key = 1;
 
-    data = await c130d.getAPICity (url, dCity);
-    expect(data.status).toEqual(400);
+    //
+    // Did not actually use getAPICity in 130d, so did NOT migrate to 140d.
+    //
+    // data = await c130d.getAPICity (url, dCity);
+    // expect(data.status).toEqual(400);
 
     data = await c130d.getAllAPI(url);
     expect(data.status).toEqual(200);
@@ -1523,16 +1475,15 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(document.getElementById("idAddCity")).not.toBeNull();
 
     //
-    // Remove the New City Name entry div to confirm it works.
-    // It also simulates them clicking the Add New Account Cancel
-    // button.
+    // removedivAddCity and createdivAddCity are not used anymore since 
+    // calling React component handles this now.
     //
 
-    c130d.removedivAddCity();
+    // c130d.removedivAddCity();
 
-    expect(document.getElementById("idAddCity")).toBeNull();
-    expect(selectCity.value).toBe("srcSelect");
-    expect(inputAmt.value).toBe("0");
+    // expect(document.getElementById("idAddCity")).toBeNull();
+    // expect(selectCity.value).toBe("srcSelect");
+    // expect(inputAmt.value).toBe("0");
     
     //
     // Create it again simulating user has clicked the "Add New City"
@@ -1541,8 +1492,8 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     // and pressing the Add New City "Create" button.
     //
     
-    c130d.createdivAddCity();
-    expect(document.getElementById("idAddCity")).not.toBeNull();
+    // c130d.createdivAddCity();
+    // expect(document.getElementById("idAddCity")).not.toBeNull();
     
     //
     // First simulate them clicking the "Create" button without typing
@@ -1555,25 +1506,37 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     inputNewLat.value = 0;
     inputNewLong.value = 0;
 
-    expect(await c130d.createNewCity(canada)).toBe(0);
-    expect(messageArea.textContent).toBe(`Please input the new City name.`);
+    canada.resetMessage();
+    await c130d.createNewCity(canada);
+    expect(canada.msgQueue[0]).toBe(`Please input the new City name.`);
 
     inputNewCity.value = "Edmonton";
 
-    expect(await c130d.createNewCity(canada)).toBe(0);
-    expect(messageArea.textContent).toBe(`Please input the Latitude.`);
-
+    canada.resetMessage();
+    await c130d.createNewCity(canada);
+    expect(canada.msgQueue[0]).toBe(`Please input the Latitude.`);
+    
     inputNewLat.value = 53.5461;
-
-    expect(await c130d.createNewCity(canada)).toBe(0);
-    expect(messageArea.textContent).toBe(`Please input the Longitude.`);
+    
+    canada.resetMessage();
+    await c130d.createNewCity(canada);
+    expect(canada.msgQueue[0]).toBe(`Please input the Longitude.`);
 
     inputNewCity.value = "Edmonton";
     inputAmt.value = 222222;
     inputNewPop.value = 1461182;
     inputNewLong.value = -113.4938;
 
-    let newKey = await c130d.createNewCity(canada);
+    data = await c130d.createNewCity(canada);
+    expect(data.allLists[0]).toEqual(
+        [
+            <li id="liCity4" className="liOdd" key="0">Edmonton</li>, 
+            <li id="liCity3" className="liEven" key="1">Kirkaldy</li>, 
+            <li id="liCity2" className="liOdd" key="2">Vulcan</li>
+        ]
+    );
+
+    let newKey = canada.cityList[canada.cityList.length-1].key;
 
     expect(newKey).toBe(4);
     expect(canada.getCityName(newKey)).toBe("Edmonton");
@@ -1581,22 +1544,18 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(canada.getCityLongitude(newKey)).toBe(-113.4938);
     expect(canada.getCityPopulation(newKey)).toBe(1461182);
 
-    expect(liCity4.textContent).toBe("Edmonton");
-    expect(liLat4.textContent).toBe("53.5461");
-    expect(liLong4.textContent).toBe("-113.4938");
-    expect(liPop4.textContent).toBe("1,461,182");
-    expect(idSum.textContent).toBe("1,463,119");
+    // let newIndex = canada.findKeyIndex(newKey);
+    //
+    // Did not actually use getAPICity in 130d, so did NOT migrate to 140d.
+    //
+    // data = await c130d.getAPICity (url, canada.cityList[newIndex]);
 
-    let newIndex = canada.findKeyIndex(newKey);
+    // expect(data.status).toEqual(200);
 
-    data = await c130d.getAPICity (url, canada.cityList[newIndex]);
-
-    expect(data.status).toEqual(200);
-
-    expect(data[0].name).toBe("Edmonton");
-    expect(data[0].population).toBe(1461182);
-    expect(data[0].latitude).toBe(53.5461);
-    expect(data[0].longitude).toBe(-113.4938);
+    // expect(data[0].name).toBe("Edmonton");
+    // expect(data[0].population).toBe(1461182);
+    // expect(data[0].latitude).toBe(53.5461);
+    // expect(data[0].longitude).toBe(-113.4938);
 
     expect(selectCity.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
@@ -1607,7 +1566,17 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     inputNewLat.value = 49.6956;
     inputNewLong.value = -112.8451;
 
-    newKey = await c130d.createNewCity(canada);
+    data = await c130d.createNewCity(canada);
+    expect(data.allLists[0]).toEqual(
+        [
+            <li id="liCity4" className="liOdd" key="0">Edmonton</li>, 
+            <li id="liCity3" className="liEven" key="1">Kirkaldy</li>, 
+            <li id="liCity5" className="liOdd" key="2">Lethbridge</li>,
+            <li id="liCity2" className="liEven" key="3">Vulcan</li>
+        ]
+    );
+
+    newKey = canada.cityList[canada.cityList.length-1].key;
 
     expect(newKey).toBe(5);
     expect(canada.getCityName(newKey)).toBe("Lethbridge");
@@ -1615,22 +1584,20 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     expect(canada.getCityLongitude(newKey)).toBe(-112.8451);
     expect(canada.getCityPopulation(newKey)).toBe(92730);
 
-    expect(liCity5.textContent).toBe("Lethbridge");
-    expect(liLat5.textContent).toBe("49.6956");
-    expect(liLong5.textContent).toBe("-112.8451");
-    expect(liPop5.textContent).toBe("92,730");
-    expect(idSum.textContent).toBe("1,555,849");
 
-    newIndex = canada.findKeyIndex(newKey);
+    // newIndex = canada.findKeyIndex(newKey);
 
-    data = await c130d.getAPICity (url, canada.cityList[newIndex]);
+    //
+    // Did not actually use getAPICity in 130d, so did NOT migrate to 140d.
+    //
+    // data = await c130d.getAPICity (url, canada.cityList[newIndex]);
 
-    expect(data.status).toEqual(200);
+    // expect(data.status).toEqual(200);
 
-    expect(data[0].name).toBe("Lethbridge");
-    expect(data[0].population).toBe(92730);
-    expect(data[0].latitude).toBe(49.6956);
-    expect(data[0].longitude).toBe(-112.8451);
+    // expect(data[0].name).toBe("Lethbridge");
+    // expect(data[0].population).toBe(92730);
+    // expect(data[0].latitude).toBe(49.6956);
+    // expect(data[0].longitude).toBe(-112.8451);
 
     expect(selectCity.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
@@ -1638,7 +1605,7 @@ test('130d: Async Test addCity and deleteCity interface to DOM', async (done) =>
     done();
 });
 
-test('130d: Async Test actionMoved interface to DOM', async (done) => {
+test('130d: Async Test actionMoved', async (done) => {
     document.body.innerHTML =
     '<section class ="sectionMain">' +
         '<h1>Welcome to the Community and City</h1>' +
@@ -1782,13 +1749,15 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     
     inputAmt.value = 0;
     selectCity.value = "srcSelect";
-
+    
     data = await c130d.actionMoved("IN", canada);
-    expect(messageArea.textContent).toBe(`Please Select a City.`);
+    expect(canada.msgQueue[0]).toBe(`Please Select a City.`);
     expect(idSum.textContent).toBe("1,549,421");
+    
+    canada.resetMessage();
 
     data = await c130d.actionMoved("OUT", canada);
-    expect(messageArea.textContent).toBe(`Please Select a City.`);
+    expect(canada.msgQueue[0]).toBe(`Please Select a City.`);
     expect(idSum.textContent).toBe("1,549,421");
 
     //
@@ -1798,12 +1767,16 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     
     selectCity.value = "srcCity1";
 
+    canada.resetMessage();
+
     data = await c130d.actionMoved("IN", canada);
-    expect(messageArea.textContent).toBe(`Please Input the Number of People Moving Which is NOT 0.`);
+    expect(canada.msgQueue[0]).toBe(`Please Input the Number of People Moving Which is NOT 0.`);
     expect(idSum.textContent).toBe("1,549,421");
-    
+ 
+    canada.resetMessage();
+   
     data = await c130d.actionMoved("OUT", canada);
-    expect(messageArea.textContent).toBe(`Please Input the Number of People Moving Which is NOT 0.`);
+    expect(canada.msgQueue[0]).toBe(`Please Input the Number of People Moving Which is NOT 0.`);
     expect(idSum.textContent).toBe("1,549,421");
 
     //
@@ -1812,13 +1785,17 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     //
     
     inputAmt.value = -1;
+
+    canada.resetMessage();
     
     data = await c130d.actionMoved("IN", canada);
-    expect(messageArea.textContent).toBe(`You May Only Move a Positive Number of People.`);
+    expect(canada.msgQueue[0]).toBe(`You May Only Move a Positive Number of People.`);
     expect(idSum.textContent).toBe("1,549,421");
+
+    canada.resetMessage();
     
     data = await c130d.actionMoved("OUT", canada);
-    expect(messageArea.textContent).toBe(`You May Only Move a Positive Number of People.`);
+    expect(canada.msgQueue[0]).toBe(`You May Only Move a Positive Number of People.`);
     expect(idSum.textContent).toBe("1,549,421");
     
     //
@@ -1826,10 +1803,12 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     //
     
     inputAmt.value = 16;
+
+    canada.resetMessage();
     
     data = await c130d.actionMoved("IN", canada);
 
-    expect(messageArea.textContent).toBe(" 16 have moved in. Population of Calgary is now 1,547,500.");
+    expect(canada.msgQueue[0]).toBe("16 have moved in. Population of Calgary is now 1,547,500.");
     
     //
     // Select Menu and Input values get reset.
@@ -1838,24 +1817,34 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     expect(selectCity.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
 
-    expect(liPop1.textContent).toBe("1,547,500");
+    expect(data.allLists[3]).toEqual(
+        [
+            <li id="liPop1" className="liOdd" key="0">1,547,500</li>, 
+            <li id="liPop3" className="liEven" key="1">20</li>, 
+            <li id="liPop2" className="liOdd" key="2">1,917</li>
+        ]
+    );
+
     expect(canada.getCityPopulation(1)).toBe(1547500);
-    
     expect(idSum.textContent).toBe("1,549,437");
-    expect(canada.getPopulation(1)).toBe(1549437);
+    
+    //
+    // Did not actually use getAPICity in 130d, so did NOT migrate to 140d.
+    //
+    // data = await c130d.getAPICity (url, canada.cityList[1]);
+    // expect(data.status).toEqual(200);
 
-    data = await c130d.getAPICity (url, canada.cityList[1]);
-    expect(data.status).toEqual(200);
-
-    expect(data[0].name).toBe("Calgary");
-    expect(data[0].population).toBe(1547500);
+    // expect(data[0].name).toBe("Calgary");
+    // expect(data[0].population).toBe(1547500);
 
     selectCity.value = "srcCity1";
     inputAmt.value = 1000;
+
+    canada.resetMessage();
     
     data = await c130d.actionMoved("OUT", canada);
 
-    expect(messageArea.textContent).toBe(" 1,000 have moved out. Population of Calgary is now 1,546,500.");
+    expect(canada.msgQueue[0]).toBe("1,000 have moved out. Population of Calgary is now 1,546,500.");
     
     //
     // Select Menu and Input values get reset.
@@ -1864,17 +1853,26 @@ test('130d: Async Test actionMoved interface to DOM', async (done) => {
     expect(selectCity.value).toBe("srcSelect");
     expect(inputAmt.value).toBe("0");
 
-    expect(liPop1.textContent).toBe("1,546,500");
+    expect(data.allLists[3]).toEqual(
+        [
+            <li id="liPop1" className="liOdd" key="0">1,546,500</li>, 
+            <li id="liPop3" className="liEven" key="1">20</li>, 
+            <li id="liPop2" className="liOdd" key="2">1,917</li>
+        ]
+    );
+
     expect(canada.getCityPopulation(1)).toBe(1546500);
-    
     expect(idSum.textContent).toBe("1,548,437");
     expect(canada.getPopulation(1)).toBe(1548437);
 
-    data = await c130d.getAPICity (url, canada.cityList[1]);
-    expect(data.status).toEqual(200);
+    //
+    // Did not actually use getAPICity in 130d, so did NOT migrate to 140d.
+    //
+    // data = await c130d.getAPICity (url, canada.cityList[1]);
+    // expect(data.status).toEqual(200);
 
-    expect(data[0].name).toBe("Calgary");
-    expect(data[0].population).toBe(1546500);
+    // expect(data[0].name).toBe("Calgary");
+    // expect(data[0].population).toBe(1546500);
 
     done();
 });
@@ -1945,20 +1943,18 @@ test('130e: Async Test Object Reference', async (done) => {
     done();
 });
 
+class TestDummy {
 
-/*
-    utility functions to save tons of code
-*/
-function getValue(name) {
-    return document.querySelector(`[name=${name}]`).value;
-}
+    constructor() {
+        window.ccComponent = this;
+    }
 
-function updateValue(name, value) {
-    document.querySelector(`[name=${name}]`).value = value;
-}
+    displayMessage = (msg) => {
 
-function click (txt) {
-    fireEvent.click(
-        screen.getByText(txt)
-    );
+        let tmpMsg = msg;
+        return(tmpMsg);
+        // this.setState({
+        //     msgArea: tmpMsg,
+        // });
+    }
 }

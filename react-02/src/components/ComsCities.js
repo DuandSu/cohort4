@@ -1,9 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './ComsCities.css';
-import community from '../scripts/community.js';
 import c130d from '../scripts/c130d.js';
-import c920 from '../scripts/fetch.js';
 import SetCommunity from './SetCommunity';
 import AddCity from './AddCity';
 
@@ -11,7 +8,13 @@ class ComsCities extends React.Component {
 
     constructor(props) {
         super(props);
+        window.ccComponent = this;
         this.newCommunity = null;
+        this.btnCreateCom = this.btnCreateCom.bind(this);
+        this.btnCancelCom = this.btnCancelCom.bind(this);
+        this.btnCreateCity = this.btnCreateCity.bind(this);
+        this.btnCancelCity = this.btnCancelCity.bind(this);
+        // this.displayMessage = this.displayMessage(this);
         this.state = {
             msgArea: "",
             divBlock: null,
@@ -30,8 +33,12 @@ class ComsCities extends React.Component {
 
         let tmpMsg = "";
         
-        this.newCommunity = await c130d.createNewCommunity(this);
-        
+        this.newCommunity = await c130d.createNewCommunity();
+
+        if (this.newCommunity.name !== "MessageOnly") {
+            this.setDivBlock("ClrSetCommunity")
+        }
+
         if (this.newCommunity.isMessage()) {
             tmpMsg += this.newCommunity.getMessages();
             this.newCommunity.resetMessage();
@@ -67,7 +74,17 @@ class ComsCities extends React.Component {
     }
 
     btnAddCity = async (e) => {
-        this.setDivBlock("AddCity");
+        
+        if (this.newCommunity === null || this.newCommunity.name === "MessageOnly") {
+
+            let tmpMsg = "Before adding a city, you must first create the community!";
+            this.setState({
+                msgArea: tmpMsg,
+            });
+
+        }
+        else 
+            this.setDivBlock("AddCity");
     }
 
     onChgselectCity = async (e) => {
@@ -82,10 +99,14 @@ class ComsCities extends React.Component {
         //
 
         let tmpMsg = "";
+        let chkCityCount = this.newCommunity.cityList.length;
 
         if (this.newCommunity != null) {
-            this.newCommunity = await c130d.createNewCity(this.newCommunity, this);
+            this.newCommunity = await c130d.createNewCity(this.newCommunity);
     
+            if (this.newCommunity.cityList.length > chkCityCount)
+                this.setDivBlock("ClrAddCity");
+
             if (this.newCommunity.isMessage()) {
                 tmpMsg += this.newCommunity.getMessages();
                 this.newCommunity.resetMessage();
@@ -272,8 +293,8 @@ class ComsCities extends React.Component {
                 divBlock: (
 
                     <SetCommunity 
-                        onclkCreateCom={() => this.btnCreateCom()}
-                        onclkCancelCom={() => this.btnCancelCom()}
+                        onclkCreateCom={this.btnCreateCom}
+                        onclkCancelCom={this.btnCancelCom}
                     />
 
                 ),
@@ -284,8 +305,8 @@ class ComsCities extends React.Component {
                 divBlock: (
 
                     <AddCity 
-                        onclkCreateCity={() => this.btnCreateCity()}
-                        onclkCancelCity={() => this.btnCancelCity()}
+                        onclkCreateCity={this.btnCreateCity}
+                        onclkCancelCity={this.btnCancelCity}
                     />
 
                 ),
@@ -309,13 +330,15 @@ class ComsCities extends React.Component {
         let tmpMsg = "";
         let data = await c130d.confirmAPIConnect(c130d.url);
         if (data.status === 200) {
-            this.newCommunity = await c130d.loadAPICommunity(c130d.url, this);
+            this.newCommunity = await c130d.loadAPICommunity(c130d.url, this.displayMessage);
 
             if (this.newCommunity.name !== "MessageOnly") {
                 if (this.newCommunity.isMessage()) this.newCommunity.resetMessage();
                 this.newCommunity.addMessage("Welcome to Communities and Cities!");
                 this.newCommunity.addMessage("Enjoy your experience and have a GREAT day.");
+                this.setDivBlock("ClrSetCommunity")
             }
+            else this.setDivBlock("SetCommunity");
 
             if (this.newCommunity.isMessage()) {
                 tmpMsg += this.newCommunity.getMessages();

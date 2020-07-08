@@ -9,7 +9,7 @@ const c130d = {
 
     url: 'http://localhost:5000/',
 
-    createNewCommunity: async (comCities) => {
+    createNewCommunity: async () => {
 
         let newCom = new community.Community ("MessageOnly");
 
@@ -23,8 +23,6 @@ const c130d = {
 
                 newCom.addMessage("Please input the new Community name.");
 
-                // return newCom;
-
             }
             else {
 
@@ -35,23 +33,17 @@ const c130d = {
                 document.getElementById("h4Community").textContent = "Community: " + newCom.name;
                 newCom.addMessage("Community " + tmpInput.trim() + " has been created.");
                 
-                comCities.setDivBlock("ClrSetCommunity");
-                
-                // return newCom;
             }
         } else {
 
-            // comCities.displayMessage("API is unavailable for Create Community. Please try again later!");
-            // newCom.addMessage("!");
             newCom.addMessage("API is unavailable for Create Community. Please try again later!");
 
         }
         return newCom;
     },
     
-    createNewCity: async (community, comCities) => {
+    createNewCity: async (community) => {
 
-        let newKey = 0
         let allLists = [];
 
         let data = await c130d.confirmAPIConnect (c130d.url);
@@ -82,7 +74,7 @@ const c130d = {
             else {
 
                 if (inputNewPop === 0) {
-                    if (inputAmt != 0) {
+                    if (inputAmt !== 0) {
                         inputNewPop = inputAmt;
                     }
                 }
@@ -93,8 +85,6 @@ const c130d = {
                 data = await c130d.createAPICity(c130d.url, community.cityList[newCity[0]], community.cityList[0]);
 
                 allLists = c130d.refreshCityList(community);
-
-                comCities.setDivBlock("ClrAddCity");
 
             }
         } else {
@@ -238,8 +228,6 @@ const c130d = {
             let northMaxKey = community.getMostNorthern();
             let southMaxKey = community.getMostSouthern();
 
-            let itemAdd = null;
-            
             for (let i = 0; i < cityArr.length; i++) {
                 
                 let textContent = "";
@@ -269,7 +257,7 @@ const c130d = {
                 
                 let itemID =`${item}${cityArr[i]}`;
                 let itemClass = "";
-                if ((i+1) % 2 == 0) itemClass = "liEven";
+                if ((i+1) % 2 === 0) itemClass = "liEven";
                 else itemClass = "liOdd";
                 
                 listItem[i] = (<li id={itemID} className={itemClass} key={i}>{textContent}</li>);
@@ -368,26 +356,32 @@ const c130d = {
         return data;
     },
     
-    loadAPICommunity: async (url, comCities) => {
+    loadAPICommunity: async (url, pDisplayMessage) => {
 
         let newCom = new community.Community ("MessageOnly");
         let allLists = [];
 
-        // messageArea.textContent = "Loading Community and Cities";
+        pDisplayMessage("Loading Community and Cities");
+        // window.ccComponent.displayMessage("Loading Community and Cities");
+
         let data = await c130d.getAllAPI(url);
 
         if (data.status === 200) {
 
             if (data.length > 0) {
+                let statusDots = '.'
                 newCom = new community.Community ("");
-                // messageArea.textContent = "Loading Community and Cities .";
+                pDisplayMessage(`Loading Community and Cities ${statusDots}`);
+                // window.ccComponent.displayMessage(`Loading Community and Cities ${statusDots}`);
                 //
                 // There is API data so start loading it. If none. Display
                 // message to enter the Community Name. 
                 //
                 for (let i = 0; i < data.length; i++) {
-
-                    // messageArea.textContent += ".";
+                    
+                    statusDots += ".";
+                    pDisplayMessage(`Loading Community and Cities ${statusDots}`);
+                    // window.ccComponent.displayMessage(`Loading Community and Cities ${statusDots}`);
 
                     if (i === 0) {
                         if (data[i].key === 0) {
@@ -401,20 +395,22 @@ const c130d = {
                         newCom.createCity (data[i].name, data[i].latitude, data[i].longitude, data[i].population, data[i].key);
                     }
                 }
-                // messageArea.textContent += ".";
+                statusDots += ".";
+                pDisplayMessage(`Loading Community and Cities ${statusDots}`);
+                // window.ccComponent.displayMessage(`Loading Community and Cities ${statusDots}`);
+                
                 allLists = c130d.refreshCityList(newCom);
+                
+                statusDots += ". DONE";
+                pDisplayMessage(`Loading Community and Cities ${statusDots}`);
+                // window.ccComponent.displayMessage(`Loading Community and Cities ${statusDots}`);
 
-                // messageArea.textContent += ". DONE";
                 newCom.addMessage("Community Loaded!");
                 
-                // c130d.removedivAddCom();
-                comCities.setDivBlock("ClrSetCommunity");                
             }
             else {
                 newCom.addMessage("There was no data to load from the API. "
                 + "Please enter the name of your new Community.");
-
-                comCities.setDivBlock("SetCommunity");
             }
         }
 

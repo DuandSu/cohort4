@@ -115,15 +115,74 @@ test('140d: Testing LinkedList Class insertAfter ', () => {
     let chkTail = nameList.tail;
     nameList.current = nameList.current.prevPtr;
     
-    // nameList.insertAfter("Sasha", "17");
-
-    // expect(nameList.current.showNode()).toBe("Subject = Sasha; " +
     expect(nameList.insertAfter("Sasha", "17").showNode()).toBe("Subject = Sasha; " +
         "Amount = 17; " + 
         "Previous = Duane; " +
         "Next = Suzanne");
 
     expect(nameList.tail).toEqual(chkTail);
+});
+
+test('140d: Testing LinkedList Class insertBefore ', () => {
+
+    const nameList = new lList.LinkedList ();
+
+    expect(nameList.head).toEqual(nameList.current);
+    expect(nameList.tail).toEqual(nameList.current);
+
+    let currentNode;
+
+    currentNode = nameList.insertBefore("Duane", "57");
+
+    expect(currentNode).toEqual(nameList.current);
+    expect(nameList.head.showNode()).toBe("Subject = llHead; " +
+        "Amount = 0; " + 
+        "Previous = null; " +
+        "Next = Duane");
+    expect(nameList.current.showNode()).toBe("Subject = Duane; " +
+        "Amount = 57; " + 
+        "Previous = llHead; " +
+        "Next = null");
+    expect(nameList.head.nextPtr).toEqual(nameList.current);
+    expect(nameList.tail).toEqual(nameList.current);
+
+    currentNode = nameList.insertBefore("Suzanne", "25");
+    expect(currentNode).toEqual(nameList.current);
+
+    expect(nameList.head.showNode()).toBe("Subject = llHead; " +
+    "Amount = 0; " + 
+    "Previous = null; " +
+    "Next = Suzanne");
+    expect(nameList.current.showNode()).toBe("Subject = Suzanne; " +
+        "Amount = 25; " + 
+        "Previous = llHead; " +
+        "Next = Duane");
+    expect(nameList.current.nextPtr.showNode()).toBe("Subject = Duane; " +
+        "Amount = 57; " + 
+        "Previous = Suzanne; " +
+        "Next = null");
+ 
+    nameList.next();
+    currentNode = nameList.insertBefore("Sasha", "17");
+
+    expect(currentNode).toEqual(nameList.current);
+    expect(nameList.current.showNode()).toBe("Subject = Sasha; " +
+    "Amount = 17; " + 
+    "Previous = Suzanne; " +
+    "Next = Duane");
+
+    nameList.last();
+    currentNode = nameList.insertBefore("Christopher", "15");    
+
+    //
+    // Note can only insert after last node using insertAfter().
+    //
+
+    expect(currentNode).toEqual(nameList.current);
+    expect(nameList.current.showNode()).toBe("Subject = Christopher; " +
+    "Amount = 15; " + 
+    "Previous = Sasha; " +
+    "Next = Duane");
 });
 
 test('140d: Testing LinkedList Class first, last, next, previous and delete', () => {
@@ -256,8 +315,7 @@ test('140d: Testing LinkedList Class total', () => {
     expect(nameList.total("START")).toBe(207);
 
     //
-    // NOTE: Unless create addBefore() there is no way to add a new
-    // node to the beginning of the list.
+    // NOTE: Can only insert before first node with insertBefore().
     //
 
     expect(nameList.first().showNode()).toBe("Subject = Duane; " +

@@ -259,7 +259,7 @@ class Community {
 
         let messages = "";
         for (let i = 0; i < this.msgQueue.length; i++) {
-            messages += " " + `${this.msgQueue[i]}`;
+            messages += ` ${this.msgQueue[i]}`;
         }
 
         return messages;
