@@ -17,7 +17,10 @@ import React, { useState } from 'react';
 import Starter from './components/Starter';
 import TicTacToe from './components/TicTacToe';
 import ComsCities from './components/ComsCities';
+import Play from './components/Play';
 import Clock from './components/Clock';
+import LinkedList from './components/LinkedList';
+import QueCom from './components/QueCom';
 
 import './App.css';
 
@@ -36,11 +39,10 @@ function App() {
   const onPushMe = (e) => {
 
     const tmpAppKey = e.target.getAttribute("ikey");
-    setMessage(`Call Application ${tmpAppKey}`);
+    setMessage(`Called Application ${tmpAppKey}`);
     setAppKey(tmpAppKey);
 
   }
-  // Enhancement: Add AppName below each svg.
 
   let output = [];
   if (appKey === "starter") {
@@ -49,11 +51,20 @@ function App() {
   else if (appKey === "tictactoe") {
       output.push(<TicTacToe sMessageArea={messageArea} key={appKey}/>);
   }
+  else if (appKey === "play") {
+    output.push(<Play sMessageArea={messageArea} key={appKey}/>);
+  }
   else if (appKey === "comscities") {
     output.push(<ComsCities sMessageArea={messageArea} key={appKey}/>);
   }
+  else if (appKey === "linkedlist") {
+    output.push(<LinkedList sMessageArea={messageArea} key={appKey}/>);
+   }
+  else if (appKey === "queues") {
+    output.push(<QueCom sMessageArea={messageArea} key={appKey}/>);
+  }
   else {
-    output.push(<Starter sMessageArea={messageArea} key={appKey}/>);
+      output.push(<Starter sMessageArea={messageArea} key={appKey}/>);
   }
 
   return (
@@ -66,16 +77,16 @@ function App() {
               <img src={insigniaST} className="App-svg2" alt="insigniaST" ikey="tictactoe" onClick={onPushMe} />
             </div>
             <div>
-              <img src={insigniaKL1} className="App-svg3" alt="insigniaKL1" ikey="3" onClick={onPushMe} />
+              <img src={insigniaKL1} className="App-svg3" alt="insigniaKL1" ikey="play" onClick={onPushMe} />
             </div>
             <div>
               <img src={insigniaKL2} className="App-svg4" alt="insigniaKL2" ikey="comscities" onClick={onPushMe} />
             </div>
             <div>
-              <img src={kittyKL} className="App-svg5" alt="kittyKL" ikey="5" onClick={onPushMe} />
+              <img src={kittyKL} className="App-svg5" alt="kittyKL" ikey="linkedlist" onClick={onPushMe} />
             </div>
             <div>
-              <img src={spockHI} className="App-svg6" alt="spockHI" ikey="6" onClick={onPushMe} />
+              <img src={spockHI} className="App-svg6" alt="spockHI" ikey="queues" onClick={onPushMe} />
             </div>
               <Clock
                 cClass={"App-svg7"}
