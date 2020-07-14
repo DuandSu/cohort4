@@ -1,4 +1,5 @@
 import React from 'react';
+import ThemeContext from './ThemeContext';
 
 function CurrentQueNodeComp(props) {
 
@@ -6,7 +7,7 @@ function CurrentQueNodeComp(props) {
     const subjectsFIFO = props.subjectsFIFO;
 
     return (
-        <div>
+        <div style={{color: `${React.useContext(ThemeContext)}`}}>
             <div>
                 <h1>Current FIFO Subject Node: </h1>
                 <div className="clPanel-2">
@@ -45,7 +46,6 @@ function CurrentQueNodeComp(props) {
                     <div className="clItem-2">{subjectsLIFO.current === subjectsLIFO.head 
                         ? "Empty" : subjectsLIFO.current.subject}
                     </div>
-
                     <div className="clItem-1">Amount:</div>
                     <div className="clItem-2">{subjectsLIFO.current.amount}</div>
                 </div>

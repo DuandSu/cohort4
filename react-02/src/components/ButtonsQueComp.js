@@ -1,7 +1,6 @@
 import React from 'react';
 
 function ButtonsQueComp() {
-    const txtColor = "blue";
 
     return (
         <div>

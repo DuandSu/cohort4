@@ -13,6 +13,7 @@
 //  Investigate error: logo.5d5d9eef.svg:1 GET http://localhost:3000/static/media/logo.5d5d9eef.svg net::ERR_CONNECTION_REFUSED
 
 import React, { useState } from 'react';
+import ThemeContext from './components/ThemeContext';
 
 import Starter from './components/Starter';
 import TicTacToe from './components/TicTacToe';
@@ -21,6 +22,7 @@ import Play from './components/Play';
 import Clock from './components/Clock';
 import LinkedList from './components/LinkedList';
 import QueCom from './components/QueCom';
+import SetColor from './components/SetColor';
 
 import './App.css';
 
@@ -35,12 +37,20 @@ function App() {
   
   const [messageArea, setMessage] = useState("Edit src/App.js and save to reload.");
   const [appKey, setAppKey] = useState("starter");
+  const [txtColor, settxtColor] = useState("#a9c2c0");
 
   const onPushMe = (e) => {
 
     const tmpAppKey = e.target.getAttribute("ikey");
     setMessage(`Called Application ${tmpAppKey}`);
     setAppKey(tmpAppKey);
+
+  }
+
+  const onSelectColor = (e) => {
+
+    settxtColor(document.getElementById("selColor").value);
+    setAppKey("starter");
 
   }
 
@@ -55,16 +65,40 @@ function App() {
     output.push(<Play sMessageArea={messageArea} key={appKey}/>);
   }
   else if (appKey === "comscities") {
-    output.push(<ComsCities sMessageArea={messageArea} key={appKey}/>);
+    output.push(
+      <ThemeContext.Provider value={`${txtColor}`}>
+        <ComsCities sMessageArea={messageArea} key={appKey}/>
+      </ThemeContext.Provider>);
   }
   else if (appKey === "linkedlist") {
-    output.push(<LinkedList sMessageArea={messageArea} key={appKey}/>);
-   }
+    output.push(
+      <ThemeContext.Provider value={`${txtColor}`}>
+        <LinkedList 
+          sMessageArea={messageArea} 
+          key={appKey} 
+        />
+      </ThemeContext.Provider>);
+  }
   else if (appKey === "queues") {
-    output.push(<QueCom sMessageArea={messageArea} key={appKey}/>);
+    output.push(
+      <ThemeContext.Provider value={`${txtColor}`}>
+        <QueCom 
+          sMessageArea={messageArea} 
+          key={appKey} 
+        />
+      </ThemeContext.Provider>);
+  }
+  else if (appKey === "setcolor") {
+    output.push(
+      <SetColor 
+        sMessageArea={messageArea} 
+        key={appKey} 
+        ptxtColor={txtColor}
+        onColClick={onSelectColor}
+      />);
   }
   else {
-      output.push(<Starter sMessageArea={messageArea} key={appKey}/>);
+    output.push(<Starter sMessageArea={messageArea} key={appKey}/>);
   }
 
   return (
@@ -90,7 +124,7 @@ function App() {
             </div>
               <Clock
                 cClass={"App-svg7"}
-                cKey={"7"} 
+                cKey={"setcolor"} 
                 cOnPushMe={onPushMe}
               />
         </div>

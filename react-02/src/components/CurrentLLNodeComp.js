@@ -1,18 +1,18 @@
 import React from 'react';
+import ThemeContext from './ThemeContext';
 
 function CurrentLLNodeComp(props) {
 
     const subjectsLL = props.subjects;
 
     return (
-        <div>
+        <div style={{color: `${React.useContext(ThemeContext)}`}}>
             <h1>Current Subject Node: </h1>
             <div className="clPanel-2">
                 <div className="clItem-1">Subject:</div>
                 <div className="clItem-2">{subjectsLL.current === subjectsLL.head 
                     ? "Empty" : subjectsLL.current.subject}
                 </div>
-
                 <div className="clItem-1">Amount:</div>
                 <div className="clItem-2">{subjectsLL.current.amount}</div>
             </div>

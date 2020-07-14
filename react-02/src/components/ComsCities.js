@@ -1,4 +1,6 @@
 import React from 'react';
+import ThemeContext from './ThemeContext';
+
 import './ComsCities.css';
 import c130d from '../scripts/c130d.js';
 import SetCommunity from './SetCommunity';
@@ -369,8 +371,10 @@ class ComsCities extends React.Component {
     render() {
 
         return (
+            <ThemeContext.Consumer>
+            {color => (
             <section className ="sectionMain" onClick={this.secMain}>
-                <h1>Welcome to the Community and City</h1>
+                <h1 style={{color: `${color}`}}>Welcome to the Community and City</h1>
                 <div className="divComActions divCCBlk">
                     <div className="divCitySelect">
                         <label htmlFor="selectCity">City Name: </label>
@@ -396,49 +400,49 @@ class ComsCities extends React.Component {
                     <h4 id="h4Community" className="h4ComTitle divCCBlk">Community: NOT Entered Yet!!</h4>
                     <div className="divCityList">
                         <section className="sectionCityList">
-                            <h4>City</h4>
+                            <h4 style={{color: `${color}`}}>City</h4>
                             <ul id="ulCityList">
                                 {this.state.liCityList}
                                 <li id="idSumTxt" className="liSum">Totals</li>
                             </ul>
                         </section>
                         <aside className="asideLatList">
-                            <h4>Latitude</h4>
+                            <h4 style={{color: `${color}`}}>Latitude</h4>
                             <ul id="ulLatList">
                                 {this.state.liLatList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
                         <aside className="asideLongList">
-                            <h4>Longitude</h4>
+                            <h4 style={{color: `${color}`}}>Longitude</h4>
                             <ul id="ulLongList">
                                 {this.state.liLongList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
                         <aside className="asidePopList">
-                            <h4>Population</h4>
+                            <h4 style={{color: `${color}`}}>Population</h4>
                             <ul id="ulPopList">
                                 {this.state.liPopList}
                                 <li id="idSum" className="liSum">0</li>
                             </ul>
                         </aside>
                         <aside className="asideSizeList">
-                            <h4>Size</h4>
+                            <h4 style={{color: `${color}`}}>Size</h4>
                             <ul id="ulSizeList">
                                 {this.state.liSizeList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
                         <aside className="asideHemList">
-                            <h4>N/S</h4>
+                            <h4 style={{color: `${color}`}}>N/S</h4>
                             <ul id="ulHemList">
                                 {this.state.liHemList}
                                 <li className="liSum">.</li>
                             </ul>
                         </aside>
                         <aside className="asideMaxList">
-                            <h4>Max N/S</h4>
+                            <h4 style={{color: `${color}`}}>Max N/S</h4>
                             <ul id="ulMaxList">
                                 {this.state.liMaxList}
                                 <li className="liSum">.</li>
@@ -447,7 +451,9 @@ class ComsCities extends React.Component {
                     </div>
                 </div>
 
-            </section>      
+            </section>
+            )}
+            </ThemeContext.Consumer>     
         );
     }
 }

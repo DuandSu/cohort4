@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import ThemeContext from './ThemeContext';
 
 function NewQueNodeComp(props) {
 
     const [msg, setMsg] = useState("");
-    const txtColor = "blue";
 
     function get(id) {
         return document.getElementById(id).value;
@@ -23,7 +23,7 @@ function NewQueNodeComp(props) {
     }
 
     return (
-        <div className="clInnerBox">
+        <div className="clInnerBox" style={{color: `${React.useContext(ThemeContext)}`}}>
             <h1>New Subject Node</h1>
             <p id="messageArea">{msg}</p>
             <div>

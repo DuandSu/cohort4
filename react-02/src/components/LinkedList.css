@@ -48,7 +48,7 @@ input, select {
 }*/
 
 .labelLL {
-    color: #a9c2c0;
+    /* color: #a9c2c0; Commented out for Context Play*/
     font-weight: bold;
 }
 
@@ -71,7 +71,7 @@ input, select {
 
 .clItem-1 {
     /* border: 1px solid #000; */
-    color: #a9c2c0;
+    /* color: #a9c2c0; Commented out for Context Play*/
     grid-column: 1;
     text-align: right;
     font-weight: bold;

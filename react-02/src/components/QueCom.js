@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import ThemeContext from './ThemeContext';
+
 import './QueCom.css';
 import ButtonsQueComp from './ButtonsQueComp';
 import CurrentQueNodeComp from './CurrentQueNodeComp';
@@ -7,6 +9,7 @@ import queue from '../scripts/Queue.js'
 
 const subjectListFIFO = new queue.Queue ("FIFO");
 const subjectListLIFO = new queue.Queue ("LIFO");
+
 let totalAmountLIFO = 0;
 let totalAmountFIFO = 0;
 let messageArea = "";
@@ -97,7 +100,6 @@ function QueCom(props) {
   else {
     if (subjectListFIFO.current !== subjectListFIFO.head &&
       subjectListLIFO.current !== subjectListLIFO.head) {
-      // setCurrentNode(subjectList.current);
       output.push(<CurrentQueNodeComp 
         key="current" 
         subjectsLIFO={subjectListLIFO} 
@@ -113,7 +115,7 @@ function QueCom(props) {
   return (
     <div>
       <div onClick={onClick} className="App clBox">
-        <h1>{props.sMessageArea} for Queues - Competency 140D</h1>
+        <h1 style={{color: `${React.useContext(ThemeContext)}`}}>{props.sMessageArea} for Queues - Competency 140D</h1>
           {output}
       </div>
     </div>
