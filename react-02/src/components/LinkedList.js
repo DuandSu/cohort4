@@ -56,6 +56,9 @@ function LinkedList(props) {
       else if (todo === 'last') {
         subjectList.last();
       }
+      else if (todo === "delete") {
+        if (subjectList.current !== subjectList.head) subjectList.delete();
+      } 
       else if (todo === 'total') {
         let tempTotal = subjectList.total();
         totalAmount = tempTotal;

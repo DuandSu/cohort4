@@ -66,13 +66,13 @@ function App() {
   }
   else if (appKey === "comscities") {
     output.push(
-      <ThemeContext.Provider value={`${txtColor}`}>
+      <ThemeContext.Provider value={`${txtColor}`} key="ComsCities">
         <ComsCities sMessageArea={messageArea} key={appKey}/>
       </ThemeContext.Provider>);
   }
   else if (appKey === "linkedlist") {
     output.push(
-      <ThemeContext.Provider value={`${txtColor}`}>
+      <ThemeContext.Provider value={`${txtColor}`} key="LinkedList">
         <LinkedList 
           sMessageArea={messageArea} 
           key={appKey} 
@@ -81,7 +81,7 @@ function App() {
   }
   else if (appKey === "queues") {
     output.push(
-      <ThemeContext.Provider value={`${txtColor}`}>
+      <ThemeContext.Provider value={`${txtColor}`} key="QueCom">
         <QueCom 
           sMessageArea={messageArea} 
           key={appKey} 

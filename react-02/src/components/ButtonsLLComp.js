@@ -4,6 +4,7 @@ function ButtonsLLComp() {
     return (
         <div>
             <button className="clButton" todo="newbefore">New Before</button>
+            <button className="clButton" todo="delete">Delete</button>
             <button className="clButton" todo="newafter">New After</button>
         </div>
     )

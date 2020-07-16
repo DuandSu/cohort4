@@ -77,7 +77,6 @@ function QueCom(props) {
         subjectListLIFO.last();
       }
       else if (todo === "pop") {
-        console.log("QueCom: Ready to Pop:")
         const popFIFOResult = subjectListFIFO.pop();
         const popLIFOResult = subjectListLIFO.pop();
         messageArea = `Take Out FIFO: ${popFIFOResult[1]} LIFO: ${popLIFOResult[1]}`;

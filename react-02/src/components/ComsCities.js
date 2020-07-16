@@ -91,8 +91,23 @@ class ComsCities extends React.Component {
 
     onChgselectCity = async (e) => {
         if(document.getElementById("selectCity").value === "srcAddCity")
-            this.setDivBlock("AddCity");
-    }
+            // if (this.newCommunity === null || this.newCommunity.name === "MessageOnly") {
+
+            //     let tmpMsg = "Before adding a city, you must first create the community!";
+            //     console.log("onChgselectCity: tmpMsg: " + tmpMsg);
+            //     //
+            //     // Bug to resolve. tmpMsg set correctly, but setState does not set msgArea. I can see
+            //     // not getting set from Components in Chrome f12, and does not render to screen.
+            //     // However, it is correctly not bringing up the AddCity div block. If they pick the Add
+            //     // City button, message does render correctly, so user will get the idea.
+            //     //
+            //     this.setState({
+            //         msgArea: tmpMsg,
+            //     });
+            // }
+            // else
+                this.setDivBlock("AddCity");
+        }
 
     btnCreateCity = async (e) => {
             
