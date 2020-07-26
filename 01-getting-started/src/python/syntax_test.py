@@ -3,7 +3,6 @@ import syntax
 def test_canAssertTrue():
     assert True
 
-
 def test_TDD_Pipes():
     
     printLog = []
@@ -288,3 +287,11 @@ def test_Classes():
     assert syntax.duane.address.city == "Calgary"
     assert syntax.duane.address.prov == "Alberta"
     assert syntax.duane.address.country == "Canada"
+
+def test_createEmail():
+    assert syntax.createEmail("Larry", "Shumlich") == "larry.shumlich@evolveu.ca"
+    assert syntax.createEmail("Heiko", "Peters") == "heiko.peters@evolveu.ca"
+    assert syntax.createEmail("DUANE", "MUNRO") == "duane.munro@evolveu.ca"
+    assert syntax.createEmail("joHn", "leNNon") == "john.lennon@evolveu.ca"
+    assert syntax.createEmail("ringo", "") == "ringo@evolveu.ca"
+    assert syntax.createEmail("", "Dracula") == "dracula@evolveu.ca"
