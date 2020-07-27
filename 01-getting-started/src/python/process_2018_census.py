@@ -1,3 +1,4 @@
+import sys
 import census
 #
 # Note to come back later and refactor to automatically load in the dictionary "censusDefn". It might
@@ -9,7 +10,15 @@ import census
 # Also note that definitely used pytest to test necessary functionality. Never felt need though to
 # break out into functions for easier test scripting though.
 #
+
 censusResCntByCS = {}
+
+# total arguments
+printToFile = False
+numArgs = len(sys.argv)
+if numArgs > 1:
+    fileName = sys.argv[1]
+    printToFile = True
 
 f = open("Census_by_Community_2018.csv", "r")
 
@@ -51,13 +60,22 @@ for x in f:
 
 f.close()
 
-f = open("report.txt", "w")
-f.write("-------------------------------------------------------------------------------")
-f.write(f'-- Calgary 2018 Census by Community had {countLines} lines.')
-f.write("-------------------------------------------------------------------------------")
+if printToFile:
+    f = open(fileName, "w")
+    f.write("-------------------------------------------------------------------------------")
+    f.write(f'-- Calgary 2018 Census by Community had {countLines} lines.')
+    f.write("-------------------------------------------------------------------------------")
 
-for resByCS in censusResCntByCS:
-    f.write(f'---- Class/Sector {resByCS[0]}/{resByCS[1]} has ResCnt Total: {"{:,.0f}".format(censusResCntByCS[(resByCS[0],resByCS[1])])}')
-f.write("-------------------------------------------------------------------------------")
+    for resByCS in censusResCntByCS:
+        f.write(f'---- Class/Sector {resByCS[0]}/{resByCS[1]} has ResCnt Total: {"{:,.0f}".format(censusResCntByCS[(resByCS[0],resByCS[1])])}')
+    f.write("-------------------------------------------------------------------------------")
 
-f.close()
+    f.close()
+else:
+    print("-------------------------------------------------------------------------------")
+    print(f'-- Calgary 2018 Census by Community had {countLines} lines.')
+    print("-------------------------------------------------------------------------------")
+
+    for resByCS in censusResCntByCS:
+        print(f'---- Class/Sector {resByCS[0]}/{resByCS[1]} has ResCnt Total: {"{:,.0f}".format(censusResCntByCS[(resByCS[0],resByCS[1])])}')
+    print("-------------------------------------------------------------------------------")
