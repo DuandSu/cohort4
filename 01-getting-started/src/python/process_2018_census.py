@@ -61,21 +61,22 @@ for x in f:
 f.close()
 
 if printToFile:
+    # f = open(sys.stdout, "w")
     f = open(fileName, "w")
-    f.write("-------------------------------------------------------------------------------")
-    f.write(f'-- Calgary 2018 Census by Community had {countLines} lines.')
-    f.write("-------------------------------------------------------------------------------")
+    f.write(f"-------------------------------------------------------------------------------\r")
+    f.write(f'-- Calgary 2018 Census by Community had {countLines} lines.\r')
+    f.write(f"-------------------------------------------------------------------------------\r")
 
     for resByCS in censusResCntByCS:
-        f.write(f'---- Class/Sector {resByCS[0]}/{resByCS[1]} has ResCnt Total: {"{:,.0f}".format(censusResCntByCS[(resByCS[0],resByCS[1])])}')
-    f.write("-------------------------------------------------------------------------------")
+        f.write(f'---- Class/Sector {resByCS[0]}/{resByCS[1]} has ResCnt Total: {"{:,.0f}".format(censusResCntByCS[(resByCS[0],resByCS[1])])}\r')
+    f.write(f"-------------------------------------------------------------------------------\r")
 
     f.close()
 else:
-    print("-------------------------------------------------------------------------------")
-    print(f'-- Calgary 2018 Census by Community had {countLines} lines.')
-    print("-------------------------------------------------------------------------------")
+    print(f"-------------------------------------------------------------------------------\r")
+    print(f'-- Calgary 2018 Census by Community had {countLines} lines.\r')
+    print(f"-------------------------------------------------------------------------------\r")
 
     for resByCS in censusResCntByCS:
-        print(f'---- Class/Sector {resByCS[0]}/{resByCS[1]} has ResCnt Total: {"{:,.0f}".format(censusResCntByCS[(resByCS[0],resByCS[1])])}')
-    print("-------------------------------------------------------------------------------")
+        print(f'---- Class/Sector {resByCS[0]}/{resByCS[1]} has ResCnt Total: {"{:,.0f}".format(censusResCntByCS[(resByCS[0],resByCS[1])])}\r')
+    print(f"-------------------------------------------------------------------------------\r")
