@@ -1,6 +1,5 @@
 import sys 
 
-print("Starting Program call_sum_with_param.py")  
 # total arguments 
 n = len(sys.argv) 
 print("Total arguments passed:", n) 
