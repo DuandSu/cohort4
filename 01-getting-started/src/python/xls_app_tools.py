@@ -86,8 +86,8 @@ def getInv(invNo, invDict, invLnDict):
 
     return invToPrint
 
-def print_invoice(invNo):
-    
+def print_invoice(invNo,disp):
+
     # Load in Excel File
     locDict = loadLocation("MunRobinsonGardens.xlsx")
     compDict = loadCompany("MunRobinsonGardens.xlsx")
@@ -124,12 +124,22 @@ def print_invoice(invNo):
     addrSepWidth = Column_Width - addrStaticWidth - custAddrWidth
     addrSep = addrSepWidth * " "
 
-    print('')
-    print(f'--------------------------------------------------------------------------------')
-    print(f'-- Customer: {invCompDesc} {invCustDesc} {custSep}--')
-    print(f'-- Invoice No: {"{:0>6d}".format(invNo)}    Invoice Date: {invDate}{invSep}--')
-    print(f'-- Address: {custAddr}{addrSep} --')
-    print(f'--------------------------------------------------------------------------------')
+    # If file, open and write to the file, otherwise print to terminal.
+    if disp != "":
+        f = open(disp, "w")
+        f.write('')
+        f.write(f'--------------------------------------------------------------------------------\r')
+        f.write(f'-- Customer: {invCompDesc} {invCustDesc} {custSep}--\r')
+        f.write(f'-- Invoice No: {"{:0>6d}".format(invNo)}    Invoice Date: {invDate}{invSep}--\r')
+        f.write(f'-- Address: {custAddr}{addrSep} --\r')
+        f.write(f'--------------------------------------------------------------------------------\r')
+    else:
+        print('')
+        print(f'--------------------------------------------------------------------------------')
+        print(f'-- Customer: {invCompDesc} {invCustDesc} {custSep}--')
+        print(f'-- Invoice No: {"{:0>6d}".format(invNo)}    Invoice Date: {invDate}{invSep}--')
+        print(f'-- Address: {custAddr}{addrSep} --')
+        print(f'--------------------------------------------------------------------------------')
 
     # print invoice details.
     invTotal = 0
@@ -152,8 +162,10 @@ def print_invoice(invNo):
         prodLineTotWidth = len(lineTotDisp)
         addrSepWidth = Column_Width - lineStaticWidth - prodDescWidth - prodQtyWidth - prodPriceDispWidth - prodUnitWidth - prodLineTotWidth
         lineSep = addrSepWidth * " "
-
-        print(f'--    {prodDesc} {prodQty} for {prodPriceDisp}/{prodUnit}{lineSep}{lineTotDisp} --')
+        if disp != "":
+            f.write(f'--    {prodDesc} {prodQty} for {prodPriceDisp}/{prodUnit}{lineSep}{lineTotDisp} --\r')
+        else:
+            print(f'--    {prodDesc} {prodQty} for {prodPriceDisp}/{prodUnit}{lineSep}{lineTotDisp} --')
 
     # print invoice summary
     invTotDisp = "${:,.2f}".format(invTotal)
@@ -162,9 +174,20 @@ def print_invoice(invNo):
     invTotSepWidth = Column_Width - invTotStaticWidth - invTotDispWidth
     invTotSep = invTotSepWidth * " "
 
-    print(f'--                                                                  ------------')
-    print(f'--    Total {invTotSep}{invTotDisp} --')
-    print(f'--------------------------------------------------------------------------------')
-    print(f'-- MunRobinson Gardens THANKS you for your business.                          --')
-    print(f'-- Please Pay within 30 Days to avoid extra charges of 2 percent.             --') 
-    print(f'--------------------------------------------------------------------------------')
+    # If file, write to the file and close it, otherwise print to terminal.
+    if disp != "":
+        f.write(f'--                                                                  ------------\r')
+        f.write(f'--    Total {invTotSep}{invTotDisp} --\r')
+        f.write(f'--------------------------------------------------------------------------------\r')
+        f.write(f'-- MunRobinson Gardens THANKS you for your business.                          --\r')
+        f.write(f'-- Please Pay within 30 Days to avoid extra charges of 2 percent.             --\r') 
+        f.write(f'--------------------------------------------------------------------------------\r')
+        f.close()
+    else:
+        print(f'--                                                                  ------------')
+        print(f'--    Total {invTotSep}{invTotDisp} --')
+        print(f'--------------------------------------------------------------------------------')
+        print(f'-- MunRobinson Gardens THANKS you for your business.                          --')
+        print(f'-- Please Pay within 30 Days to avoid extra charges of 2 percent.             --') 
+        print(f'--------------------------------------------------------------------------------')
+
