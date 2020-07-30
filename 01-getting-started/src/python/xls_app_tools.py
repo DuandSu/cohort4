@@ -115,8 +115,8 @@ def print_invoice(invNo, disp, xlsDict):
     invToPrint = getInv(invNo, invDict, invLnDict)
     # Prepare for print invoice header section by grabbing data, lookups for description and 
     # formatting. 
-    invDate = invToPrint[0][2]
-    invSep = 20 * " "
+    invDate = invToPrint[0][2].strftime("%Y-%m-%d")
+    invSep = 29 * " "
     invCustNo = invToPrint[0][3]
     invCustDesc = custDict[invCustNo][1]
     invCompNo = custDict[invCustNo][0]
