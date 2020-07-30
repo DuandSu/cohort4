@@ -1,5 +1,8 @@
 import xls_app_tools
 
+# Load in Excel File
+xlsDict = xls_app_tools.loadXLS();
+
 print ("-------------------------------------------------------------------------------")
 print(f"\nWelcome to the MunRobinson Print Invoice App!")
 
@@ -10,7 +13,7 @@ while userInputInv != "q":
     try:
         userInputInv = int(userInputInv)
         userInputDisp = input(f'Filename for Output (<Enter for Display to Terminal>: ')
-        xls_app_tools.print_invoice(userInputInv, userInputDisp)
+        xls_app_tools.print_invoice(userInputInv, userInputDisp, xlsDict)
     except:
         if userInputInv == "":
             userInputInv = "q"

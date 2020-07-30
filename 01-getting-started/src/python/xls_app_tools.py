@@ -86,15 +86,26 @@ def getInv(invNo, invDict, invLnDict):
 
     return invToPrint
 
-def print_invoice(invNo,disp):
-
+def loadXLS():
     # Load in Excel File
-    locDict = loadLocation("MunRobinsonGardens.xlsx")
-    compDict = loadCompany("MunRobinsonGardens.xlsx")
-    custDict = loadCustomer("MunRobinsonGardens.xlsx")
-    prodDict = loadProduct("MunRobinsonGardens.xlsx")
-    invDict = loadInvoice("MunRobinsonGardens.xlsx")
-    invLnDict = loadInvLine("MunRobinsonGardens.xlsx")
+    xlsDict = []
+    xlsDict.append(loadLocation("MunRobinsonGardens.xlsx"))
+    xlsDict.append(loadCompany("MunRobinsonGardens.xlsx"))
+    xlsDict.append(loadCustomer("MunRobinsonGardens.xlsx"))
+    xlsDict.append(loadProduct("MunRobinsonGardens.xlsx"))
+    xlsDict.append(loadInvoice("MunRobinsonGardens.xlsx"))
+    xlsDict.append(loadInvLine("MunRobinsonGardens.xlsx"))
+
+    return xlsDict
+
+def print_invoice(invNo, disp, xlsDict):
+    # Load in Excel File
+    locDict = xlsDict[0]
+    compDict = xlsDict[1]
+    custDict = xlsDict[2]
+    prodDict = xlsDict[3]
+    invDict = xlsDict[4]
+    invLnDict = xlsDict[5]
 
     Column_Width = 80
 
@@ -123,7 +134,7 @@ def print_invoice(invNo,disp):
     custAddrWidth = len(custAddr)
     addrSepWidth = Column_Width - addrStaticWidth - custAddrWidth
     addrSep = addrSepWidth * " "
-
+    
     # If file, open and write to the file, otherwise print to terminal.
     if disp != "":
         f = open(disp, "w")
