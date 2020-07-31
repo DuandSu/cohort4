@@ -99,13 +99,8 @@ def loadXLS():
     return xlsDict
 
 def print_invoice(invNo, disp, xlsDict):
-    # Load in Excel File
-    locDict = xlsDict[0]
-    compDict = xlsDict[1]
-    custDict = xlsDict[2]
-    prodDict = xlsDict[3]
-    invDict = xlsDict[4]
-    invLnDict = xlsDict[5]
+
+    locDict, compDict, custDict, prodDict, invDict, invLnDict = xlsDict
 
     Column_Width = 80
 
