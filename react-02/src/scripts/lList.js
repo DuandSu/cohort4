@@ -105,6 +105,10 @@ class LinkedList {
     // total all the amounts of all nodes. Receive the "START", which is the default, 
     // as a parameter to jump to first node. Cycle through remaining nodes recursively.
     //
+    // Note: Roman pointed out a side effect of changing the current pointer. Consider passing the next ptr
+    // without moving current.
+    // Also might save efficiency by storing as number and doing Number() once rather than over and over
+    // in your methods.
 
     total(nodeFlg) {
 

@@ -38,7 +38,14 @@ def test_excel_date():
 
 def test_loadLocation():
     locDict = xls_app_tools.loadLocation("MRGTesting.xlsx")
-    assert locDict == {"locType": "locDesc", 1: "Head", 2: "Branch"}
+    locDict.pop("locType")
+    assert locDict == {1: "Head", 2: "Branch"}
+    # header, *data = locDict
+    # print(header.value)
+    # print(data)
+    # assert header["locType"] == "locDesc"
+    # assert header == {"locType": "locDesc"}
+    # assert locDict.difference({"locType": "locDesc"})
 
 def test_loadCompany():
     compDict = xls_app_tools.loadCompany("MRGTesting.xlsx")
@@ -98,6 +105,18 @@ def test_loadInvLine():
     invLnDict = xls_app_tools.loadInvLine("MRGTesting.xlsx")
     assert  invLnDict == {
         ('invNo', 'lineNo') : ('prodNo', 'prodQty', 'prodPrice', 'prodUnit', 'taxCode', 'taxCodeRate'),
+        (1, 1) : (1, 1, 2.99, 'Pkg', None, None),
+        (1, 2) : (2, 2, 1.99, 'Lb', None, None),
+        (1, 3) : (6, 3, 3.59, 'Each', None, None),
+        (1, 4) : (8, 4, 2.99, 'Lb', None, None),
+        (2, 1) : (1, 2, 1.99, 'Pkg', None, None),
+        (2, 2) : (2, 3, 0.99, 'Lb', None, None),
+        (2, 3) : (6, 4, 2.59, 'Each', None, None),
+        (2, 4) : (8, 5, 1.99, 'Lb', None, None)
+    }
+
+    invLnDict.pop(('invNo', 'lineNo'))
+    assert  invLnDict == {
         (1, 1) : (1, 1, 2.99, 'Pkg', None, None),
         (1, 2) : (2, 2, 1.99, 'Lb', None, None),
         (1, 3) : (6, 3, 3.59, 'Each', None, None),
