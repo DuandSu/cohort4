@@ -1,7 +1,11 @@
+import os
 from flask import Flask, jsonify, render_template
+from flask_cors import CORS
 import xls_app_tools
 
 app = Flask(__name__)
+app.secret_key = os.urandom(16)
+CORS(app, supports_credentials=True)
 
 # Load in Excel File
 xlsDictArr = xls_app_tools.loadXLS()
@@ -23,15 +27,15 @@ def home():
 def getLoc():
     return jsonify(locDict)
 
-@app.route('/comp')
+@app.route('/comp', methods=['POST', 'GET'])
 def getComp():
     return jsonify(compDict)
 
-@app.route('/cust')
+@app.route('/cust', methods=['POST', 'GET'])
 def getCust():
     return jsonify(custDict)
 
-@app.route('/prod')
+@app.route('/prod', methods=['POST', 'GET'])
 def getProd():
     return jsonify(prodDict)
 
@@ -43,7 +47,7 @@ def getInv():
 def getInvLn():
     return jsonify(invLnDict2JSON)
 
-@app.route('/inv/<int:invno>')
+@app.route('/inv/<int:invno>', methods=['POST', 'GET'])
 def getInvNo(invno):
     invToPrint = xls_app_tools.getInv(invno, invDict, invLnDict)
     return jsonify(invToPrint)
