@@ -43,4 +43,9 @@ def getInv():
 def getInvLn():
     return jsonify(invLnDict2JSON)
 
+@app.route('/inv/<int:invno>')
+def getInvNo(invno):
+    invToPrint = xls_app_tools.getInv(invno, invDict, invLnDict)
+    return jsonify(invToPrint)
+
 app.run(port=5000)
