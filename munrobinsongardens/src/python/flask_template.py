@@ -27,4 +27,20 @@ def getLoc():
 def getComp():
     return jsonify(compDict)
 
+@app.route('/cust')
+def getCust():
+    return jsonify(custDict)
+
+@app.route('/prod')
+def getProd():
+    return jsonify(prodDict)
+
+@app.route('/inv')
+def getInv():
+    return jsonify(invDict)
+
+@app.route('/invln')
+def getInvLn():
+    return jsonify(invLnDict2JSON)
+
 app.run(port=5000)
