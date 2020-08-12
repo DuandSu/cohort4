@@ -17,11 +17,10 @@ def home():
     prodDict.pop("prodNo")
     invDict.pop("invNo")
     invLnDict.pop(('invNo', 'lineNo'))
+    invLnDict2JSON = {str(invLi[0]) + "/" + str(invLi[1]): invLnDict[invLi] for invLi in invLnDict}
  
     return jsonify(
-        locDict, compDict, custDict, prodDict, invDict
-        # { invLnDict }
-        # {1: "Head", 2: "Branch"}
+        locDict, compDict, custDict, prodDict, invDict, invLnDict2JSON
     )
     # return render_template('index.html')
 

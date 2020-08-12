@@ -126,6 +126,17 @@ def test_loadInvLine():
         (2, 3) : (6, 4, 2.59, 'Each', None, None),
         (2, 4) : (8, 5, 1.99, 'Lb', None, None)
     }
+    invLnDict2JSON = {str(invLi[0]) + "/" + str(invLi[1]): invLnDict[invLi] for invLi in invLnDict}
+    assert invLnDict2JSON == {
+        '1/1' : (1, 1, 2.99, 'Pkg', None, None),
+        '1/2' : (2, 2, 1.99, 'Lb', None, None),
+        '1/3' : (6, 3, 3.59, 'Each', None, None),
+        '1/4' : (8, 4, 2.99, 'Lb', None, None),
+        '2/1' : (1, 2, 1.99, 'Pkg', None, None),
+        '2/2' : (2, 3, 0.99, 'Lb', None, None),
+        '2/3' : (6, 4, 2.59, 'Each', None, None),
+        '2/4' : (8, 5, 1.99, 'Lb', None, None)
+    }
 
 def test_getInv():
     invDict = {
