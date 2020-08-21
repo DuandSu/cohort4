@@ -72,16 +72,20 @@
 - SVG 6 (Vulcan Live Long and Prosper) implements a FIFO queue list and a LIFO stack to demonstrate the difference (QueCom, CurrentQueNode, NewQueNodeComp, ButtonsQueComp). Both referenced as queues, although technically LIFO is not a queue. Extending the Linked List class and reuse of Linked List components and code made this very easy to implement. Classes (Queue) in "\react-02\src\scripts".
 - Icon 7 (Clock Compenent) implements ThemeContext (SetColor, ThemeContext) to change the font text color for the applications 4, 5, 6 and 7.
 
-\api\:
+\munrobinsongardens\src\:
+- This very basic ReactJS (App) that prints an invoice from data received from my Python RESTapi, which gets the data from an Excel spreadsheet. The goal for this was to test my personally programmed Python RESTapi from ReactJS app. For ReactJS only concerned about functionality and NOT presentation.
 
+\munrobinsongardens\src\components:
+- React JS component (DispInvComp) to display the chosen invoice.
 
-\munrobinsongardens\:
-
+\munrobinsongardens\src\python:
+- My Python RESTapi (flask_template), which gets the data from an Excel spreadsheet.
 
 \robofriends\:
+- Robofriends application from Udemy Full Stack Developer course.
 
 \postgreSQL\:
-
+- My postgreSQL database competency (CFL). This is the beginning databse for an application to track a Canadian Football Leauge pool I have with friends, we call it the Canadian Flubber League.
 
 The following is the original README.md file when this git repository was first create as part of the EvolveU 6-Month Full Stack Developer program. Kept text for historical reference:
 
