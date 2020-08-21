@@ -1,9 +1,4 @@
 // This is competency 100D.
-// The purpose of this Javascript is to demonstrate usage of the array and dictionary objects, following the instructions
-// in the competency.
-//
-// Note: Separation of concerns is pretty good I think. However, there is no TDD for any of the methods. Need to figuire
-// that out.
 //
 
 const c110DOM = {
