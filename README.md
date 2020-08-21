@@ -1,18 +1,18 @@
 21-Aug-2020: This repository contains the majority of the Competency Project work completed as part of the EvolveU 6-Month Full Stack Developer program:
 
 \01-getting-started\src\index.html:
-    :- Main HTML (index.html) to access the JavaScript projects. Use live-server.
+- Main HTML (index.html) to access the JavaScript projects. Use live-server.
 \01-getting-started\src\scripts:
-    :- First JavaScript (.js) competencies including Jest TDD test scripts (.test.js) called from JS (main.js).
-    :- Basic Syntax exercise (syntax)
-    :- Size (functions).
-    :- Simple Calculator (calculator). 2-number add, subtract, multiply and divide.
-    :- Simple Tax Calculator (taxcalculator). Calculate basic income tax based on income tier.
-    :- Working with Arrays (arraysdictionaries) to add, show, total or clear the array.
-    :- Working with Dicionaries (arraysdictionaries). Lookup province description for 2-digit province code. Eg. AB, BC.
+- First JavaScript (.js) competencies including Jest TDD test scripts (.test.js) called from JS (main.js).
+- Basic Syntax exercise (syntax)
+- Size (functions).
+- Simple Calculator (calculator). 2-number add, subtract, multiply and divide.
+- Simple Tax Calculator (taxcalculator). Calculate basic income tax based on income tier.
+- Working with Arrays (arraysdictionaries) to add, show, total or clear the array.
+- Working with Dicionaries (arraysdictionaries). Lookup province description for 2-digit province code. Eg. AB, BC.
 \01-getting-started\src\python:
-    :- First Python (.py) competencies inclusing Pytest test scripts (_test.py).
-    :- 
+- First Python (.py) competencies inclusing Pytest test scripts (_test.py).
+-  
 
 The following is the original README.md file when this git repository was first create as part of the EvolveU 6-Month Full Stack Developer program. Kept text for historical reference:
 
