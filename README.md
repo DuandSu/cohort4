@@ -2,6 +2,7 @@
 
 \01-getting-started\src\index.html:
 - Main HTML (index.html) to access the JavaScript projects. Use live-server.
+
 \01-getting-started\src\scripts:
 - First JavaScript (.js) competencies including Jest TDD test scripts (.test.js) called from JS (main.js).
 - Basic Syntax exercise (syntax)
@@ -10,9 +11,17 @@
 - Simple Tax Calculator (taxcalculator). Calculate basic income tax based on income tier.
 - Working with Arrays (arraysdictionaries) to add, show, total or clear the array.
 - Working with Dicionaries (arraysdictionaries). Lookup province description for 2-digit province code. Eg. AB, BC.
+
 \01-getting-started\src\python:
 - First Python (.py) competencies inclusing Pytest test scripts (_test.py).
--  
+- Basic Syntax exercise (syntax)
+- Simple Tax Calculator (call_cantax, cantax). Calculate basic income tax based on income tier.
+- Sum calculator (call_sum_with_param) using command line parameters as input/arguments.
+- Read file (read_file) and print character and line count, as well as number of "else" statements.
+- List files in directory (list_dir).
+- Read CSV file and print summary report (process_2018_census) to terminal/file.
+- Read XLS sheets as tables and print invoice report (call_print_invoice).
+- Tool library for XLS competency (xls_app_tools).
 
 The following is the original README.md file when this git repository was first create as part of the EvolveU 6-Month Full Stack Developer program. Kept text for historical reference:
 
