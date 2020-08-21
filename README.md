@@ -1,4 +1,4 @@
-21-Aug-2020: This repository contains the majority of the Competency Project work completed as part of the EvolveU 6-Month Full Stack Developer program:
+21-Aug-2020: This repository contains the majority of the Competency Project work completed as part of the EvolveU 6-Month Full Stack Developer program. There is also a program or two from my Udemy courses:
 
 \01-getting-started\src\index.html:
 - Main HTML (index.html) to access the JavaScript projects. Use live-server.
@@ -85,7 +85,7 @@
 - Robofriends application from Udemy Full Stack Developer course.
 
 \postgreSQL\:
-- My postgreSQL database competency (CFL). This is the beginning databse for an application to track a Canadian Football Leauge pool I have with friends, we call it the Canadian Flubber League.
+- My postgreSQL database competency (CFL). This is the beginning database for an application to track a Canadian Football Leauge pool I have with friends, we call it the Canadian Flubber League.
 
 The following is the original README.md file when this git repository was first create as part of the EvolveU 6-Month Full Stack Developer program. Kept text for historical reference:
 
