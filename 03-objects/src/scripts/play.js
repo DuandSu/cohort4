@@ -73,9 +73,9 @@ const play = {
           }
         }
         return result;
-      },
+    },
 
-      likesBest1: (names) => {
+    likesBest1: (names) => {
         // I didn't understand the purpose for logical OR "||", so did console.log,
         // but there was no difference before or after. So just commented it out.
         // console.log("1:", names);
@@ -93,9 +93,9 @@ const play = {
           case 3: return names[0] + ', ' + names[1] + ' and ' + names[2] + ' like this'; break;
           default: return names[0] + ', ' + names[1] + ' and ' + (names.length - 2) + ' others like this';
         }
-      },
+    },
 
-      myMaskify: (cc) => {
+    myMaskify: (cc) => {
         //
         // I thought this solution was pretty good.
         //
@@ -107,7 +107,20 @@ const play = {
         // return cc.slice(0, -4).replace(/./g, '#') + cc.slice(-4);
         // return cc.replace(/.(?=....)/g, '#');
         // return cc.replace(/.(?=.{4})/g, "#");
-      } 
+    },
+    
+    maskify1: (cc) => {
+        return cc.slice(0, -4).replace(/./g, '#') + cc.slice(-4);
+    },
+    
+    maskify2: (cc) => {
+        return cc.replace(/.(?=....)/g, '#');
+    },
+  
+    maskify3: (cc) => {
+        return cc.replace(/.(?=.{4})/g, "#");
+    }
+
 }
 
 export default play;

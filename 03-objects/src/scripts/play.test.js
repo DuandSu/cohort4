@@ -208,10 +208,28 @@ test('Play: codewars Who Likes It', () => {
 });
 
 test('Play: Credit Card Mask', () => {
-    
+
     expect(play.myMaskify('4556364607935616')).toBe('############5616');
     expect(play.myMaskify('1')).toBe('1');
     expect(play.myMaskify('11111')).toBe('#1111');
     expect(play.myMaskify('1234')).toBe('1234');
     expect(play.myMaskify('')).toBe('');
+
+    expect(play.maskify1('4556364607935616')).toBe('############5616');
+    expect(play.maskify1('1')).toBe('1');
+    expect(play.maskify1('11111')).toBe('#1111');
+    expect(play.maskify1('1234')).toBe('1234');
+    expect(play.maskify1('')).toBe('');
+
+    expect(play.maskify2('4556364607935616')).toBe('############5616');
+    expect(play.maskify2('1')).toBe('1');
+    expect(play.maskify2('11111')).toBe('#1111');
+    expect(play.maskify2('1234')).toBe('1234');
+    expect(play.maskify2('')).toBe('');
+
+    expect(play.maskify3('4556364607935616')).toBe('############5616');
+    expect(play.maskify3('1')).toBe('1');
+    expect(play.maskify3('11111')).toBe('#1111');
+    expect(play.maskify3('1234')).toBe('1234');
+    expect(play.maskify3('')).toBe('');
 });
