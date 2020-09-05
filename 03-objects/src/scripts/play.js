@@ -38,7 +38,76 @@ const play = {
         }
 
         return arrRev;
-    }
+    },
+
+    likesMySolution: (names) => {
+        //
+        // My solution works. Initially I thought it was clever to handle the last person separate
+        // from the preceding people. But it is long an not as easy to understand as the simple
+        // switch/case solution.
+        //
+        // My problem was I didn't consider basing it the number of names, rather than all the checks
+        // on the index.
+        //
+        if (names.length === 0)
+          return "no one likes this";  
+          
+        let result = "";
+        let lastName = names.length - 1;
+        
+        for (let i = 0; i < names.length; i++) {
+      
+          if (i === lastName) {
+            if (i > 2)
+              result = result + " and " + (names.length - 2) + " others like this";
+            else if (i >= 1)
+              result = result + " and " + names[i] + " like this";
+            else
+              result = names[i] + " likes this";
+          }
+          else {
+            if (i === 1)
+              result = result + ", " + names[i];
+            else if (i < 1)
+              result = result + names[i];
+          }
+        }
+        return result;
+      },
+
+      likesBest1: (names) => {
+        // I didn't understand the purpose for logical OR "||", so did console.log,
+        // but there was no difference before or after. So just commented it out.
+        // console.log("1:", names);
+        // names = names || [];
+        // console.log("2:", names);
+
+        //
+        // Other than above this solution is far superior than mine. It is totally based on
+        // the number of people. It is simpler and easier to understand.
+        //
+        switch(names.length){
+          case 0: return 'no one likes this'; break;
+          case 1: return names[0] + ' likes this'; break;
+          case 2: return names[0] + ' and ' + names[1] + ' like this'; break;
+          case 3: return names[0] + ', ' + names[1] + ' and ' + names[2] + ' like this'; break;
+          default: return names[0] + ', ' + names[1] + ' and ' + (names.length - 2) + ' others like this';
+        }
+      },
+
+      myMaskify: (cc) => {
+        //
+        // I thought this solution was pretty good.
+        //
+        const firstChar = Math.max(0,Math.min(cc.length, cc.length - 4));
+        return "#".repeat(firstChar) + cc.slice(firstChar);
+        //
+        // These were some of the more elegant 1-line solutions.
+        //
+        // return cc.slice(0, -4).replace(/./g, '#') + cc.slice(-4);
+        // return cc.replace(/.(?=....)/g, '#');
+        // return cc.replace(/.(?=.{4})/g, "#");
+      } 
 }
 
 export default play;

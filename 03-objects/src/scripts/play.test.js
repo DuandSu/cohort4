@@ -175,10 +175,43 @@ test('Play: coderbyte example BitwiseOne', () => {
 });
 
 test('Play: coderbyte example reverse', () => {
-
+    
     expect(play.reverse([1, 2, 3])).toEqual([3, 2, 1]);
     expect(play.reverse([0, 1, 20, -3])).toEqual([-3, 20, 1, 0]);
     expect(play.reverse(["zero", "one", "two", "three"])).toEqual(["three", "two", "one", "zero"]);
     
     expect([1, 2, 3].reverse()).toEqual([3, 2, 1]);
+});
+
+test('Play: codewars Who Likes It', () => {
+
+    const empty = [];
+    const one = ["Duane"];
+    const two = ["Duane", "Suzanne"];
+    const three = ["Duane", "Suzanne", "Sasha"];
+    const four = ["Duane", "Suzanne", "Sasha", "Christopher"];
+    const five = ["Duane", "Suzanne", "Sasha", "Christopher", "Disesl"];
+
+    expect(play.likesMySolution(empty)).toBe("no one likes this");
+    expect(play.likesMySolution(one)).toBe("Duane likes this");
+    expect(play.likesMySolution(two)).toBe("Duane and Suzanne like this");
+    expect(play.likesMySolution(three)).toBe("Duane, Suzanne and Sasha like this");
+    expect(play.likesMySolution(four)).toBe("Duane, Suzanne and 2 others like this");
+    expect(play.likesMySolution(five)).toBe("Duane, Suzanne and 3 others like this");
+
+    expect(play.likesBest1(empty)).toBe("no one likes this");
+    expect(play.likesBest1(one)).toBe("Duane likes this");
+    expect(play.likesBest1(two)).toBe("Duane and Suzanne like this");
+    expect(play.likesBest1(three)).toBe("Duane, Suzanne and Sasha like this");
+    expect(play.likesBest1(four)).toBe("Duane, Suzanne and 2 others like this");
+    expect(play.likesBest1(five)).toBe("Duane, Suzanne and 3 others like this");
+});
+
+test('Play: Credit Card Mask', () => {
+    
+    expect(play.myMaskify('4556364607935616')).toBe('############5616');
+    expect(play.myMaskify('1')).toBe('1');
+    expect(play.myMaskify('11111')).toBe('#1111');
+    expect(play.myMaskify('1234')).toBe('1234');
+    expect(play.myMaskify('')).toBe('');
 });
