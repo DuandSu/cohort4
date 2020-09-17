@@ -23,7 +23,8 @@ import Clock from './components/Clock';
 import LinkedList from './components/LinkedList';
 import QueCom from './components/QueCom';
 import SetColor from './components/SetColor';
-
+import CoderbyteTTT from './components/CoderbyteTTT';
+  
 import './App.css';
 
 import shipST from './svg/star-trek-svgrepo-com.svg';
@@ -63,6 +64,9 @@ function App() {
   }
   else if (appKey === "play") {
     output.push(<Play sMessageArea={messageArea} key={appKey}/>);
+  }
+  else if (appKey === "coderbytettt") {
+    output.push(<CoderbyteTTT sMessageArea={messageArea} key={appKey}/>);
   }
   else if (appKey === "comscities") {
     output.push(
@@ -111,7 +115,7 @@ function App() {
               <img src={insigniaST} className="App-svg2" alt="insigniaST" ikey="tictactoe" onClick={onPushMe} />
             </div>
             <div>
-              <img src={insigniaKL1} className="App-svg3" alt="insigniaKL1" ikey="play" onClick={onPushMe} />
+              <img src={insigniaKL1} className="App-svg3" alt="insigniaKL1" ikey="coderbytettt" onClick={onPushMe} />
             </div>
             <div>
               <img src={insigniaKL2} className="App-svg4" alt="insigniaKL2" ikey="comscities" onClick={onPushMe} />
@@ -128,7 +132,7 @@ function App() {
                 cOnPushMe={onPushMe}
               />
         </div>
-        <div className="AppArea">
+        <div>
             <div>
               {output}
             </div>
