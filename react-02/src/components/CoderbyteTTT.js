@@ -120,10 +120,6 @@ class Game extends React.Component {
 
   handleSquareClick(i) {
     const squares = this.state.squares.slice();
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    console.log("In handleSquareClick: squares[" + i + "] is " + squares[i]);
-    console.log("In handleSquareClick: calculate winner is " + calculateWinner(squares));
-
     // squares(i) is always going to have the X or O.
     // calculateWinner returns the X or O value if winner, null if no winner.
     // Understand why this is not working.
@@ -132,10 +128,11 @@ class Game extends React.Component {
     // It's like squares[i] is supposed to be null after a win.
     // Or at least a value that evaluates to false after the
     // last winning move is rendered.
-    // if (calculateWinner(squares) || squares[i])
-    if (calculateWinner(squares))
+    if (calculateWinner(squares) || squares[i])
+    // if (calculateWinner(squares))
       return;
     
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       squares: squares,
       xIsNext: !this.state.xIsNext,

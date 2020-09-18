@@ -59,11 +59,6 @@ const tttTools = {
 
         let chkWin = [];
 
-        console.log("suggestMove: board:");
-        console.log(board);
-        console.log("Player: " + player);
-        console.log("stepNumber: " + stepNumber);
-
         if (player === "X" && stepNumber === 0) {
             return (tttTools.cvt2Grid(0));
         } 
@@ -98,8 +93,6 @@ const tttTools = {
         else if (player === "X" && stepNumber === 4) {
 
             chkWin = tttTools.possibleWin(board, player);
-
-            console.log(chkWin);
 
             if (chkWin[0] < 0) {
                 if (board[6] === null)

@@ -69,6 +69,7 @@ function Square(props) {
       const current = history[history.length - 1];
       // call .slice() to create a copy of the squares array
       const squares = current.squares.slice();
+   
       if (tttTools.calculateWinner(squares)[0] || squares[i]) {
         return;
       }
