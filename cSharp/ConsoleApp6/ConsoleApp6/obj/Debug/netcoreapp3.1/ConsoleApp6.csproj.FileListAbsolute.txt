@@ -1,0 +1,13 @@
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\bin\Debug\netcoreapp3.1\ConsoleApp6.exe
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\bin\Debug\netcoreapp3.1\ConsoleApp6.deps.json
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\bin\Debug\netcoreapp3.1\ConsoleApp6.runtimeconfig.json
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\bin\Debug\netcoreapp3.1\ConsoleApp6.runtimeconfig.dev.json
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\bin\Debug\netcoreapp3.1\ConsoleApp6.dll
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\bin\Debug\netcoreapp3.1\ConsoleApp6.pdb
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\obj\Debug\netcoreapp3.1\ConsoleApp6.csprojAssemblyReference.cache
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\obj\Debug\netcoreapp3.1\ConsoleApp6.AssemblyInfoInputs.cache
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\obj\Debug\netcoreapp3.1\ConsoleApp6.AssemblyInfo.cs
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\obj\Debug\netcoreapp3.1\ConsoleApp6.csproj.CoreCompileInputs.cache
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\obj\Debug\netcoreapp3.1\ConsoleApp6.dll
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\obj\Debug\netcoreapp3.1\ConsoleApp6.pdb
+C:\code\cohort4\cSharp\ConsoleApp6\ConsoleApp6\obj\Debug\netcoreapp3.1\ConsoleApp6.genruntimeconfig.cache

@@ -1,0 +1,13 @@
+C:\code\cohort4\cSharp\branches-tutorial\bin\Debug\netcoreapp3.1\BranchesAndLoops.exe
+C:\code\cohort4\cSharp\branches-tutorial\bin\Debug\netcoreapp3.1\BranchesAndLoops.deps.json
+C:\code\cohort4\cSharp\branches-tutorial\bin\Debug\netcoreapp3.1\BranchesAndLoops.runtimeconfig.json
+C:\code\cohort4\cSharp\branches-tutorial\bin\Debug\netcoreapp3.1\BranchesAndLoops.runtimeconfig.dev.json
+C:\code\cohort4\cSharp\branches-tutorial\bin\Debug\netcoreapp3.1\BranchesAndLoops.dll
+C:\code\cohort4\cSharp\branches-tutorial\bin\Debug\netcoreapp3.1\BranchesAndLoops.pdb
+C:\code\cohort4\cSharp\branches-tutorial\obj\Debug\netcoreapp3.1\BranchesAndLoops.csprojAssemblyReference.cache
+C:\code\cohort4\cSharp\branches-tutorial\obj\Debug\netcoreapp3.1\BranchesAndLoops.AssemblyInfoInputs.cache
+C:\code\cohort4\cSharp\branches-tutorial\obj\Debug\netcoreapp3.1\BranchesAndLoops.AssemblyInfo.cs
+C:\code\cohort4\cSharp\branches-tutorial\obj\Debug\netcoreapp3.1\BranchesAndLoops.csproj.CoreCompileInputs.cache
+C:\code\cohort4\cSharp\branches-tutorial\obj\Debug\netcoreapp3.1\BranchesAndLoops.dll
+C:\code\cohort4\cSharp\branches-tutorial\obj\Debug\netcoreapp3.1\BranchesAndLoops.pdb
+C:\code\cohort4\cSharp\branches-tutorial\obj\Debug\netcoreapp3.1\BranchesAndLoops.genruntimeconfig.cache
