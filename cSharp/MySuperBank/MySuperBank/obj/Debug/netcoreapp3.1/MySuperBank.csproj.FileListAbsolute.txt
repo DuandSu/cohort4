@@ -1,0 +1,13 @@
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\bin\Debug\netcoreapp3.1\MySuperBank.exe
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\bin\Debug\netcoreapp3.1\MySuperBank.deps.json
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\bin\Debug\netcoreapp3.1\MySuperBank.runtimeconfig.json
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\bin\Debug\netcoreapp3.1\MySuperBank.runtimeconfig.dev.json
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\bin\Debug\netcoreapp3.1\MySuperBank.dll
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\bin\Debug\netcoreapp3.1\MySuperBank.pdb
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\obj\Debug\netcoreapp3.1\MySuperBank.csprojAssemblyReference.cache
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\obj\Debug\netcoreapp3.1\MySuperBank.AssemblyInfoInputs.cache
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\obj\Debug\netcoreapp3.1\MySuperBank.AssemblyInfo.cs
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\obj\Debug\netcoreapp3.1\MySuperBank.csproj.CoreCompileInputs.cache
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\obj\Debug\netcoreapp3.1\MySuperBank.dll
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\obj\Debug\netcoreapp3.1\MySuperBank.pdb
+C:\code\cohort4\cSharp\MySuperBank\MySuperBank\obj\Debug\netcoreapp3.1\MySuperBank.genruntimeconfig.cache
